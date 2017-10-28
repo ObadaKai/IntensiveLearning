@@ -1,0 +1,34 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <title>تسجيل دخول</title>
+</head>
+<body style="padding:0;margin:0;" class="LoginBody">
+    <div class="Login-Background">
+        <div class="Login-Fliter"></div>
+        <div class="Login-Card" style="text-align:right">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken();
+
+                <h4 style="color:#0e0e0e;">اسم المستخدم</h4>
+                <input type="text" name="Username" class="Login-TextBox" />
+                <h4 style="margin-top:15px;color:#0e0e0e; " >كلمة المرور</h4>
+                <input type="password" name="Password" class="Login-TextBox" />
+                <input type="submit" name="Submit" value="تسجيل الدخول" class="Login-Button btn btn-success" />
+
+            }
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿@model IntensiveLearning.Database.City
+
+@{
+    ViewBag.Title = "حذف";
+}
+
+<h2>حذف</h2>
+
+<h3>هل أنت متاكد من حذف المدينة؟</h3>
+<div>
+    <h4>موظف</h4>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Name)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Name)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.CountryName)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.CountryName)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Project.ProjectName)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Project.ProjectName)
+        </p>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-danger" /> |
+
+            @Html.ActionLink("العودة إلى اللائحة", "Index")
+
+        </div>
+    }
+    <p class="text-danger">@ViewBag.error</p>
+
+</div>

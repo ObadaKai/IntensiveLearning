@@ -1,0 +1,435 @@
+﻿@model IntensiveLearning.Database.EmployeeType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    <h2>معلومات</h2>
+
+    <div>
+        <h4>نوع موظف</h4>
+        <hr />
+
+        <div class="col-sm-6">
+
+            <h4>
+                @Html.DisplayNameFor(model => model.AddExam)
+            </h4>
+
+            <p>
+                @if (Model.AddExam != null && Model.AddExam == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.ApproveExam)
+            </h4>
+
+            <p>
+                @if (Model.ApproveExam != null && Model.ApproveExam == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.AddPresence)
+            </h4>
+
+            <p>
+                @if (Model.AddPresence != null && Model.AddPresence == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+
+            <h4>
+                @Html.DisplayNameFor(model => model.AddStudent)
+            </h4>
+
+            <p>
+                @if (Model.AddStudent != null && Model.AddStudent == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.Finance)
+            </h4>
+
+            <p>
+                @if (Model.Finance != null && Model.Finance == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.HighAcceptance)
+            </h4>
+
+            <p>
+                @if (Model.HighAcceptance != null && Model.HighAcceptance == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.BuyingAcceptance)
+            </h4>
+
+            <p>
+                @if (Model.BuyingAcceptance != null && Model.BuyingAcceptance == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+
+            <h4>
+                @Html.DisplayNameFor(model => model.SeeAll)
+            </h4>
+
+            <p>
+                @if (Model.SeeAll != null && Model.SeeAll == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+
+            <h4>
+                @Html.DisplayNameFor(model => model.SeeAllButFinance)
+            </h4>
+
+            <p>
+                @if (Model.SeeAllButFinance != null && Model.SeeAllButFinance == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.SeeAccToCity)
+            </h4>
+
+            <p>
+                @if (Model.SeeAccToCity != null && Model.SeeAccToCity == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+
+            <h4>
+                @Html.DisplayNameFor(model => model.SeeAccToCenter)
+            </h4>
+
+            <p>
+                @if (Model.SeeAccToCenter != null && Model.SeeAccToCenter == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+
+            <h4>
+                @Html.DisplayNameFor(model => model.SeeTeachers)
+            </h4>
+
+            <p>
+                @if (Model.SeeTeachers != null && Model.SeeTeachers == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+        </div>
+        <div class="col-sm-6">
+
+            <h4>
+                @Html.DisplayNameFor(model => model.Manager)
+            </h4>
+
+            <p>
+                @if (Model.Manager != null && Model.Manager == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.CoManager)
+            </h4>
+
+            <p>
+                @if (Model.CoManager != null && Model.CoManager == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.SchoolManager)
+            </h4>
+
+            <p>
+                @if (Model.Manager != null && Model.SchoolManager == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.NormalEmployee)
+            </h4>
+
+            <p>
+                @if (Model.NormalEmployee != null && Model.NormalEmployee == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+            <h4>
+                @Html.DisplayNameFor(model => model.AddNewEmployeeType)
+            </h4>
+
+            <p>
+                @if (Model.AddNewEmployeeType != null && Model.AddNewEmployeeType == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+
+            <h4>
+                @Html.DisplayNameFor(model => model.AddNewProject)
+            </h4>
+
+            <p>
+                @if (Model.AddNewProject != null && Model.AddNewProject == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+
+            <h4>
+                @Html.DisplayNameFor(model => model.AddBuyingRequest)
+            </h4>
+
+            <p>
+                @if (Model.AddBuyingRequest != null && Model.AddBuyingRequest == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.AddManagers)
+            </h4>
+
+            <p>
+                @if (Model.AddManagers != null && Model.AddManagers == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.AddCOManagers)
+            </h4>
+
+            <p>
+                @if (Model.AddCOManagers != null && Model.AddCOManagers == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+
+
+
+            <h4>
+                @Html.DisplayNameFor(model => model.AddSchoolManagers)
+            </h4>
+
+            <p>
+                @if (Model.AddSchoolManagers != null && Model.AddSchoolManagers == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.AddSchoolEmployees)
+            </h4>
+
+            <p>
+                @if (Model.AddSchoolEmployees != null && Model.AddSchoolEmployees == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.AddCitesAndCenters)
+            </h4>
+
+            <p>
+                @if (Model.AddCitesAndCenters != null && Model.AddCitesAndCenters == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+
+            <h4>
+                @Html.DisplayNameFor(model => model.AddSchoolManagingTools)
+            </h4>
+
+            <p>
+                @if (Model.AddSchoolManagingTools != null && Model.AddSchoolManagingTools == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.AddDaileyReport)
+            </h4>
+
+            <p>
+                @if (Model.AddDaileyReport != null && Model.AddDaileyReport == true)
+            {
+                    @:نعم
+            }
+            else
+            {
+                    @:لا
+            }
+            </p>
+
+        </div>
+
+
+
+
+
+    </div>
+    <p>
+        @if (Session["AddNewEmployeeType"] != null)
+        {
+            if ((bool)Session["AddNewEmployeeType"] == true)
+            {
+                @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+                @: |
+    }
+        }
+        @Html.ActionLink("العودة إلى اللائحة", "Index")
+    </p>

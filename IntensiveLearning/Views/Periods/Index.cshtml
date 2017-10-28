@@ -1,0 +1,85 @@
+﻿@model IEnumerable<IntensiveLearning.Database.Period>
+
+@{
+    ViewBag.Title = "لائحة الفترات";
+}
+
+<h2>لائحة الفترات</h2>
+@if (Session["AddSchoolManagingTools"] != null)
+{
+    if ((bool)Session["AddSchoolManagingTools"] == true)
+    {
+        using (Html.BeginForm("Create","Periods", FormMethod.Get))
+        {
+            <button type="submit" class="btn btn-warning">انشاء جديد</button>
+        }
+    }
+}
+<table class="table table-striped">
+    <thead>
+        <tr class="bg-primary">
+
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartingTime)
+            </th>
+
+
+
+
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (Session["AddSchoolManagingTools"] != null)
+                        {
+                            if ((bool)Session["AddSchoolManagingTools"] == true)
+                            {
+                                <div style="width:180px;">
+
+                                    @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+
+                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                                </div>
+                            }
+
+                        }
+                        else
+                        {
+                            @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTime)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartingTime)
+                    </td>
+
+
+
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

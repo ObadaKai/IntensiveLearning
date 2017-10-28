@@ -1,0 +1,157 @@
+﻿@model IntensiveLearning.Database.Employee
+
+@{
+    ViewBag.Title = "معلومات";
+}
+
+<h2>معلومات</h2>
+
+<div>
+    <h4>موظف</h4>
+    <hr />
+    <div class="col-sm-6">
+
+        <h4>
+            @Html.DisplayNameFor(model => model.surname)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.surname)
+        </p>
+
+
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Certificate)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Certificate)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.State)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.State)
+        </p>
+        <h4>
+            @Html.DisplayNameFor(model => model.Sex)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Sex)
+        </p>
+        <h4>
+            @Html.DisplayNameFor(model => model.EDate)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.EDate)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.EmployeeType.Type)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.EmployeeType.Type)
+        </p>
+        <h4>
+            @Html.DisplayNameFor(model => model.Salary)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Salary)
+        </p>
+
+
+        <h4>تحميل المحتوى</h4>
+        <p>
+            @if (Model.Proof != null)
+            {
+                @Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = Model.Proof }, null)
+            }
+        </p>
+
+    </div>
+
+    <div class="col-sm-6">
+        <h4>
+            @Html.DisplayNameFor(model => model.name)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.name)
+        </p>
+        <h4>
+            @Html.DisplayNameFor(model => model.FathersName)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.FathersName)
+        </p>
+        <h4>
+            @Html.DisplayNameFor(model => model.BDate)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.BDate)
+        </p>
+        <h4>
+            @Html.DisplayNameFor(model => model.CType)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.CType)
+        </p>
+        <h4>
+            @Html.DisplayNameFor(model => model.SDate)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.SDate)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Center.Name)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Center.Name)
+        </p>
+        <h4>
+            @Html.DisplayNameFor(model => model.Period.Name)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Period.Name)
+        </p>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+</div>
+<p>
+    @if (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddManagers"] != null || Session["AddCOManagers"] != null)
+    {
+
+            @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+            @: |
+            @Html.ActionLink("اعادة تهيئة كلمة السر", "ResetDefaultPass", "Home", new { id = Model.id }, null)
+            @: |
+            
+
+    }
+    @Html.ActionLink("العودة إلى اللائحة", "Index")
+</p>

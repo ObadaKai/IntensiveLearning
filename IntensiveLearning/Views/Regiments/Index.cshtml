@@ -1,0 +1,183 @@
+﻿@model IEnumerable<IntensiveLearning.Database.Regiment>
+
+@{
+    ViewBag.Title = "لائحة الأفواج";
+}
+
+<h2>لائحة الأفواج</h2>
+
+@if (Session["AddSchoolManagingTools"] != null)
+{
+    if ((bool)Session["AddSchoolManagingTools"] == true)
+    {
+        using (Html.BeginForm("Create","Regiments", FormMethod.Get))
+        {
+            <button type="submit" class="btn btn-warning">انشاء جديد</button>
+        }
+        }
+    }
+<div id="table_wrapper">
+    <table class="table table-striped">
+        <thead>
+            <tr class="bg-primary">
+
+                <th></th>
+
+
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Day7)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Day6)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Day5)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Day4)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Day3)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Day2)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Day1)
+                </th>
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Desc)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Period.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (Session["AddSchoolManagingTools"] != null)
+                            {
+                                if ((bool)Session["AddSchoolManagingTools"] == true)
+                                {
+                                    <div style="width:180px;">
+
+                                        @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+
+                                        @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                        @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                                    </div>
+                                }
+
+                            }
+                            else
+                            {
+                                @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+
+                            }
+                        </td>
+
+                        <td>
+                            @if (item.Day7 != null && item.Day7 == true)
+                            {
+                                @:نعم
+                }
+                            else
+                            {
+                                @:لا
+                }
+                        </td>
+                        <td>
+                            @if (item.Day6 != null && item.Day6 == true)
+                            {
+                                @:نعم
+                }
+                            else
+                            {
+                                @:لا
+                }
+                        </td>
+                        <td>
+                            @if (item.Day5 != null && item.Day5 == true)
+                            {
+                                @:نعم
+                }
+                            else
+                            {
+                                @:لا
+                }
+                        </td>
+                        <td>
+                            @if (item.Day4 != null && item.Day4 == true)
+                            {
+                                @:نعم
+                }
+                            else
+                            {
+                                @:لا
+                }
+                        </td>
+                        <td>
+                            @if (item.Day3 != null && item.Day3 == true)
+                            {
+                                @:نعم
+                }
+                            else
+                            {
+                                @:لا
+                }
+                        </td>
+
+                        <td>
+                            @if (item.Day2 != null && item.Day2 == true)
+                            {
+                                @:نعم
+                }
+                            else
+                            {
+                                @:لا
+                }
+                        </td>
+                        <td>
+                            @if (item.Day1 != null && item.Day1 == true)
+                            {
+                                @:نعم
+                }
+                            else
+                            {
+                                @:لا
+                }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Desc)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Period.Name)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>
+<button id="btnExport" class="btn btn-warning">Export to xls</button>
+

@@ -1,0 +1,99 @@
+﻿@model IEnumerable<IntensiveLearning.Database.Study_subject>
+
+@{
+    ViewBag.Title = "لائحة المواد";
+}
+
+<h2>لائحة المواد</h2>
+@if (Session["AddSchoolManagingTools"] != null)
+{
+    if ((bool)Session["AddSchoolManagingTools"] == true)
+    {
+
+        using (Html.BeginForm("Create", "Study_subject", FormMethod.Get))
+        {
+            <button type="submit" class="btn btn-warning">انشاء جديد</button>
+        }
+    }
+}
+<div id="table_wrapper">
+
+    <table class="table table-striped">
+        <thead>
+            <tr class="bg-primary">
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.State)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LeastMark)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.FullMark)
+                </th>
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Desc)
+                </th>
+
+
+
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+@if (Model != null)
+{
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (Session["AddSchoolManagingTools"] != null)
+                        {
+                            if ((bool)Session["AddSchoolManagingTools"] == true)
+                            {
+                                <div style="width:180px;">
+                                    @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+
+                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                                </div>
+                            }
+
+                        }
+                        else
+                        {
+
+                            @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LeastMark)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullMark)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Desc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                </tr>
+            }
+}
+        </tbody>
+    </table>
+</div>
+<button id="btnExport" class="btn btn-warning">Export to xls</button>

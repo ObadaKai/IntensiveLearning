@@ -1,0 +1,33 @@
+﻿@model IntensiveLearning.Database.ExamType
+
+@{
+    ViewBag.Title = "معلومات";
+}
+
+    <h2>معلومات</h2>
+
+    <div>
+        <h4>نوع امتحان</h4>
+        <hr />
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Type)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Type)
+        </p>
+
+
+    </div>
+    <p>
+        @if (Session["AddSchoolManagingTools"] != null)
+        {
+            if ((bool)Session["AddSchoolManagingTools"] == true)
+            {
+                @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+                @: |
+    }
+        }
+        @Html.ActionLink("العودة إلى اللائحة", "Index")
+    </p>

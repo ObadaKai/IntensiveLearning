@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TaalimModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Bnd">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TotalNum" Type="Int32" />
+    <Property Name="AfterReductionNum" Type="Int32" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Bnd" FromRole="Bnd" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Center">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Place" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="HolesN" Type="Int32" />
+    <Property Name="Cityid" Type="Int32" />
+    <Property Name="FoundationType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Periodid" Type="Int32" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Owner" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Month10" Type="Boolean" />
+    <Property Name="Month11" Type="Boolean" />
+    <Property Name="Month12" Type="Boolean" />
+    <Property Name="Month1" Type="Boolean" />
+    <Property Name="Month2" Type="Boolean" />
+    <Property Name="Month3" Type="Boolean" />
+    <Property Name="Month4" Type="Boolean" />
+    <Property Name="Month5" Type="Boolean" />
+    <Property Name="Month6" Type="Boolean" />
+    <Property Name="Month7" Type="Boolean" />
+    <Property Name="Month8" Type="Boolean" />
+    <Property Name="Month9" Type="Boolean" />
+    <Property Name="TargetedMen" Type="Int32" />
+    <Property Name="TargetedWomen" Type="Int32" />
+    <Property Name="CenterType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MonthlyPayment" Type="Int32" />
+    <Property Name="QuarterPayment" Type="Int32" />
+    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProjectID" Type="Int32" />
+    <NavigationProperty Name="City" Relationship="Self.FK_Centers_Cities" FromRole="Centers" ToRole="Cities" />
+    <NavigationProperty Name="Period" Relationship="Self.FK_Centers_Periods" FromRole="Centers" ToRole="Periods" />
+    <NavigationProperty Name="Project" Relationship="Self.FK_Centers_Project" FromRole="Centers" ToRole="Project" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Centers" FromRole="Centers" ToRole="Employees" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Centers" FromRole="Centers" ToRole="Order" />
+    <NavigationProperty Name="Students" Relationship="Self.FK_Students_Centers" FromRole="Centers" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CountryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProjectID" Type="Int32" />
+    <NavigationProperty Name="Centers" Relationship="Self.FK_Centers_Cities" FromRole="Cities" ToRole="Centers" />
+    <NavigationProperty Name="Project" Relationship="Self.FK_Cities_Project" FromRole="Cities" ToRole="Project" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Cities" FromRole="Cities" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="Concern">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Employeeid" Type="Int32" />
+    <Property Name="Concern1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Concerns_Employees" FromRole="Concerns" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="DailyActivity">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Report" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Observation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Managerid" Type="Int32" />
+    <Property Name="date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_DailyActivity_Employees" FromRole="DailyActivity" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BDate" Type="DateTime" Precision="0" />
+    <Property Name="Certificate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Centerid" Type="Int32" />
+    <Property Name="Periodid" Type="Int32" />
+    <Property Name="SDate" Type="DateTime" Precision="0" />
+    <Property Name="EDate" Type="DateTime" Precision="0" />
+    <Property Name="Job" Type="Int32" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Salary" Type="Double" />
+    <Property Name="CityID" Type="Int32" />
+    <Property Name="FathersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Sex" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Center" Relationship="Self.FK_Employees_Centers" FromRole="Employees" ToRole="Centers" />
+    <NavigationProperty Name="City" Relationship="Self.FK_Employees_Cities" FromRole="Employees" ToRole="Cities" />
+    <NavigationProperty Name="Concerns" Relationship="Self.FK_Concerns_Employees" FromRole="Employees" ToRole="Concerns" />
+    <NavigationProperty Name="DailyActivities" Relationship="Self.FK_DailyActivity_Employees" FromRole="Employees" ToRole="DailyActivity" />
+    <NavigationProperty Name="EmployeeType" Relationship="Self.FK_Employees_EmployeeType" FromRole="Employees" ToRole="EmployeeType" />
+    <NavigationProperty Name="Period" Relationship="Self.FK_Employees_Periods" FromRole="Employees" ToRole="Periods" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Employees" FromRole="Employees" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="EmployeeType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Manager" Type="Boolean" />
+    <Property Name="CoManager" Type="Boolean" />
+    <Property Name="SchoolManager" Type="Boolean" />
+    <Property Name="NormalEmployee" Type="Boolean" />
+    <Property Name="AddNewEmployeeType" Type="Boolean" />
+    <Property Name="AddNewProject" Type="Boolean" />
+    <Property Name="AddBuyingRequest" Type="Boolean" />
+    <Property Name="AddManagers" Type="Boolean" />
+    <Property Name="AddCOManagers" Type="Boolean" />
+    <Property Name="AddSchoolManagers" Type="Boolean" />
+    <Property Name="AddSchoolEmployees" Type="Boolean" />
+    <Property Name="AddCitesAndCenters" Type="Boolean" />
+    <Property Name="AddSchoolManagingTools" Type="Boolean" />
+    <Property Name="AddDaileyReport" Type="Boolean" />
+    <Property Name="AddExam" Type="Boolean" />
+    <Property Name="ApproveExam" Type="Boolean" />
+    <Property Name="AddPresence" Type="Boolean" />
+    <Property Name="AddStudent" Type="Boolean" />
+    <Property Name="Finance" Type="Boolean" />
+    <Property Name="HighAcceptance" Type="Boolean" />
+    <Property Name="BuyingAcceptance" Type="Boolean" />
+    <Property Name="SeeAll" Type="Boolean" />
+    <Property Name="SeeAllButFinance" Type="Boolean" />
+    <Property Name="SeeAccToCity" Type="Boolean" />
+    <Property Name="SeeAccToCenter" Type="Boolean" />
+    <Property Name="SeeTeachers" Type="Boolean" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_EmployeeType" FromRole="EmployeeType" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="Examination">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="ExamTypeid" Type="Int32" />
+    <Property Name="Mark" Type="Double" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Subjectid" Type="Int32" />
+    <Property Name="Studentid" Type="Int32" />
+    <Property Name="Stageid" Type="Int32" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ExamType" Relationship="Self.FK_Examination_ExamType" FromRole="Examination" ToRole="ExamType" />
+    <NavigationProperty Name="Stage" Relationship="Self.FK_Examination_Stages" FromRole="Examination" ToRole="Stages" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Examination_Students" FromRole="Examination" ToRole="Students" />
+    <NavigationProperty Name="Study_subject" Relationship="Self.FK_Examination_Study_subject" FromRole="Examination" ToRole="Study_subject" />
+  </EntityType>
+  <EntityType Name="ExamType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_ExamType" FromRole="ExamType" ToRole="Examination" />
+  </EntityType>
+  <EntityType Name="Lesson">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lesson1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lesson2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lesson3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lesson4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lesson5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lesson6" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lesson7" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Regimentid" Type="Int32" />
+    <NavigationProperty Name="Regiment" Relationship="Self.FK_Lessons_Regiments2" FromRole="Lessons" ToRole="Regiments" />
+  </EntityType>
+  <EntityType Name="NonUserAddRequest">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="PhoneNumber" Type="Int32" />
+    <Property Name="FathersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Certificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Employeeid" Type="Int32" />
+    <Property Name="Bndid" Type="Int32" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Quantity" Type="Double" />
+    <Property Name="PeacePrice" Type="Double" />
+    <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FirstLevelSign" Type="Boolean" />
+    <Property Name="SecondLevelSign" Type="Boolean" />
+    <Property Name="ThirdLevelSign" Type="Boolean" />
+    <Property Name="FourthLevelSign" Type="Boolean" />
+    <Property Name="FifthLevelSign" Type="Boolean" />
+    <Property Name="SixthLevelSign" Type="Boolean" />
+    <Property Name="SeventhLevelSign" Type="Boolean" />
+    <Property Name="EightithLevelSign" Type="Boolean" />
+    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SendingLevelSign" Type="Boolean" />
+    <Property Name="RecievingLevelSign" Type="Boolean" />
+    <Property Name="AfterRecieveFirstLevelSign" Type="Boolean" />
+    <Property Name="AfterRecieveSecondLevelSign" Type="Boolean" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="Time" Type="Time" Precision="7" />
+    <Property Name="CenterID" Type="Int32" />
+    <NavigationProperty Name="Bnd" Relationship="Self.FK_Order_Bnd" FromRole="Order" ToRole="Bnd" />
+    <NavigationProperty Name="Center" Relationship="Self.FK_Order_Centers" FromRole="Order" ToRole="Centers" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Order_Employees" FromRole="Order" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="Period">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="StartingTime" Type="Time" Precision="7" />
+    <Property Name="EndTime" Type="Time" Precision="7" />
+    <NavigationProperty Name="Centers" Relationship="Self.FK_Centers_Periods" FromRole="Periods" ToRole="Centers" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Periods" FromRole="Periods" ToRole="Employees" />
+    <NavigationProperty Name="Regiments" Relationship="Self.FK_Regiments_Periods" FromRole="Periods" ToRole="Regiments" />
+  </EntityType>
+  <EntityType Name="Presence">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Studentid" Type="Int32" />
+    <Property Name="Lesson1" Type="Boolean" />
+    <Property Name="Lesson2" Type="Boolean" />
+    <Property Name="Lesson3" Type="Boolean" />
+    <Property Name="Lesson4" Type="Boolean" />
+    <Property Name="Lesson5" Type="Boolean" />
+    <Property Name="Lesson6" Type="Boolean" />
+    <Property Name="Lesson7" Type="Boolean" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Presence_Students" FromRole="Presence" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="StartDate" Type="DateTime" Precision="0" />
+    <Property Name="EndDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Centers" Relationship="Self.FK_Centers_Project" FromRole="Project" ToRole="Centers" />
+    <NavigationProperty Name="Cities" Relationship="Self.FK_Cities_Project" FromRole="Project" ToRole="Cities" />
+  </EntityType>
+  <EntityType Name="Regiment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Day1" Type="Boolean" />
+    <Property Name="Day2" Type="Boolean" />
+    <Property Name="Day3" Type="Boolean" />
+    <Property Name="Day4" Type="Boolean" />
+    <Property Name="Day5" Type="Boolean" />
+    <Property Name="Day6" Type="Boolean" />
+    <Property Name="Day7" Type="Boolean" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Periodid" Type="Int32" />
+    <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Regiments2" FromRole="Regiments" ToRole="Lessons" />
+    <NavigationProperty Name="Period" Relationship="Self.FK_Regiments_Periods" FromRole="Regiments" ToRole="Periods" />
+    <NavigationProperty Name="Students" Relationship="Self.FK_Students_Regiments" FromRole="Regiments" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="Stage">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="StageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SDate" Type="DateTime" Precision="0" />
+    <Property Name="EDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_Stages" FromRole="Stages" ToRole="Examination" />
+    <NavigationProperty Name="Students" Relationship="Self.FK_Students_Stages" FromRole="Stages" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="BDate" Type="DateTime" Precision="0" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Certificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Mark" Type="Double" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Centerid" Type="Int32" />
+    <Property Name="Stageid" Type="Int32" />
+    <Property Name="Regimentid" Type="Int32" />
+    <Property Name="SDate" Type="DateTime" Precision="0" />
+    <Property Name="EDate" Type="DateTime" Precision="0" />
+    <Property Name="StudentNumber" Type="Int32" />
+    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FathersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Center" Relationship="Self.FK_Students_Centers" FromRole="Students" ToRole="Centers" />
+    <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_Students" FromRole="Students" ToRole="Examination" />
+    <NavigationProperty Name="Presences" Relationship="Self.FK_Presence_Students" FromRole="Students" ToRole="Presence" />
+    <NavigationProperty Name="Regiment" Relationship="Self.FK_Students_Regiments" FromRole="Students" ToRole="Regiments" />
+    <NavigationProperty Name="Stage" Relationship="Self.FK_Students_Stages" FromRole="Students" ToRole="Stages" />
+  </EntityType>
+  <EntityType Name="Study_subject">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FullMark" Type="Double" />
+    <Property Name="LeastMark" Type="Double" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_Study_subject" FromRole="Study_subject" ToRole="Examination" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Order_Bnd">
+    <End Role="Bnd" Type="Self.Bnd" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bnd">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="Bndid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Centers_Cities">
+    <End Role="Cities" Type="Self.City" Multiplicity="0..1" />
+    <End Role="Centers" Type="Self.Center" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Centers">
+        <PropertyRef Name="Cityid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Centers_Periods">
+    <End Role="Periods" Type="Self.Period" Multiplicity="0..1" />
+    <End Role="Centers" Type="Self.Center" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Periods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Centers">
+        <PropertyRef Name="Periodid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Centers_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="Centers" Type="Self.Center" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Centers">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_Centers">
+    <End Role="Centers" Type="Self.Center" Multiplicity="0..1" />
+    <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="Centerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Centers">
+    <End Role="Centers" Type="Self.Center" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CenterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Students_Centers">
+    <End Role="Centers" Type="Self.Center" Multiplicity="0..1" />
+    <End Role="Students" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Students">
+        <PropertyRef Name="Centerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cities_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="Cities" Type="Self.City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Cities">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_Cities">
+    <End Role="Cities" Type="Self.City" Multiplicity="0..1" />
+    <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Concerns_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Concerns" Type="Self.Concern" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Concerns">
+        <PropertyRef Name="Employeeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DailyActivity_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="DailyActivity" Type="Self.DailyActivity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="DailyActivity">
+        <PropertyRef Name="Managerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_EmployeeType">
+    <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="0..1" />
+    <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeType">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="Job" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_Periods">
+    <End Role="Periods" Type="Self.Period" Multiplicity="0..1" />
+    <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Periods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="Periodid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="Employeeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Examination_ExamType">
+    <End Role="ExamType" Type="Self.ExamType" Multiplicity="0..1" />
+    <End Role="Examination" Type="Self.Examination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExamType">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Examination">
+        <PropertyRef Name="ExamTypeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Examination_Stages">
+    <End Role="Stages" Type="Self.Stage" Multiplicity="0..1" />
+    <End Role="Examination" Type="Self.Examination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stages">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Examination">
+        <PropertyRef Name="Stageid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Examination_Students">
+    <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="Examination" Type="Self.Examination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Examination">
+        <PropertyRef Name="Studentid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Examination_Study_subject">
+    <End Role="Study_subject" Type="Self.Study_subject" Multiplicity="0..1" />
+    <End Role="Examination" Type="Self.Examination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Study_subject">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Examination">
+        <PropertyRef Name="Subjectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lessons_Regiments2">
+    <End Role="Regiments" Type="Self.Regiment" Multiplicity="0..1" />
+    <End Role="Lessons" Type="Self.Lesson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Regiments">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Lessons">
+        <PropertyRef Name="Regimentid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Regiments_Periods">
+    <End Role="Periods" Type="Self.Period" Multiplicity="0..1" />
+    <End Role="Regiments" Type="Self.Regiment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Periods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Regiments">
+        <PropertyRef Name="Periodid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Presence_Students">
+    <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="Presence" Type="Self.Presence" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Presence">
+        <PropertyRef Name="Studentid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Students_Regiments">
+    <End Role="Regiments" Type="Self.Regiment" Multiplicity="0..1" />
+    <End Role="Students" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Regiments">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Students">
+        <PropertyRef Name="Regimentid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Students_Stages">
+    <End Role="Stages" Type="Self.Stage" Multiplicity="0..1" />
+    <End Role="Students" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stages">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Students">
+        <PropertyRef Name="Stageid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TaalimEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bnds" EntityType="Self.Bnd" />
+    <EntitySet Name="Centers" EntityType="Self.Center" />
+    <EntitySet Name="Cities" EntityType="Self.City" />
+    <EntitySet Name="Concerns" EntityType="Self.Concern" />
+    <EntitySet Name="DailyActivities" EntityType="Self.DailyActivity" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="EmployeeTypes" EntityType="Self.EmployeeType" />
+    <EntitySet Name="Examinations" EntityType="Self.Examination" />
+    <EntitySet Name="ExamTypes" EntityType="Self.ExamType" />
+    <EntitySet Name="Lessons" EntityType="Self.Lesson" />
+    <EntitySet Name="NonUserAddRequests" EntityType="Self.NonUserAddRequest" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Periods" EntityType="Self.Period" />
+    <EntitySet Name="Presences" EntityType="Self.Presence" />
+    <EntitySet Name="Projects" EntityType="Self.Project" />
+    <EntitySet Name="Regiments" EntityType="Self.Regiment" />
+    <EntitySet Name="Stages" EntityType="Self.Stage" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <EntitySet Name="Study_subject" EntityType="Self.Study_subject" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_Order_Bnd" Association="Self.FK_Order_Bnd">
+      <End Role="Bnd" EntitySet="Bnds" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Centers_Cities" Association="Self.FK_Centers_Cities">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="Centers" EntitySet="Centers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Centers_Periods" Association="Self.FK_Centers_Periods">
+      <End Role="Periods" EntitySet="Periods" />
+      <End Role="Centers" EntitySet="Centers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Centers_Project" Association="Self.FK_Centers_Project">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="Centers" EntitySet="Centers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_Centers" Association="Self.FK_Employees_Centers">
+      <End Role="Centers" EntitySet="Centers" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Centers" Association="Self.FK_Order_Centers">
+      <End Role="Centers" EntitySet="Centers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Students_Centers" Association="Self.FK_Students_Centers">
+      <End Role="Centers" EntitySet="Centers" />
+      <End Role="Students" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cities_Project" Association="Self.FK_Cities_Project">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="Cities" EntitySet="Cities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_Cities" Association="Self.FK_Employees_Cities">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Concerns_Employees" Association="Self.FK_Concerns_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Concerns" EntitySet="Concerns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DailyActivity_Employees" Association="Self.FK_DailyActivity_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="DailyActivity" EntitySet="DailyActivities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_EmployeeType" Association="Self.FK_Employees_EmployeeType">
+      <End Role="EmployeeType" EntitySet="EmployeeTypes" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_Periods" Association="Self.FK_Employees_Periods">
+      <End Role="Periods" EntitySet="Periods" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Employees" Association="Self.FK_Order_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Examination_ExamType" Association="Self.FK_Examination_ExamType">
+      <End Role="ExamType" EntitySet="ExamTypes" />
+      <End Role="Examination" EntitySet="Examinations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Examination_Stages" Association="Self.FK_Examination_Stages">
+      <End Role="Stages" EntitySet="Stages" />
+      <End Role="Examination" EntitySet="Examinations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Examination_Students" Association="Self.FK_Examination_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Examination" EntitySet="Examinations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Examination_Study_subject" Association="Self.FK_Examination_Study_subject">
+      <End Role="Study_subject" EntitySet="Study_subject" />
+      <End Role="Examination" EntitySet="Examinations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lessons_Regiments2" Association="Self.FK_Lessons_Regiments2">
+      <End Role="Regiments" EntitySet="Regiments" />
+      <End Role="Lessons" EntitySet="Lessons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Regiments_Periods" Association="Self.FK_Regiments_Periods">
+      <End Role="Periods" EntitySet="Periods" />
+      <End Role="Regiments" EntitySet="Regiments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Presence_Students" Association="Self.FK_Presence_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Presence" EntitySet="Presences" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Students_Regiments" Association="Self.FK_Students_Regiments">
+      <End Role="Regiments" EntitySet="Regiments" />
+      <End Role="Students" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Students_Stages" Association="Self.FK_Students_Stages">
+      <End Role="Stages" EntitySet="Stages" />
+      <End Role="Students" EntitySet="Students" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,289 @@
+﻿html {
+    height: 100%;
+}
+/**{
+    font-family:"Cairo";
+}*/
+body {
+    height: 100%;
+
+}
+.bg-full {
+    position:fixed;
+    height:100%;
+    width:100%;
+    background-image: url('Images/Photo.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index:-1;
+    background-position: bottom;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 100%;
+}
+textarea {
+width:100%;
+height:100px;
+padding-right:5px;
+text-align:right;
+}
+
+
+.HigherThanNumber::-webkit-input-placeholder {
+    text-align: right;
+}
+
+.container {
+    height: 100%;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+ h2,  p , h3{
+    color:white;
+}
+ h2{
+     margin-bottom:20px;
+ }
+label, h4{
+    color: white;
+}
+a {
+    color: #f0ad4e;
+    font-size:16px;
+}
+a:hover,a:focus{
+    color:white;
+}
+th {
+    font-size: 17px;
+    font-weight:100;
+}
+th, tr {
+    text-align: center;
+    line-height: normal;
+    vertical-align: central !important;
+}
+td{
+    vertical-align:central !important;
+}
+.form-control{
+    height:37px !important;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal h2 {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+
+.form-group .ng-empty.ng-touched {
+    border: 2px solid rgba(255, 0, 0, 0.6);
+}
+
+.form-group .ng-invalid-pattern.ng-dirty {
+    border: 2px solid rgba(255, 0, 0, 0.6);
+}
+
+    .form-group .ng-invalid-pattern.ng-dirty .placeholder {
+        color: rgba(255, 0, 0, 0.6);
+    }
+
+.form-group .ng-not-empty.ng-valid-pattern.ng-dirty {
+    border: 2px solid rgba(36, 157, 127,0.6);
+}
+
+.form-group .ng-not-empty.ng-valid.ng-touched.ng-dirty {
+    border: 2px solid rgba(36, 157, 127,0.6);
+}
+
+.Login-Background {
+    background-image: url('Images/Photo.jpg');
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    display: block;
+}
+
+.Login-Card {
+    position: absolute;
+    width: 400px;
+    display: inline-block;
+    top: 37.5%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: #ffffff;
+    opacity: 0.95;
+    padding: 20px;
+}
+
+    .Login-Card h4 {
+        margin-bottom: 3px !important;
+    }
+
+.Login-Fliter {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.4;
+}
+
+.Login-Button {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.Login-TextBox {
+    height: 1.5em;
+    width: 100%;
+    padding: 15px 5px 15px 5px;
+}
+
+.Search-TextBox {
+    height: 1.5em;
+    line-height: 1.5em;
+    padding: 15px 5px 15px 5px;
+}
+.NavBar-Type {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    line-height: 90.7px;
+}
+    .NavBar-Type:hover {
+        color: #ec971f;
+        text-decoration:none;
+    }
+.SideBar {
+    height: 100%;
+    padding-bottom: 100px;
+    background-color: rgba(37, 8, 4,0.7);
+    color: white;
+    width: 100%;
+    float: right;
+    overflow: auto;
+    scrollbar-face-color: #367CD2;
+    scrollbar-shadow-color: #FFFFFF;
+    scrollbar-highlight-color: #FFFFFF;
+    scrollbar-3dlight-color: #FFFFFF;
+    scrollbar-darkshadow-color: #FFFFFF;
+    scrollbar-track-color: rgba(36, 157, 127,0.6);
+    scrollbar-arrow-color: #FFFFFF;
+}
+
+    .SideBar::-webkit-scrollbar {
+        width: 12px;
+    }
+    .SideBar::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+    }
+    .SideBar::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        background: #676767;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    }
+
+
+    .SideBar a {
+        width: 100%;
+        height: 30px;
+        text-decoration: none;
+        color: white;
+        font-size: 18px;
+        line-height: 18px;
+        display: block;
+        padding: 30px 40px 30px 40px;
+        text-align: right;
+    }
+        .SideBar a:hover {
+            color: #ec971f;
+        }
+.table-striped{
+    margin-bottom:0;
+}
+#table_wrapper {
+    width:100%;
+    overflow: auto;
+    scrollbar-face-color: #367CD2;
+    scrollbar-shadow-color: #FFFFFF;
+    scrollbar-highlight-color: #FFFFFF;
+    scrollbar-3dlight-color: #FFFFFF;
+    scrollbar-darkshadow-color: #FFFFFF;
+    scrollbar-track-color: rgba(36, 157, 127,0.6);
+    scrollbar-arrow-color: #FFFFFF;
+}
+
+    #table_wrapper::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    #table_wrapper::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+    }
+
+    #table_wrapper::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        background: rgba(239, 172, 78,0.7);
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    }
+
+thead .bg-primary {
+    background-color: #250804;
+}
+#leftMenu {
+    transition: all ease 0.4s;
+    overflow:hidden;
+}
+
+#togglebutton{
+    background-color:none;
+    color:white;
+}
+    #togglebutton:hover {
+        background-color: none;
+        color: #ec971f;
+        cursor: pointer;
+    }
+.navbar-fixed-top {
+    background-color: #250804;
+}
+.navbar-brand{
+    float:right !important;
+} .navbar-fixed-top a {
+    color: white;
+}
+.table-striped tbody tr:nth-child(even){
+    background-color:#cacaca;
+}
+.ImageLogo{
+    width:150px;
+}
+    .ImageLogo:hover, .ImageLogo:focus {
+        cursor:pointer;
+    }
+#btnExport, #btnExport2 {
+    margin-top: 20px;
+}

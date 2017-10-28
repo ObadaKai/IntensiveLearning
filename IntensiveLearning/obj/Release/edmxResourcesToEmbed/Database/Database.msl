@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TaalimModelStoreContainer" CdmEntityContainer="TaalimEntities">
+    <EntitySetMapping Name="Bnds">
+      <EntityTypeMapping TypeName="TaalimModel.Bnd">
+        <MappingFragment StoreEntitySet="Bnd">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TotalNum" ColumnName="TotalNum" />
+          <ScalarProperty Name="AfterReductionNum" ColumnName="AfterReductionNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Centers">
+      <EntityTypeMapping TypeName="TaalimModel.Center">
+        <MappingFragment StoreEntitySet="Centers">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Place" ColumnName="Place" />
+          <ScalarProperty Name="Desc" ColumnName="Desc" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="HolesN" ColumnName="HolesN" />
+          <ScalarProperty Name="Cityid" ColumnName="Cityid" />
+          <ScalarProperty Name="FoundationType" ColumnName="FoundationType" />
+          <ScalarProperty Name="Periodid" ColumnName="Periodid" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="Month10" ColumnName="Month10" />
+          <ScalarProperty Name="Month11" ColumnName="Month11" />
+          <ScalarProperty Name="Month12" ColumnName="Month12" />
+          <ScalarProperty Name="Month1" ColumnName="Month1" />
+          <ScalarProperty Name="Month2" ColumnName="Month2" />
+          <ScalarProperty Name="Month3" ColumnName="Month3" />
+          <ScalarProperty Name="Month4" ColumnName="Month4" />
+          <ScalarProperty Name="Month5" ColumnName="Month5" />
+          <ScalarProperty Name="Month6" ColumnName="Month6" />
+          <ScalarProperty Name="Month7" ColumnName="Month7" />
+          <ScalarProperty Name="Month8" ColumnName="Month8" />
+          <ScalarProperty Name="Month9" ColumnName="Month9" />
+          <ScalarProperty Name="TargetedMen" ColumnName="TargetedMen" />
+          <ScalarProperty Name="TargetedWomen" ColumnName="TargetedWomen" />
+          <ScalarProperty Name="CenterType" ColumnName="CenterType" />
+          <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
+          <ScalarProperty Name="QuarterPayment" ColumnName="QuarterPayment" />
+          <ScalarProperty Name="Proof" ColumnName="Proof" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="TaalimModel.City">
+        <MappingFragment StoreEntitySet="Cities">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Concerns">
+      <EntityTypeMapping TypeName="TaalimModel.Concern">
+        <MappingFragment StoreEntitySet="Concerns">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Employeeid" ColumnName="Employeeid" />
+          <ScalarProperty Name="Concern1" ColumnName="Concern" />
+          <ScalarProperty Name="date" ColumnName="date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DailyActivities">
+      <EntityTypeMapping TypeName="TaalimModel.DailyActivity">
+        <MappingFragment StoreEntitySet="DailyActivity">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Report" ColumnName="Report" />
+          <ScalarProperty Name="Observation" ColumnName="Observation" />
+          <ScalarProperty Name="Managerid" ColumnName="Managerid" />
+          <ScalarProperty Name="date" ColumnName="date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="TaalimModel.Employee">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="surname" ColumnName="surname" />
+          <ScalarProperty Name="BDate" ColumnName="BDate" />
+          <ScalarProperty Name="Certificate" ColumnName="Certificate" />
+          <ScalarProperty Name="CType" ColumnName="CType" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Centerid" ColumnName="Centerid" />
+          <ScalarProperty Name="Periodid" ColumnName="Periodid" />
+          <ScalarProperty Name="SDate" ColumnName="SDate" />
+          <ScalarProperty Name="EDate" ColumnName="EDate" />
+          <ScalarProperty Name="Job" ColumnName="Job" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Proof" ColumnName="Proof" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+          <ScalarProperty Name="FathersName" ColumnName="FathersName" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeTypes">
+      <EntityTypeMapping TypeName="TaalimModel.EmployeeType">
+        <MappingFragment StoreEntitySet="EmployeeType">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Manager" ColumnName="Manager" />
+          <ScalarProperty Name="CoManager" ColumnName="CoManager" />
+          <ScalarProperty Name="SchoolManager" ColumnName="SchoolManager" />
+          <ScalarProperty Name="NormalEmployee" ColumnName="NormalEmployee" />
+          <ScalarProperty Name="AddNewEmployeeType" ColumnName="AddNewEmployeeType" />
+          <ScalarProperty Name="AddNewProject" ColumnName="AddNewProject" />
+          <ScalarProperty Name="AddBuyingRequest" ColumnName="AddBuyingRequest" />
+          <ScalarProperty Name="AddManagers" ColumnName="AddManagers" />
+          <ScalarProperty Name="AddCOManagers" ColumnName="AddCOManagers" />
+          <ScalarProperty Name="AddSchoolManagers" ColumnName="AddSchoolManagers" />
+          <ScalarProperty Name="AddSchoolEmployees" ColumnName="AddSchoolEmployees" />
+          <ScalarProperty Name="AddCitesAndCenters" ColumnName="AddCitesAndCenters" />
+          <ScalarProperty Name="AddSchoolManagingTools" ColumnName="AddSchoolManagingTools" />
+          <ScalarProperty Name="AddDaileyReport" ColumnName="AddDaileyReport" />
+          <ScalarProperty Name="AddExam" ColumnName="AddExam" />
+          <ScalarProperty Name="ApproveExam" ColumnName="ApproveExam" />
+          <ScalarProperty Name="AddPresence" ColumnName="AddPresence" />
+          <ScalarProperty Name="AddStudent" ColumnName="AddStudent" />
+          <ScalarProperty Name="Finance" ColumnName="Finance" />
+          <ScalarProperty Name="HighAcceptance" ColumnName="HighAcceptance" />
+          <ScalarProperty Name="BuyingAcceptance" ColumnName="BuyingAcceptance" />
+          <ScalarProperty Name="SeeAll" ColumnName="SeeAll" />
+          <ScalarProperty Name="SeeAllButFinance" ColumnName="SeeAllButFinance" />
+          <ScalarProperty Name="SeeAccToCity" ColumnName="SeeAccToCity" />
+          <ScalarProperty Name="SeeAccToCenter" ColumnName="SeeAccToCenter" />
+          <ScalarProperty Name="SeeTeachers" ColumnName="SeeTeachers" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Examinations">
+      <EntityTypeMapping TypeName="TaalimModel.Examination">
+        <MappingFragment StoreEntitySet="Examination">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ExamTypeid" ColumnName="ExamTypeid" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="Desc" ColumnName="Desc" />
+          <ScalarProperty Name="Subjectid" ColumnName="Subjectid" />
+          <ScalarProperty Name="Studentid" ColumnName="Studentid" />
+          <ScalarProperty Name="Stageid" ColumnName="Stageid" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Proof" ColumnName="Proof" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExamTypes">
+      <EntityTypeMapping TypeName="TaalimModel.ExamType">
+        <MappingFragment StoreEntitySet="ExamType">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lessons">
+      <EntityTypeMapping TypeName="TaalimModel.Lesson">
+        <MappingFragment StoreEntitySet="Lessons">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Lesson1" ColumnName="Lesson1" />
+          <ScalarProperty Name="Lesson2" ColumnName="Lesson2" />
+          <ScalarProperty Name="Lesson3" ColumnName="Lesson3" />
+          <ScalarProperty Name="Lesson4" ColumnName="Lesson4" />
+          <ScalarProperty Name="Lesson5" ColumnName="Lesson5" />
+          <ScalarProperty Name="Lesson6" ColumnName="Lesson6" />
+          <ScalarProperty Name="Lesson7" ColumnName="Lesson7" />
+          <ScalarProperty Name="Regimentid" ColumnName="Regimentid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NonUserAddRequests">
+      <EntityTypeMapping TypeName="TaalimModel.NonUserAddRequest">
+        <MappingFragment StoreEntitySet="NonUserAddRequest">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="FathersName" ColumnName="FathersName" />
+          <ScalarProperty Name="Certificate" ColumnName="Certificate" />
+          <ScalarProperty Name="CType" ColumnName="CType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="TaalimModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Employeeid" ColumnName="Employeeid" />
+          <ScalarProperty Name="Bndid" ColumnName="Bndid" />
+          <ScalarProperty Name="Desc" ColumnName="Desc" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="PeacePrice" ColumnName="PeacePrice" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="FirstLevelSign" ColumnName="FirstLevelSign" />
+          <ScalarProperty Name="SecondLevelSign" ColumnName="SecondLevelSign" />
+          <ScalarProperty Name="ThirdLevelSign" ColumnName="ThirdLevelSign" />
+          <ScalarProperty Name="FourthLevelSign" ColumnName="FourthLevelSign" />
+          <ScalarProperty Name="FifthLevelSign" ColumnName="FifthLevelSign" />
+          <ScalarProperty Name="SixthLevelSign" ColumnName="SixthLevelSign" />
+          <ScalarProperty Name="SeventhLevelSign" ColumnName="SeventhLevelSign" />
+          <ScalarProperty Name="EightithLevelSign" ColumnName="EightithLevelSign" />
+          <ScalarProperty Name="Proof" ColumnName="Proof" />
+          <ScalarProperty Name="SendingLevelSign" ColumnName="SendingLevelSign" />
+          <ScalarProperty Name="RecievingLevelSign" ColumnName="RecievingLevelSign" />
+          <ScalarProperty Name="AfterRecieveFirstLevelSign" ColumnName="AfterRecieveFirstLevelSign" />
+          <ScalarProperty Name="AfterRecieveSecondLevelSign" ColumnName="AfterRecieveSecondLevelSign" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="CenterID" ColumnName="CenterID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Periods">
+      <EntityTypeMapping TypeName="TaalimModel.Period">
+        <MappingFragment StoreEntitySet="Periods">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="StartingTime" ColumnName="StartingTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Presences">
+      <EntityTypeMapping TypeName="TaalimModel.Presence">
+        <MappingFragment StoreEntitySet="Presence">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Desc" ColumnName="Desc" />
+          <ScalarProperty Name="Studentid" ColumnName="Studentid" />
+          <ScalarProperty Name="Lesson1" ColumnName="Lesson1" />
+          <ScalarProperty Name="Lesson2" ColumnName="Lesson2" />
+          <ScalarProperty Name="Lesson3" ColumnName="Lesson3" />
+          <ScalarProperty Name="Lesson4" ColumnName="Lesson4" />
+          <ScalarProperty Name="Lesson5" ColumnName="Lesson5" />
+          <ScalarProperty Name="Lesson6" ColumnName="Lesson6" />
+          <ScalarProperty Name="Lesson7" ColumnName="Lesson7" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="TaalimModel.Project">
+        <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Regiments">
+      <EntityTypeMapping TypeName="TaalimModel.Regiment">
+        <MappingFragment StoreEntitySet="Regiments">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Day1" ColumnName="Day1" />
+          <ScalarProperty Name="Day2" ColumnName="Day2" />
+          <ScalarProperty Name="Day3" ColumnName="Day3" />
+          <ScalarProperty Name="Day4" ColumnName="Day4" />
+          <ScalarProperty Name="Day5" ColumnName="Day5" />
+          <ScalarProperty Name="Day6" ColumnName="Day6" />
+          <ScalarProperty Name="Day7" ColumnName="Day7" />
+          <ScalarProperty Name="Desc" ColumnName="Desc" />
+          <ScalarProperty Name="Periodid" ColumnName="Periodid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stages">
+      <EntityTypeMapping TypeName="TaalimModel.Stage">
+        <MappingFragment StoreEntitySet="Stages">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="StageName" ColumnName="StageName" />
+          <ScalarProperty Name="SDate" ColumnName="SDate" />
+          <ScalarProperty Name="EDate" ColumnName="EDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="TaalimModel.Student">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="BDate" ColumnName="BDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Certificate" ColumnName="Certificate" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Centerid" ColumnName="Centerid" />
+          <ScalarProperty Name="Stageid" ColumnName="Stageid" />
+          <ScalarProperty Name="Regimentid" ColumnName="Regimentid" />
+          <ScalarProperty Name="SDate" ColumnName="SDate" />
+          <ScalarProperty Name="EDate" ColumnName="EDate" />
+          <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
+          <ScalarProperty Name="Proof" ColumnName="Proof" />
+          <ScalarProperty Name="FathersName" ColumnName="FathersName" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Study_subject">
+      <EntityTypeMapping TypeName="TaalimModel.Study_subject">
+        <MappingFragment StoreEntitySet="Study_subject">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Desc" ColumnName="Desc" />
+          <ScalarProperty Name="FullMark" ColumnName="FullMark" />
+          <ScalarProperty Name="LeastMark" ColumnName="LeastMark" />
+          <ScalarProperty Name="State" ColumnName="State" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="TaalimModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<IntensiveLearning.Database.City>
+
+@{
+    ViewBag.Title = "لائحة المدن";
+}
+
+<h2>لائحة المدن</h2>
+
+@using (Html.BeginForm("Create", "Cities", FormMethod.Get))
+{
+    <button type="submit" class="btn btn-warning">انشاء جديد</button>
+}
+<div id="table_wrapper">
+    <table class="table table-striped">
+        <thead>
+            <tr class="bg-primary">
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Project.ProjectName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CountryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (Session["AddCitesAndCenters"] != null)
+                        {
+                            if ((bool)Session["AddCitesAndCenters"] == true)
+                            {
+                                <div style="width:180px">
+                                    @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+
+                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                                </div>
+                            }
+
+                        }
+                        else
+                        {
+                            @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Project.ProjectName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CountryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+
+
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+<button id="btnExport" class="btn btn-warning">Export to xls</button>

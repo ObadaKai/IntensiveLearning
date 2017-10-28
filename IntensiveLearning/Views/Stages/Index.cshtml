@@ -1,0 +1,91 @@
+﻿@model IEnumerable<IntensiveLearning.Database.Stage>
+
+@{
+    ViewBag.Title = "لائحة المراحل";
+}
+
+<h2>لائحة المراحل</h2>
+
+@if (Session["AddSchoolManagingTools"] != null)
+{
+    if ((bool)Session["AddSchoolManagingTools"] == true)
+    {
+        using (Html.BeginForm("Create","Stages", FormMethod.Get))
+        {
+            <button type="submit" class="btn btn-warning">انشاء جديد</button>
+        }
+        }
+    }
+
+
+<div id="table_wrapper">
+    <table class="table table-striped">
+        <thead>
+            <tr class="bg-primary">
+                <th></th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.EDate)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.SDate)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.StageName)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+                <tr>
+                    <td>
+                        @if (Session["AddSchoolManagingTools"] != null)
+                        {
+                            if ((bool)Session["AddSchoolManagingTools"] == true)
+                            {
+                                <div style="width:180px;">
+                                    @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+
+                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                                </div>
+                            }
+
+                        }
+                        else
+                        {
+                            @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+
+                           
+                        }
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SDate)
+                    </td>
+
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StageName)
+                    </td>
+
+
+
+                </tr>
+
+    }
+}
+        </tbody>
+    </table>
+
+</div>
+<button id="btnExport" class="btn btn-warning">Export to xls</button>

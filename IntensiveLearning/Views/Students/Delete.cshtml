@@ -1,0 +1,123 @@
+﻿@model IntensiveLearning.Database.Student
+
+@{
+    ViewBag.Title = "حذف";
+}
+
+    <h2>حذف</h2>
+
+    <h3>هل أنت متأكد من حذف الطالب</h3>
+    <div>
+        <h4>طالب</h4>
+        <hr />
+
+        <h4>
+            @Html.DisplayNameFor(model => model.BDate)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.BDate)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Name)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Name)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Surname)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Surname)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Certificate)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Certificate)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Mark)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Mark)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.State)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.State)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.SDate)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.SDate)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.EDate)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.EDate)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Center.Name)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Center.Name)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Regiment.Name)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Regiment.Name)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Stage.StageName)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Stage.StageName)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Sex)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Sex)
+        </p>
+
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="حذف" class="btn btn-danger" /> |
+                @Html.ActionLink("العودة إلى اللائحة", "Index")
+            </div>
+        }
+        <p class="text-danger">@ViewBag.error</p>
+
+    </div>

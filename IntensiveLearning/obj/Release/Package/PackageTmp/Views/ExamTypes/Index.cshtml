@@ -1,0 +1,67 @@
+﻿@model IEnumerable<IntensiveLearning.Database.ExamType>
+
+@{
+    ViewBag.Title = "لائحة انواع الامتحان";
+}
+
+<h2>لائحة انواع الامتحان</h2>
+@if (Session["AddSchoolManagingTools"] != null)
+{
+    if ((bool)Session["AddSchoolManagingTools"] == true)
+    {
+        using (Html.BeginForm("Create", "ExamTypes", FormMethod.Get))
+        {
+            <button type="submit" class="btn btn-warning">انشاء جديد</button>
+        }
+    }
+}
+<table class="table table-striped">
+    <thead>
+        <tr class="bg-primary">
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (Session["AddSchoolManagingTools"] != null)
+                        {
+                            if ((bool)Session["AddSchoolManagingTools"] == true)
+                            {
+                                <div style="width:180px;">
+
+                                    @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+
+                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                                </div>
+                            }
+
+                        }
+                        else
+                        {
+
+                            @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+
+                        }
+
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>

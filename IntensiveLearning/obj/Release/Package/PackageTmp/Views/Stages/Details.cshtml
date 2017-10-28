@@ -1,0 +1,59 @@
+﻿@model IntensiveLearning.Database.Stage
+
+@{
+    ViewBag.Title = "معلومات";
+}
+<div class="container">
+
+    <h2>معلومات</h2>
+
+    <div>
+        <h4>مرحلة</h4>
+        <hr />
+
+        <h4>
+            @Html.DisplayNameFor(model => model.StageName)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.StageName)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.SDate)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.SDate)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.EDate)
+        </h4>
+
+        <p>
+            @if (Model.EDate == null)
+            {
+                @:غير متوفر
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.EDate)
+            }
+        </p>
+
+
+    </div>
+    <p>
+
+        @if (Session["AddSchoolManagingTools"] != null)
+        {
+            if ((bool)Session["AddSchoolManagingTools"] == true)
+            {
+                @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+                @: |
+    }
+        }
+        @Html.ActionLink("العودة إلى اللائحة", "Index")
+    </p>
+    </div>

@@ -1,0 +1,51 @@
+﻿@model IntensiveLearning.Database.Period
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+    <h4>حذف</h4>
+
+    <h3>هل أنت متأكد من حذف الفترة؟</h3>
+    <div>
+        <h4>فترة</h4>
+        <hr />
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Name)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Name)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.StartingTime)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.StartingTime)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.EndTime)
+        </p>
+
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="حذف" class="btn btn-danger" /> |
+                @Html.ActionLink("العودة إلى اللائحة", "Index")
+            </div>
+        }
+        <p class="text-danger">@ViewBag.error</p>
+
+    </div>
