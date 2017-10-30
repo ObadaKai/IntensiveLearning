@@ -158,6 +158,11 @@ namespace IntensiveLearning.Controllers
 
 
                 }
+                else
+                {
+                    CAddManagers = null;
+                    JAddManagers = null;
+                }
                 if (type.AddCOManagers != null)
                 {
                     if (type.AddCOManagers == true)
@@ -167,6 +172,11 @@ namespace IntensiveLearning.Controllers
                         JAddCOManagers = new SelectList(db.EmployeeTypes.Where(x => x.CoManager == true), "id", "Type");
 
                     }
+                }
+                else
+                {
+                    CAddCOManagers = null;
+                    JAddCOManagers = null;
                 }
                 if (type.AddSchoolManagers != null)
                 {
@@ -182,12 +192,17 @@ namespace IntensiveLearning.Controllers
                         }
                         catch
                         {
-
+                            CAddSchoolManagers = new SelectList(db.Centers, "id", "Name");
+                            JAddSchoolManagers = new SelectList(db.EmployeeTypes.Where(x => x.SchoolManager == true), "id", "Type");
                         }
-                        CAddSchoolManagers = new SelectList(db.Centers, "id", "Name");
-                        JAddSchoolManagers = new SelectList(db.EmployeeTypes.Where(x => x.SchoolManager == true), "id", "Type");
+
 
                     }
+                }
+                else
+                {
+                    CAddSchoolManagers = null;
+                    JAddSchoolManagers = null;
                 }
                 if (type.AddSchoolEmployees != null)
                 {
@@ -200,6 +215,11 @@ namespace IntensiveLearning.Controllers
                         JAddSchoolEmployees = new SelectList(db.EmployeeTypes.Where(x => x.NormalEmployee == true), "id", "Type");
 
                     }
+                }
+                else
+                {
+                    CAddSchoolEmployees = null;
+                    JAddSchoolEmployees = null;
                 }
                 if (type.AddManagers == null && type.AddCOManagers == null && type.AddSchoolManagers == null && type.AddSchoolEmployees == null)
                 {

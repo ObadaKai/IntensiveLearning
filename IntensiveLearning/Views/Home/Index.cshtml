@@ -13,22 +13,43 @@
     <title>تسجيل دخول</title>
 </head>
 <body style="padding:0;margin:0;" class="LoginBody">
-    <div class="Login-Background">
-        <div class="Login-Fliter"></div>
-        <div class="Login-Card" style="text-align:right">
-            @using (Html.BeginForm())
+    <div class="hidden-xs ">
+        <div class="Login-Background">
+            <div class="Login-Fliter"></div>
+            <div class="Login-Card" style="text-align:right">
+                @using (Html.BeginForm())
             {
+                    @Html.AntiForgeryToken();
+
+                    <h4 style="color:#0e0e0e;">اسم المستخدم</h4>
+                    <input type="text" name="Username" class="Login-TextBox" />
+                    <h4 style="margin-top:15px;color:#0e0e0e; ">كلمة المرور</h4>
+                    <input type="password" name="Password" class="Login-TextBox" />
+                    <input type="submit" name="Submit" value="تسجيل الدخول" class="Login-Button btn btn-success" />
+
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <div class="hidden-lg hidden-md hidden-sm">
+        @using (Html.BeginForm())
+            {
+            <div class="Login-Background-Mobile">
+            </div>
+            <div class="Login-Card-Mobile" style="text-align:right">
                 @Html.AntiForgeryToken();
 
                 <h4 style="color:#0e0e0e;">اسم المستخدم</h4>
                 <input type="text" name="Username" class="Login-TextBox" />
-                <h4 style="margin-top:15px;color:#0e0e0e; " >كلمة المرور</h4>
+                <h4 style="margin-top:15px;color:#0e0e0e; ">كلمة المرور</h4>
                 <input type="password" name="Password" class="Login-TextBox" />
                 <input type="submit" name="Submit" value="تسجيل الدخول" class="Login-Button btn btn-success" />
+            </div>
+        }
+               
+            </div>
 
-            }
-        </div>
-
-    </div>
-</body>
-</html>
+        </body>
+    </html>
