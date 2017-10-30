@@ -113,12 +113,13 @@ textarea {
 
 .Login-Background {
     background-image: url('Images/Photo.jpg');
-    width: 100%;
-    height: 100%;
+    height:100%;
+    width:100%;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: bottom;
     display: block;
+    z-index:-1;
 }
 
 .Login-Card {
@@ -162,8 +163,8 @@ textarea {
     position: absolute;
     top: 20%;
     width: 100%;
+    padding: 10px;
     background-color: rgba(255,255,255,0.7);
-
 }
 .Login-Background-Mobile {
     background-image: url('Images/Photo.jpg');
@@ -275,9 +276,10 @@ thead .bg-primary {
     overflow:hidden;
 }
 
-#togglebutton{
-    background-color:none;
-    color:white;
+#togglebutton {
+    background-color: none;
+    color: white;
+    line-height: 44px;
 }
     #togglebutton:hover {
         background-color: none;
@@ -288,19 +290,54 @@ thead .bg-primary {
     background-color: #250804;
 }
 .navbar-brand{
-    float:right !important;
-} .navbar-fixed-top a {
+    display:inline-block;
+}
+.navbar-fixed-top a {
     color: white;
 }
 .table-striped tbody tr:nth-child(even){
     background-color:#cacaca;
 }
 .ImageLogo{
-    width:150px;
+    width:120px;
 }
     .ImageLogo:hover, .ImageLogo:focus {
         cursor:pointer;
     }
 #btnExport, #btnExport2 {
     margin-top: 20px;
+}
+.HomePageNavBar {
+    margin-right: 150px;
+}
+.HomePageNavBar > li {
+    height:73px;
+
+}
+    .HomePageNavBar > li:hover, .HomePageNavBar > li:focus, .HomePageNavBar > li:active {
+        background-color: #250804;
+    }
+    .HomePageNavBar > li > a {
+        line-height: 44px;
+    }
+        .HomePageNavBar > li > a:hover, .HomePageNavBar > li > a:focus, .HomePageNavBar > li > a:active {
+            background-color: #250804;
+        }
+    .HomePageNavBar .open > a, .HomePageNavBar .open > a:hover, .HomePageNavBar .open > a:focus {
+        background-color: #250804;
+    }
+    .HomePageNavBar .open .dropdown-menu {
+        background-color: #250804;
+        text-align:right;
+    }
+
+        .HomePageNavBar .open .dropdown-menu > li > a {
+            color: white;
+        }
+        .HomePageNavBar .open .dropdown-menu > li > a:hover, .HomePageNavBar .open .dropdown-menu > li > a:focus {
+            color: #eea236;
+            background-color: #250804;
+        }
+.navbar-fixed-top{
+    height:75px;
 }

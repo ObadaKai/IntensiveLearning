@@ -28,11 +28,39 @@
                     <img src="~/Content/Images/Logo.png" onclick="GoToDefault()" class="ImageLogo" />
                     @*@Html.ActionLink("TaalimMidad", "Default", "Home", new { area = "" }, new { @class = "navbar-brand" , @style="float:left !important" })*@
                 </div>
-                <div class="col-sm-8 hidden-xs"></div>
-                <div class="col-sm-2 col-xs-6" style="position:relative;">
-                    <a href="#" class="NavBar-Type">@Session["Type"]</a>
-                    <span class="navbar-brand" onclick="toggleLeftMenu()" id="togglebutton" style="margin-right:20px;padding-top:0;line-height:90.7px;">&#9776;</span>
-                    <div style="top:90.7px;height:100%;display:block;position:fixed;right:0;z-index:1" id="leftMenu">
+                <div class="col-sm-10 col-xs-6" style="position:relative;">
+
+                    <nav class="navbar  navbar-right " style="margin-bottom:0">
+                        <div class="container-fluid">
+
+                            <ul class="nav navbar-nav hidden-xs HomePageNavBar">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size:18px">
+                                       @Session["Type"]
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/Home/ChangePassword" class="NavBar-Type">تغيير كلمة المرور</a></li>
+                                        <li><a href="/Home/Logout" class="NavBar-Type">تسجيل خروج</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="/Complains/Create" class="NavBar-Type">تقديم شكوى</a></li>
+
+
+                            </ul>
+                                <span class="navbar-brand hidden-xs" onclick="toggleLeftMenu()" id="togglebutton">&#9776;</span>
+                                <span class="navbar-brand hidden-lg hidden-md hidden-sm" onclick="toggleLeftMenu()" id="togglebutton" style="float:right;">&#9776;</span>
+
+                        </div>
+                    </nav>
+                    @*<div class="hidden-xs">
+                            <a href="#" class="NavBar-Type">@Session["Type"]</a>
+                            <a href="/Home/ChangePassword" class="NavBar-Type">تغيير كلمة المرور</a>
+                            <a href="/Complains/Create" class="NavBar-Type">تقديم شكوى</a>
+                            <a href="/Home/Logout" class="NavBar-Type">تسجيل خروج</a>
+                        </div>*@
+                    <div style="top:75px;height:100%;display:block;position:fixed;right:0;z-index:1" id="leftMenu">
                         <div class="SideBar">
                             @if (Session["AddNewEmployeeType"] != null)
                             {
@@ -161,9 +189,11 @@
                                     @Html.ActionLink("امتحانات", "Index", "Examinations")
                                 }
                             }
-                            @Html.ActionLink("تغيير كلمة المرور", "ChangePassword", "Home")
-                            @Html.ActionLink("تقديم شكوى", "Create", "Complains")
-                            @Html.ActionLink("تسجيل خروج", "Logout", "Home")
+                            <div class="hidden-md hidden-lg hidden-sm">
+                                @Html.ActionLink("تغيير كلمة المرور", "ChangePassword", "Home")
+                                @Html.ActionLink("تقديم شكوى", "Create", "Complains")
+                                @Html.ActionLink("تسجيل خروج", "Logout", "Home")
+                            </div>
 
                         </div>
                     </div>

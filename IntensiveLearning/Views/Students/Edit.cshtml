@@ -201,7 +201,15 @@
 
 
                 <div>
-                    @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @if (Model.EDate != null)
+                    {
+                        @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.EDate.Value.ToString("yyyy-MM-dd") } })
+
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    }
                     @Html.ValidationMessageFor(model => model.EDate, "", new { @class = "text-danger" })
                 </div>
 

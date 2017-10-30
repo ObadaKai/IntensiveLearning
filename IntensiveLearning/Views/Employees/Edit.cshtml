@@ -83,7 +83,7 @@
 
 
                 <div>
-                    <select name="CType" id="CType">
+                    <select name="CType" id="CType" class = "form-control">
                         @if (Model.State == "ابتدائي")
                         {
                             <option selected="selected">ابتدائي</option>
@@ -264,7 +264,15 @@
 
 
                 <div>
-                    @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.EDate.Value.ToString("yyyy-MM-dd") } })
+                    @if (Model.EDate != null)
+                    {
+                        @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.EDate.Value.ToString("yyyy-MM-dd") } })
+
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    }
                     @Html.ValidationMessageFor(model => model.EDate, "", new { @class = "text-danger" })
                 </div>
 

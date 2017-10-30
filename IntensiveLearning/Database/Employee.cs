@@ -59,7 +59,6 @@ namespace IntensiveLearning.Database
         [DisplayName("ÇÓã ÇáãÓÊÎÏã")]
 
         public string Username { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ßáãÉ ÇáãÑæÑ")]
         [DisplayName("ßáãÉ ÇáãÑæÑ")]
 
         public string Password { get; set; }

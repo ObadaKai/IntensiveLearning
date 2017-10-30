@@ -109,12 +109,13 @@
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label " })
+                    <input type="radio" name="Sex" value="ذكر" class = "form-control">ذكر
+                    <input type="radio" name="Sex" value="أنثى" class = "form-control">أنثى
 
-
-                    <select name="Sex" id="Sex" class="form-control">
+                    @*<select name="Sex" id="Sex" class="form-control">
                         <option>ذكر</option>
                         <option>انثى</option>
-                    </select>
+                    </select>*@
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.SDate, htmlAttributes: new { @class = "control-label " })

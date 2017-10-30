@@ -13,8 +13,9 @@
     <title>تسجيل دخول</title>
 </head>
 <body style="padding:0;margin:0;" class="LoginBody">
+    <div class="Login-Background"></div>
+
     <div class="hidden-xs ">
-        <div class="Login-Background">
             <div class="Login-Fliter"></div>
             <div class="Login-Card" style="text-align:right">
                 @using (Html.BeginForm())
@@ -29,17 +30,16 @@
 
                 }
             </div>
-        </div>
+        
 
     </div>
 
     <div class="hidden-lg hidden-md hidden-sm">
         @using (Html.BeginForm())
             {
-            <div class="Login-Background-Mobile">
-            </div>
+
             <div class="Login-Card-Mobile" style="text-align:right">
-                @Html.AntiForgeryToken();
+                @Html.AntiForgeryToken()
 
                 <h4 style="color:#0e0e0e;">اسم المستخدم</h4>
                 <input type="text" name="Username" class="Login-TextBox" />

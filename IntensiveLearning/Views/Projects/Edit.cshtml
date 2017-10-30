@@ -35,7 +35,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label " })
             <div class="">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                @if (Model.EndDate != null)
+                {
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.EndDate.Value.ToString("yyyy-MM-dd") } })
+
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                }
                 @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
         </div>

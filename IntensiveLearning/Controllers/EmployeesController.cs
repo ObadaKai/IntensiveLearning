@@ -314,7 +314,7 @@ namespace IntensiveLearning.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "name,surname,BDate,Certificate,CType,State,Centerid,Periodid,SDate,Job,Username,Salary")] Employee employee, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "name,surname,BDate,Certificate,CType,State,Centerid,Periodid,SDate,Job,Username,Salary,FathersName,Sex")] Employee employee, HttpPostedFileBase file)
         {
             if (db.Employees.Where(x => x.Username == employee.Username).Count() > 0)
             {
