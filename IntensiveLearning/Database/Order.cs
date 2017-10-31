@@ -14,6 +14,12 @@ namespace IntensiveLearning.Database
     
     public partial class Order
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Order()
+        {
+            this.Prooves = new HashSet<Proove>();
+        }
+    
         public int id { get; set; }
         public Nullable<int> Employeeid { get; set; }
         public Nullable<int> Bndid { get; set; }
@@ -41,5 +47,7 @@ namespace IntensiveLearning.Database
         public virtual Bnd Bnd { get; set; }
         public virtual Center Center { get; set; }
         public virtual Employee Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Proove> Prooves { get; set; }
     }
 }

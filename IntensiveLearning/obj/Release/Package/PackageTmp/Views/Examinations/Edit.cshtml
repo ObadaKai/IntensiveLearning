@@ -1,10 +1,10 @@
 ﻿@model IntensiveLearning.Database.Examination
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "تعديل";
 }
 
-    <h2>Edit</h2>
+    <h2>تعديل</h2>
 
 
     @using (Html.BeginForm())
@@ -94,7 +94,15 @@
 
 
                 <div>
-                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                    @if (Model.Date != null)
+                    {
+                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.Date.Value.ToString("yyyy-MM-dd") } })
+
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    }
                     @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                 </div>
 
@@ -103,7 +111,7 @@
 
             <div class="form-group">
                 <div>
-                    <input id="file" type="file" aria-label="Add photos to your post" class="upload" style="color:white;" name="file" onchange="angular.element(this).scope().LoadFileData(this.files)" multiple="" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                    <input id="file" type="file" aria-label="Add photos to your post" class="upload" style="color:white;" name="file" onchange="angular.element(this).scope().LoadFileData(this.files)"  accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
                 </div>
             </div>
 

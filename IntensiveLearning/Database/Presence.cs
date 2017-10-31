@@ -11,18 +11,11 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Presence
     {
         public int id { get; set; }
-        [Required(ErrorMessage ="Ì—ÃÏ Ê÷⁄  «—ÌŒ «·€Ì«»")]
-        [DisplayName(" «—ÌŒ «·€Ì«»")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-
         public Nullable<System.DateTime> Date { get; set; }
-        [DisplayName("«·‘—Õ")]
         public string Desc { get; set; }
         public Nullable<int> Studentid { get; set; }
         public Nullable<bool> Lesson1 { get; set; }

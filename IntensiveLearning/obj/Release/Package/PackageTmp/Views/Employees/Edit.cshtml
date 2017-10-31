@@ -83,7 +83,7 @@
 
 
                 <div>
-                    <select name="CType" id="CType">
+                    <select name="CType" id="CType" class = "form-control">
                         @if (Model.State == "ابتدائي")
                         {
                             <option selected="selected">ابتدائي</option>
@@ -264,7 +264,15 @@
 
 
                 <div>
-                    @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.EDate.Value.ToString("yyyy-MM-dd") } })
+                    @if (Model.EDate != null)
+                    {
+                        @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.EDate.Value.ToString("yyyy-MM-dd") } })
+
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    }
                     @Html.ValidationMessageFor(model => model.EDate, "", new { @class = "text-danger" })
                 </div>
 
@@ -290,13 +298,20 @@
                     @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
                 </div>
+
+            </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label " })
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
                 <div class="form-group">
                     <div>
-                        <input id="file" type="file" aria-label="Add photos to your post" class="upload" name="file"style="color:white;" onchange="angular.element(this).scope().LoadFileData(this.files)" multiple="" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                        <input id="file" type="file" aria-label="Add photos to your post" class="upload" name="file"style="color:white;" onchange="angular.element(this).scope().LoadFileData(this.files)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
                     </div>
                 </div>
 
-            </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="حفظ" class="btn btn-primary" />

@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using IntensiveLearning.Database;
 using IntensiveLearning.Models;
+using System.IO.Compression;
+using System.Threading;
 
 namespace IntensiveLearning.Controllers
 {
@@ -25,6 +27,82 @@ namespace IntensiveLearning.Controllers
                 {
                     var centers = db.Centers;
 
+                    foreach (var item in centers)
+                    {
+
+                        if (DateTime.Now.Month == 1 && item.Month1 == true)
+                        {
+                            item.State = "متوفر";
+                        }
+
+                        else if (DateTime.Now.Month == 2 && item.Month2 == true)
+                        {
+                            item.State = "متوفر";
+                        }
+
+                        else if (DateTime.Now.Month == 4 && item.Month3 == true)
+                        {
+
+                            item.State = "متوفر";
+
+                        }
+                        else if (DateTime.Now.Month == 5 && item.Month5 == true)
+                        {
+
+
+                            item.State = "متوفر";
+
+                        }
+
+                        else if (DateTime.Now.Month == 7 && item.Month6 == true)
+                        {
+
+                            item.State = "متوفر";
+
+                        }
+
+                        else if (DateTime.Now.Month == 8 && item.Month8 == true)
+                        {
+
+                            item.State = "متوفر";
+
+                        }
+                        else if (DateTime.Now.Month == 9 && item.Month9 == true)
+                        {
+
+
+                            item.State = "متوفر";
+
+                        }
+
+                        else if (DateTime.Now.Month == 10 && item.Month10 == true)
+                        {
+
+                            item.State = "متوفر";
+
+                        }
+
+                        else if (DateTime.Now.Month == 11 && item.Month11 == true)
+                        {
+
+                            item.State = "متوفر";
+
+                        }
+                        else if (DateTime.Now.Month == 12 && item.Month12 == true)
+                        {
+
+
+                            item.State = "متوفر";
+
+                        }
+                        else
+                        {
+                            item.State = "خارج الخدمة";
+                        }
+
+                    }
+
+
                     return View(centers.ToList());
                 }
                 else if (type.SeeAccToCity == true)
@@ -32,6 +110,80 @@ namespace IntensiveLearning.Controllers
                     var id = Convert.ToInt32(Session["ID"]);
                     var emp = db.Employees.FirstOrDefault(x => x.id == id);
                     var centers = db.Centers.Where(x => x.Cityid == emp.CityID);
+                    foreach (var item in centers)
+                    {
+
+                        if (DateTime.Now.Month == 1 && item.Month1 == true)
+                        {
+                            item.State = "متوفر";
+                        }
+
+                        else if (DateTime.Now.Month == 2 && item.Month2 == true)
+                        {
+                            item.State = "متوفر";
+                        }
+
+                        else if (DateTime.Now.Month == 4 && item.Month3 == true)
+                        {
+
+                            item.State = "متوفر";
+
+                        }
+                        else if (DateTime.Now.Month == 5 && item.Month5 == true)
+                        {
+
+
+                            item.State = "متوفر";
+
+                        }
+
+                        else if (DateTime.Now.Month == 7 && item.Month6 == true)
+                        {
+
+                            item.State = "متوفر";
+
+                        }
+
+                        else if (DateTime.Now.Month == 8 && item.Month8 == true)
+                        {
+
+                            item.State = "متوفر";
+
+                        }
+                        else if (DateTime.Now.Month == 9 && item.Month9 == true)
+                        {
+
+
+                            item.State = "متوفر";
+
+                        }
+
+                        else if (DateTime.Now.Month == 10 && item.Month10 == true)
+                        {
+
+                            item.State = "متوفر";
+
+                        }
+
+                        else if (DateTime.Now.Month == 11 && item.Month11 == true)
+                        {
+
+                            item.State = "متوفر";
+
+                        }
+                        else if (DateTime.Now.Month == 12 && item.Month12 == true)
+                        {
+
+
+                            item.State = "متوفر";
+
+                        }
+                        else
+                        {
+                            item.State = "خارج الخدمة";
+                        }
+
+                    }
                     return View(centers.ToList());
                 }
                 return RedirectToAction("Default", "Home");
@@ -94,8 +246,9 @@ namespace IntensiveLearning.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(/*[Bind(Include = "Name,Place,Desc,State,HolesN,Cityid")]*/ CenterModel centerModel, HttpPostedFileBase file)
+        public ActionResult Create(/*[Bind(Include = "Name,Place,Desc,State,HolesN,Cityid")]*/ CenterModel centerModel, IEnumerable<HttpPostedFileBase> file)
         {
+            bool proceed = true;
             try
             {
                 centerModel.center.id = db.Centers.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
@@ -105,26 +258,61 @@ namespace IntensiveLearning.Controllers
                 centerModel.center.id = 1;
             }
 
-
+            int prooveid;
             try
             {
-
-                if (file.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/Centers"), fileName);
-                    file.SaveAs(path);
-                    centerModel.center.Proof = path;
-                }
-                else
-                {
-                    ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
-                    return View(centerModel);
-                }
+                prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
             }
-            catch
+            catch (Exception)
             {
+                prooveid = 1;
+            }
+            try
+            {
+                foreach (var item in file)
+                {
+                    if (item.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(item.FileName);
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id);
+                        }
+                        var path = Path.Combine(Server.MapPath("~/App_Data/Centers/" + centerModel.center.id), fileName);
+                        item.SaveAs(path);
+                        Proove proove = new Proove();
+                        proove.Path = path;
+                        proove.id = prooveid;
+                        proove.CenterID = centerModel.center.id;
+                        db.Prooves.Add(proove);
+                        prooveid++;
 
+                    }
+                    else
+                    {
+
+                    }
+                }
+                try
+                {
+                    var startPath = Server.MapPath("~/App_Data/Centers" + "/" + centerModel.center.id);
+                    var zipPath = Server.MapPath("~/App_Data/Centers" + "/" + centerModel.center.id) + "\\" + centerModel.center.id + ".zip";
+                    var proove = db.Prooves.Where(x => x.CenterID == centerModel.center.id).Select(x => x.Path);
+                    try
+                    {
+                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+                    }
+                    catch (Exception wx) { }
+                    centerModel.center.Proof = zipPath;
+                }
+                catch { }
+
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
+                proceed = false;
             }
             centerModel.center.ProjectID = 1;
             if (centerModel.firstMonth > centerModel.LastMonth)
@@ -201,12 +389,16 @@ namespace IntensiveLearning.Controllers
                 var emp = db.Employees.FirstOrDefault(x => x.id == id);
                 centerModel.center.Cityid = emp.CityID;
             }
-            if (ModelState.IsValid)
+            if (proceed)
             {
-                db.Centers.Add(centerModel.center);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Centers.Add(centerModel.center);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+
             ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
             return View(centerModel);
         }
@@ -230,7 +422,7 @@ namespace IntensiveLearning.Controllers
                     centerModel.center = db.Centers.Find(id);
 
 
-                    if (centerModel.center.Month10==true)
+                    if (centerModel.center.Month10 == true)
                     {
                         centerModel.firstMonth = 10;
                     }
@@ -376,31 +568,96 @@ namespace IntensiveLearning.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(/*[Bind(Include = "id,Name,Place,Desc,State,HolesN,Cityid")]*/ CenterModel centerModel,HttpPostedFileBase file)
+        public ActionResult Edit(/*[Bind(Include = "id,Name,Place,Desc,State,HolesN,Cityid")]*/ CenterModel centerModel, IEnumerable<HttpPostedFileBase> file)
         {
+
+
+            bool proceed = true;
+            int prooveid;
             try
             {
-                if (file.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/Employees"), fileName);
-                    Center mystd = db.Centers.Find(centerModel.center.id);
-                    string EmpProof = mystd.Proof;
-                    if ((System.IO.File.Exists(EmpProof)))
-                    {
-                        System.IO.File.Delete(EmpProof);
-                    }
-                    file.SaveAs(path);
-
-                    centerModel.center.Proof = path;
-                    db.Entry(mystd).State = EntityState.Detached;
-                }
-                ViewBag.Message = "Upload successful";
+                prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
             }
-            catch
+            catch (Exception)
+            {
+                prooveid = 1;
+            }
+            try
             {
 
+                if (file.Count() > 0)
+                {
+                    var oldImages = db.Prooves.Where(x => x.CenterID == centerModel.center.id).ToList();
+
+                    foreach (var image in oldImages)
+                    {
+                        var path = Path.GetDirectoryName(image.Path);
+                        if ((Directory.Exists(path)))
+                        {
+                            try
+                            {
+                                Directory.Delete(path, true);
+                            }
+                            catch (IOException)
+                            {
+                                Directory.Delete(path, true);
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                Directory.Delete(path, true);
+                            }
+                        }
+                        db.Prooves.Remove(image);
+                    }
+                }
+
+
+                foreach (var item in file)
+                {
+                    if (item.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(item.FileName);
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id);
+                        }
+                        var path = Path.Combine(Server.MapPath("~/App_Data/Centers/" + centerModel.center.id), fileName);
+                        item.SaveAs(path);
+                        Proove proove = new Proove();
+                        proove.Path = path;
+                        proove.id = prooveid;
+                        proove.CenterID = centerModel.center.id;
+                        db.Prooves.Add(proove);
+                        prooveid++;
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+                try
+                {
+                    var startPath = Server.MapPath("~/App_Data/Centers" + "/" + centerModel.center.id);
+                    var zipPath = Server.MapPath("~/App_Data/Centers" + "/" + centerModel.center.id) + "\\" + centerModel.center.id + ".zip";
+                    var proove = db.Prooves.Where(x => x.CenterID == centerModel.center.id).Select(x => x.Path);
+                    try
+                    {
+                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+                    }
+                    catch (Exception wx) { }
+                    centerModel.center.Proof = zipPath;
+                }
+                catch { }
+
+
             }
+            catch (Exception ex)
+            {
+                ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
+                proceed = false;
+            }
+
 
             centerModel.center.Cityid = centerModel.Cityid;
             for (int i = 0; i <= 12; i++)
@@ -510,12 +767,16 @@ namespace IntensiveLearning.Controllers
                         break;
                 }
             }
-            if (ModelState.IsValid)
+            if (proceed)
             {
-                db.Entry(centerModel.center).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(centerModel.center).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+
             ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
             return View(centerModel);
         }
@@ -566,11 +827,30 @@ namespace IntensiveLearning.Controllers
                 if (type.AddCitesAndCenters == true)
                 {
                     Center center = db.Centers.Find(id);
-
+                    var pathW = center.Proof;
+                    var prooves = db.Prooves.Where(x => x.CenterID == center.id);
+                    foreach (var item in prooves)
+                    {
+                        db.Prooves.Remove(item);
+                    }
 
                     db.Centers.Remove(center);
-                    try { 
-                    db.SaveChanges();
+                    try
+                    {
+                        db.SaveChanges();
+                        var path = Path.GetDirectoryName(pathW);
+                        try
+                        {
+                            Directory.Delete(path, true);
+                        }
+                        catch (IOException)
+                        {
+                            Directory.Delete(path, true);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Directory.Delete(path, true);
+                        }
                     }
                     catch
                     {

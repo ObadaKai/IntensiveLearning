@@ -11,24 +11,22 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Examination
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Examination()
+        {
+            this.Prooves = new HashSet<Proove>();
+        }
+    
         public int id { get; set; }
         public Nullable<int> ExamTypeid { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·⁄·«„…")]
-        [DisplayName("«·⁄·«„…")]
         public Nullable<double> Mark { get; set; }
         public string Desc { get; set; }
         public Nullable<int> Subjectid { get; set; }
         public Nullable<int> Studentid { get; set; }
         public Nullable<int> Stageid { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «· «—ÌŒ")]
-        [DisplayName("«· «—ÌŒ")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-
         public Nullable<System.DateTime> Date { get; set; }
         public string Proof { get; set; }
     
@@ -36,5 +34,7 @@ namespace IntensiveLearning.Database
         public virtual Stage Stage { get; set; }
         public virtual Student Student { get; set; }
         public virtual Study_subject Study_subject { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Proove> Prooves { get; set; }
     }
 }

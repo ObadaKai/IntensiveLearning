@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using IntensiveLearning.Database;
+using System.IO.Compression;
 
 namespace IntensiveLearning.Controllers
 {
@@ -85,6 +86,14 @@ namespace IntensiveLearning.Controllers
         //[ValidateAntiForgeryToken]
         public JsonResult Create(FormCollection formCollection)
         {
+
+
+
+
+
+
+
+
             var name = formCollection["Exam"];
             Examination examination = new JavaScriptSerializer().Deserialize<Examination>(name);
             try
@@ -96,8 +105,46 @@ namespace IntensiveLearning.Controllers
                 examination.id = 1;
             }
 
+
+
+            int prooveid;
             try
             {
+                prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+            }
+            catch (Exception)
+            {
+                prooveid = 1;
+            }
+
+            try
+            {
+
+                if (Request.Files.Count > 0)
+                {
+                    var oldImages = db.Prooves.Where(x => x.ExaminationID == examination.id).ToList();
+
+                    foreach (var image in oldImages)
+                    {
+                        var path = Path.GetDirectoryName(image.Path);
+                        if ((Directory.Exists(path)))
+                        {
+                            try
+                            {
+                                Directory.Delete(path, true);
+                            }
+                            catch (IOException)
+                            {
+                                Directory.Delete(path, true);
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                Directory.Delete(path, true);
+                            }
+                        }
+                        db.Prooves.Remove(image);
+                    }
+                }
                 if (Request.Files.Count == 0)
                 {
                     return Json(false);
@@ -107,13 +154,23 @@ namespace IntensiveLearning.Controllers
                     var fileContent = Request.Files[file];
                     if (fileContent != null && fileContent.ContentLength > 0)
                     {
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Examinations/" + examination.id)))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Examinations/" + examination.id));
+                        }
                         var inputStream = fileContent.InputStream;
                         var fileName = fileContent.FileName;
-                        var path = Path.Combine(Server.MapPath("~/App_Data/Examinations/"), fileName);
+                        var path = Path.Combine(Server.MapPath("~/App_Data/Examinations/" + examination.id), fileName);
                         using (var fileStream = System.IO.File.Create(path))
                         {
                             inputStream.CopyTo(fileStream);
-                            examination.Proof = path;
+
+                            Proove proove = new Proove();
+                            proove.Path = path;
+                            proove.id = prooveid;
+                            proove.ExaminationID = examination.id;
+                            db.Prooves.Add(proove);
+                            prooveid++;
                         }
                     }
                     else
@@ -121,10 +178,27 @@ namespace IntensiveLearning.Controllers
                         return Json(false);
                     }
 
+
                 }
+                try
+                {
+                    var startPath = Server.MapPath("~/App_Data/Examinations" + "/" + examination.id);
+                    var zipPath = Server.MapPath("~/App_Data/Examinations" + "/" + examination.id) + "\\" + examination.id + ".zip";
+                    var proove = db.Prooves.Where(x => x.ExaminationID == examination.id).Select(x => x.Path);
+                    try
+                    {
+                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+                    }
+                    catch (Exception wx) { }
+                    examination.Proof = zipPath;
+                }
+                catch { }
+
+                ViewBag.Message = "Upload successful";
             }
             catch
             {
+                ViewBag.Message = "Upload failed";
                 return Json(false);
             }
 
@@ -177,39 +251,103 @@ namespace IntensiveLearning.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Desc,Subjectid,Studentid,Stageid,ExamTypeid,Mark,Date")] Examination examination, HttpPostedFileBase file)
+        public ActionResult Edit(/*[Bind(Include = "id,Desc,Subjectid,Studentid,Stageid,ExamTypeid,Mark,Date")]*/ Examination examination,IEnumerable<HttpPostedFileBase> file)
         {
-
+            bool proceed = true;
+            int prooveid;
+            try
+            {
+                prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+            }
+            catch (Exception)
+            {
+                prooveid = 1;
+            }
             try
             {
 
-                if (file.ContentLength > 0)
+                if (file.Count() > 0)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/Students"), fileName);
-                    Examination mystd = db.Examinations.Find(examination.id);
-                    string studentproof = mystd.Proof;
-                    if ((System.IO.File.Exists(studentproof)))
+                    var oldImages = db.Prooves.Where(x => x.ExaminationID == examination.id).ToList();
+
+                    foreach (var image in oldImages)
                     {
-                        System.IO.File.Delete(studentproof);
+                        var path = Path.GetDirectoryName(image.Path);
+                        if ((Directory.Exists(path)))
+                        {
+                            try
+                            {
+                                Directory.Delete(path, true);
+                            }
+                            catch (IOException)
+                            {
+                                Directory.Delete(path, true);
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                Directory.Delete(path, true);
+                            }
+                        }
+                        db.Prooves.Remove(image);
                     }
-                    file.SaveAs(path);
-                    examination.Proof = path;
-                    db.Entry(mystd).State = EntityState.Detached;
                 }
-                ViewBag.Message = "Upload successful";
+
+
+                foreach (var item in file)
+                {
+                    if (item.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(item.FileName);
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id);
+                        }
+                        var path = Path.Combine(Server.MapPath("~/App_Data/Examinations/" + examination.id), fileName);
+                        item.SaveAs(path);
+                        Proove proove = new Proove();
+                        proove.Path = path;
+                        proove.id = prooveid;
+                        proove.ExaminationID = examination.id;
+                        db.Prooves.Add(proove);
+                        prooveid++;
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+                try
+                {
+                    var startPath = Server.MapPath("~/App_Data/Examinations" + "/" + examination.id);
+                    var zipPath = Server.MapPath("~/App_Data/Examinations" + "/" + examination.id) + "\\" + examination.id + ".zip";
+                    var proove = db.Prooves.Where(x => x.ExaminationID == examination.id).Select(x => x.Path);
+                    try
+                    {
+                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+                    }
+                    catch (Exception wx) { }
+                    examination.Proof = zipPath;
+                }
+                catch { }
+
 
             }
-            catch
+            catch (Exception ex)
             {
+                ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
+                proceed = false;
+            }
+            if (proceed)
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(examination).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
 
-            }
-            if (ModelState.IsValid)
-            {
-                db.Entry(examination).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
             ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName", examination.Stageid);
             ViewBag.Studentid = new SelectList(db.Students, "id", "Name", examination.Studentid);
             ViewBag.Subjectid = new SelectList(db.Study_subject, "id", "Name", examination.Subjectid);
@@ -254,10 +392,30 @@ namespace IntensiveLearning.Controllers
                 if (type.AddExam == true)
                 {
                     Examination examination = db.Examinations.Find(id);
+                    var pathW = examination.Proof;
+                    var prooves = db.Prooves.Where(x => x.ExaminationID == examination.id);
+                    foreach (var item in prooves)
+                    {
+                        db.Prooves.Remove(item);
+                    }
                     db.Examinations.Remove(examination);
                     try
                     {
                         db.SaveChanges();
+                        var path = Path.GetDirectoryName(pathW);
+                        try
+                        {
+                            Directory.Delete(path, true);
+                        }
+                        catch (IOException)
+                        {
+                            Directory.Delete(path, true);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Directory.Delete(path, true);
+                        }
+
                     }
                     catch
                     {

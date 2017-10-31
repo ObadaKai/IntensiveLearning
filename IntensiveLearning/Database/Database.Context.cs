@@ -45,5 +45,6 @@ namespace IntensiveLearning.Database
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Study_subject> Study_subject { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Proove> Prooves { get; set; }
     }
 }

@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using IntensiveLearning.Database;
 using IntensiveLearning.Models;
+using System.IO.Compression;
 
 namespace IntensiveLearning.Controllers
 {
@@ -185,25 +186,46 @@ namespace IntensiveLearning.Controllers
             {
                 student.id = 1;
             }
+            student.State = "متوفر";
+
+            int prooveid;
+            try
+            {
+                prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+            }
+            catch (Exception)
+            {
+                prooveid = 1;
+            }
 
             try
             {
-                if (db.Students.Where(x => x.StudentNumber == studentNumber).Count() > 0)
-                {
-                    student.StudentNumber = db.Students.OrderByDescending(x => x.StudentNumber).FirstOrDefault().StudentNumber + 1;
-                }
-                else
-                {
-                    student.StudentNumber = studentNumber;
 
+                if (Request.Files.Count > 0)
+                {
+                    var oldImages = db.Prooves.Where(x => x.StudentID == student.id).ToList();
+
+                    foreach (var image in oldImages)
+                    {
+                        var path = Path.GetDirectoryName(image.Path);
+                        if ((Directory.Exists(path)))
+                        {
+                            try
+                            {
+                                Directory.Delete(path, true);
+                            }
+                            catch (IOException)
+                            {
+                                Directory.Delete(path, true);
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                Directory.Delete(path, true);
+                            }
+                        }
+                        db.Prooves.Remove(image);
+                    }
                 }
-            }
-            catch
-            {
-                student.StudentNumber = studentNumber;
-            }
-            try
-            {
                 if (Request.Files.Count == 0)
                 {
                     return Json(false);
@@ -213,25 +235,48 @@ namespace IntensiveLearning.Controllers
                     var fileContent = Request.Files[file];
                     if (fileContent != null && fileContent.ContentLength > 0)
                     {
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Students/" + student.id)))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Students/" + student.id));
+                        }
                         var inputStream = fileContent.InputStream;
                         var fileName = fileContent.FileName;
-                        var path = Path.Combine(Server.MapPath("~/App_Data/Students/"), fileName);
+                        var path = Path.Combine(Server.MapPath("~/App_Data/Students/" + student.id), fileName);
                         using (var fileStream = System.IO.File.Create(path))
                         {
                             inputStream.CopyTo(fileStream);
-                            student.Proof = path;
+
+                            Proove proove = new Proove();
+                            proove.Path = path;
+                            proove.id = prooveid;
+                            proove.StudentID = student.id;
+                            db.Prooves.Add(proove);
+                            prooveid++;
                         }
                     }
                     else
                     {
-                        return Json(false);
                     }
 
+
                 }
+                try
+                {
+                    var startPath = Server.MapPath("~/App_Data/Students" + "/" + student.id);
+                    var zipPath = Server.MapPath("~/App_Data/Students" + "/" + student.id) + "\\" + student.id + ".zip";
+                    var proove = db.Prooves.Where(x => x.StudentID == student.id).Select(x => x.Path);
+                    try
+                    {
+                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+                    }
+                    catch (Exception wx) { }
+                    student.Proof = zipPath;
+                }
+                catch { }
 
                 ViewBag.Message = "Upload successful";
             }
-            catch 
+            catch
             {
                 ViewBag.Message = "Upload failed";
                 return Json(false);
@@ -296,37 +341,112 @@ namespace IntensiveLearning.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(/*[Bind(Include = "id,BDate,Name,Surname,Certificate,Mark,State,Centerid,Stageid,Regimentid,SDate,EDate")]*/ Student student, HttpPostedFileBase file)
+        public ActionResult Edit(/*[Bind(Include = "id,BDate,Name,Surname,Certificate,Mark,State,Centerid,Stageid,Regimentid,SDate,EDate")]*/ Student student, IEnumerable<HttpPostedFileBase> file)
         {
+            bool proceed = true;
+
+            int prooveid;
+            try
+            {
+                prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+            }
+            catch (Exception)
+            {
+                prooveid = 1;
+            }
             try
             {
 
-                if (file.ContentLength > 0)
+                if (file.Count() > 0)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/Students"), fileName);
-                    Student mystd = db.Students.Find(student.id);
-                    string studentproof = mystd.Proof;
-                    if ((System.IO.File.Exists(studentproof)))
+                    var oldImages = db.Prooves.Where(x => x.StudentID == student.id).ToList();
+
+                    foreach (var image in oldImages)
                     {
-                        System.IO.File.Delete(studentproof);
+                        var path = Path.GetDirectoryName(image.Path);
+                        if ((Directory.Exists(path)))
+                        {
+                            try
+                            {
+                                Directory.Delete(path, true);
+                            }
+                            catch (IOException)
+                            {
+                                Directory.Delete(path, true);
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                Directory.Delete(path, true);
+                            }
+                        }
+                        db.Prooves.Remove(image);
                     }
-                    file.SaveAs(path);
-                    student.Proof = path;
-                    db.Entry(mystd).State = EntityState.Detached;
                 }
-                ViewBag.Message = "Upload successful";
+
+                foreach (var item in file)
+                {
+                    if (item.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(item.FileName);
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Students") + "\\" + student.id))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Students") + "\\" + student.id);
+                        }
+                        var path = Path.Combine(Server.MapPath("~/App_Data/Students/" + student.id), fileName);
+                        item.SaveAs(path);
+                        Proove proove = new Proove();
+                        proove.Path = path;
+                        proove.id = prooveid;
+                        proove.StudentID = student.id;
+                        db.Prooves.Add(proove);
+                        prooveid++;
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+                try
+                {
+                    var startPath = Server.MapPath("~/App_Data/Students" + "/" + student.id);
+                    var zipPath = Server.MapPath("~/App_Data/Students" + "/" + student.id) + "\\" + student.id + ".zip";
+                    var proove = db.Prooves.Where(x => x.StudentID == student.id).Select(x => x.Path);
+                    try
+                    {
+                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+                    }
+                    catch (Exception wx) { }
+                    student.Proof = zipPath;
+                }
+                catch { }
+
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                proceed = false;
             }
-            if (ModelState.IsValid)
-            {
 
-                db.Entry(student).State = EntityState.Modified;
-                db.SaveChanges();
+
+            if (student.EDate != null)
+            {
+                if (student.EDate.Value >= DateTime.Now.Date)
+                {
+                    student.State = "خارج الخدمة";
+                }
+            }
+            if (proceed)
+            {
+                if (ModelState.IsValid)
+                {
+
+                    db.Entry(student).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+
 
                 //catch (DbEntityValidationException ex)
                 //{
@@ -347,8 +467,7 @@ namespace IntensiveLearning.Controllers
                 //        }
                 //    }
                 //}
-                return RedirectToAction("Index");
-            }
+
             var Sid = Convert.ToInt32(Session["ID"]);
             var emp = db.Employees.Where(x => x.id == Sid).FirstOrDefault().Centerid;
             ViewBag.Centerid = new SelectList(db.Centers.Where(x => x.id == emp), "id", "Name");
@@ -399,10 +518,29 @@ namespace IntensiveLearning.Controllers
                 {
 
                     Student student = db.Students.Find(id);
+                    var pathW = student.Proof;
+                    var prooves = db.Prooves.Where(x => x.StudentID == student.id);
+                    foreach (var item in prooves)
+                    {
+                        db.Prooves.Remove(item);
+                    }
                     db.Students.Remove(student);
                     try
                     {
                         db.SaveChanges();
+                        var path = Path.GetDirectoryName(pathW);
+                        try
+                        {
+                            Directory.Delete(path, true);
+                        }
+                        catch (IOException)
+                        {
+                            Directory.Delete(path, true);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Directory.Delete(path, true);
+                        }
                     }
                     catch
                     {

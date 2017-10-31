@@ -11,9 +11,7 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Student
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,64 +19,24 @@ namespace IntensiveLearning.Database
         {
             this.Examinations = new HashSet<Examination>();
             this.Presences = new HashSet<Presence>();
+            this.Prooves = new HashSet<Proove>();
         }
     
         public int id { get; set; }
-        [Required(ErrorMessage ="Ì—ÃÏ «œŒ«·  «—ÌŒ «·Ê·«œ…")]
-        [DisplayName(" «—ÌŒ «·Ê·«œ…")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-
         public Nullable<System.DateTime> BDate { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·ÿ«·»")]
-        [DisplayName("«”„ «·ÿ«·»")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· ﬂ‰Ì… «·ÿ«·»")]
-        [DisplayName("ﬂ‰Ì… «·ÿ«·»")]
         public string Surname { get; set; }
-
-
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·‘Â«œ…")]
-        [DisplayName("«·‘Â«œ…")]
         public string Certificate { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·⁄·«„…")]
-        [DisplayName("«·⁄·«„…")]
         public Nullable<double> Mark { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·Õ«·…")]
-
-        [DisplayName("«·Õ«·…")]
         public string State { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·„—ﬂ“")]
-
         public Nullable<int> Centerid { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·—Õ·…")]
-
         public Nullable<int> Stageid { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·›ÊÃ")]
-
         public Nullable<int> Regimentid { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«·  «—ÌŒ «·»œ¡")]
-        [DisplayName(" «—ÌŒ «·»œ¡")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-
         public Nullable<System.DateTime> SDate { get; set; }
-
-        [DisplayName(" «—ÌŒ «·«‰ Â«¡")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-
         public Nullable<System.DateTime> EDate { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· —ﬁ„ «·ÿ«·»")]
-
-        [DisplayName("—ﬁ„ «·ÿ«·»")]
         public Nullable<int> StudentNumber { get; set; }
-        [DisplayName("«·«À»« ")]
         public string Proof { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·√»")]
-
-        [DisplayName("«”„ «·√»")]
         public string FathersName { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·Ã‰”")]
-
-        [DisplayName("«·Ã‰”")]
         public string Sex { get; set; }
     
         public virtual Center Center { get; set; }
@@ -88,5 +46,7 @@ namespace IntensiveLearning.Database
         public virtual ICollection<Presence> Presences { get; set; }
         public virtual Regiment Regiment { get; set; }
         public virtual Stage Stage { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Proove> Prooves { get; set; }
     }
 }

@@ -11,9 +11,7 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class City
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,11 +22,7 @@ namespace IntensiveLearning.Database
         }
     
         public int id { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·„œÌ‰…")]
-        [DisplayName("«·„œÌ‰…")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·œÊ·…")]
-        [DisplayName("«·œÊ·…")]
         public string CountryName { get; set; }
         public Nullable<int> ProjectID { get; set; }
     

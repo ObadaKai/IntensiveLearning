@@ -42,16 +42,13 @@
 
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label " })
-                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-                </div>
+
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.BDate, htmlAttributes: new { @class = "control-label " })
-                    @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                    @Html.ValidationMessageFor(model => model.BDate, "", new { @class = "text-danger" })
+                    <div>
+                            @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    </div>
 
 
                 </div>
@@ -81,7 +78,7 @@
 
                 </div>
 
-                <div class="form-group">
+                @*<div class="form-group">
                     @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label " })
                     <select name="State" id="State" class="form-control">
                         <option>متوفر</option>
@@ -90,7 +87,7 @@
                     @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
 
 
-                </div>
+                </div>*@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Centerid, "المركز", htmlAttributes: new { @class = "control-label " })
@@ -109,8 +106,8 @@
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label " })
-                    <input type="radio" name="Sex" value="ذكر" class = "form-control">ذكر
-                    <input type="radio" name="Sex" value="أنثى" class = "form-control">أنثى
+                    <input type="radio" name="Sex" value="ذكر" />ذكر &emsp;
+                    <input type="radio" name="Sex" value="أنثى"/>أنثى
 
                     @*<select name="Sex" id="Sex" class="form-control">
                         <option>ذكر</option>
@@ -144,8 +141,14 @@
                 </div>
 
                 <div class="form-group">
+                    @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label " })
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
                     <div>
-                        <input id="file" type="file" aria-label="Add photos to your post" class="upload" name="file"  style="color:white;" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                        <input id="file" type="file" aria-label="Add photos to your post" class="upload" name="file" multiple style="color:white;" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
                         <p class="text-danger">@ViewBag.error</p>
                     </div>
                 </div>

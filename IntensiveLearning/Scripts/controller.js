@@ -39,7 +39,7 @@
                 "id": $scope.id, "BDate": $scope.BDate,
                 "Name": $scope.Name, "Surname": $scope.Surname,
                 "Certificate": $scope.Certificate, "Mark": $scope.Mark,
-                "State": $scope.State, "SDate": $scope.SDate,
+                "SDate": $scope.SDate,
                 "Regimentid": $scope.Regimentid, "Stageid": $scope.Stageid,
                 "Centerid": $scope.Centerid, "Sex": $scope.Sex, "FathersName": $scope.FathersName
             };

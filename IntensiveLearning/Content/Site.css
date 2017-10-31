@@ -50,7 +50,11 @@ text-align:right;
 }
  h2{
      margin-bottom:20px;
+     font-family:Cairo;
  }
+label {
+    font-family: Cairo;
+}
 label, h4{
     color: white;
 }
@@ -63,7 +67,8 @@ a:hover,a:focus{
 }
 th {
     font-size: 17px;
-    font-weight:100;
+    font-weight: 100;
+    font-family: Cairo;
 }
 th, tr {
     text-align: center;
@@ -161,7 +166,7 @@ textarea {
 
 .Login-Card-Mobile {
     position: absolute;
-    top: 20%;
+    bottom: 40%;
     width: 100%;
     padding: 10px;
     background-color: rgba(255,255,255,0.7);
