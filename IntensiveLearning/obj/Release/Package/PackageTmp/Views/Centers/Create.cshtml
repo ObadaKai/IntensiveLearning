@@ -103,17 +103,17 @@
             </div>
 
         </div>
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.center.State, htmlAttributes: new { @class = "control-label " })
             <select name="center.State" id="center.State" class="form-control">
                 <option>متوفر</option>
                 <option>خارج الخدمة</option>
             </select>
-            @*@Html.EditorFor(model => model.center.State, new { htmlAttributes = new { @class = "form-control" } })*@
+            @Html.EditorFor(model => model.center.State, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.center.State, "", new { @class = "text-danger" })
 
 
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.center.HolesN, htmlAttributes: new { @class = "control-label " })
@@ -125,7 +125,7 @@
 
         <div class="form-group">
             <div>
-                <input id="file" type="file" aria-label="Add photos to your post" class="upload" name="file" style="color:white;" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                <input id="file" type="file" aria-label="Add photos to your post" class="upload" name="file" style="color:white;" multiple accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
                 <p class="text-danger">@ViewBag.error</p>
             </div>
         </div>

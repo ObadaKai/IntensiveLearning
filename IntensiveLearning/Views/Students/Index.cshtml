@@ -82,7 +82,7 @@
                                 {
                                     if ((bool)Session["AddStudent"] == true)
                                     {
-                                        <div style="width:180px;">
+                                        <div style="width:210px;">
                                             @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
                                             @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
                                             @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
@@ -212,22 +212,22 @@
                         {
                             if ((bool)Session["AddStudent"] == true)
                             {
-                                <div style="width:180px;">
+                                <div style="width:210px;">
                                     <a class="btn btn-danger" href="Students/Delete/{{Exam.ID}}" title="حذف">حذف</a>
-                                    <a class="btn btn-info" href="Students/Details/{{Exam.ID}}">معلومات</a>
-                                    <a class="btn btn-success" href="Students/Edit/{{Exam.ID}}">تعديل</a>
+                                    <a class="btn btn-info" href="Students/Details/{{Exam.ID}}" title="معلومات">معلومات</a>
+                                    <a class="btn btn-success" href="Students/Edit/{{Exam.ID}}" title="تعديل">تعديل</a>
                                 </div>
                             }
 
                         }
                         else
                         {
-                            <a class="btn btn-info" href="Students/Details/{{Exam.ID}}">معلومات</a>
+                            <a class="btn btn-info" href="Students/Details/{{Exam.ID}}" title="معلومات">معلومات</a>
 
                         }
                     </td>
                     <td>
-                        <a class="btn btn-warning" href="/Json/DownloadProof/{{Exam.Proof}}">تحميل</a>
+                        <a class="btn btn-warning" href="/Json/DownloadProof/{{Exam.Proof}}" title="تحميل">تحميل</a>
                     </td>
                     <td>{{Exam.StageName}}</td>
                     <td>{{Exam.Regiment}}</td>

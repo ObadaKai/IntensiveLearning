@@ -50,6 +50,7 @@
     <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Centers" FromRole="Centers" ToRole="Employees" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Centers" FromRole="Centers" ToRole="Order" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Centers" FromRole="Centers" ToRole="Students" />
+    <NavigationProperty Name="Prooves" Relationship="TaalimModel.FK_Prooves_Centers" FromRole="Center" ToRole="Proove" />
   </EntityType>
   <EntityType Name="City">
     <Key>
@@ -114,6 +115,7 @@
     <NavigationProperty Name="EmployeeType" Relationship="Self.FK_Employees_EmployeeType" FromRole="Employees" ToRole="EmployeeType" />
     <NavigationProperty Name="Period" Relationship="Self.FK_Employees_Periods" FromRole="Employees" ToRole="Periods" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Employees" FromRole="Employees" ToRole="Order" />
+    <NavigationProperty Name="Prooves" Relationship="TaalimModel.FK_Prooves_Employees" FromRole="Employee" ToRole="Proove" />
   </EntityType>
   <EntityType Name="EmployeeType">
     <Key>
@@ -166,6 +168,7 @@
     <NavigationProperty Name="Stage" Relationship="Self.FK_Examination_Stages" FromRole="Examination" ToRole="Stages" />
     <NavigationProperty Name="Student" Relationship="Self.FK_Examination_Students" FromRole="Examination" ToRole="Students" />
     <NavigationProperty Name="Study_subject" Relationship="Self.FK_Examination_Study_subject" FromRole="Examination" ToRole="Study_subject" />
+    <NavigationProperty Name="Prooves" Relationship="TaalimModel.FK_Prooves_Examination" FromRole="Examination" ToRole="Proove" />
   </EntityType>
   <EntityType Name="ExamType">
     <Key>
@@ -235,6 +238,7 @@
     <NavigationProperty Name="Bnd" Relationship="Self.FK_Order_Bnd" FromRole="Order" ToRole="Bnd" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Order_Centers" FromRole="Order" ToRole="Centers" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Order_Employees" FromRole="Order" ToRole="Employees" />
+    <NavigationProperty Name="Prooves" Relationship="TaalimModel.FK_Prooves_Order" FromRole="Order" ToRole="Proove" />
   </EntityType>
   <EntityType Name="Period">
     <Key>
@@ -331,6 +335,7 @@
     <NavigationProperty Name="Presences" Relationship="Self.FK_Presence_Students" FromRole="Students" ToRole="Presence" />
     <NavigationProperty Name="Regiment" Relationship="Self.FK_Students_Regiments" FromRole="Students" ToRole="Regiments" />
     <NavigationProperty Name="Stage" Relationship="Self.FK_Students_Stages" FromRole="Students" ToRole="Stages" />
+    <NavigationProperty Name="Prooves" Relationship="TaalimModel.FK_Prooves_Students" FromRole="Student" ToRole="Proove" />
   </EntityType>
   <EntityType Name="Study_subject">
     <Key>
@@ -743,5 +748,104 @@
       <End Role="Stages" EntitySet="Stages" />
       <End Role="Students" EntitySet="Students" />
     </AssociationSet>
+    <EntitySet Name="Prooves" EntityType="TaalimModel.Proove" />
+    <AssociationSet Name="FK_Prooves_Centers" Association="TaalimModel.FK_Prooves_Centers">
+      <End Role="Center" EntitySet="Centers" />
+      <End Role="Proove" EntitySet="Prooves" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prooves_Employees" Association="TaalimModel.FK_Prooves_Employees">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Proove" EntitySet="Prooves" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prooves_Examination" Association="TaalimModel.FK_Prooves_Examination">
+      <End Role="Examination" EntitySet="Examinations" />
+      <End Role="Proove" EntitySet="Prooves" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prooves_Order" Association="TaalimModel.FK_Prooves_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="Proove" EntitySet="Prooves" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prooves_Students" Association="TaalimModel.FK_Prooves_Students">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Proove" EntitySet="Prooves" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Proove">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="StudentID" Type="Int32" />
+    <Property Name="CenterID" Type="Int32" />
+    <Property Name="OrderID" Type="Int32" />
+    <Property Name="ExaminationID" Type="Int32" />
+    <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeID" Type="Int32" />
+    <NavigationProperty Name="Center" Relationship="TaalimModel.FK_Prooves_Centers" FromRole="Proove" ToRole="Center" />
+    <NavigationProperty Name="Employee" Relationship="TaalimModel.FK_Prooves_Employees" FromRole="Proove" ToRole="Employee" />
+    <NavigationProperty Name="Examination" Relationship="TaalimModel.FK_Prooves_Examination" FromRole="Proove" ToRole="Examination" />
+    <NavigationProperty Name="Order" Relationship="TaalimModel.FK_Prooves_Order" FromRole="Proove" ToRole="Order" />
+    <NavigationProperty Name="Student" Relationship="TaalimModel.FK_Prooves_Students" FromRole="Proove" ToRole="Student" />
+  </EntityType>
+  <Association Name="FK_Prooves_Centers">
+    <End Type="TaalimModel.Center" Role="Center" Multiplicity="0..1" />
+    <End Type="TaalimModel.Proove" Role="Proove" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Center">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Proove">
+        <PropertyRef Name="CenterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prooves_Employees">
+    <End Type="TaalimModel.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="TaalimModel.Proove" Role="Proove" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Proove">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prooves_Examination">
+    <End Type="TaalimModel.Examination" Role="Examination" Multiplicity="0..1" />
+    <End Type="TaalimModel.Proove" Role="Proove" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Examination">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Proove">
+        <PropertyRef Name="ExaminationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prooves_Order">
+    <End Type="TaalimModel.Order" Role="Order" Multiplicity="0..1" />
+    <End Type="TaalimModel.Proove" Role="Proove" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Proove">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prooves_Students">
+    <End Type="TaalimModel.Student" Role="Student" Multiplicity="0..1" />
+    <End Type="TaalimModel.Proove" Role="Proove" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Proove">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

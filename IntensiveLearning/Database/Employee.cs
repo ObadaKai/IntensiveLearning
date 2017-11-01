@@ -11,7 +11,9 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,27 +24,57 @@ namespace IntensiveLearning.Database
             this.Orders = new HashSet<Order>();
             this.Prooves = new HashSet<Proove>();
         }
-    
+
         public int id { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·«”„")]
+        [DisplayName("«”„ «·„ÊŸ›")]
         public string name { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·ﬂ‰Ì…")]
+        [DisplayName("ﬂ‰Ì… «·„ÊŸ›")]
         public string surname { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«·  «—ÌŒ «·Ê·«œ…")]
+        [DisplayName(" «—ÌŒ «·Ê·«œ…")]
         public Nullable<System.DateTime> BDate { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·‘Â«œ…")]
+        [DisplayName("«·‘Â«œ…")]
         public string Certificate { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· ‰Ê⁄ «·‘Â«œ…")]
+        [DisplayName("›∆… «·‘Â«œ…")]
         public string CType { get; set; }
+        [DisplayName("«·Õ«·…")]
         public string State { get; set; }
         public Nullable<int> Centerid { get; set; }
         public Nullable<int> Periodid { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«·  «—ÌŒ «·»œ¡")]
+        [DisplayName(" «—ÌŒ «·»œ¡")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+
         public Nullable<System.DateTime> SDate { get; set; }
+        [DisplayName(" «—ÌŒ «·«‰ Â«¡")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> EDate { get; set; }
         public Nullable<int> Job { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·„” Œœ„")]
+        [DisplayName("«”„ «·„” Œœ„")]
+
         public string Username { get; set; }
+        [DisplayName("ﬂ·„… «·„—Ê—")]
+
         public string Password { get; set; }
         public string Proof { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·—« »")]
+        [DisplayName("«·—« »")]
         public Nullable<double> Salary { get; set; }
         public Nullable<int> CityID { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·√»")]
+        [DisplayName("«”„ «·√»")]
         public string FathersName { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·Ã‰”")]
+        [DisplayName("«·Ã‰”")]
         public string Sex { get; set; }
-    
+
         public virtual Center Center { get; set; }
         public virtual City City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

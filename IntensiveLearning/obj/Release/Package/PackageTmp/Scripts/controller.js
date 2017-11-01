@@ -39,7 +39,7 @@
                 "id": $scope.id, "BDate": $scope.BDate,
                 "Name": $scope.Name, "Surname": $scope.Surname,
                 "Certificate": $scope.Certificate, "Mark": $scope.Mark,
-                "State": $scope.State, "SDate": $scope.SDate,
+                "SDate": $scope.SDate,
                 "Regimentid": $scope.Regimentid, "Stageid": $scope.Stageid,
                 "Centerid": $scope.Centerid, "Sex": $scope.Sex, "FathersName": $scope.FathersName
             };
@@ -178,7 +178,7 @@
 
 
     myApp.controller('SearchCtrl', ['$http', '$scope', '$filter', function ($http, $scope) {
-
+        $scope.showButtons = false;
         $scope.ExamSearchBox = function () {
             if ($scope.ExamSearchBoxData || $scope.ExamSearchBoxDate || $scope.ExamSearchBoxNumber) {
                 var ToSenh2ext = { 'SearchBoxData': $scope.ExamSearchBoxData, 'SearchBoxDate': $scope.ExamSearchBoxDate, 'SearchBoxNumber': $scope.ExamSearchBoxNumber };

@@ -451,6 +451,18 @@ namespace IntensiveLearning.Controllers
             Studentstrings.RemoveAll(item => item == null);
             Studentstrings.Distinct();
 
+            foreach (var student in Studentstrings)
+            {
+                if (student.Center == null)
+                {
+                    student.Center = new Center();
+                }
+                if (student.Center.City == null)
+                {
+                    student.Center.City = new City();
+                }
+            }
+
             var ToSendList = Studentstrings.Select(c => new
             {
                 ID = c.id,

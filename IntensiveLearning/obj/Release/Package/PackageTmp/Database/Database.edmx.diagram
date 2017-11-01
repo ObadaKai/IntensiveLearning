@@ -48,6 +48,12 @@
         <AssociationConnector Association="TaalimModel.FK_Presence_Students" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Students_Regiments" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Students_Stages" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TaalimModel.Proove" Width="1.5" PointX="15.75" PointY="17.75" />
+        <AssociationConnector Association="TaalimModel.FK_Prooves_Centers" />
+        <AssociationConnector Association="TaalimModel.FK_Prooves_Employees" />
+        <AssociationConnector Association="TaalimModel.FK_Prooves_Examination" />
+        <AssociationConnector Association="TaalimModel.FK_Prooves_Order" />
+        <AssociationConnector Association="TaalimModel.FK_Prooves_Students" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

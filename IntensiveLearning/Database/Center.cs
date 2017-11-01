@@ -11,7 +11,9 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Center
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,17 +24,33 @@ namespace IntensiveLearning.Database
             this.Students = new HashSet<Student>();
             this.Prooves = new HashSet<Proove>();
         }
-    
+
         public int id { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇÓã ÇáãÑßÒ")]
+        [DisplayName("ÇÓã ÇáãÑßÒ")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáãæŞÚ")]
+        [DisplayName("ÇáãæŞÚ")]
         public string Place { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÔÑÍ")]
+        [DisplayName("ÇáÔÑÍ")]
         public string Desc { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÍÇáÉ")]
+        [DisplayName("ÇáÍÇáÉ")]
         public string State { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÚÏÏ ÇáÕİæÕ")]
+        [DisplayName("ÚÏÏ ÇáÕİæÕ")]
         public Nullable<int> HolesN { get; set; }
         public Nullable<int> Cityid { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá äæÚ ÇáãäÔÇÉ")]
+        [DisplayName("äæÚ ÇáãäÔÇÉ")]
         public string FoundationType { get; set; }
         public Nullable<int> Periodid { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ãáÇÍÙÇÊ")]
+        [DisplayName("ãáÇÍÙÇÊ")]
         public string Notes { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáãÇáß")]
+        [DisplayName("ÇáãÇáß")]
         public string Owner { get; set; }
         public Nullable<bool> Month10 { get; set; }
         public Nullable<bool> Month11 { get; set; }
@@ -46,14 +64,22 @@ namespace IntensiveLearning.Database
         public Nullable<bool> Month7 { get; set; }
         public Nullable<bool> Month8 { get; set; }
         public Nullable<bool> Month9 { get; set; }
+        [DisplayName("ÇáİÊíÇä")]
         public Nullable<int> TargetedMen { get; set; }
+        [DisplayName("ÇáİÊíÇÊ")]
         public Nullable<int> TargetedWomen { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá äæÚ ÇáãÑßÒ")]
+        [DisplayName("äæÚ ÇáãÑßÒ")]
         public string CenterType { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÏİÚ ÇáÔåÑí")]
+        [DisplayName("ÇáÏİÚ ÇáÔåÑí")]
         public Nullable<int> MonthlyPayment { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÏİÚ ÇáÑÈÚí")]
+        [DisplayName("ÇáÏİÚ ÇáÑÈÚí")]
         public Nullable<int> QuarterPayment { get; set; }
         public string Proof { get; set; }
         public Nullable<int> ProjectID { get; set; }
-    
+
         public virtual City City { get; set; }
         public virtual Period Period { get; set; }
         public virtual Project Project { get; set; }

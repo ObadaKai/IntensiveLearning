@@ -9,13 +9,17 @@ body {
 
 }
 .bg-full {
-    position:fixed;
-    height:100%;
-    width:100%;
-    background-image: url('Images/Photo.jpg');
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-image: url('Images/pexels-photo-247839.jpeg');
+    -webkit-filter: blur(7px);
+    -moz-filter: blur(7px);
+    -ms-filter: blur(7px);
+    filter: blur(7px);
     background-size: cover;
     background-repeat: no-repeat;
-    z-index:-1;
+    z-index: -1;
     background-position: bottom;
 }
 
@@ -31,8 +35,10 @@ height:100px;
 padding-right:5px;
 text-align:right;
 }
+.form-horizontal {
+    /*background-color:rgba(255,255,255,0.7);*/
 
-
+}
 .HigherThanNumber::-webkit-input-placeholder {
     text-align: right;
 }
@@ -59,8 +65,9 @@ label, h4{
     color: white;
 }
 a {
-    color: #f0ad4e;
-    font-size:16px;
+    color: #250804;
+    font-size: 16px;
+    font-family:Cairo;
 }
 a:hover,a:focus{
     color:white;
@@ -117,7 +124,7 @@ textarea {
 }
 
 .Login-Background {
-    background-image: url('Images/Photo.jpg');
+    background-image: url('Images/pexels-photo-247839.jpeg');
     height:100%;
     width:100%;
     background-size: cover;
@@ -165,8 +172,8 @@ textarea {
 
 
 .Login-Card-Mobile {
-    position: absolute;
-    bottom: 40%;
+    position: fixed;
+    top: 33%;
     width: 100%;
     padding: 10px;
     background-color: rgba(255,255,255,0.7);
@@ -274,7 +281,7 @@ textarea {
     }
 
 thead .bg-primary {
-    background-color: #250804;
+    background-color: rgba(37, 8, 4,0.7);
 }
 #leftMenu {
     transition: all ease 0.4s;
@@ -292,7 +299,7 @@ thead .bg-primary {
         cursor: pointer;
     }
 .navbar-fixed-top {
-    background-color: #250804;
+    background-color: rgba(37, 8, 4,0.7);
 }
 .navbar-brand{
     display:inline-block;
@@ -320,29 +327,29 @@ thead .bg-primary {
 
 }
     .HomePageNavBar > li:hover, .HomePageNavBar > li:focus, .HomePageNavBar > li:active {
-        background-color: #250804;
+        background-color: rgba(37, 8, 4,0.3);
     }
     .HomePageNavBar > li > a {
         line-height: 44px;
     }
         .HomePageNavBar > li > a:hover, .HomePageNavBar > li > a:focus, .HomePageNavBar > li > a:active {
-            background-color: #250804;
+            background-color: rgba(37, 8, 4,0.3);
         }
     .HomePageNavBar .open > a, .HomePageNavBar .open > a:hover, .HomePageNavBar .open > a:focus {
-        background-color: #250804;
+        background-color: rgba(37, 8, 4,0.3);
     }
     .HomePageNavBar .open .dropdown-menu {
-        background-color: #250804;
-        text-align:right;
+        background-color: rgba(37, 8, 4,0.8);
+        text-align: right;
     }
 
         .HomePageNavBar .open .dropdown-menu > li > a {
             color: white;
         }
-        .HomePageNavBar .open .dropdown-menu > li > a:hover, .HomePageNavBar .open .dropdown-menu > li > a:focus {
-            color: #eea236;
-            background-color: #250804;
-        }
+            .HomePageNavBar .open .dropdown-menu > li > a:hover, .HomePageNavBar .open .dropdown-menu > li > a:focus {
+                color: #eea236;
+                background-color: rgba(37, 8, 4,0.3);
+            }
 .navbar-fixed-top{
     height:75px;
 }

@@ -46,3 +46,6 @@ C:\Users\Work\source\repos\IntensiveLearning\IntensiveLearning\bin\Microsoft.Asp
 C:\Users\Work\source\repos\IntensiveLearning\IntensiveLearning\bin\System.Diagnostics.DiagnosticSource.dll
 C:\Users\Work\source\repos\IntensiveLearning\IntensiveLearning\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\Work\source\repos\IntensiveLearning\IntensiveLearning\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Work\source\repos\IntensiveLearning\IntensiveLearning\bin\DotNetZip.dll
+C:\Users\Work\source\repos\IntensiveLearning\IntensiveLearning\bin\System.IO.Compression.ZipFile.dll
+C:\Users\Work\source\repos\IntensiveLearning\IntensiveLearning\bin\DotNetZip.xml

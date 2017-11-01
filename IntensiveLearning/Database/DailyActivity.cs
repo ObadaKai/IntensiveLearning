@@ -11,15 +11,23 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class DailyActivity
     {
         public int id { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «· ﬁ—Ì—")]
+        [DisplayName("«· ﬁ—Ì—")]
         public string Report { get; set; }
+        [DisplayName("«·„·«ÕŸ« ")]
         public string Observation { get; set; }
         public Nullable<int> Managerid { get; set; }
+        [DisplayName("«· «—ÌŒ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+
         public Nullable<System.DateTime> date { get; set; }
-    
+
         public virtual Employee Employee { get; set; }
     }
 }

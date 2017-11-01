@@ -178,7 +178,7 @@
 
 
     myApp.controller('SearchCtrl', ['$http', '$scope', '$filter', function ($http, $scope) {
-
+        $scope.showButtons = false;
         $scope.ExamSearchBox = function () {
             if ($scope.ExamSearchBoxData || $scope.ExamSearchBoxDate || $scope.ExamSearchBoxNumber) {
                 var ToSenh2ext = { 'SearchBoxData': $scope.ExamSearchBoxData, 'SearchBoxDate': $scope.ExamSearchBoxDate, 'SearchBoxNumber': $scope.ExamSearchBoxNumber };

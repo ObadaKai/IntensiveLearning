@@ -96,7 +96,7 @@
                                         if ((bool)Session["AddManagers"] == true)
                                         {
 
-                                            <div style="width:180px;">
+                                            <div style="width:210px;">
                                                 @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
                                                 @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
                                                 @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
@@ -119,7 +119,7 @@
                                         if ((bool)Session["AddCoManagers"] == true)
                                         {
 
-                                            <div style="width:180px;">
+                                            <div style="width:210px;">
                                                 @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
                                                 @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
                                                 @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
@@ -144,7 +144,7 @@
                                         if ((bool)Session["AddSchoolManagers"] == true)
                                         {
 
-                                            <div style="width:180px;">
+                                            <div style="width:210px;">
                                                 @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
                                                 @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
                                                 @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
@@ -167,7 +167,7 @@
                                         if ((bool)Session["AddSchoolEmployees"] == true)
                                         {
 
-                                            <div style="width:180px;">
+                                            <div style="width:210px;">
                                                 @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
                                                 @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
                                                 @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
@@ -306,14 +306,10 @@
                             if ((bool)Session["AddManagers"] == true)
                             {
 
-                                <div style="width:180px;" ng-if="Exam.EmpManager==true">
+                                <div style="width:210px;" ng-if="Exam.EmpManager==true ? showButtons =true : null">
                                     <a class="btn btn-danger" href="/Employees/Delete/{{Exam.ID}}">حذف</a>
                                     <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}">معلومات</a>
                                     <a class="btn btn-success" href="/Employees/Edit/{{Exam.ID}}">تعديل</a>
-                                </div>
-
-                                <div ng-if="!Exam.EmpManager==true">
-                                    <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}">معلومات</a>
                                 </div>
 
 
@@ -325,17 +321,12 @@
                             /**/
                             if ((bool)Session["AddCoManagers"] == true)
                             {
-                                <div style="width:180px;" ng-if="Exam.EmpCoManager==true">
+                                <div style="width:180px;" ng-if="Exam.EmpCoManager==true ? showButtons =true : null">
 
                                     <a class="btn btn-danger" href="/Employees/Delete/{{Exam.ID}}">حذف</a>
                                     <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}">معلومات</a>
                                     <a class="btn btn-success" href="/Employees/Edit/{{Exam.ID}}">تعديل</a>
                                 </div>
-
-                                <div ng-if="!Exam.EmpCoManager==true">
-                                    <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}">معلومات</a>
-                                </div>
-
                             }
 
                         }
@@ -348,16 +339,13 @@
                             /**/
                             if ((bool)Session["AddSchoolManagers"] == true)
                             {
-                                <div style="width:180px;" ng-if="Exam.EmpSchoolManager==true">
+                                <div style="width:180px;" ng-if="Exam.EmpSchoolManager==true ? showButtons =true : null">
 
-                                    <a class="btn btn-danger" href="/Employees/Delete/{{Exam.ID}}">حذف</a>
+                                    <a class="btn btn-danger" href="/Employees/Delete/{{Exam.ID}}" ng-init="showButtons = true">حذف</a>
                                     <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}">معلومات</a>
                                     <a class="btn btn-success" href="/Employees/Edit/{{Exam.ID}}">تعديل</a>
                                 </div>
 
-                                <div ng-if="!Exam.EmpSchoolManager==true">
-                                    <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}">معلومات</a>
-                                </div>
                             }
                         }
 
@@ -366,24 +354,25 @@
                             /**/
                             if ((bool)Session["AddSchoolEmployees"] == true)
                             {
-                                <div style="width:180px;" ng-if="Exam.EmpNormal==true">
+                                <div style="width:180px;" ng-if="Exam.EmpNormal==true ? showButtons =true : null">
 
                                     <a class="btn btn-danger" href="/Employees/Delete/{{Exam.ID}}">حذف</a>
                                     <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}">معلومات</a>
                                     <a class="btn btn-success" href="/Employees/Edit/{{Exam.ID}}">تعديل</a>
                                 </div>
 
-                                <div ng-if="!Exam.EmpNormal==true">
-                                    <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}">معلومات</a>
-                                </div>
 
                             }
                         }
                         else
                         {
-                            <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}">معلومات</a>
 
                         }
+                        <div ng-if="showButtons ==true ?null:showButtons = false "></div>
+
+                        <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}" ng-init="showButtons = false">معلومات</a>
+
+
 
 
                     </td>

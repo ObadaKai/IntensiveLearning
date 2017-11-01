@@ -79,7 +79,7 @@
                                 {
                                     if ((bool)Session["AddExam"] == true)
                                     {
-                                        <div style="width:180px;">
+                                        <div style="width:210px;">
                                             @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
 
                                             @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
@@ -187,7 +187,7 @@
                         }
                         else
                         {
-                            <div style="width:180px;">
+                            <div style="width:210px;">
 
                                 <a class="btn btn-danger" href="/Examinations/Delete/{{Exam.ID}}">حذف</a>
                                 <a class="btn btn-info" href="/Examinations/Details/{{Exam.ID}}">معلومات</a>

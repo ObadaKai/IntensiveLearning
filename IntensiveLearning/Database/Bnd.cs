@@ -11,7 +11,9 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Bnd
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,8 +23,13 @@ namespace IntensiveLearning.Database
         }
     
         public int id { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·»‰œ")]
+        [DisplayName("«”„ «·»‰œ")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·—ﬁ„ «·ﬂ·Ì")]
+        [DisplayName("«·—ﬁ„ «·ﬂ·Ì")]
         public Nullable<int> TotalNum { get; set; }
+        [DisplayName("«·—ﬁ„ »⁄œ «· Œ›Ì÷")]
         public Nullable<int> AfterReductionNum { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
