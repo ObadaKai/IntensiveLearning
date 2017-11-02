@@ -3,417 +3,472 @@
 @{
     ViewBag.Title = "Delete";
 }
+    <div class="WhiteBlur">
+        <h2>حذف</h2>
 
-<h2>حذف</h2>
+        <h3>هل أنت متأكد من حذف المركز؟</h3>
+        <div class="InfoContainer">
+            <h4>المركز</h4>
+            <hr />
 
-<h3>هل أنت متأكد من حذف المركز؟</h3>
-<div>
-    <h4>المركز</h4>
-    <hr />
-
-    <div class="col-sm-6">
+            <div class="col-sm-6 pull-right">
 
 
-        <h4>
-            @Html.DisplayNameFor(model => model.Month1)
-        </h4>
 
-        <p>
-            @if (Model.Month1 != null)
+
+                @if (Model.Name != null)
             {
-                if (Model.Month1 == true)
-                {
-                    @:نعم
-            }
-                else
-                {
-                    @:لا
-            }
-            }
-            else
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.Name)
+                    </p>
+                }
+
+                @if (Model.Place != null)
             {
-                @:لا
-        }
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Place)
+                    </h4>
 
-        </p>
+                    <p>
+                        @Html.DisplayFor(model => model.Place)
+                    </p>
+                }
 
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Month2)
-        </h4>
-
-        <p>
-            @if (Model.Month2 != null)
+                @if (Model.Desc != null)
             {
-                if (Model.Month2 == true)
-                {
-                    @:نعم
-            }
-                else
-                {
-                    @:لا
-            }
-            }
-            else
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Desc)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.Desc)
+                    </p>
+                }
+
+                @if (Model.FoundationType != null)
             {
-                @:لا
-        }
+                    <h4>
+                        @Html.DisplayNameFor(model => model.FoundationType)
+                    </h4>
 
-        </p>
+                    <p>
+                        @Html.DisplayFor(model => model.FoundationType)
+                    </p>
+                }
 
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Month3)
-        </h4>
-
-        <p>
-            @if (Model.Month3 != null)
+                @if (Model.MonthlyPayment != null)
             {
-                if (Model.Month3 == true)
-                {
-                    @:نعم
-            }
-                else
-                {
-                    @:لا
-            }
-            }
-            else
+                    <h4>
+                        @Html.DisplayNameFor(model => model.MonthlyPayment)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.MonthlyPayment)
+                    </p>
+                }
+
+
+                @if (Model.Owner != null)
             {
-                @:لا
-        }
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Owner)
+                    </h4>
 
-        </p>
+                    <p>
+                        @Html.DisplayFor(model => model.Owner)
+                    </p>
+                }
 
-
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Month4)
-        </h4>
-
-        <p>
-            @if (Model.Month4 != null)
+                @if (Model.QuarterPayment != null)
             {
-                if (Model.Month4 == true)
-                {
-                    @:نعم
-            }
-                else
-                {
-                    @:لا
-            }
-            }
-            else
+                    <h4>
+                        @Html.DisplayNameFor(model => model.QuarterPayment)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.QuarterPayment)
+                    </p>
+                }
+
+
+                @if (Model.City != null)
             {
-                @:لا
-        }
-
-        </p>
-
-
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Month5)
-        </h4>
-
-        <p>
-            @if (Model.Month5 != null)
-            {
-                if (Model.Month5 == true)
+                if (Model.City.Name != null)
                 {
-                    @:نعم
-            }
-                else
-                {
-                    @:لا
-            }
-            }
-            else
-            {
-                @:لا
-        }
+                        <h4>
+                            @Html.DisplayNameFor(model => model.City.Name)
+                        </h4>
 
-        </p>
+                        <p>
+                            @Html.DisplayFor(model => model.City.Name)
+                        </p>
+                    }
+                }
 
 
 
-        <h4>
-            @Html.DisplayNameFor(model => model.Month6)
-        </h4>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Month10)
+                </h4>
 
-        <p>
-            @if (Model.Month6 != null)
-            {
-                if (Model.Month6 == true)
-                {
-                    @:نعم
-            }
-                else
-                {
-                    @:لا
-            }
-            }
-            else
-            {
-                @:لا
-        }
-
-        </p>
-
-
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Month7)
-        </h4>
-
-        <p>
-            @if (Model.Month7 != null)
-            {
-                if (Model.Month7 == true)
-                {
-                    @:نعم
-            }
-                else
-                {
-                    @:لا
-            }
-            }
-            else
-            {
-                @:لا
-        }
-
-        </p>
-
-
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Month8)
-        </h4>
-
-        <p>
-            @if (Model.Month8 != null)
-            {
-                if (Model.Month8 == true)
-                {
-                    @:نعم
-            }
-                else
-                {
-                    @:لا
-            }
-            }
-            else
-            {
-                @:لا
-        }
-
-        </p>
-
-
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Month9)
-        </h4>
-
-        <p>
-            @if (Model.Month9 != null)
-            {
-                if (Model.Month9 == true)
-                {
-                    @:نعم
-            }
-                else
-                {
-                    @:لا
-            }
-            }
-            else
-            {
-                @:لا
-        }
-
-        </p>
-
-
-        <h4>
-            @Html.DisplayNameFor(model => model.State)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.State)
-        </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.HolesN)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.HolesN)
-        </p>
-
-
-
-    </div>
-
-    <div class="col-sm-6">
-        <h4>
-            @Html.DisplayNameFor(model => model.Name)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.Name)
-        </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Place)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.Place)
-        </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Desc)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.Desc)
-        </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.FoundationType)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.FoundationType)
-        </p>
-
-
-        <h4>
-            @Html.DisplayNameFor(model => model.MonthlyPayment)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.MonthlyPayment)
-        </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Owner)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.Owner)
-        </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.QuarterPayment)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.QuarterPayment)
-        </p>
-
-
-        <h4>
-            @Html.DisplayNameFor(model => model.City.Name)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.City.Name)
-        </p>
-        <h4>
-            @Html.DisplayNameFor(model => model.Notes)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.Notes)
-        </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Month10)
-        </h4>
-
-        <p>
-            @if (Model.Month10 != null)
+                <p>
+                    @if (Model.Month10 != null)
             {
                 if (Model.Month10 == true)
                 {
-                    @:نعم
+                            @:نعم
                 }
                 else
                 {
-                    @:لا
+                            @:لا
                 }
             }
             else
             {
-                @:لا
+                        @:لا
             }
 
-        </p>
+                </p>
 
 
 
-        <h4>
-            @Html.DisplayNameFor(model => model.Month11)
-        </h4>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Month11)
+                </h4>
 
-        <p>
-            @if (Model.Month11 != null)
+                <p>
+                    @if (Model.Month11 != null)
             {
                 if (Model.Month11 == true)
                 {
-                    @:نعم
+                            @:نعم
             }
                 else
                 {
-                    @:لا
+                            @:لا
             }
             }
             else
             {
-                @:لا
+                        @:لا
         }
 
-        </p>
+                </p>
 
 
 
-        <h4>
-            @Html.DisplayNameFor(model => model.Month12)
-        </h4>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Month12)
+                </h4>
 
-        <p>
-            @if (Model.Month12 != null)
+                <p>
+                    @if (Model.Month12 != null)
             {
                 if (Model.Month12 == true)
                 {
-                    @:نعم
+                            @:نعم
             }
                 else
                 {
-                    @:لا
+                            @:لا
             }
             }
             else
             {
-                @:لا
+                        @:لا
         }
-        </p>
-
-    </div>
+                </p>
 
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+                @if (Model.Proof != null)
+            {
+                    <h4>تحميل المحتوى</h4>
+                    <p>
 
-        <div class="form-actions no-color">
-            <input type="submit" value="حذف" class="btn btn-danger" /> |
-            @Html.ActionLink("العودة إلى اللائحة", "Index")
+                        @Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = Model.Proof }, null)
+
+                    </p>
+                }
+
+            </div>
+
+            <div class="col-sm-6 pull-left">
+
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Month1)
+                </h4>
+
+                <p>
+                    @if (Model.Month1 != null)
+            {
+                if (Model.Month1 == true)
+                {
+                            @:نعم
+            }
+                else
+                {
+                            @:لا
+            }
+            }
+            else
+            {
+                        @:لا
+        }
+
+                </p>
+
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Month2)
+                </h4>
+
+                <p>
+                    @if (Model.Month2 != null)
+            {
+                if (Model.Month2 == true)
+                {
+                            @:نعم
+            }
+                else
+                {
+                            @:لا
+            }
+            }
+            else
+            {
+                        @:لا
+        }
+
+                </p>
+
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Month3)
+                </h4>
+
+                <p>
+                    @if (Model.Month3 != null)
+            {
+                if (Model.Month3 == true)
+                {
+                            @:نعم
+            }
+                else
+                {
+                            @:لا
+            }
+            }
+            else
+            {
+                        @:لا
+        }
+
+                </p>
+
+
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Month4)
+                </h4>
+
+                <p>
+                    @if (Model.Month4 != null)
+            {
+                if (Model.Month4 == true)
+                {
+                            @:نعم
+            }
+                else
+                {
+                            @:لا
+            }
+            }
+            else
+            {
+                        @:لا
+        }
+
+                </p>
+
+
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Month5)
+                </h4>
+
+                <p>
+                    @if (Model.Month5 != null)
+            {
+                if (Model.Month5 == true)
+                {
+                            @:نعم
+            }
+                else
+                {
+                            @:لا
+            }
+            }
+            else
+            {
+                        @:لا
+        }
+
+                </p>
+
+
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Month6)
+                </h4>
+
+                <p>
+                    @if (Model.Month6 != null)
+            {
+                if (Model.Month6 == true)
+                {
+                            @:نعم
+            }
+                else
+                {
+                            @:لا
+            }
+            }
+            else
+            {
+                        @:لا
+        }
+
+                </p>
+
+
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Month7)
+                </h4>
+
+                <p>
+                    @if (Model.Month7 != null)
+            {
+                if (Model.Month7 == true)
+                {
+                            @:نعم
+            }
+                else
+                {
+                            @:لا
+            }
+            }
+            else
+            {
+                        @:لا
+        }
+
+                </p>
+
+
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Month8)
+                </h4>
+
+                <p>
+                    @if (Model.Month8 != null)
+            {
+                if (Model.Month8 == true)
+                {
+                            @:نعم
+            }
+                else
+                {
+                            @:لا
+            }
+            }
+            else
+            {
+                        @:لا
+        }
+
+                </p>
+
+
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Month9)
+                </h4>
+
+                <p>
+                    @if (Model.Month9 != null)
+            {
+                if (Model.Month9 == true)
+                {
+                            @:نعم
+            }
+                else
+                {
+                            @:لا
+            }
+            }
+            else
+            {
+                        @:لا
+        }
+
+                </p>
+                @if (Model.Notes != null)
+            {
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Notes)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.Notes)
+                    </p>
+                }
+                @if (Model.State != null)
+            {
+                    <h4>
+                        @Html.DisplayNameFor(model => model.State)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.State)
+                    </p>
+                }
+
+                @if (Model.HolesN != null)
+            {
+                    <h4>
+                        @Html.DisplayNameFor(model => model.HolesN)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.HolesN)
+                    </p>
+                }
+
+
+
+
+
+
+
+            </div>
         </div>
-    }
-    <p class="text-danger">@ViewBag.error</p>
-    text-danger
-</div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="حذف" class="btn btn-danger" /> |
+                    @Html.ActionLink("العودة إلى اللائحة", "Index")
+                </div>
+            }
+            <p class="text-danger">@ViewBag.error</p>
+       
+    </div>

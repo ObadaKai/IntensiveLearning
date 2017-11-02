@@ -3,12 +3,12 @@
 @{
     ViewBag.Title = "حذف";
 }
-
+<div class="WhiteBlur">
 <h2>حذف</h2>
 
 <h3>هل أنت متاكد من حذف المدينة؟</h3>
-<div>
-    <h4>موظف</h4>
+    <div class="InfoContainer">
+        <h4>موظف</h4>
 
         <h4>
             @Html.DisplayNameFor(model => model.Name)
@@ -33,7 +33,7 @@
         <p>
             @Html.DisplayFor(model => model.Project.ProjectName)
         </p>
-
+    </div>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()

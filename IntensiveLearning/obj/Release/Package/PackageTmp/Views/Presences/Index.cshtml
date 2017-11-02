@@ -82,20 +82,16 @@
                                     if ((bool)Session["AddPresence"] == true)
                                     {
 
-                                        <div style="width:210px;">
-
-                                            @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-
-                                            @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
-                                            @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                                        <div style="width:130px;">
+                                            <a href="/Presences/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                            <a href="/Presences/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                            <a href="/Presences/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
                                         </div>
                                     }
-
                                 }
-
                                 else
                                 {
-                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+                                    <a href="/Presences/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                                 }
                             </td>
 
@@ -249,16 +245,16 @@
                             if ((bool)Session["AddPresence"] == true)
                             {
                                 <div style="width:210px;">
-                                    <a class="btn btn-danger" href="/Presences/Delete/{{Exam.ID}}">حذف</a>
-                                    <a class="btn btn-info" href="/Presences/Details/{{Exam.ID}}">معلومات</a>
-                                    <a class="btn btn-success" href="/Presences/Edit/{{Exam.ID}}">تعديل</a>
+                                    <a class="btn btn-danger" href="/Presences/Delete/{{Exam.ID}}"  title="حذف"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a class="btn btn-info" href="/Presences/Details/{{Exam.ID}}"  title="معلومات"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                    <a class="btn btn-success" href="/Presences/Edit/{{Exam.ID}}" title="تعديل"><span class="glyphicon glyphicon-pencil"></span></a>
                                 </div>
                             }
 
                         }
                         else
                         {
-                            <a class="btn btn-info" href="/Presences/Details/{{Exam.ID}}">معلومات</a>
+                            <a class="btn btn-info" href="/Presences/Details/{{Exam.ID}}" title="معلومات"><span class="glyphicon glyphicon-folder-open"></span></a>
                         }
 
                     </td>

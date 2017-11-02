@@ -79,25 +79,22 @@
                                 {
                                     if ((bool)Session["AddExam"] == true)
                                     {
-                                        <div style="width:210px;">
-                                            @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-
-                                            @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
-                                            @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                                        <div style="width:130px;">
+                                            <a href="/Examinations/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                            <a href="/Examinations/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                            <a href="/Examinations/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
                                         </div>
                                     }
-
                                 }
-
                                 else
                                 {
-                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+                                    <a href="/Examinations/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                                 }
                             </td>
                             <td>
                                 @if (item.Proof != null)
                                 {
-                                    @Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = item.Proof }, new { @class = "btn btn-warning" })
+                                    <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof} )" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
                                 }
                             </td>
                             <td>
@@ -181,23 +178,25 @@
                         {
                             if ((bool)Session["AddExam"] == true)
                             {
-                                <a class="btn btn-info" href="/Examinations/Details/{{Exam.ID}}">معلومات</a>
+                                <div style="width:210px;">
+
+                                    <a class="btn btn-danger" href="/Examinations/Delete/{{Exam.ID}}"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a class="btn btn-info" href="/Examinations/Details/{{Exam.ID}}"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                    <a class="btn btn-success" href="/Examinations/Edit/{{Exam.ID}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                </div>
                             }
 
                         }
                         else
                         {
-                            <div style="width:210px;">
+                            <a class="btn btn-info" href="/Examinations/Details/{{Exam.ID}}"><span class="glyphicon glyphicon-folder-open"></span></a>
 
-                                <a class="btn btn-danger" href="/Examinations/Delete/{{Exam.ID}}">حذف</a>
-                                <a class="btn btn-info" href="/Examinations/Details/{{Exam.ID}}">معلومات</a>
-                                <a class="btn btn-success" href="/Examinations/Edit/{{Exam.ID}}">تعديل</a>
-                            </div>
                         }
                     </td>
 
                     <td>
-                        <a class="btn btn-warning" href="/Json/DownloadProof/{{Exam.Proof}}">تحميل</a>
+                        <a class="btn btn-warning" href="/Json/DownloadProof/{{Exam.Proof}}"><span class="glyphicon glyphicon-download-alt"></span></a>
+</a>
                     </td>
 
                     <td>{{Exam.Mark}}</td>

@@ -3,47 +3,48 @@
 @{
     ViewBag.Title = "معلومات";
 }
+<div class="WhiteBlur">
+    <h2>معلومات</h2>
 
-<h2>معلومات</h2>
+    <div>
+        <h4>مشروع</h4>
+        <hr />
 
-<div>
-    <h4>مشروع</h4>
-    <hr />
+        <h4>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </h4>
 
-    <h4>
-        @Html.DisplayNameFor(model => model.ProjectName)
-    </h4>
+        <p>
+            @Html.DisplayFor(model => model.ProjectName)
+        </p>
 
+        <h4>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.StartDate)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.EndDate)
+        </p>
+
+    </div>
     <p>
-        @Html.DisplayFor(model => model.ProjectName)
-    </p>
-
-    <h4>
-        @Html.DisplayNameFor(model => model.StartDate)
-    </h4>
-
-    <p>
-        @Html.DisplayFor(model => model.StartDate)
-    </p>
-
-    <h4>
-        @Html.DisplayNameFor(model => model.EndDate)
-    </h4>
-
-    <p>
-        @Html.DisplayFor(model => model.EndDate)
+        @if (Session["AddNewProject"] != null)
+        {
+            if ((bool)Session["AddNewProject"] == true)
+            {
+                @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+                @: |
+    }
+        }
+        @Html.ActionLink("العودة إلى اللائحة", "Index")
     </p>
 
 </div>
-<p>
-    @if (Session["AddNewProject"] != null)
-    {
-        if ((bool)Session["AddNewProject"] == true)
-        {
-            @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
-            @: |
-    }
-    }
-    @Html.ActionLink("العودة إلى اللائحة", "Index")
-</p>
-

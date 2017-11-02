@@ -3,48 +3,49 @@
 @{
     ViewBag.Title = "معلومات";
 }
+<div class="WhiteBlur">
+    <h2>معلومات</h2>
 
-<h2>معلومات</h2>
+    <div class="InfoContainer">
+        <h4>مدينة</h4>
+        <hr />
+        <h4>
+            @Html.DisplayNameFor(model => model.Name)
+        </h4>
 
-<div>
-    <h4>مدينة</h4>
-    <hr />
-    <h4>
-        @Html.DisplayNameFor(model => model.Name)
-    </h4>
+        <p>
+            @Html.DisplayFor(model => model.Name)
+        </p>
 
+        <h4>
+            @Html.DisplayNameFor(model => model.CountryName)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.CountryName)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Project.ProjectName)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Project.ProjectName)
+        </p>
+
+
+
+
+    </div>
     <p>
-        @Html.DisplayFor(model => model.Name)
-    </p>
-
-    <h4>
-        @Html.DisplayNameFor(model => model.CountryName)
-    </h4>
-
-    <p>
-        @Html.DisplayFor(model => model.CountryName)
-    </p>
-
-    <h4>
-        @Html.DisplayNameFor(model => model.Project.ProjectName)
-    </h4>
-
-    <p>
-        @Html.DisplayFor(model => model.Project.ProjectName)
-    </p>
-
-
-
-
-</div>
-<p>
-    @if (Session["AddCitesAndCenters"] != null)
-    {
-        @if ((bool)Session["AddCitesAndCenters"] == true)
+        @if (Session["AddCitesAndCenters"] != null)
         {
-            @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
-            @: |
+            if ((bool)Session["AddCitesAndCenters"] == true)
+            {
+                @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+                @: |
         }
-    }
-    @Html.ActionLink("العودة إلى اللائحة", "Index")
-</p>
+        }
+        @Html.ActionLink("العودة إلى اللائحة", "Index")
+    </p>
+</div>

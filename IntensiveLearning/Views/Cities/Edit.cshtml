@@ -1,17 +1,17 @@
 ﻿@model IntensiveLearning.Database.City
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "تعديل";
 }
 
-<h2>Edit</h2>
+<h2>تعديل</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>City</h4>
+        <h4>مدينة</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
@@ -42,12 +42,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="حفظ" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("العودة إلى اللائحة", "Index")
 </div>
