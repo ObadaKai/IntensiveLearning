@@ -881,7 +881,7 @@ namespace IntensiveLearning.Controllers
                 if (type.AddCitesAndCenters == true)
                 {
                     Center center = db.Centers.Find(id);
-                    var pathW = Server.MapPath("~\\App_Data\\Centers\\" + center.id);
+                    var path = Server.MapPath("~\\App_Data\\Centers\\");
                     var prooves = db.Prooves.Where(x => x.CenterID == center.id);
                     foreach (var item in prooves)
                     {
@@ -889,22 +889,34 @@ namespace IntensiveLearning.Controllers
                     }
 
                     db.Centers.Remove(center);
+
                     try
                     {
                         db.SaveChanges();
-                        var path = Path.GetDirectoryName(pathW);
-                        try
+                        if (Directory.Exists(path + "\\" + center.id))
                         {
-                            Directory.Delete(path, true);
+
+
+                            try
+                            {
+                                Directory.Delete(path + "\\" + center.id, true);
+                            }
+                            catch (IOException)
+                            {
+                                Directory.Delete(path + "\\" + center.id, true);
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                Directory.Delete(path + "\\" + center.id, true);
+                            }
                         }
-                        catch (IOException)
-                        {
-                            Directory.Delete(path, true);
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            Directory.Delete(path, true);
-                        }
+
+                            if (System.IO.File.Exists(path + "ZipFolder\\" + center.id + ".zip"))
+                            {
+                                System.IO.File.Delete(path + "ZipFolder\\" + center.id + ".zip");
+                            }
+
+
                     }
                     catch
                     {

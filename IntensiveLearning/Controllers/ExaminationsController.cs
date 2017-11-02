@@ -423,28 +423,38 @@ namespace IntensiveLearning.Controllers
                 if (type.AddExam == true)
                 {
                     Examination examination = db.Examinations.Find(id);
-                    var pathW = examination.Proof;
-                    var prooves = db.Prooves.Where(x => x.ExaminationID == examination.id);
+                    var path = Server.MapPath("~\\App_Data\\Examinations\\");
+                    var prooves = db.Prooves.Where(x => x.CenterID == examination.id);
                     foreach (var item in prooves)
                     {
                         db.Prooves.Remove(item);
                     }
+
                     db.Examinations.Remove(examination);
+
                     try
                     {
                         db.SaveChanges();
-                        var path = Path.GetDirectoryName(pathW);
-                        try
+                        if (Directory.Exists(path + "\\" + examination.id))
                         {
-                            Directory.Delete(path, true);
+
+
+                            try
+                            {
+                                Directory.Delete(path + "\\" + examination.id, true);
+                            }
+                            catch (IOException)
+                            {
+                                Directory.Delete(path + "\\" + examination.id, true);
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                Directory.Delete(path + "\\" + examination.id, true);
+                            }
                         }
-                        catch (IOException)
+                        if (System.IO.File.Exists(path + "ZipFolder\\" + examination.id))
                         {
-                            Directory.Delete(path, true);
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            Directory.Delete(path, true);
+                            System.IO.File.Delete(path + "ZipFolder\\" + examination.id);
                         }
 
                     }

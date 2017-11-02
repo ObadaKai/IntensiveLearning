@@ -16,6 +16,10 @@ namespace IntensiveLearning.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            if (Session["ID"] != null)
+            {
+                RedirectToAction("Default");
+            }
             return View();
         }
 

@@ -1311,12 +1311,6 @@ namespace IntensiveLearning.Controllers
                 if (type.AddManagers == true)
                 {
                     Employee employee = db.Employees.Find(id);
-                    var pathW = employee.Proof;
-                    var prooves = db.Prooves.Where(x => x.EmployeeID == employee.id);
-                    foreach (var item in prooves)
-                    {
-                        db.Prooves.Remove(item);
-                    }
                     if (employee == null)
                     {
                         return HttpNotFound();
@@ -1324,23 +1318,39 @@ namespace IntensiveLearning.Controllers
                     if (employee.EmployeeType.Manager == true)
                     {
 
+                        
+                        var path = Server.MapPath("~\\App_Data\\Employees\\");
+                        var prooves = db.Prooves.Where(x => x.EmployeeID == employee.id);
+                        foreach (var item in prooves)
+                        {
+                            db.Prooves.Remove(item);
+                        }
                         db.Employees.Remove(employee);
                         try
                         {
                             db.SaveChanges();
-                            var path = Path.GetDirectoryName(pathW);
-                            try
+                            if (Directory.Exists(path + "\\" + employee.id))
                             {
-                                Directory.Delete(path, true);
+
+
+                                try
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                                catch (IOException)
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                                catch (UnauthorizedAccessException)
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
                             }
-                            catch (IOException)
+                            if (System.IO.File.Exists(Server.MapPath(path + "\\ZipFolder\\" + employee.id)))
                             {
-                                Directory.Delete(path, true);
+                                System.IO.File.Delete(Server.MapPath(path + "\\ZipFolder\\" + employee.id));
                             }
-                            catch (UnauthorizedAccessException)
-                            {
-                                Directory.Delete(path, true);
-                            }
+
                         }
                         catch
                         {
@@ -1361,9 +1371,45 @@ namespace IntensiveLearning.Controllers
                     if (employee.EmployeeType.CoManager == true)
                     {
 
+                        var path = Server.MapPath("~\\App_Data\\Employees\\");
+                        var prooves = db.Prooves.Where(x => x.EmployeeID == employee.id);
+                        foreach (var item in prooves)
+                        {
+                            db.Prooves.Remove(item);
+                        }
                         db.Employees.Remove(employee);
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        try
+                        {
+                            db.SaveChanges();
+                            if (Directory.Exists(path + "\\" + employee.id))
+                            {
+
+
+                                try
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                                catch (IOException)
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                                catch (UnauthorizedAccessException)
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                            }
+                            if (System.IO.File.Exists(path + "ZipFolder\\" + employee.id))
+                            {
+                                System.IO.File.Delete(path + "ZipFolder\\" + employee.id);
+                            }
+
+                        }
+                        catch
+                        {
+                            ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
+                            return View();
+                        }
+
                     }
                 }
 
@@ -1377,9 +1423,45 @@ namespace IntensiveLearning.Controllers
                     if (employee.EmployeeType.SchoolManager == true)
                     {
 
+                        var path = Server.MapPath("~\\App_Data\\Employees\\");
+                        var prooves = db.Prooves.Where(x => x.EmployeeID == employee.id);
+                        foreach (var item in prooves)
+                        {
+                            db.Prooves.Remove(item);
+                        }
                         db.Employees.Remove(employee);
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
+                        try
+                        {
+                            db.SaveChanges();
+                            if (Directory.Exists(path + "\\" + employee.id))
+                            {
+
+
+                                try
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                                catch (IOException)
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                                catch (UnauthorizedAccessException)
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                            }
+                            if (System.IO.File.Exists(Server.MapPath(path + "\\ZipFolder\\" + employee.id)))
+                            {
+                                System.IO.File.Delete(Server.MapPath(path + "\\ZipFolder\\" + employee.id));
+                            }
+
+                        }
+                        catch
+                        {
+                            ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
+                            return View();
+                        }
+
                     }
                 }
 
@@ -1393,17 +1475,44 @@ namespace IntensiveLearning.Controllers
                     if (employee.EmployeeType.NormalEmployee == true)
                     {
 
+                        var path = Server.MapPath("~\\App_Data\\Employees\\");
+                        var prooves = db.Prooves.Where(x => x.EmployeeID == employee.id);
+                        foreach (var item in prooves)
+                        {
+                            db.Prooves.Remove(item);
+                        }
                         db.Employees.Remove(employee);
                         try
                         {
                             db.SaveChanges();
+                            if (Directory.Exists(path + "\\" + employee.id))
+                            {
+
+
+                                try
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                                catch (IOException)
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                                catch (UnauthorizedAccessException)
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                            }
+                            if (System.IO.File.Exists(Server.MapPath(path + "\\ZipFolder\\" + employee.id)))
+                            {
+                                System.IO.File.Delete(Server.MapPath(path + "\\ZipFolder\\" + employee.id));
+                            }
+
                         }
                         catch
                         {
-                            ViewBag.error = "يوجد مدخلات خرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
-                            return View(employee);
+                            ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
+                            return View();
                         }
-                        return RedirectToAction("Index");
                     }
 
 

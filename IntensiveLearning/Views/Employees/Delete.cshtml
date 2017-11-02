@@ -18,9 +18,9 @@
                 @Html.DisplayNameFor(model => model.surname)
             </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.surname)
-                </p>
+            <p>
+                @Html.DisplayFor(model => model.surname)
+            </p>
         }
 
 
@@ -31,9 +31,9 @@
                 @Html.DisplayNameFor(model => model.Certificate)
             </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.Certificate)
-                </p>
+            <p>
+                @Html.DisplayFor(model => model.Certificate)
+            </p>
         }
         @if (Model.State != null)
             {
@@ -41,9 +41,9 @@
                 @Html.DisplayNameFor(model => model.State)
             </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.State)
-                </p>
+            <p>
+                @Html.DisplayFor(model => model.State)
+            </p>
         }
         @if (Model.Sex != null)
             {
@@ -51,9 +51,9 @@
                 @Html.DisplayNameFor(model => model.Sex)
             </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.Sex)
-                </p>
+            <p>
+                @Html.DisplayFor(model => model.Sex)
+            </p>
         }
         @if (Model.EDate != null)
             {
@@ -61,9 +61,9 @@
                 @Html.DisplayNameFor(model => model.EDate)
             </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.EDate)
-                </p>
+            <p>
+                @Html.DisplayFor(model => model.EDate)
+            </p>
         }
         @if (Model.EmployeeType.Type != null)
             {
@@ -71,9 +71,9 @@
                 @Html.DisplayNameFor(model => model.EmployeeType.Type)
             </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.EmployeeType.Type)
-                </p>
+            <p>
+                @Html.DisplayFor(model => model.EmployeeType.Type)
+            </p>
         }
         @if (Model.Salary != null)
             {
@@ -81,19 +81,19 @@
                 @Html.DisplayNameFor(model => model.Salary)
             </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.Salary)
-                </p>
+            <p>
+                @Html.DisplayFor(model => model.Salary)
+            </p>
         }
         @if (Model.Proof != null)
             {
             <h4>تحميل المحتوى</h4>
-                <p>
-                    @if (Model.Proof != null)
+            <p>
+                @if (Model.Proof != null)
                 {
-                        @Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = Model.Proof }, null)
-                    }
-                </p>
+                    @Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = Model.Proof }, null)
+                }
+            </p>
         }
     </div>
 
@@ -104,9 +104,9 @@
                 @Html.DisplayNameFor(model => model.name)
             </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.name)
-                </p>
+            <p>
+                @Html.DisplayFor(model => model.name)
+            </p>
         }
         @if (Model.FathersName != null)
             {
@@ -114,9 +114,9 @@
                 @Html.DisplayNameFor(model => model.FathersName)
             </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.FathersName)
-                </p>
+            <p>
+                @Html.DisplayFor(model => model.FathersName)
+            </p>
         }
         @if (Model.BDate != null)
             {
@@ -124,9 +124,9 @@
                 @Html.DisplayNameFor(model => model.BDate)
             </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.BDate)
-                </p>
+            <p>
+                @Html.DisplayFor(model => model.BDate)
+            </p>
         }
         @if (Model.CType != null)
             {
@@ -134,9 +134,9 @@
                 @Html.DisplayNameFor(model => model.CType)
             </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.CType)
-                </p>
+            <p>
+                @Html.DisplayFor(model => model.CType)
+            </p>
         }
         @if (Model.SDate != null)
             {
@@ -144,13 +144,13 @@
                 @Html.DisplayNameFor(model => model.SDate)
             </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.SDate)
-                </p>
+            <p>
+                @Html.DisplayFor(model => model.SDate)
+            </p>
         }
         @if (Model.Center != null)
         {
-            @if (Model.Center.Name != null)
+            if (Model.Center.Name != null)
             {
 
                 <h4>
@@ -164,7 +164,7 @@
         }
         @if (Model.Period != null)
         {
-            @if (Model.Period.Name != null)
+            if (Model.Period.Name != null)
             {
                 <h4>
                     @Html.DisplayNameFor(model => model.Period.Name)

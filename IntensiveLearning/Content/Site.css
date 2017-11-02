@@ -23,14 +23,17 @@ body {
     background-position: bottom;
 }
 .WhiteBlur {
-    background-color: rgba(255,255,255,0.7);
-    display: inline-block;
+    background-color: rgba(255,255,255,0.9);
+    display: block;
     width: 70%;
     border-radius: 10px;
-    padding: 0 30px;
-    margin-top: 40px;
-    margin-right: 20px;
+    padding: 10px 30px;
+    margin: auto;
+    margin-top:30px;
 }
+    .WhiteBlur hr {
+        border-top: 1px solid #a55c52;
+    }
     .WhiteBlur h4 {
         color: #a55c52;
     }
@@ -52,10 +55,7 @@ height:100px;
 padding-right:5px;
 text-align:right;
 }
-.form-horizontal {
-    /*background-color:rgba(255,255,255,0.7);*/
 
-}
 .HigherThanNumber::-webkit-input-placeholder {
     text-align: right;
 }

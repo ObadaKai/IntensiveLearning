@@ -550,29 +550,40 @@ namespace IntensiveLearning.Controllers
                 {
 
                     Student student = db.Students.Find(id);
-                    var pathW = student.Proof;
-                    var prooves = db.Prooves.Where(x => x.StudentID == student.id);
+                    var path = Server.MapPath("~\\App_Data\\Students\\");
+                    var prooves = db.Prooves.Where(x => x.CenterID == student.id);
                     foreach (var item in prooves)
                     {
                         db.Prooves.Remove(item);
                     }
+
                     db.Students.Remove(student);
+
                     try
                     {
                         db.SaveChanges();
-                        var path = Path.GetDirectoryName(pathW);
-                        try
+                        if (Directory.Exists(path + "\\" + student.id))
                         {
-                            Directory.Delete(path, true);
+
+
+                            try
+                            {
+                                Directory.Delete(path + "\\" + student.id, true);
+                            }
+                            catch (IOException)
+                            {
+                                Directory.Delete(path + "\\" + student.id, true);
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                Directory.Delete(path + "\\" + student.id, true);
+                            }
                         }
-                        catch (IOException)
+                        if (System.IO.File.Exists(path + "ZipFolder\\" + student.id))
                         {
-                            Directory.Delete(path, true);
+                            System.IO.File.Delete(path + "ZipFolder\\" + student.id);
                         }
-                        catch (UnauthorizedAccessException)
-                        {
-                            Directory.Delete(path, true);
-                        }
+
                     }
                     catch
                     {
