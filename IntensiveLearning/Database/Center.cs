@@ -35,7 +35,6 @@ namespace IntensiveLearning.Database
         [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÔÑÍ")]
         [DisplayName("ÇáÔÑÍ")]
         public string Desc { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÍÇáÉ")]
         [DisplayName("ÇáÍÇáÉ")]
         public string State { get; set; }
         [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÚÏÏ ÇáÕİæÕ")]

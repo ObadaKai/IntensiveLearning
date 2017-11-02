@@ -25,6 +25,7 @@
         a.click();
 
     });
+
 });
 var open = true;
 function openLeftMenu() {
@@ -49,3 +50,16 @@ function toggleLeftMenu() {
 function GoToDefault() {
     window.location.href = "/Home/Default";
 }
+
+var uploadField = document.getElementById("file");
+
+uploadField.onchange = function () {
+    var size = 0;
+    for (var i = 0; i < this.files.length; i++) {
+        size += this.files[i].size;
+    }
+    if (size > 307200) {
+        alert("حجم الملفات كبير");
+        this.value = "";
+    };
+};

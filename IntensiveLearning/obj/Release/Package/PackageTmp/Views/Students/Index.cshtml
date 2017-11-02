@@ -214,20 +214,20 @@
                             {
                                 <div style="width:210px;">
                                     <a class="btn btn-danger" href="Students/Delete/{{Exam.ID}}" title="حذف">حذف</a>
-                                    <a class="btn btn-info" href="Students/Details/{{Exam.ID}}">معلومات</a>
-                                    <a class="btn btn-success" href="Students/Edit/{{Exam.ID}}">تعديل</a>
+                                    <a class="btn btn-info" href="Students/Details/{{Exam.ID}}" title="معلومات">معلومات</a>
+                                    <a class="btn btn-success" href="Students/Edit/{{Exam.ID}}" title="تعديل">تعديل</a>
                                 </div>
                             }
 
                         }
                         else
                         {
-                            <a class="btn btn-info" href="Students/Details/{{Exam.ID}}">معلومات</a>
+                            <a class="btn btn-info" href="Students/Details/{{Exam.ID}}" title="معلومات">معلومات</a>
 
                         }
                     </td>
                     <td>
-                        <a class="btn btn-warning" href="/Json/DownloadProof/{{Exam.Proof}}">تحميل</a>
+                        <a class="btn btn-warning" href="/Json/DownloadProof/{{Exam.Proof}}" title="تحميل">تحميل</a>
                     </td>
                     <td>{{Exam.StageName}}</td>
                     <td>{{Exam.Regiment}}</td>

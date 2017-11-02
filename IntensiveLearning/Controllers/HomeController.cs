@@ -216,6 +216,7 @@ namespace IntensiveLearning.Controllers
             var emp = db.Employees.Find(id);
             emp.Password = NewPass;
             db.Entry(emp).State = EntityState.Modified;
+            db.Configuration.ValidateOnSaveEnabled = false;
             db.SaveChanges();
             return RedirectToAction("Index", "Employees");
         }

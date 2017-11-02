@@ -90,12 +90,12 @@
 
             <div class="col-sm-6" style="padding:0">
                 @Html.LabelFor(model => model.LastMonth, htmlAttributes: new { @class = "control-label"})
-                @Html.EditorFor(model => model.LastMonth, new { htmlAttributes = new { @class = "form-control", @type = "Number" , @min = 1, @max = 9 } })
+                @Html.EditorFor(model => model.LastMonth, new { htmlAttributes = new { @class = "form-control ", @type = "Number", min = 1, max = 9, step = 1, maxlength = "2" } })
                 @Html.ValidationMessageFor(model => model.LastMonth, "", new { @class = "text-danger" })
             </div>
             <div class="col-sm-6" style="padding:0">
                 @Html.LabelFor(model => model.firstMonth, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.firstMonth, new { htmlAttributes = new { @class = "form-control ", @type = "Number", @min = 1, @max = 12 } })
+                @Html.EditorFor(model => model.firstMonth, new { htmlAttributes = new { @class = "form-control ", @type = "Number", min = 1, max = 12, step = 1, maxlength = "2" } })
                 @Html.ValidationMessageFor(model => model.firstMonth, "", new { @class = "text-danger" })
             </div>
         </div>

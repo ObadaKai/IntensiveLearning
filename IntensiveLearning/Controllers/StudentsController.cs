@@ -207,24 +207,31 @@ namespace IntensiveLearning.Controllers
 
                     foreach (var image in oldImages)
                     {
-                        var path = Path.GetDirectoryName(image.Path);
-                        if ((Directory.Exists(path)))
-                        {
-                            try
-                            {
-                                Directory.Delete(path, true);
-                            }
-                            catch (IOException)
-                            {
-                                Directory.Delete(path, true);
-                            }
-                            catch (UnauthorizedAccessException)
-                            {
-                                Directory.Delete(path, true);
-                            }
-                        }
+
                         db.Prooves.Remove(image);
                     }
+
+                    if ((Directory.Exists(Server.MapPath("~/App_Data/Students") + "\\" + student.id)))
+                    {
+                        try
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Students") + "\\" + student.id, true);
+                        }
+                        catch (IOException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Students") + "\\" + student.id, true);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Students") + "\\" + student.id, true);
+                        }
+                    }
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Students") + "\\" + student.id))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Students") + "\\" + student.id);
+                    }
+
                 }
                 if (Request.Files.Count == 0)
                 {
@@ -260,18 +267,27 @@ namespace IntensiveLearning.Controllers
 
 
                 }
-                try
-                {
-                    var startPath = Server.MapPath("~/App_Data/Students" + "/" + student.id);
-                    var zipPath = Server.MapPath("~/App_Data/Students" + "/" + student.id) + "\\" + student.id + ".zip";
-                    var proove = db.Prooves.Where(x => x.StudentID == student.id).Select(x => x.Path);
                     try
                     {
-                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+                        var startPath = Server.MapPath("~/App_Data/Students" + "\\" + student.id);
+
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder")))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder"));
+                        }
+                        var zipPath = Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder") + "\\" + student.id + ".zip";
+
+                        if (System.IO.File.Exists(zipPath))
+                        {
+                            System.IO.File.Delete(zipPath);
+                        }
+                        try
+                        {
+                            ZipFile.CreateFromDirectory(startPath, zipPath);
+                        }
+                        catch (Exception wx) { }
+                        student.Proof = zipPath;
                     }
-                    catch (Exception wx) { }
-                    student.Proof = zipPath;
-                }
                 catch { }
 
                 ViewBag.Message = "Upload successful";
@@ -363,24 +379,31 @@ namespace IntensiveLearning.Controllers
 
                     foreach (var image in oldImages)
                     {
-                        var path = Path.GetDirectoryName(image.Path);
-                        if ((Directory.Exists(path)))
-                        {
-                            try
-                            {
-                                Directory.Delete(path, true);
-                            }
-                            catch (IOException)
-                            {
-                                Directory.Delete(path, true);
-                            }
-                            catch (UnauthorizedAccessException)
-                            {
-                                Directory.Delete(path, true);
-                            }
-                        }
+
                         db.Prooves.Remove(image);
                     }
+
+                    if ((Directory.Exists(Server.MapPath("~/App_Data/Students") + "\\" + student.id)))
+                    {
+                        try
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Students") + "\\" + student.id, true);
+                        }
+                        catch (IOException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Students") + "\\" + student.id, true);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Students") + "\\" + student.id, true);
+                        }
+                    }
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Students") + "\\" + student.id))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Students") + "\\" + student.id);
+                    }
+
                 }
 
                 foreach (var item in file)
@@ -409,12 +432,21 @@ namespace IntensiveLearning.Controllers
                 }
                 try
                 {
-                    var startPath = Server.MapPath("~/App_Data/Students" + "/" + student.id);
-                    var zipPath = Server.MapPath("~/App_Data/Students" + "/" + student.id) + "\\" + student.id + ".zip";
-                    var proove = db.Prooves.Where(x => x.StudentID == student.id).Select(x => x.Path);
+                    var startPath = Server.MapPath("~/App_Data/Students" + "\\" + student.id);
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder")))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder"));
+                    }
+                    var zipPath = Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder") + "\\" + student.id + ".zip";
+
+                    if (System.IO.File.Exists(zipPath))
+                    {
+                        System.IO.File.Delete(zipPath);
+                    }
                     try
                     {
-                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+                        ZipFile.CreateFromDirectory(startPath, zipPath);
                     }
                     catch (Exception wx) { }
                     student.Proof = zipPath;

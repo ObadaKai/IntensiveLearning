@@ -11,14 +11,14 @@
     {
         if ((bool)Session["AddPresence"] == true)
         {
-            using (Html.BeginForm("Create","Presences", FormMethod.Get))
+            using (Html.BeginForm("Create", "Presences", FormMethod.Get))
             {
                 <button type="submit" class="btn btn-warning">انشاء جديد</button>
             }
-            }
         }
+    }
 
-    <div class="col-md-12" style="margin-bottom:20px;padding:0;border:0" >
+    <div class="col-md-12" style="margin-bottom:20px;padding:0;border:0">
         <div class="col-md-10" style="margin:0;padding:0;border:0">
             <input type="text" class="form-control " style="display:inline-block !important;text-align:right" name="search" id="search" placeholder="...البحث" ng-change="PresenceSearchBox()" ng-model="PresenceSearchBoxData" />
         </div>
@@ -95,20 +95,20 @@
 
                                 else
                                 {
-                                        @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info" })
-                                    }
-                        </td>
+                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+                                }
+                            </td>
 
-                        <td>
-                            @if (item.Lesson7 != null && item.Lesson7 == true)
-                            {
-                                @:غياب
+                            <td>
+                                @if (item.Lesson7 != null && item.Lesson7 == true)
+                                {
+                                    @:غياب
                     }
-                            else
-                            {
-                                @:حضور
+                                else
+                                {
+                                    @:حضور
                     }
-                        </td>
+                            </td>
                             <td>
                                 @if (item.Lesson6 != null && item.Lesson6 == true)
                                 {
@@ -188,95 +188,97 @@
 
                         </tr>
 
-                                }
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
 
-                    <button id="btnExport" class="btn btn-warning" ng-hide="PresenceRazorForm">Export to xls</button>
-                    <div id="table_wrapper2">
-                        <table class="table table-striped" ng-cloak ng-show="PresenceAngularForm">
-                            <thead>
-                                <tr class="bg-primary">
-                                    <th></th>
+    <button id="btnExport" class="btn btn-warning" ng-hide="PresenceRazorForm">Export to xls</button>
+    <div id="table_wrapper2">
+        <table class="table table-striped" ng-cloak ng-show="PresenceAngularForm">
+            <thead>
+                <tr class="bg-primary">
+                    <th></th>
 
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Lesson7)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Lesson6)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Lesson5)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Lesson4)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Lesson3)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Lesson2)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Lesson1)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Desc)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Date)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Student.Surname)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Student.Name)
-                                    </th>
-
-
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <tr ng-repeat="Exam in Exams">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lesson7)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lesson6)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lesson5)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lesson4)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lesson3)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lesson2)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lesson1)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Desc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Student.Surname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Student.Name)
+                    </th>
 
 
-                                    <td>
-                                        @if (Session["AddPresence"] != null)
-                                        {
-                                            if ((bool)Session["AddPresence"] == true)
-                                            {
-                                                <a class="btn btn-info" href="/Presences/Details/{{Exam.ID}}">معلومات</a>
-                                            }
+                </tr>
+            </thead>
+            <tbody>
 
-                                        }
-                                        else
-                                        {
-                                            <a class="btn btn-danger" href="/Presences/Delete/{{Exam.ID}}">حذف</a>
-                                            <a class="btn btn-info" href="/Presences/Details/{{Exam.ID}}">معلومات</a>
-                                            <a class="btn btn-success" href="/Presences/Edit/{{Exam.ID}}">تعديل</a>
-                                        }
-
-                                    </td>
+                <tr ng-repeat="Exam in Exams">
 
 
-                                    <td>{{Exam.Lesson7}}</td>
-                                    <td>{{Exam.Lesson6}}</td>
-                                    <td>{{Exam.Lesson5}}</td>
-                                    <td>{{Exam.Lesson4}}</td>
-                                    <td>{{Exam.Lesson3}}</td>
-                                    <td>{{Exam.Lesson2}}</td>
-                                    <td>{{Exam.Lesson1}}</td>
-                                    <td>{{Exam.Desc}}</td>
-                                    <td>{{Exam.Date | date:'MM/p/yyyy'}}</td>
-                                    <td>{{Exam.StudentSurname}}</td>
-                                    <td>{{Exam.StudentName}}</td>
+                    <td>
+                        @if (Session["AddPresence"] != null)
+                        {
+                            if ((bool)Session["AddPresence"] == true)
+                            {
+                                <div style="width:210px;">
+                                    <a class="btn btn-danger" href="/Presences/Delete/{{Exam.ID}}">حذف</a>
+                                    <a class="btn btn-info" href="/Presences/Details/{{Exam.ID}}">معلومات</a>
+                                    <a class="btn btn-success" href="/Presences/Edit/{{Exam.ID}}">تعديل</a>
+                                </div>
+                            }
 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <button id="btnExport2" class="btn btn-warning" ng-cloak ng-show="PresenceAngularForm">Export to xls</button>
-                </div>
+                        }
+                        else
+                        {
+                            <a class="btn btn-info" href="/Presences/Details/{{Exam.ID}}">معلومات</a>
+                        }
+
+                    </td>
+
+
+                    <td>{{Exam.Lesson7}}</td>
+                    <td>{{Exam.Lesson6}}</td>
+                    <td>{{Exam.Lesson5}}</td>
+                    <td>{{Exam.Lesson4}}</td>
+                    <td>{{Exam.Lesson3}}</td>
+                    <td>{{Exam.Lesson2}}</td>
+                    <td>{{Exam.Lesson1}}</td>
+                    <td>{{Exam.Desc}}</td>
+                    <td>{{Exam.Date | date:'MM/dd/yyyy'}}</td>
+                    <td>{{Exam.StudentSurname}}</td>
+                    <td>{{Exam.StudentName}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button id="btnExport2" class="btn btn-warning" ng-cloak ng-show="PresenceAngularForm">Export to xls</button>
+</div>

@@ -232,9 +232,18 @@ namespace IntensiveLearning.Controllers
             {
                 var typeName = (string)Session["Type"];
                 var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+                var id = Convert.ToInt32(Session["ID"]);
+                Employee employee = db.Employees.Find(id);
                 if (type.AddCitesAndCenters == true)
                 {
-                    ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
+                    if (type.SeeAccToCity == true)
+                    {
+                        ViewBag.Cityid = new SelectList(db.Cities.Where(x => x.id == employee.CityID), "id", "Name");
+                    }
+                    else
+                    {
+                        ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
+                    }
                     return View();
                 }
                 return RedirectToAction("Default", "Home");
@@ -249,78 +258,148 @@ namespace IntensiveLearning.Controllers
         public ActionResult Create(/*[Bind(Include = "Name,Place,Desc,State,HolesN,Cityid")]*/ CenterModel centerModel, IEnumerable<HttpPostedFileBase> file)
         {
             bool proceed = true;
-            try
+            if (ModelState.IsValid)
             {
-                centerModel.center.id = db.Centers.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
-            }
-            catch (Exception)
-            {
-                centerModel.center.id = 1;
-            }
-
-            int prooveid;
-            try
-            {
-                prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
-            }
-            catch (Exception)
-            {
-                prooveid = 1;
-            }
-            try
-            {
-                foreach (var item in file)
+                try
                 {
-                    if (item.ContentLength > 0)
-                    {
-                        var fileName = Path.GetFileName(item.FileName);
-                        if (!Directory.Exists(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id))
-                        {
-                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id);
-                        }
-                        var path = Path.Combine(Server.MapPath("~/App_Data/Centers/" + centerModel.center.id), fileName);
-                        item.SaveAs(path);
-                        Proove proove = new Proove();
-                        proove.Path = path;
-                        proove.id = prooveid;
-                        proove.CenterID = centerModel.center.id;
-                        db.Prooves.Add(proove);
-                        prooveid++;
+                    centerModel.center.id = db.Centers.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+                }
+                catch (Exception)
+                {
+                    centerModel.center.id = 1;
+                }
 
-                    }
-                    else
-                    {
-
-                    }
+                int prooveid;
+                try
+                {
+                    prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+                }
+                catch (Exception)
+                {
+                    prooveid = 1;
                 }
                 try
                 {
-                    var startPath = Server.MapPath("~/App_Data/Centers" + "/" + centerModel.center.id);
-                    var zipPath = Server.MapPath("~/App_Data/Centers" + "/" + centerModel.center.id) + "\\" + centerModel.center.id + ".zip";
-                    var proove = db.Prooves.Where(x => x.CenterID == centerModel.center.id).Select(x => x.Path);
+                    if ((Directory.Exists(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id)))
+                    {
+                        try
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id, true);
+                        }
+                        catch (IOException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id, true);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id, true);
+                        }
+                    }
+                    foreach (var item in file)
+                    {
+                        if (item.ContentLength > 0)
+                        {
+                            var fileName = Path.GetFileName(item.FileName);
+
+
+                            if (!Directory.Exists(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id))
+                            {
+                                Directory.CreateDirectory(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id);
+                            }
+                            var path = Path.Combine(Server.MapPath("~/App_Data/Centers/" + centerModel.center.id), fileName);
+                            item.SaveAs(path);
+                            Proove proove = new Proove();
+                            proove.Path = path;
+                            proove.id = prooveid;
+                            proove.CenterID = centerModel.center.id;
+                            db.Prooves.Add(proove);
+                            prooveid++;
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+
+                    var startPath = Server.MapPath("~/App_Data/Centers" + "\\" + centerModel.center.id);
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Centers" + "\\" + "ZipFolder")))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Centers" + "\\" + "ZipFolder"));
+                    }
+                    var zipPath = Server.MapPath("~/App_Data/Centers" + "\\" + "ZipFolder") + "\\" + centerModel.center.id + ".zip";
+
+                    if (System.IO.File.Exists(zipPath))
+                    {
+                        System.IO.File.Delete(zipPath);
+                    }
                     try
                     {
-                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+                        ZipFile.CreateFromDirectory(startPath, zipPath);
                     }
                     catch (Exception wx) { }
                     centerModel.center.Proof = zipPath;
+
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
+                    proceed = false;
+                }
+                centerModel.center.ProjectID = 1;
+                if (centerModel.firstMonth > centerModel.LastMonth)
+                {
+                    for (int i = centerModel.firstMonth; i <= 12; i++)
+                    {
+                        switch (i)
+                        {
+                            case 10:
+                                centerModel.center.Month10 = true;
+                                break;
+                            case 11:
+                                centerModel.center.Month11 = true;
+                                break;
+                            case 12:
+                                centerModel.center.Month12 = true;
+                                break;
 
+                        }
+                    }
+                    centerModel.firstMonth = 1;
+                }
 
-            }
-            catch (Exception ex)
-            {
-                ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
-                proceed = false;
-            }
-            centerModel.center.ProjectID = 1;
-            if (centerModel.firstMonth > centerModel.LastMonth)
-            {
-                for (int i = centerModel.firstMonth; i <= 12; i++)
+                for (int i = centerModel.firstMonth; i <= centerModel.LastMonth; i++)
                 {
                     switch (i)
                     {
+                        case 1:
+                            centerModel.center.Month1 = true;
+                            break;
+                        case 2:
+                            centerModel.center.Month2 = true;
+                            break;
+                        case 3:
+                            centerModel.center.Month3 = true;
+                            break;
+                        case 4:
+                            centerModel.center.Month4 = true;
+                            break;
+                        case 5:
+                            centerModel.center.Month5 = true;
+                            break;
+                        case 6:
+                            centerModel.center.Month6 = true;
+                            break;
+                        case 7:
+                            centerModel.center.Month7 = true;
+                            break;
+                        case 8:
+                            centerModel.center.Month8 = true;
+                            break;
+                        case 9:
+                            centerModel.center.Month9 = true;
+                            break;
                         case 10:
                             centerModel.center.Month10 = true;
                             break;
@@ -330,75 +409,26 @@ namespace IntensiveLearning.Controllers
                         case 12:
                             centerModel.center.Month12 = true;
                             break;
-
                     }
                 }
-                centerModel.firstMonth = 1;
-            }
 
-            for (int i = centerModel.firstMonth; i <= centerModel.LastMonth; i++)
-            {
-                switch (i)
+
+                centerModel.center.Cityid = centerModel.Cityid;
+                var typeName = (string)Session["Type"];
+                var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+                if (type.SeeAccToCity == true)
                 {
-                    case 1:
-                        centerModel.center.Month1 = true;
-                        break;
-                    case 2:
-                        centerModel.center.Month2 = true;
-                        break;
-                    case 3:
-                        centerModel.center.Month3 = true;
-                        break;
-                    case 4:
-                        centerModel.center.Month4 = true;
-                        break;
-                    case 5:
-                        centerModel.center.Month5 = true;
-                        break;
-                    case 6:
-                        centerModel.center.Month6 = true;
-                        break;
-                    case 7:
-                        centerModel.center.Month7 = true;
-                        break;
-                    case 8:
-                        centerModel.center.Month8 = true;
-                        break;
-                    case 9:
-                        centerModel.center.Month9 = true;
-                        break;
-                    case 10:
-                        centerModel.center.Month10 = true;
-                        break;
-                    case 11:
-                        centerModel.center.Month11 = true;
-                        break;
-                    case 12:
-                        centerModel.center.Month12 = true;
-                        break;
+                    var id = Convert.ToInt32(Session["ID"]);
+                    var emp = db.Employees.FirstOrDefault(x => x.id == id);
+                    centerModel.center.Cityid = emp.CityID;
                 }
-            }
-
-
-            centerModel.center.Cityid = centerModel.Cityid;
-            var typeName = (string)Session["Type"];
-            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-            if (type.SeeAccToCity == true)
-            {
-                var id = Convert.ToInt32(Session["ID"]);
-                var emp = db.Employees.FirstOrDefault(x => x.id == id);
-                centerModel.center.Cityid = emp.CityID;
-            }
-            if (proceed)
-            {
-                if (ModelState.IsValid)
+                if (proceed)
                 {
                     db.Centers.Add(centerModel.center);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }
-
             ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
             return View(centerModel);
         }
@@ -406,11 +436,11 @@ namespace IntensiveLearning.Controllers
         // GET: Centers/Edit/5
         public ActionResult Edit(int? id)
         {
+
             if (id == null)
             {
                 return RedirectToAction("Default", "Home");
             }
-
             if (Session["ID"] != null)
             {
                 var typeName = (string)Session["Type"];
@@ -540,7 +570,7 @@ namespace IntensiveLearning.Controllers
 
                     }
 
-                    centerModel.center.Cityid = centerModel.Cityid;
+
                     if (centerModel == null)
                     {
                         return HttpNotFound();
@@ -553,8 +583,12 @@ namespace IntensiveLearning.Controllers
                         {
                             return RedirectToAction("Default", "Home");
                         }
+                        ViewBag.Cityid = new SelectList(db.Cities.Where(x => x.id == emp.CityID), "id", "Name", centerModel.center.Cityid);
                     }
-                    ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
+                    else
+                    {
+                        ViewBag.Cityid = new SelectList(db.Cities, "id", "Name", centerModel.center.Cityid);
+                    }
                     return View(centerModel);
                 }
                 return RedirectToAction("Default", "Home");
@@ -573,143 +607,201 @@ namespace IntensiveLearning.Controllers
 
 
             bool proceed = true;
-            int prooveid;
-            try
+            if (ModelState.IsValid)
             {
-                prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
-            }
-            catch (Exception)
-            {
-                prooveid = 1;
-            }
-            try
-            {
-
-                if (file.Count() > 0)
+                int prooveid;
+                try
                 {
-                    var oldImages = db.Prooves.Where(x => x.CenterID == centerModel.center.id).ToList();
-
-                    foreach (var image in oldImages)
-                    {
-                        var path = Path.GetDirectoryName(image.Path);
-                        if ((Directory.Exists(path)))
-                        {
-                            try
-                            {
-                                Directory.Delete(path, true);
-                            }
-                            catch (IOException)
-                            {
-                                Directory.Delete(path, true);
-                            }
-                            catch (UnauthorizedAccessException)
-                            {
-                                Directory.Delete(path, true);
-                            }
-                        }
-                        db.Prooves.Remove(image);
-                    }
+                    prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
                 }
-
-
-                foreach (var item in file)
+                catch (Exception)
                 {
-                    if (item.ContentLength > 0)
-                    {
-                        var fileName = Path.GetFileName(item.FileName);
-                        if (!Directory.Exists(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id))
-                        {
-                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id);
-                        }
-                        var path = Path.Combine(Server.MapPath("~/App_Data/Centers/" + centerModel.center.id), fileName);
-                        item.SaveAs(path);
-                        Proove proove = new Proove();
-                        proove.Path = path;
-                        proove.id = prooveid;
-                        proove.CenterID = centerModel.center.id;
-                        db.Prooves.Add(proove);
-                        prooveid++;
-
-                    }
-                    else
-                    {
-
-                    }
+                    prooveid = 1;
                 }
                 try
                 {
-                    var startPath = Server.MapPath("~/App_Data/Centers" + "/" + centerModel.center.id);
-                    var zipPath = Server.MapPath("~/App_Data/Centers" + "/" + centerModel.center.id) + "\\" + centerModel.center.id + ".zip";
-                    var proove = db.Prooves.Where(x => x.CenterID == centerModel.center.id).Select(x => x.Path);
+
+                    if (file.Count() > 0)
+                    {
+                        var oldImages = db.Prooves.Where(x => x.CenterID == centerModel.center.id).ToList();
+
+                        foreach (var image in oldImages)
+                        {
+
+                            db.Prooves.Remove(image);
+                        }
+                    }
+                    if ((Directory.Exists(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id)))
+                    {
+                        try
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id, true);
+                        }
+                        catch (IOException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id, true);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id, true);
+                        }
+                    }
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id);
+                    }
+                    foreach (var item in file)
+                    {
+                        if (item.ContentLength > 0)
+                        {
+                            var fileName = Path.GetFileName(item.FileName);
+
+                            var path = Path.Combine(Server.MapPath("~/App_Data/Centers/" + centerModel.center.id), fileName);
+                            item.SaveAs(path);
+                            Proove proove = new Proove();
+                            proove.Path = path;
+                            proove.id = prooveid;
+                            proove.CenterID = centerModel.center.id;
+                            db.Prooves.Add(proove);
+                            prooveid++;
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
                     try
                     {
-                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+
+                        var startPath = Server.MapPath("~/App_Data/Centers" + "\\" + centerModel.center.id);
+
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Centers" + "\\" + "ZipFolder")))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Centers" + "\\" + "ZipFolder"));
+                        }
+                        var zipPath = Server.MapPath("~/App_Data/Centers" + "\\" + "ZipFolder") + "\\" + centerModel.center.id + ".zip";
+
+                        if (System.IO.File.Exists(zipPath))
+                        {
+                            System.IO.File.Delete(zipPath);
+                        }
+                        try
+                        {
+                            ZipFile.CreateFromDirectory(startPath, zipPath);
+                        }
+                        catch (Exception wx) { }
+                        centerModel.center.Proof = zipPath;
                     }
-                    catch (Exception wx) { }
-                    centerModel.center.Proof = zipPath;
+                    catch { }
+
+
                 }
-                catch { }
-
-
-            }
-            catch (Exception ex)
-            {
-                ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
-                proceed = false;
-            }
-
-
-            centerModel.center.Cityid = centerModel.Cityid;
-            for (int i = 0; i <= 12; i++)
-            {
-                switch (i)
+                catch (Exception ex)
                 {
-                    case 1:
-                        centerModel.center.Month1 = false;
-                        break;
-                    case 2:
-                        centerModel.center.Month2 = false;
-                        break;
-                    case 3:
-                        centerModel.center.Month3 = false;
-                        break;
-                    case 4:
-                        centerModel.center.Month4 = false;
-                        break;
-                    case 5:
-                        centerModel.center.Month5 = false;
-                        break;
-                    case 6:
-                        centerModel.center.Month6 = false;
-                        break;
-                    case 7:
-                        centerModel.center.Month7 = false;
-                        break;
-                    case 8:
-                        centerModel.center.Month8 = false;
-                        break;
-                    case 9:
-                        centerModel.center.Month9 = false;
-                        break;
-                    case 10:
-                        centerModel.center.Month10 = false;
-                        break;
-                    case 11:
-                        centerModel.center.Month11 = false;
-                        break;
-                    case 12:
-                        centerModel.center.Month12 = false;
-                        break;
+                    ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
+                    proceed = false;
                 }
 
-            }
-
-            if (centerModel.firstMonth > centerModel.LastMonth)
-            {
-                for (int i = centerModel.firstMonth; i <= 12; i++)
+                db.SaveChanges();
+                centerModel.center.Cityid = centerModel.Cityid;
+                for (int i = 0; i <= 12; i++)
                 {
                     switch (i)
                     {
+                        case 1:
+                            centerModel.center.Month1 = false;
+                            break;
+                        case 2:
+                            centerModel.center.Month2 = false;
+                            break;
+                        case 3:
+                            centerModel.center.Month3 = false;
+                            break;
+                        case 4:
+                            centerModel.center.Month4 = false;
+                            break;
+                        case 5:
+                            centerModel.center.Month5 = false;
+                            break;
+                        case 6:
+                            centerModel.center.Month6 = false;
+                            break;
+                        case 7:
+                            centerModel.center.Month7 = false;
+                            break;
+                        case 8:
+                            centerModel.center.Month8 = false;
+                            break;
+                        case 9:
+                            centerModel.center.Month9 = false;
+                            break;
+                        case 10:
+                            centerModel.center.Month10 = false;
+                            break;
+                        case 11:
+                            centerModel.center.Month11 = false;
+                            break;
+                        case 12:
+                            centerModel.center.Month12 = false;
+                            break;
+                    }
+
+                }
+
+                if (centerModel.firstMonth > centerModel.LastMonth)
+                {
+                    for (int i = centerModel.firstMonth; i <= 12; i++)
+                    {
+                        switch (i)
+                        {
+                            case 10:
+                                centerModel.center.Month10 = true;
+                                break;
+                            case 11:
+                                centerModel.center.Month11 = true;
+                                break;
+                            case 12:
+                                centerModel.center.Month12 = true;
+                                break;
+
+                        }
+                    }
+                    centerModel.firstMonth = 1;
+                }
+
+                for (int i = centerModel.firstMonth; i <= centerModel.LastMonth; i++)
+                {
+                    switch (i)
+                    {
+                        case 1:
+                            centerModel.center.Month1 = true;
+                            break;
+                        case 2:
+                            centerModel.center.Month2 = true;
+                            break;
+                        case 3:
+                            centerModel.center.Month3 = true;
+                            break;
+                        case 4:
+                            centerModel.center.Month4 = true;
+                            break;
+                        case 5:
+                            centerModel.center.Month5 = true;
+                            break;
+                        case 6:
+                            centerModel.center.Month6 = true;
+                            break;
+                        case 7:
+                            centerModel.center.Month7 = true;
+                            break;
+                        case 8:
+                            centerModel.center.Month8 = true;
+                            break;
+                        case 9:
+                            centerModel.center.Month9 = true;
+                            break;
                         case 10:
                             centerModel.center.Month10 = true;
                             break;
@@ -719,65 +811,27 @@ namespace IntensiveLearning.Controllers
                         case 12:
                             centerModel.center.Month12 = true;
                             break;
-
                     }
                 }
-                centerModel.firstMonth = 1;
-            }
-
-            for (int i = centerModel.firstMonth; i <= centerModel.LastMonth; i++)
-            {
-                switch (i)
-                {
-                    case 1:
-                        centerModel.center.Month1 = true;
-                        break;
-                    case 2:
-                        centerModel.center.Month2 = true;
-                        break;
-                    case 3:
-                        centerModel.center.Month3 = true;
-                        break;
-                    case 4:
-                        centerModel.center.Month4 = true;
-                        break;
-                    case 5:
-                        centerModel.center.Month5 = true;
-                        break;
-                    case 6:
-                        centerModel.center.Month6 = true;
-                        break;
-                    case 7:
-                        centerModel.center.Month7 = true;
-                        break;
-                    case 8:
-                        centerModel.center.Month8 = true;
-                        break;
-                    case 9:
-                        centerModel.center.Month9 = true;
-                        break;
-                    case 10:
-                        centerModel.center.Month10 = true;
-                        break;
-                    case 11:
-                        centerModel.center.Month11 = true;
-                        break;
-                    case 12:
-                        centerModel.center.Month12 = true;
-                        break;
-                }
-            }
-            if (proceed)
-            {
-                if (ModelState.IsValid)
+                if (proceed)
                 {
                     db.Entry(centerModel.center).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }
+            var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
 
-            ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
+            if (type.SeeAccToCity == true)
+            {
+                var id = Convert.ToInt32(Session["ID"]);
+                var emp = db.Employees.Find(id);
+                ViewBag.Cityid = new SelectList(db.Cities.Where(x => x.id == emp.CityID), "id", "Name", centerModel.center.Cityid);
+            }
+            else
+            {
+                ViewBag.Cityid = new SelectList(db.Cities, "id", "Name", centerModel.center.Cityid);
+            }
             return View(centerModel);
         }
 
@@ -827,7 +881,7 @@ namespace IntensiveLearning.Controllers
                 if (type.AddCitesAndCenters == true)
                 {
                     Center center = db.Centers.Find(id);
-                    var pathW = center.Proof;
+                    var pathW = Server.MapPath("~\\App_Data\\Centers\\" + center.id);
                     var prooves = db.Prooves.Where(x => x.CenterID == center.id);
                     foreach (var item in prooves)
                     {

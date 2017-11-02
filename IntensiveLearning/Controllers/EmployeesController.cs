@@ -320,8 +320,8 @@ namespace IntensiveLearning.Controllers
 
 
 
-                ViewBag.Centerid = new SelectList(TosendCenters,"id","Name");
-                ViewBag.Job = new SelectList(TosendJobs,"id","Type");
+                ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name");
+                ViewBag.Job = new SelectList(TosendJobs, "id", "Type");
                 ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
                 return View();
 
@@ -336,118 +336,137 @@ namespace IntensiveLearning.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(/*[Bind(Include = "name,surname,BDate,Certificate,CType,State,Centerid,Periodid,SDate,Job,Username,Salary,FathersName,Sex")]*/ Employee employee,IEnumerable<HttpPostedFileBase> file)
+        public ActionResult Create(/*[Bind(Include = "name,surname,BDate,Certificate,CType,State,Centerid,Periodid,SDate,Job,Username,Salary,FathersName,Sex")]*/ Employee employee, IEnumerable<HttpPostedFileBase> file)
         {
-            bool proceed = true;
-            if (db.Employees.Where(x => x.Username == employee.Username).Count() > 0)
+            if (ModelState.IsValid)
             {
-                ViewBag.error = "اسم المستخم مستخدم مسبقا";
-                return View(employee);
-            }
-
-
-
-            try
-            {
-                employee.id = db.Employees.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
-            }
-            catch (Exception)
-            {
-                employee.id = 1;
-            }
-
-            int prooveid;
-            try
-            {
-                prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
-            }
-            catch (Exception)
-            {
-                prooveid = 1;
-            }
-            try
-            {
-
-                if (file.Count() > 0)
+                bool proceed = true;
+                if (db.Employees.Where(x => x.Username == employee.Username).Count() > 0)
                 {
-                    var oldImages = db.Prooves.Where(x => x.EmployeeID == employee.id).ToList();
-
-                    foreach (var image in oldImages)
-                    {
-                        var path = Path.GetDirectoryName(image.Path);
-                        if ((Directory.Exists(path)))
-                        {
-                            try
-                            {
-                                Directory.Delete(path, true);
-                            }
-                            catch (IOException)
-                            {
-                                Directory.Delete(path, true);
-                            }
-                            catch (UnauthorizedAccessException)
-                            {
-                                Directory.Delete(path, true);
-                            }
-                        }
-                        db.Prooves.Remove(image);
-                    }
+                    ViewBag.error = "اسم المستخم مستخدم مسبقا";
+                    return View(employee);
                 }
 
 
-                foreach (var item in file)
+
+                try
                 {
-                    if (item.ContentLength > 0)
+                    employee.id = db.Employees.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+                }
+                catch (Exception)
+                {
+                    employee.id = 1;
+                }
+
+                int prooveid;
+                try
+                {
+                    prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+                }
+                catch (Exception)
+                {
+                    prooveid = 1;
+                }
+                try
+                {
+
+                    if (file.Count() > 0)
                     {
-                        var fileName = Path.GetFileName(item.FileName);
+                        var oldImages = db.Prooves.Where(x => x.EmployeeID == employee.id).ToList();
+
+                        foreach (var image in oldImages)
+                        {
+
+                            db.Prooves.Remove(image);
+                        }
+
+                        if ((Directory.Exists(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id)))
+                        {
+                            try
+                            {
+                                Directory.Delete(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id, true);
+                            }
+                            catch (IOException)
+                            {
+                                Directory.Delete(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id, true);
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                Directory.Delete(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id, true);
+                            }
+                        }
+
                         if (!Directory.Exists(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id))
                         {
                             Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id);
                         }
-                        var path = Path.Combine(Server.MapPath("~/App_Data/Employees/" + employee.id), fileName);
-                        item.SaveAs(path);
-                        Proove proove = new Proove();
-                        proove.Path = path;
-                        proove.id = prooveid;
-                        proove.EmployeeID = employee.id;
-                        db.Prooves.Add(proove);
-                        prooveid++;
 
                     }
-                    else
+
+                    foreach (var item in file)
                     {
+                        if (item.ContentLength > 0)
+                        {
+                            var fileName = Path.GetFileName(item.FileName);
+                            if (!Directory.Exists(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id))
+                            {
+                                Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id);
+                            }
+                            var path = Path.Combine(Server.MapPath("~/App_Data/Employees/" + employee.id), fileName);
+                            item.SaveAs(path);
+                            Proove proove = new Proove();
+                            proove.Path = path;
+                            proove.id = prooveid;
+                            proove.EmployeeID = employee.id;
+                            db.Prooves.Add(proove);
+                            prooveid++;
 
+                        }
+                        else
+                        {
+
+                        }
                     }
-                }
-                try
-                {
-                    var startPath = Server.MapPath("~/App_Data/Employees" + "/" + employee.id);
-                    var zipPath = Server.MapPath("~/App_Data/Employees" + "/" + employee.id) + "\\" + employee.id + ".zip";
-                    var proove = db.Prooves.Where(x => x.EmployeeID == employee.id).Select(x => x.Path);
                     try
                     {
-                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+                        var startPath = Server.MapPath("~/App_Data/Employees" + "\\" + employee.id);
+
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder")))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder"));
+                        }
+                        var zipPath = Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder") + "\\" + employee.id + ".zip";
+
+                        if (System.IO.File.Exists(zipPath))
+                        {
+                            System.IO.File.Delete(zipPath);
+                        }
+                        try
+                        {
+                            ZipFile.CreateFromDirectory(startPath, zipPath);
+                        }
+                        catch (Exception wx) { }
+                        employee.Proof = zipPath;
                     }
-                    catch (Exception wx) { }
-                    employee.Proof = zipPath;
+                    catch { }
+
+
                 }
-                catch { }
-
-
-            }
-            catch (Exception ex)
-            {
-                ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
-                proceed = false;
-            }
-
-
-            employee.State = "متوفر";
-            employee.Password = Helper.ComputeHash("123", "SHA512", null);
-            if (proceed)
-            {
-                if (ModelState.IsValid)
+                catch (Exception ex)
                 {
+                    ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
+                    proceed = false;
+                }
+
+
+                employee.State = "متوفر";
+                employee.Password = Helper.ComputeHash("123", "SHA512", null);
+
+                var id = Convert.ToInt32(Session["ID"]);
+                var emp = db.Employees.Find(id);
+                if (proceed)
+                {
+
                     db.Employees.Add(employee);
                     try
                     {
@@ -665,9 +684,9 @@ namespace IntensiveLearning.Controllers
 
 
 
-            ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name",db.Employees.FirstOrDefault(x=>x.Centerid == employee.Centerid).Centerid);
+            ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name", db.Employees.FirstOrDefault(x => x.Centerid == employee.Centerid).Centerid);
             ViewBag.Job = new SelectList(TosendJobs, "id", "Type", db.Employees.FirstOrDefault(x => x.Job == employee.Job).Job);
-            ViewBag.Periodid = new SelectList(db.Periods, "id", "Name",db.Employees.FirstOrDefault(x=>x.Periodid == employee.Periodid));
+            ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", db.Employees.FirstOrDefault(x => x.Periodid == employee.Periodid));
             return View(employee);
         }
 
@@ -824,7 +843,7 @@ namespace IntensiveLearning.Controllers
                 }
                 if (JAddCOManagers != null)
                 {
-                    TosendJobs= TosendJobs.Union(JAddCOManagers).ToList();
+                    TosendJobs = TosendJobs.Union(JAddCOManagers).ToList();
                 }
                 if (JAddSchoolManagers != null)
                 {
@@ -890,113 +909,129 @@ namespace IntensiveLearning.Controllers
         public ActionResult Edit(/*[Bind(Include = "id,name,surname,BDate,Certificate,CType,State,Centerid,Periodid,SDate,EDate,Job,Salary,Sex,Father")]*/ Employee employee, IEnumerable<HttpPostedFileBase> file)
         {
             bool proceed = true;
-            var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-
-
-            int prooveid;
-            try
-            {
-                prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
-            }
-            catch (Exception)
-            {
-                prooveid = 1;
-            }
-            try
+            if (ModelState.IsValid)
             {
 
-                if (file.Count() > 0)
+
+                int prooveid;
+                try
                 {
-                    var oldImages = db.Prooves.Where(x => x.EmployeeID == employee.id).ToList();
+                    prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+                }
+                catch (Exception)
+                {
+                    prooveid = 1;
+                }
+                try
+                {
 
-                    foreach (var image in oldImages)
+                    if (file.Count() > 0)
                     {
-                        var path = Path.GetDirectoryName(image.Path);
-                        if ((Directory.Exists(path)))
+                        var oldImages = db.Prooves.Where(x => x.EmployeeID == employee.id).ToList();
+
+                        foreach (var image in oldImages)
+                        {
+
+                            db.Prooves.Remove(image);
+                        }
+
+                        if ((Directory.Exists(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id)))
                         {
                             try
                             {
-                                Directory.Delete(path, true);
+                                Directory.Delete(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id, true);
                             }
                             catch (IOException)
                             {
-                                Directory.Delete(path, true);
+                                Directory.Delete(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id, true);
                             }
                             catch (UnauthorizedAccessException)
                             {
-                                Directory.Delete(path, true);
+                                Directory.Delete(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id, true);
                             }
                         }
-                        db.Prooves.Remove(image);
-                    }
-                }
 
-
-                foreach (var item in file)
-                {
-                    if (item.ContentLength > 0)
-                    {
-                        var fileName = Path.GetFileName(item.FileName);
                         if (!Directory.Exists(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id))
                         {
                             Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id);
                         }
-                        var path = Path.Combine(Server.MapPath("~/App_Data/Employees/" + employee.id), fileName);
-                        item.SaveAs(path);
-                        Proove proove = new Proove();
-                        proove.Path = path;
-                        proove.id = prooveid;
-                        proove.EmployeeID = employee.id;
-                        db.Prooves.Add(proove);
-                        prooveid++;
-
                     }
-                    else
+
+
+                    foreach (var item in file)
                     {
+                        if (item.ContentLength > 0)
+                        {
+                            var fileName = Path.GetFileName(item.FileName);
+                            if (!Directory.Exists(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id))
+                            {
+                                Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id);
+                            }
+                            var path = Path.Combine(Server.MapPath("~/App_Data/Employees/" + employee.id), fileName);
+                            item.SaveAs(path);
+                            Proove proove = new Proove();
+                            proove.Path = path;
+                            proove.id = prooveid;
+                            proove.EmployeeID = employee.id;
+                            db.Prooves.Add(proove);
+                            prooveid++;
 
+                        }
+                        else
+                        {
+
+                        }
                     }
-                }
-                try
-                {
-                    var startPath = Server.MapPath("~/App_Data/Employees" + "/" + employee.id);
-                    var zipPath = Server.MapPath("~/App_Data/Employees" + "/" + employee.id) + "\\" + employee.id + ".zip";
-                    var proove = db.Prooves.Where(x => x.EmployeeID == employee.id).Select(x => x.Path);
+
                     try
                     {
-                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+                        var startPath = Server.MapPath("~/App_Data/Employees" + "\\" + employee.id);
+
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder")))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder"));
+                        }
+                        var zipPath = Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder") + "\\" + employee.id + ".zip";
+
+                        if (System.IO.File.Exists(zipPath))
+                        {
+                            System.IO.File.Delete(zipPath);
+                        }
+                        try
+                        {
+                            ZipFile.CreateFromDirectory(startPath, zipPath);
+                        }
+                        catch (Exception wx) { }
+                        employee.Proof = zipPath;
                     }
-                    catch (Exception wx) { }
-                    employee.Proof = zipPath;
+                    catch { }
+
                 }
-                catch { }
-
-
-            }
-            catch (Exception ex)
-            {
-                ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
-
-                proceed = false;
-            }
-
-
-            if (employee.EDate!=null)
-            {
-                if (employee.EDate.Value >= DateTime.Now.Date)
+                catch (Exception ex)
                 {
-                    employee.State = "خارج الخدمة";
+                    ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
+
+                    proceed = false;
                 }
-            }
-            if (proceed)
-            {
-                if (ModelState.IsValid)
+
+
+                if (employee.EDate != null)
                 {
+                    if (employee.EDate.Value >= DateTime.Now.Date)
+                    {
+                        employee.State = "خارج الخدمة";
+                    }
+                }
+                if (proceed)
+                {
+
                     db.Entry(employee).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }
 
+            var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
 
             var CAddManagers = db.Centers.ToList();
             var CAddCOManagers = db.Centers.ToList();

@@ -96,10 +96,13 @@
                                         if ((bool)Session["AddManagers"] == true)
                                         {
 
-                                            <div style="width:210px;">
-                                                @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-                                                @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
-                                                @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                                            <div style="width:130px;">
+                                                <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                @*@Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+                                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })*@
                                             </div>
                                         }
 
@@ -107,7 +110,9 @@
                                     }
                                     else
                                     {
-                                        @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                        <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+
+                                        @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
 
                                     }
                                 }
@@ -119,10 +124,13 @@
                                         if ((bool)Session["AddCoManagers"] == true)
                                         {
 
-                                            <div style="width:210px;">
-                                                @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-                                                @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
-                                                @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                                            <div style="width:130px;">
+                                                <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                @*@Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+                                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })*@
                                             </div>
                                         }
 
@@ -130,7 +138,9 @@
                                     }
                                     else
                                     {
-                                        @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                        <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+
+                                        @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
 
                                     }
                                 }
@@ -144,10 +154,13 @@
                                         if ((bool)Session["AddSchoolManagers"] == true)
                                         {
 
-                                            <div style="width:210px;">
-                                                @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-                                                @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
-                                                @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                                            <div style="width:130px;">
+                                                <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                @*@Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+                                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })*@
                                             </div>
                                         }
 
@@ -155,7 +168,9 @@
                                     }
                                     else
                                     {
-                                        @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                        <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+
+                                        @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
 
                                     }
                                 }
@@ -167,10 +182,13 @@
                                         if ((bool)Session["AddSchoolEmployees"] == true)
                                         {
 
-                                            <div style="width:210px;">
-                                                @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-                                                @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
-                                                @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                                            <div style="width:130px;">
+                                                <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                @*@Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+                                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })*@
                                             </div>
                                         }
 
@@ -178,20 +196,28 @@
                                     }
                                     else
                                     {
-                                        @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                        <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+
+                                        @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
 
                                     }
                                 }
                                 else if (item.EmployeeType.NormalEmployee != true && item.EmployeeType.SchoolManager != true && item.EmployeeType.CoManager != true && item.EmployeeType.Manager != true)
                                 {
-                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
+                                    <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+
+                                    @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
 
                                 }
                             </td>
                             <td>
-                                @if (item.Proof != null)
-                                {
-                                    @Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = item.Proof }, new { @class = "btn btn-warning" })
+                                @{ var ImageName = item.Proof;
+                                    if (item.Proof != null)
+                                    {
+                                        <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof} )" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+
+                                        @*@Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = item.Proof }, new { @class = "btn btn-warning" })*@
+                                    }
                                 }
                             </td>
                             <td>
@@ -231,8 +257,8 @@
                                 @Html.DisplayFor(modelItem => item.name)
                             </td>
                         </tr>
-                    }
-                }
+                                        }
+                                    }
             </tbody>
         </table>
     </div>
@@ -299,99 +325,85 @@
             </thead>
             <tbody>
                 <tr ng-repeat="Exam in Exams">
-                    @{int i = 0; }
                     <td>
-                        @if (Session["AddManagers"] != null)
-                        {
-                            /**/
-                            if ((bool)Session["AddManagers"] == true)
-                            {
 
-                                <div style="width:210px;" ng-if="Exam.EmpManager==true">
-                                    <a class="btn btn-danger" href="/Employees/Delete/{{Exam.ID}}">حذف</a>
-                                    <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}">معلومات</a>
-                                    <a class="btn btn-success" href="/Employees/Edit/{{Exam.ID}}">تعديل</a>
-                                </div>
-                                if (i == 0)
+
+                        <div style="width:130px;" ng-if="Exam.EmpManager==true">
+                            @if (Session["AddManagers"] != null)
+                            {
+                                if ((bool)Session["AddManagers"] == true)
                                 {
-                                    <div ng-if="!Exam.EmpManager==true">
-                                        <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}" ng-init="showButtons = false">معلومات</a>
-                                    </div>
-                                    i++;
+                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
                                 }
 
 
+
                             }
-                        }
-
-                        @if (Session["AddCoManagers"] != null)
-                        {
-                            /**/
-                            if ((bool)Session["AddCoManagers"] == true)
+                            else
                             {
-                                <div style="width:210px;" ng-if="Exam.EmpCoManager==true">
-
-                                    <a class="btn btn-danger" href="/Employees/Delete/{{Exam.ID}}">حذف</a>
-                                    <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}">معلومات</a>
-                                    <a class="btn btn-success" href="/Employees/Edit/{{Exam.ID}}">تعديل</a>
-                                </div>
-                                if (i == 0)
-                                {
-                                    <div ng-if="!Exam.EmpCoManager==true">
-                                        <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}" ng-init="showButtons = false">معلومات</a>
-                                    </div>
-                                    i++;
-                                }
+                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                             }
-                        }
+                        </div>
+                        <div style="width:130px;" ng-if="Exam.EmpCoManager==true">
 
-
-
-
-                        @if (Session["AddSchoolManagers"] != null)
-                        {
-                            /**/
-                            if ((bool)Session["AddSchoolManagers"] == true)
+                            @if (Session["AddCoManagers"] != null)
                             {
-                                <div style="width:210px;" ng-if="Exam.EmpSchoolManager==true">
-                                    <a class="btn btn-danger" href="/Employees/Delete/{{Exam.ID}}" ng-init="showButtons = true">حذف</a>
-                                    <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}">معلومات</a>
-                                    <a class="btn btn-success" href="/Employees/Edit/{{Exam.ID}}">تعديل</a>
-                                </div>
-                                if (i == 0)
+                                if ((bool)Session["AddCoManagers"] == true)
                                 {
-                                    <div ng-if="!Exam.EmpSchoolManager==true">
-                                        <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}" ng-init="showButtons = false">معلومات</a>
-                                    </div>
-                                    i++;
+                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
                                 }
 
                             }
-                        }
-
-                        @if (Session["AddSchoolEmployees"] != null)
-                        {
-                            /**/
-                            if ((bool)Session["AddSchoolEmployees"] == true)
+                            else
                             {
-                                <div style="width:210px;" ng-if="Exam.EmpNormal==true">
-                                    <a class="btn btn-danger" href="/Employees/Delete/{{Exam.ID}}">حذف</a>
-                                    <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}">معلومات</a>
-                                    <a class="btn btn-success" href="/Employees/Edit/{{Exam.ID}}">تعديل</a>
-                                </div>
-                                if (i == 0)
-                                {
-                                    <div ng-if="!Exam.EmpNormal==true">
-                                        <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}" ng-init="showButtons = false">معلومات</a>
-                                    </div>
-                                    i++;
-                                }
+                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                             }
-                        }
-                        else
-                        {
-                            <a class="btn btn-info" href="/Employees/Details/{{Exam.ID}}" ng-init="showButtons = false">معلومات</a>
-                        }
+                        </div>
+
+
+                        <div style="width:130px;" ng-if="Exam.EmpSchoolManager==true">
+
+                            @if (Session["AddSchoolManagers"] != null)
+                            {
+                                /**/
+                                if ((bool)Session["AddSchoolManagers"] == true)
+                                {
+                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                }
+
+                            }
+                            else
+                            {
+                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                            }
+                        </div>
+                        <div style="width:130px;" ng-if="Exam.EmpNormal==true">
+
+                            @if (Session["AddSchoolEmployees"] != null)
+                            {
+                                /**/
+                                if ((bool)Session["AddSchoolEmployees"] == true)
+                                {
+                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                }
+
+                            }
+                            else
+                            {
+                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                            }
+                        </div>
+                        <div ng-if="Exam.EmpManager!=true && Exam.EmpCoManager!=true && Exam.EmpSchoolManager!=true && Exam.EmpNormal!=true">
+                            <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                        </div>
 
 
 

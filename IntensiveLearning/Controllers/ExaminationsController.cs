@@ -43,7 +43,7 @@ namespace IntensiveLearning.Controllers
             }
             if (Session["ID"] != null)
             {
-                var typeName = (string)Session["Type"];var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+                var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.SeeAll == true || type.SeeAccToCity == true || type.SeeAccToCenter == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
                 {
                     Examination examination = db.Examinations.Find(id);
@@ -63,7 +63,7 @@ namespace IntensiveLearning.Controllers
         {
             if (Session["ID"] != null)
             {
-                var typeName = (string)Session["Type"];var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+                var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.AddExam == true)
                 {
                     ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName");
@@ -126,24 +126,31 @@ namespace IntensiveLearning.Controllers
 
                     foreach (var image in oldImages)
                     {
-                        var path = Path.GetDirectoryName(image.Path);
-                        if ((Directory.Exists(path)))
-                        {
-                            try
-                            {
-                                Directory.Delete(path, true);
-                            }
-                            catch (IOException)
-                            {
-                                Directory.Delete(path, true);
-                            }
-                            catch (UnauthorizedAccessException)
-                            {
-                                Directory.Delete(path, true);
-                            }
-                        }
+
                         db.Prooves.Remove(image);
                     }
+
+                    if ((Directory.Exists(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id)))
+                    {
+                        try
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id, true);
+                        }
+                        catch (IOException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id, true);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id, true);
+                        }
+                    }
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id);
+                    }
+
                 }
                 if (Request.Files.Count == 0)
                 {
@@ -182,18 +189,26 @@ namespace IntensiveLearning.Controllers
                 }
                 try
                 {
-                    var startPath = Server.MapPath("~/App_Data/Examinations" + "/" + examination.id);
-                    var zipPath = Server.MapPath("~/App_Data/Examinations" + "/" + examination.id) + "\\" + examination.id + ".zip";
-                    var proove = db.Prooves.Where(x => x.ExaminationID == examination.id).Select(x => x.Path);
+                    var startPath = Server.MapPath("~/App_Data/Examinations" + "\\" + examination.id);
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Examinations" + "\\" + "ZipFolder")))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Examinations" + "\\" + "ZipFolder"));
+                    }
+                    var zipPath = Server.MapPath("~/App_Data/Examinations" + "\\" + "ZipFolder") + "\\" + examination.id + ".zip";
+
+                    if (System.IO.File.Exists(zipPath))
+                    {
+                        System.IO.File.Delete(zipPath);
+                    }
                     try
                     {
-                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+                        ZipFile.CreateFromDirectory(startPath, zipPath);
                     }
                     catch (Exception wx) { }
                     examination.Proof = zipPath;
                 }
                 catch { }
-
                 ViewBag.Message = "Upload successful";
             }
             catch
@@ -225,7 +240,7 @@ namespace IntensiveLearning.Controllers
             }
             if (Session["ID"] != null)
             {
-                var typeName = (string)Session["Type"];var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+                var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.AddExam == true)
                 {
 
@@ -251,7 +266,7 @@ namespace IntensiveLearning.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(/*[Bind(Include = "id,Desc,Subjectid,Studentid,Stageid,ExamTypeid,Mark,Date")]*/ Examination examination,IEnumerable<HttpPostedFileBase> file)
+        public ActionResult Edit(/*[Bind(Include = "id,Desc,Subjectid,Studentid,Stageid,ExamTypeid,Mark,Date")]*/ Examination examination, IEnumerable<HttpPostedFileBase> file)
         {
             bool proceed = true;
             int prooveid;
@@ -272,24 +287,31 @@ namespace IntensiveLearning.Controllers
 
                     foreach (var image in oldImages)
                     {
-                        var path = Path.GetDirectoryName(image.Path);
-                        if ((Directory.Exists(path)))
-                        {
-                            try
-                            {
-                                Directory.Delete(path, true);
-                            }
-                            catch (IOException)
-                            {
-                                Directory.Delete(path, true);
-                            }
-                            catch (UnauthorizedAccessException)
-                            {
-                                Directory.Delete(path, true);
-                            }
-                        }
+
                         db.Prooves.Remove(image);
                     }
+
+                    if ((Directory.Exists(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id)))
+                    {
+                        try
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id, true);
+                        }
+                        catch (IOException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id, true);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id, true);
+                        }
+                    }
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id);
+                    }
+
                 }
 
 
@@ -319,12 +341,21 @@ namespace IntensiveLearning.Controllers
                 }
                 try
                 {
-                    var startPath = Server.MapPath("~/App_Data/Examinations" + "/" + examination.id);
-                    var zipPath = Server.MapPath("~/App_Data/Examinations" + "/" + examination.id) + "\\" + examination.id + ".zip";
-                    var proove = db.Prooves.Where(x => x.ExaminationID == examination.id).Select(x => x.Path);
+                    var startPath = Server.MapPath("~/App_Data/Examinations" + "\\" + examination.id);
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Examinations" + "\\" + "ZipFolder")))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Examinations" + "\\" + "ZipFolder"));
+                    }
+                    var zipPath = Server.MapPath("~/App_Data/Examinations" + "\\" + "ZipFolder") + "\\" + examination.id + ".zip";
+
+                    if (System.IO.File.Exists(zipPath))
+                    {
+                        System.IO.File.Delete(zipPath);
+                    }
                     try
                     {
-                        ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+                        ZipFile.CreateFromDirectory(startPath, zipPath);
                     }
                     catch (Exception wx) { }
                     examination.Proof = zipPath;
@@ -364,7 +395,7 @@ namespace IntensiveLearning.Controllers
             }
             if (Session["ID"] != null)
             {
-                                var typeName = (string)Session["Type"];var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+                var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.AddExam == true)
                 {
                     Examination examination = db.Examinations.Find(id);
@@ -388,7 +419,7 @@ namespace IntensiveLearning.Controllers
         {
             if (Session["ID"] != null)
             {
-                                var typeName = (string)Session["Type"];var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+                var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.AddExam == true)
                 {
                     Examination examination = db.Examinations.Find(id);

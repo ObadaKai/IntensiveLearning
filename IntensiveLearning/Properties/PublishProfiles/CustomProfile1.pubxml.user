@@ -32,10 +32,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/23/2017 13:15:20</publishTime>
     </File>
     <File Include="bin/IntensiveLearning.dll">
-      <publishTime>10/31/2017 16:43:04</publishTime>
+      <publishTime>11/02/2017 13:23:50</publishTime>
     </File>
     <File Include="bin/IntensiveLearning.pdb">
-      <publishTime>10/31/2017 16:43:04</publishTime>
+      <publishTime>11/02/2017 13:23:50</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>06/27/2017 12:59:34</publishTime>
@@ -278,7 +278,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/27/2017 17:46:52</publishTime>
     </File>
     <File Include="Content/Images/pexels-photo-247839.jpeg">
-      <publishTime>10/27/2017 17:46:52</publishTime>
+      <publishTime>11/02/2017 12:47:11</publishTime>
     </File>
     <File Include="Content/Images/Photo.jpg">
       <publishTime>10/27/2017 17:46:52</publishTime>
@@ -287,7 +287,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/27/2017 17:46:52</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>10/31/2017 17:43:24</publishTime>
+      <publishTime>11/01/2017 15:14:46</publishTime>
     </File>
     <File Include="Database/Database.edmx.diagram">
       <publishTime>10/31/2017 11:54:45</publishTime>
@@ -326,7 +326,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/31/2017 18:04:08</publishTime>
     </File>
     <File Include="Scripts/ExportExcel.js">
-      <publishTime>10/27/2017 17:48:00</publishTime>
+      <publishTime>11/02/2017 12:38:25</publishTime>
     </File>
     <File Include="Scripts/jquery-1.10.2.js">
       <publishTime>10/27/2017 17:46:05</publishTime>
@@ -389,7 +389,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/28/2017 11:27:19</publishTime>
     </File>
     <File Include="Views/Centers/Create.cshtml">
-      <publishTime>10/31/2017 11:35:59</publishTime>
+      <publishTime>11/02/2017 12:00:24</publishTime>
     </File>
     <File Include="Views/Centers/Delete.cshtml">
       <publishTime>10/27/2017 17:59:35</publishTime>
@@ -398,10 +398,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/30/2017 11:12:13</publishTime>
     </File>
     <File Include="Views/Centers/Edit.cshtml">
-      <publishTime>10/31/2017 14:11:48</publishTime>
+      <publishTime>11/02/2017 12:00:41</publishTime>
     </File>
     <File Include="Views/Centers/Index.cshtml">
-      <publishTime>10/27/2017 18:00:23</publishTime>
+      <publishTime>11/02/2017 11:19:03</publishTime>
     </File>
     <File Include="Views/Cities/Create.cshtml">
       <publishTime>10/27/2017 18:00:23</publishTime>
@@ -434,16 +434,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/31/2017 17:11:43</publishTime>
     </File>
     <File Include="Views/Employees/Delete.cshtml">
-      <publishTime>10/27/2017 18:00:23</publishTime>
+      <publishTime>11/02/2017 13:23:07</publishTime>
     </File>
     <File Include="Views/Employees/Details.cshtml">
-      <publishTime>10/27/2017 18:00:23</publishTime>
+      <publishTime>11/02/2017 13:22:02</publishTime>
     </File>
     <File Include="Views/Employees/Edit.cshtml">
-      <publishTime>10/31/2017 11:37:18</publishTime>
+      <publishTime>11/01/2017 12:14:19</publishTime>
     </File>
     <File Include="Views/Employees/Index.cshtml">
-      <publishTime>10/31/2017 18:07:08</publishTime>
+      <publishTime>11/01/2017 14:57:47</publishTime>
     </File>
     <File Include="Views/EmployeeTypes/Create.cshtml">
       <publishTime>10/27/2017 18:00:23</publishTime>
@@ -473,7 +473,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/31/2017 15:16:08</publishTime>
     </File>
     <File Include="Views/Examinations/Index.cshtml">
-      <publishTime>10/31/2017 17:29:07</publishTime>
+      <publishTime>11/01/2017 11:00:59</publishTime>
     </File>
     <File Include="Views/ExamTypes/Create.cshtml">
       <publishTime>10/27/2017 18:00:23</publishTime>
@@ -494,7 +494,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/27/2017 18:00:23</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>10/30/2017 10:40:13</publishTime>
+      <publishTime>11/01/2017 11:22:46</publishTime>
     </File>
     <File Include="Views/Lessons/Create.cshtml">
       <publishTime>10/27/2017 18:00:23</publishTime>
@@ -548,7 +548,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/27/2017 18:00:24</publishTime>
     </File>
     <File Include="Views/Presences/Index.cshtml">
-      <publishTime>10/31/2017 17:29:04</publishTime>
+      <publishTime>11/01/2017 11:01:27</publishTime>
     </File>
     <File Include="Views/Projects/Create.cshtml">
       <publishTime>10/27/2017 18:00:24</publishTime>
@@ -584,7 +584,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/31/2017 17:29:11</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>10/30/2017 14:26:00</publishTime>
+      <publishTime>11/02/2017 12:35:26</publishTime>
     </File>
     <File Include="Views/Stages/Create.cshtml">
       <publishTime>10/27/2017 18:00:24</publishTime>
@@ -614,7 +614,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/31/2017 15:32:26</publishTime>
     </File>
     <File Include="Views/Students/Index.cshtml">
-      <publishTime>10/31/2017 17:29:02</publishTime>
+      <publishTime>11/01/2017 11:18:28</publishTime>
     </File>
     <File Include="Views/Study_subject/Create.cshtml">
       <publishTime>10/27/2017 18:00:24</publishTime>
