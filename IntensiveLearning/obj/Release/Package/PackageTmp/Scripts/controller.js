@@ -17,7 +17,7 @@
         };
     });
 
-    myApp.controller('AddStudentCtrl', ['$http', '$scope', function ($http, $scope) {
+    myApp.controller('AddStudentCtrl', ['$http', '$scope', '$timeout', function ($http, $scope, $timeout) {
         $scope.ShowForm = true;
         var Student = {};
         $scope.Warning = false;
@@ -36,7 +36,7 @@
 
 
             Student = {
-                "id": $scope.id, "BDate": $scope.BDate,
+                "BDate": $scope.BDate,
                 "Name": $scope.Name, "Surname": $scope.Surname,
                 "Certificate": $scope.Certificate, "Mark": $scope.Mark,
                 "SDate": $scope.SDate,
@@ -75,21 +75,33 @@
                     $scope.Success = true;
                     formData.delete('student');
                     $("#imgInp").val(null);
+                    $timeout(function () {
+                        $scope.Success = false;
+                    }, 3000);
+
                 }
                 else {
                     Student = {};
                     $scope.Success = false;
                     $scope.Warning = true;
+
                     formData.delete('student');
                     $("#imgInp").val(null);
+                    $timeout(function () {
+                        $scope.Warning = false;
+                    }, 3000);
                 }
 
             },function errorCallback(response) {
                 Student = {};
                 $scope.Success = false;
                 $scope.Warning = true;
+
                 formData.delete('student');
                 $("#imgInp").val(null);
+                $timeout(function () {
+                    $scope.Warning = false;
+                }, 3000);
             });
 
 
@@ -103,7 +115,7 @@
     }]);
 
 
-    myApp.controller('AddExamCtrl', ['$http', '$scope', function ($http, $scope) {
+    myApp.controller('AddExamCtrl', ['$http', '$scope', '$timeout', function ($http, $scope, $timeout) {
         $scope.ShowForm = true;
         $scope.Date = new Date();
         $http({ method: 'GET', url: '/Json/FetchStudentsOfDate' }).then(function successCallback(response) {
@@ -144,23 +156,35 @@
                     $scope.Studentid = null;
                     $scope.Warning = false;
                     $scope.Success = true;
+
                     formData.delete('Exam');
                     $http({ method: 'GET', url: '/Json/FetchStudentsOfDate' }).then(function successCallback(response) {
                         $scope.Students = response.data;
                     });
                     $("#imgInp").val(null);
+                    $timeout(function () {
+                        $scope.Success = false;
+                    }, 3000);
                 }
                 else {
                     $scope.Success = false;
                     $scope.Warning = true;
+
                     formData.delete('Exam');
                     $("#imgInp").val(null);
+                    $timeout(function () {
+                        $scope.Warning = false;
+                    }, 3000);
                 }
                     }, function errorCallback(response) {
                         $scope.Success = false;
                         $scope.Warning = true;
+
                         formData.delete('Exam');
                         $("#imgInp").val(null);
+                        $timeout(function () {
+                            $scope.Warning = false;
+                        }, 3000);
                     });
         };
         $scope.ChangeDate = function () {

@@ -23,6 +23,10 @@ namespace IntensiveLearning.Controllers
                 if (type.SeeAccToCenter == true || type.SeeAccToCity == true || type.SeeAll == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
                 {
                     var presences = db.Presences.Include(p => p.Student);
+                    if (TempData["Message"] != null)
+                    {
+                        ViewBag.StateMessage = TempData["Message"];
+                    }
                     return View(presences.ToList());
                 }
                 return RedirectToAction("Default", "Home");
@@ -101,6 +105,7 @@ namespace IntensiveLearning.Controllers
             {
                 db.Presences.Add(presence);
                 db.SaveChanges();
+                TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
 
@@ -151,6 +156,7 @@ namespace IntensiveLearning.Controllers
             {
                 db.Entry(presence).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "تم التعديل بنجاح";
                 return RedirectToAction("Index");
             }
             ViewBag.Studentid = new SelectList(db.Students, "id", "Name", presence.Studentid);

@@ -22,7 +22,10 @@ namespace IntensiveLearning.Controllers
                 var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.SeeAccToCenter == true || type.SeeAccToCity == true || type.SeeAll == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
                 {
-
+                    if (TempData["Message"] != null)
+                    {
+                        ViewBag.StateMessage = TempData["Message"];
+                    }
                     return View(db.Study_subject.ToList());
                 }
                 return RedirectToAction("Default", "Home");
@@ -97,6 +100,7 @@ namespace IntensiveLearning.Controllers
             {
                 db.Study_subject.Add(study_subject);
                 db.SaveChanges();
+                TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
 
@@ -141,6 +145,7 @@ namespace IntensiveLearning.Controllers
             {
                 db.Entry(study_subject).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "تم التعديل بنجاح";
                 return RedirectToAction("Index");
             }
             return View(study_subject);

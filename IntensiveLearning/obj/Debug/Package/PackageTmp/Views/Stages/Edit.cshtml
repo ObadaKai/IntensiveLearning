@@ -1,0 +1,74 @@
+﻿@model IntensiveLearning.Database.Stage
+
+@{
+    ViewBag.Title = "تعديل";
+}
+<div class="container">
+
+    <h2>تعديل</h2>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>مرحلة</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StageName, htmlAttributes: new { @class = "control-label" })
+
+
+                <div>
+                    @Html.EditorFor(model => model.StageName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StageName, "", new { @class = "text-danger" })
+                </div>
+
+
+            </div>
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SDate, htmlAttributes: new { @class = "control-label" })
+
+
+                <div>
+                    @Html.EditorFor(model => model.SDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SDate, "", new { @class = "text-danger" })
+                </div>
+
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EDate, htmlAttributes: new { @class = "control-label" })
+
+
+                <div>
+                    @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EDate, "", new { @class = "text-danger" })
+                </div>
+
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="حفظ" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("العودة إلى اللائحة", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+    </div>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<IntensiveLearning.Database.Concern>
+
+@{
+    ViewBag.Title = "لائحة الشكاوى";
+}
+
+<h2>لائحة الشكاوى</h2>
+<div id="table_wrapper">
+
+    <table class="table table-striped">
+        <thead>
+            <tr class="bg-primary">
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee.name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee.surname)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Concern1)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.date)
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+               foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Employee.name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Employee.surname)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Concern1)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.date)
+                        </td>
+
+
+
+                    </tr>
+                }
+
+            }
+
+        </tbody>
+    </table>
+</div>
+<button id="btnExport" class="btn btn-warning">Export to xls</button>

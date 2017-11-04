@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "انشاء";
 }
-
+<div class="WhiteBlur">
     <h2>انشاء</h2>
 
 
@@ -31,7 +31,7 @@
                 @Html.LabelFor(model => model.StartingTime, htmlAttributes: new { @class = "control-label " })
 
 
-                @Html.EditorFor(model => model.StartingTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.StartingTime, new { htmlAttributes = new { @class = "form-control", @type = "time" } })
                 @Html.ValidationMessageFor(model => model.StartingTime, "", new { @class = "text-danger" })
 
 
@@ -41,7 +41,7 @@
                 @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label " })
 
 
-                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control", @type = "time" } })
                 @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
 
 
@@ -58,7 +58,7 @@
     <div>
         @Html.ActionLink("العودة إلى اللائحة", "Index")
     </div>
-
+    </div>
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }

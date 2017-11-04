@@ -37,6 +37,7 @@ namespace IntensiveLearning.Database
         public string Desc { get; set; }
         [DisplayName("ÇáÍÇáÉ")]
         public string State { get; set; }
+        [Range(2, int.MaxValue, ErrorMessage = "íÑÌì ÇÏÎÇá ÑŞã ÃÚáì ãä 2")]
         [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÚÏÏ ÇáÕİæÕ")]
         [DisplayName("ÚÏÏ ÇáÕİæÕ")]
         public Nullable<int> HolesN { get; set; }

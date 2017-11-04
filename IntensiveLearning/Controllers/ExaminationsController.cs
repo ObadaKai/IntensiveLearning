@@ -27,6 +27,10 @@ namespace IntensiveLearning.Controllers
                 if (type.SeeAll == true || type.SeeAccToCity == true || type.SeeAccToCenter == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
                 {
                     var examinations = db.Examinations.Include(e => e.Stage).Include(e => e.Student).Include(e => e.Study_subject).Include(e => e.ExamType);
+                    if (TempData["Message"] != null)
+                    {
+                        ViewBag.StateMessage = TempData["Message"];
+                    }
                     return View(examinations.ToList());
                 }
                 return RedirectToAction("Default", "Home");
@@ -70,6 +74,7 @@ namespace IntensiveLearning.Controllers
                     ViewBag.Studentid = new SelectList(db.Students, "id", "Name");
                     ViewBag.Subjectid = new SelectList(db.Study_subject, "id", "Name");
                     ViewBag.ExamTypeid = new SelectList(db.ExamTypes, "id", "Type");
+
                     return View();
                 }
                 return RedirectToAction("Default", "Home");
@@ -86,13 +91,6 @@ namespace IntensiveLearning.Controllers
         //[ValidateAntiForgeryToken]
         public JsonResult Create(FormCollection formCollection)
         {
-
-
-
-
-
-
-
 
             var name = formCollection["Exam"];
             Examination examination = new JavaScriptSerializer().Deserialize<Examination>(name);
@@ -281,7 +279,7 @@ namespace IntensiveLearning.Controllers
             try
             {
 
-                if (file.Count() > 0)
+                if (file.Count() > 1 || file.Count() > 0 && file.FirstOrDefault() != null)
                 {
                     var oldImages = db.Prooves.Where(x => x.ExaminationID == examination.id).ToList();
 
@@ -312,7 +310,7 @@ namespace IntensiveLearning.Controllers
                         Directory.CreateDirectory(Server.MapPath("~/App_Data/Examinations") + "\\" + examination.id);
                     }
 
-                }
+               
 
 
                 foreach (var item in file)
@@ -362,7 +360,7 @@ namespace IntensiveLearning.Controllers
                 }
                 catch { }
 
-
+                }
             }
             catch (Exception ex)
             {
@@ -375,6 +373,7 @@ namespace IntensiveLearning.Controllers
                 {
                     db.Entry(examination).State = EntityState.Modified;
                     db.SaveChanges();
+                    TempData["Message"] = "تم التعديل بنجاح";
                     return RedirectToAction("Index");
                 }
             }

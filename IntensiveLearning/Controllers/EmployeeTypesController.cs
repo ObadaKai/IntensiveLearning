@@ -23,6 +23,10 @@ namespace IntensiveLearning.Controllers
                 var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.SeeAll == true || type.SeeAllButFinance == true || type.AddNewEmployeeType == true)
                 {
+                    if (TempData["Message"] != null)
+                    {
+                        ViewBag.StateMessage = TempData["Message"];
+                    }
                     return View(db.EmployeeTypes.ToList());
                 }
                 return RedirectToAction("Default", "Home");
@@ -95,6 +99,8 @@ namespace IntensiveLearning.Controllers
             {
                 db.EmployeeTypes.Add(employeeType);
                 db.SaveChanges();
+                TempData["Message"] = "تم الادخال بنجاح";
+
                 return RedirectToAction("Index");
             }
 
@@ -141,6 +147,8 @@ namespace IntensiveLearning.Controllers
             {
                 db.Entry(employeeType).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "تم التعديل بنجاح";
+
                 return RedirectToAction("Index");
             }
             return View(employeeType);

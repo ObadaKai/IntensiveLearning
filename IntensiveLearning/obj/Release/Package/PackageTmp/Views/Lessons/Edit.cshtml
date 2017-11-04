@@ -29,23 +29,6 @@
 
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label" })
-
-
-                <div>
-                    <select name="State" id="State" class="form-control">
-                        <option @if (Model.State == "متوفر") { @: selected="selected"
-                                                                                                                 }>
-                            متوفر
-                        </option>
-                        <option @if (Model.State == "خارج الخدمة") { @: selected="selected"
-                                                                                                                 }>
-                            خارج الخدمة
-                        </option>
-                    </select>
-                    @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
-                </div>
 
 
             </div>
@@ -151,7 +134,7 @@
                     <input type="submit" value="حفظ" class="btn btn-primary" />
                 </div>
             </div>
-        </div>
+       
     }
 
     <div>

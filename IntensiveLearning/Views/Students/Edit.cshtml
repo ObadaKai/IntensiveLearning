@@ -3,11 +3,12 @@
 @{
     ViewBag.Title = "تعديل";
 }
+<div class="WhiteBlur">
     <h2>تعديل</h2>
 
 
     @using (Html.BeginForm("Edit", "Students", FormMethod.Post,
-                                    new { enctype = "multipart/form-data" }))
+                                            new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -16,223 +17,474 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.id)
+            @Html.HiddenFor(model => model.StudentNumber)
+            @Html.HiddenFor(model => model.State)
+            @Html.HiddenFor(model => model.Proof)
+
+            <div class="col-sm-6 hidden-xs">
+                <div style="padding-right:10px;">
 
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Centerid, "المركز", htmlAttributes: new { @class = "control-label" })
 
 
-                <div>
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        <div>
+                            @Html.DropDownList("Centerid", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Centerid, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Stageid, "المرحلة", htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            @Html.DropDownList("Stageid", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Stageid, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Regimentid, "الفوج", htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            @Html.DropDownList("Regimentid", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Regimentid, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SDate, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            @Html.EditorFor(model => model.SDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.SDate.Value.ToString("yyyy-MM-dd") } })
+                            @Html.ValidationMessageFor(model => model.SDate, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EDate, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            @if (Model.EDate != null)
+                            {
+                                @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.EDate.Value.ToString("yyyy-MM-dd") } })
+
+                            }
+                            else
+                            {
+                                @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            }
+                            @Html.ValidationMessageFor(model => model.EDate, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <div>
+                            <input id="file" type="file" aria-label="Add photos to your post" class="upload" style="color:white;" multiple name="file" onchange="angular.element(this).scope().LoadFileData(this.files)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 hidden-xs">
+                <div style="padding-left:10px;">
+                     <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FathersName, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            @Html.EditorFor(model => model.FathersName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FathersName, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BDate, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            @if (Model.BDate != null)
+                            {
+                                @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.BDate.Value.ToString("yyyy-MM-dd") } })
+
+                            }
+                            else
+                            {
+                                @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            }                    @Html.ValidationMessageFor(model => model.BDate, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Certificate, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            @Html.EditorFor(model => model.Certificate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Certificate, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label" })
+                        <div>
+                            @Html.EditorFor(model => model.Mark, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+                    @* <div class="form-group">
+                        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            <select name="State" id="State" class="form-control">
+                                @if (Model.State == "متوفر")
+                                {
+                                    <option selected="selected">متوفر</option>
+                                }
+                                else
+                                {
+                                    <option>متوفر</option>
+                                }
+                                @if (Model.State == "خارج الخدمة")
+                                {
+                                    <option selected="selected">خارج الخدمة</option>
+                                }
+                                else
+                                {
+                                    <option>خارج الخدمة</option>
+
+                                }
+                            </select>
+                            @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                        </div>
+
+
+                                </div>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            <select name="Sex" id="Sex" class="form-control">
+                                @if (Model.Sex == "ذكر")
+                                {
+                                    <option selected="selected">ذكر</option>
+                                }
+                                else
+                                {
+                                    <option>ذكر</option>
+                                }
+                                @if (Model.Sex == "انثى")
+                                {
+                                    <option selected="selected">انثى</option>
+                                }
+                                else
+                                {
+                                    <option>انثى</option>
+
+                                }
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
+            </div>
+            <div class="visible-xs">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+
+
+                    <div>
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label" })
+
+
+                    <div>
+                        @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                    </div>
+
+
                 </div>
 
 
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FathersName, htmlAttributes: new { @class = "control-label" })
 
 
-                <div>
-                    @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                    <div>
+                        @Html.EditorFor(model => model.FathersName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FathersName, "", new { @class = "text-danger" })
+                    </div>
+
+
                 </div>
 
-
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.FathersName, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BDate, htmlAttributes: new { @class = "control-label" })
 
 
-                <div>
-                    @Html.EditorFor(model => model.FathersName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FathersName, "", new { @class = "text-danger" })
-                </div>
-
-
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.BDate, htmlAttributes: new { @class = "control-label" })
-
-
-                <div>
-                    @if (Model.BDate != null)
-                    {
-                        @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.BDate.Value.ToString("yyyy-MM-dd") } })
-
-                    }
-                    else
-                    {
-                        @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                    }                    @Html.ValidationMessageFor(model => model.BDate, "", new { @class = "text-danger" })
-                </div>
-
-
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Certificate, htmlAttributes: new { @class = "control-label" })
-
-
-                <div>
-                    @Html.EditorFor(model => model.Certificate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Certificate, "", new { @class = "text-danger" })
-                </div>
-
-
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label" })
-                <div>
-                    @Html.EditorFor(model => model.Mark, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
-                </div>
-
-
-            </div>
-
-           @* <div class="form-group">
-    @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label" })
-
-
-    <div>
-        <select name="State" id="State" class="form-control">
-            @if (Model.State == "متوفر")
-            {
-                <option selected="selected">متوفر</option>
-            }
-            else
-            {
-                <option>متوفر</option>
-            }
-            @if (Model.State == "خارج الخدمة")
-            {
-                <option selected="selected">خارج الخدمة</option>
-            }
-            else
-            {
-                <option>خارج الخدمة</option>
-
-            }
-        </select>
-        @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
-    </div>
-
-
-            </div>*@
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label" })
-
-
-                <div>
-                    <select name="Sex" id="Sex" class="form-control">
-                        @if (Model.Sex == "ذكر")
+                    <div>
+                        @if (Model.BDate != null)
                         {
-                            <option selected="selected">ذكر</option>
+                            @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.BDate.Value.ToString("yyyy-MM-dd") } })
+
                         }
                         else
                         {
-                            <option>ذكر</option>
-                        }
-                        @if (Model.Sex == "انثى")
+                            @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                        }                    @Html.ValidationMessageFor(model => model.BDate, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Certificate, htmlAttributes: new { @class = "control-label" })
+
+
+                    <div>
+                        @Html.EditorFor(model => model.Certificate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Certificate, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.EditorFor(model => model.Mark, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+
+                @* <div class="form-group">
+        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label" })
+
+
+        <div>
+            <select name="State" id="State" class="form-control">
+                @if (Model.State == "متوفر")
+                {
+                    <option selected="selected">متوفر</option>
+                }
+                else
+                {
+                    <option>متوفر</option>
+                }
+                @if (Model.State == "خارج الخدمة")
+                {
+                    <option selected="selected">خارج الخدمة</option>
+                }
+                else
+                {
+                    <option>خارج الخدمة</option>
+
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+        </div>
+
+
+                </div>*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label" })
+
+
+                    <div>
+                        <select name="Sex" id="Sex" class="form-control">
+                            @if (Model.Sex == "ذكر")
+                            {
+                                <option selected="selected">ذكر</option>
+                            }
+                            else
+                            {
+                                <option>ذكر</option>
+                            }
+                            @if (Model.Sex == "انثى")
+                            {
+                                <option selected="selected">انثى</option>
+                            }
+                            else
+                            {
+                                <option>انثى</option>
+
+                            }
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Centerid, "المركز", htmlAttributes: new { @class = "control-label" })
+
+
+                    <div>
+                        @Html.DropDownList("Centerid", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Centerid, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Stageid, "المرحلة", htmlAttributes: new { @class = "control-label" })
+
+
+                    <div>
+                        @Html.DropDownList("Stageid", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Stageid, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Regimentid, "الفوج", htmlAttributes: new { @class = "control-label" })
+
+
+                    <div>
+                        @Html.DropDownList("Regimentid", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Regimentid, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SDate, htmlAttributes: new { @class = "control-label" })
+
+
+                    <div>
+                        @Html.EditorFor(model => model.SDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.SDate.Value.ToString("yyyy-MM-dd") } })
+                        @Html.ValidationMessageFor(model => model.SDate, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EDate, htmlAttributes: new { @class = "control-label" })
+
+
+                    <div>
+                        @if (Model.EDate != null)
                         {
-                            <option selected="selected">انثى</option>
+                            @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.EDate.Value.ToString("yyyy-MM-dd") } })
+
                         }
                         else
                         {
-                            <option>انثى</option>
-
+                            @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
                         }
-                    </select>
-                    @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
-                </div>
+                        @Html.ValidationMessageFor(model => model.EDate, "", new { @class = "text-danger" })
+                    </div>
 
 
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Centerid, "المركز", htmlAttributes: new { @class = "control-label" })
 
 
-                <div>
-                    @Html.DropDownList("Centerid", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Centerid, "", new { @class = "text-danger" })
-                </div>
 
-
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Stageid, "المرحلة", htmlAttributes: new { @class = "control-label" })
-
-
-                <div>
-                    @Html.DropDownList("Stageid", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Stageid, "", new { @class = "text-danger" })
-                </div>
-
-
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Regimentid, "الفوج", htmlAttributes: new { @class = "control-label" })
-
-
-                <div>
-                    @Html.DropDownList("Regimentid", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Regimentid, "", new { @class = "text-danger" })
-                </div>
-
-
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SDate, htmlAttributes: new { @class = "control-label" })
-
-
-                <div>
-                    @Html.EditorFor(model => model.SDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.SDate.Value.ToString("yyyy-MM-dd") } })
-                    @Html.ValidationMessageFor(model => model.SDate, "", new { @class = "text-danger" })
-                </div>
-
-
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.EDate, htmlAttributes: new { @class = "control-label" })
-
-
-                <div>
-                    @if (Model.EDate != null)
-                    {
-                        @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.EDate.Value.ToString("yyyy-MM-dd") } })
-
-                    }
-                    else
-                    {
-                        @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                    }
-                    @Html.ValidationMessageFor(model => model.EDate, "", new { @class = "text-danger" })
                 </div>
 
 
 
 
 
-            </div>
 
 
-            <div class="form-group">
-                <div>
-                    <input id="file" type="file" aria-label="Add photos to your post" class="upload" style="color:white;" multiple name="file" onchange="angular.element(this).scope().LoadFileData(this.files)"  accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+
+
+                <div class="form-group">
+                    <div>
+                        <input id="file" type="file" aria-label="Add photos to your post" class="upload"  multiple name="file" onchange="angular.element(this).scope().LoadFileData(this.files)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                    </div>
                 </div>
-            </div>
 
+
+
+            </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="حفظ" class="btn btn-primary" />
@@ -244,6 +496,7 @@
     <div>
         @Html.ActionLink("العودة إلى اللائحة", "Index")
     </div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    </div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

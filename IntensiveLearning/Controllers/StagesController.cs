@@ -23,6 +23,10 @@ namespace IntensiveLearning.Controllers
                 if (type.SeeAccToCenter == true || type.SeeAccToCity == true || type.SeeAll == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
                 {
                     var stages = db.Stages;
+                    if (TempData["Message"] != null)
+                    {
+                        ViewBag.StateMessage = TempData["Message"];
+                    }
                     return View(stages.ToList());
                 }
                 return RedirectToAction("Default", "Home");
@@ -67,6 +71,7 @@ namespace IntensiveLearning.Controllers
                 if (type.AddSchoolManagingTools == true)
                 {
                     ViewBag.Managerid = new SelectList(db.Employees, "id", "name");
+
                     return View();
                 }
                 return RedirectToAction("Default", "Home");
@@ -95,6 +100,7 @@ namespace IntensiveLearning.Controllers
             {
                 db.Stages.Add(stage);
                 db.SaveChanges();
+                TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
             return View(stage);
@@ -137,6 +143,7 @@ namespace IntensiveLearning.Controllers
             {
                 db.Entry(stage).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "تم التعديل بنجاح";
                 return RedirectToAction("Index");
             }
             return View(stage);

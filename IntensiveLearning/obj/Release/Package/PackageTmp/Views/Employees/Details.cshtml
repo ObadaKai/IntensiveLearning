@@ -173,7 +173,18 @@
                     </p>
                 }
             }
+            @if (Model.Username != null)
+            {
 
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Username)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.Username)
+                    </p>
+                
+            }
 
 
 

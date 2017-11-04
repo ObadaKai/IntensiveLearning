@@ -22,6 +22,10 @@ namespace IntensiveLearning.Controllers
                 var typeName = (string)Session["Type"];var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.SeeAccToCenter == true || type.SeeAccToCity == true || type.SeeAll == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
                 {
+                    if (TempData["Message"] != null)
+                    {
+                        ViewBag.StateMessage = TempData["Message"];
+                    }
                     return View(db.Periods.ToList());
 
                 }
@@ -82,7 +86,7 @@ namespace IntensiveLearning.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,StartingTime,Enh2ime")] Period period)
+        public ActionResult Create([Bind(Include = "Name,StartingTime,Endtime")] Period period)
         {
             try
             {
@@ -96,6 +100,7 @@ namespace IntensiveLearning.Controllers
             {
                 db.Periods.Add(period);
                 db.SaveChanges();
+                TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
 
@@ -135,12 +140,13 @@ namespace IntensiveLearning.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Name,StartingTime,Enh2ime")] Period period)
+        public ActionResult Edit([Bind(Include = "id,Name,StartingTime,Endtime")] Period period)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(period).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "تم التعديل بنجاح";
                 return RedirectToAction("Index");
             }
             return View(period);

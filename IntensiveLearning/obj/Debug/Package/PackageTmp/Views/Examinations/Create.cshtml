@@ -1,0 +1,128 @@
+﻿@model IntensiveLearning.Database.Examination
+
+@{
+    ViewBag.Title = "انشاء";
+}
+
+
+
+    <div ng-controller="AddExamCtrl" ng-show="ShowForm" class="ng-cloak">
+
+        <form name="ExCrFrom" ng-submit="ExamCreate()" novalidate autocomplete="off">
+            <h2>انشاء</h2>
+            <div class="form-horizontal">
+                <h4>امتحان</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Desc, htmlAttributes: new { @class = "control-label" })
+
+                    @Html.EditorFor(model => model.Desc, new { htmlAttributes = new { @class = "form-control", ng_model = "Desc" }, required = "required" })
+                    @Html.ValidationMessageFor(model => model.Desc, "", new { @class = "text-danger" })
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Subjectid, "المادة", htmlAttributes: new { @class = "control-label" })
+
+
+                    @Html.DropDownList("Subjectid", null, htmlAttributes: new { @class = "form-control", ng_model = "Subjectid", required = "required", ng_change = "ChangeDate()" })
+                    @Html.ValidationMessageFor(model => model.Subjectid, "", new { @class = "text-danger" })
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Studentid, "الطالب", htmlAttributes: new { @class = "control-label" })
+
+
+                    @*@Html.DropDownList("Studentid", null, htmlAttributes: new { @class = "form-control", ng_model = "Studentid" })*@
+                    <select name="Studentid" id="Studentid" ng-model="Studentid" class="form-control" required>
+                        <option ng-repeat="Student in Students" value="{{Student.id}}">{{Student.Name}} {{Student.Surname}}</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Studentid, "", new { @class = "text-danger" })
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Stageid, "المرحلة", htmlAttributes: new { @class = "control-label" })
+
+
+                    @Html.DropDownList("Stageid", null, htmlAttributes: new { @class = "form-control", ng_model = "Stageid", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Stageid, "", new { @class = "text-danger" })
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ExamTypeid, "نوع الامتحان", htmlAttributes: new { @class = "control-label " })
+
+
+                    @Html.DropDownList("ExamTypeid", null, htmlAttributes: new { @class = "form-control", ng_model = "ExamTypeid", required = "required" })
+                    @Html.ValidationMessageFor(model => model.ExamTypeid, "", new { @class = "text-danger" })
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label " })
+
+
+
+                    @Html.EditorFor(model => model.Mark, new { htmlAttributes = new { @class = "form-control", @type = "number", ng_model = "Mark" }, required = "required" })
+                    @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
+
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label" })
+
+
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @type = "date", ng_model = "Date", ng_change = "ChangeDate()", @value = DateTime.Now.Date }, required = "required" })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+
+
+
+                </div>
+
+                <input id="imgInp" type="file" aria-label="Add photos to your post"style="color:white;" class="upload" name="file" multiple onchange="angular.element(this).scope().LoadFileData(this.files)"  accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="انشاء" class="btn btn-default" ng-disabled="!ExCrFrom.$valid" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-10">
+                <div ng-show="Warning" ng-cloak>
+                    <div class="alert alert-warning alert-dismissible" role="alert" >
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        ! يرجى التأكد من صحة المعلومات ومن ارفاق الاثبات
+                    </div>
+                </div>
+
+                <div ng-show="Success" ng-cloak>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        تمت اضافة الامتحان
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        <div>
+            @Html.ActionLink("العودة إلى اللائحة", "Index")
+        </div>
+    </div>

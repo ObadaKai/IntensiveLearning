@@ -27,6 +27,10 @@ namespace IntensiveLearning.Controllers
                 var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 var empid = Convert.ToInt32(Session["ID"]);
                 var emp = db.Employees.Find(empid);
+                if (TempData["Message"] != null)
+                {
+                    ViewBag.StateMessage = TempData["Message"];
+                }
                 if (type.AddNewEmployeeType == true)
                 {
 
@@ -138,11 +142,11 @@ namespace IntensiveLearning.Controllers
                 var CAddSchoolEmployees = db.Centers.ToList();
 
 
-
                 var JAddManagers = db.EmployeeTypes.ToList();
                 var JAddCOManagers = db.EmployeeTypes.ToList();
                 var JAddSchoolManagers = db.EmployeeTypes.ToList();
                 var JAddSchoolEmployees = db.EmployeeTypes.ToList();
+                var JAddNone = db.EmployeeTypes.Where(x=>x.Manager == null && x.SchoolManager == null && x.NormalEmployee == null && x.CoManager == null).ToList();
 
                 var TosendCenters = db.Centers.ToList();
                 var TosendJobs = db.EmployeeTypes.ToList();
@@ -280,7 +284,7 @@ namespace IntensiveLearning.Controllers
                 {
                     TosendJobs = TosendJobs.Union(JAddSchoolEmployees).ToList();
                 }
-
+                TosendJobs = TosendJobs.Union(JAddNone).ToList();
 
                 if (CAddManagers != null)
                 {
@@ -338,6 +342,8 @@ namespace IntensiveLearning.Controllers
         [HttpPost]
         public ActionResult Create(/*[Bind(Include = "name,surname,BDate,Certificate,CType,State,Centerid,Periodid,SDate,Job,Username,Salary,FathersName,Sex")]*/ Employee employee, IEnumerable<HttpPostedFileBase> file)
         {
+            bool sendImageError = false;
+
             if (ModelState.IsValid)
             {
                 bool proceed = true;
@@ -346,7 +352,6 @@ namespace IntensiveLearning.Controllers
                     ViewBag.error = "اسم المستخم مستخدم مسبقا";
                     return View(employee);
                 }
-
 
 
                 try
@@ -454,7 +459,7 @@ namespace IntensiveLearning.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
+                    sendImageError = true;
                     proceed = false;
                 }
 
@@ -474,6 +479,8 @@ namespace IntensiveLearning.Controllers
                         // Could also be before try if you know the exception occurs in SaveChanges
 
                         db.SaveChanges();
+                        TempData["Message"] = "تم الادخال بنجاح";
+
                     }
                     catch (DbEntityValidationException e)
                     {
@@ -508,6 +515,7 @@ namespace IntensiveLearning.Controllers
             var JAddCOManagers = db.EmployeeTypes.ToList();
             var JAddSchoolManagers = db.EmployeeTypes.ToList();
             var JAddSchoolEmployees = db.EmployeeTypes.ToList();
+            var JAddNone = db.EmployeeTypes.Where(x => x.Manager == null && x.SchoolManager == null && x.NormalEmployee == null && x.CoManager == null).ToList();
 
             var TosendCenters = db.Centers.ToList();
             var TosendJobs = db.EmployeeTypes.ToList();
@@ -645,6 +653,7 @@ namespace IntensiveLearning.Controllers
             {
                 TosendJobs = TosendJobs.Union(JAddSchoolEmployees).ToList();
             }
+            TosendJobs = TosendJobs.Union(JAddNone).ToList();
 
 
             if (CAddManagers != null)
@@ -687,6 +696,10 @@ namespace IntensiveLearning.Controllers
             ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name", db.Employees.FirstOrDefault(x => x.Centerid == employee.Centerid).Centerid);
             ViewBag.Job = new SelectList(TosendJobs, "id", "Type", db.Employees.FirstOrDefault(x => x.Job == employee.Job).Job);
             ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", db.Employees.FirstOrDefault(x => x.Periodid == employee.Periodid));
+            if (sendImageError)
+            {
+                ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
+            }
             return View(employee);
         }
 
@@ -716,6 +729,7 @@ namespace IntensiveLearning.Controllers
                 var JAddCOManagers = db.EmployeeTypes.ToList();
                 var JAddSchoolManagers = db.EmployeeTypes.ToList();
                 var JAddSchoolEmployees = db.EmployeeTypes.ToList();
+                var JAddNone = db.EmployeeTypes.Where(x => x.Manager == null && x.SchoolManager == null && x.NormalEmployee == null && x.CoManager == null).ToList();
 
                 var TosendCenters = db.Centers.ToList();
                 var TosendJobs = db.EmployeeTypes.ToList();
@@ -853,6 +867,7 @@ namespace IntensiveLearning.Controllers
                 {
                     TosendJobs = TosendJobs.Union(JAddSchoolEmployees).ToList();
                 }
+                TosendJobs = TosendJobs.Union(JAddNone).ToList();
 
 
                 if (CAddManagers != null)
@@ -925,7 +940,7 @@ namespace IntensiveLearning.Controllers
                 try
                 {
 
-                    if (file.Count() > 0)
+                    if (file.Count() > 1 || file.Count() > 0 && file.FirstOrDefault() != null)
                     {
                         var oldImages = db.Prooves.Where(x => x.EmployeeID == employee.id).ToList();
 
@@ -955,69 +970,67 @@ namespace IntensiveLearning.Controllers
                         {
                             Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id);
                         }
-                    }
 
 
-                    foreach (var item in file)
-                    {
-                        if (item.ContentLength > 0)
+
+                        foreach (var item in file)
                         {
-                            var fileName = Path.GetFileName(item.FileName);
-                            if (!Directory.Exists(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id))
+                            if (item.ContentLength > 0)
                             {
-                                Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id);
+                                var fileName = Path.GetFileName(item.FileName);
+                                if (!Directory.Exists(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id))
+                                {
+                                    Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id);
+                                }
+                                var path = Path.Combine(Server.MapPath("~/App_Data/Employees/" + employee.id), fileName);
+                                item.SaveAs(path);
+                                Proove proove = new Proove();
+                                proove.Path = path;
+                                proove.id = prooveid;
+                                proove.EmployeeID = employee.id;
+                                db.Prooves.Add(proove);
+                                prooveid++;
+
                             }
-                            var path = Path.Combine(Server.MapPath("~/App_Data/Employees/" + employee.id), fileName);
-                            item.SaveAs(path);
-                            Proove proove = new Proove();
-                            proove.Path = path;
-                            proove.id = prooveid;
-                            proove.EmployeeID = employee.id;
-                            db.Prooves.Add(proove);
-                            prooveid++;
+                            else
+                            {
 
+                            }
                         }
-                        else
-                        {
 
-                        }
-                    }
-
-                    try
-                    {
-                        var startPath = Server.MapPath("~/App_Data/Employees" + "\\" + employee.id);
-
-                        if (!Directory.Exists(Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder")))
-                        {
-                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder"));
-                        }
-                        var zipPath = Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder") + "\\" + employee.id + ".zip";
-
-                        if (System.IO.File.Exists(zipPath))
-                        {
-                            System.IO.File.Delete(zipPath);
-                        }
                         try
                         {
-                            ZipFile.CreateFromDirectory(startPath, zipPath);
-                        }
-                        catch (Exception wx) { }
-                        employee.Proof = zipPath;
-                    }
-                    catch { }
+                            var startPath = Server.MapPath("~/App_Data/Employees" + "\\" + employee.id);
 
+                            if (!Directory.Exists(Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder")))
+                            {
+                                Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder"));
+                            }
+                            var zipPath = Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder") + "\\" + employee.id + ".zip";
+
+                            if (System.IO.File.Exists(zipPath))
+                            {
+                                System.IO.File.Delete(zipPath);
+                            }
+                            try
+                            {
+                                ZipFile.CreateFromDirectory(startPath, zipPath);
+                            }
+                            catch (Exception wx) { }
+                            employee.Proof = zipPath;
+                        }
+                        catch { }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
 
-                    proceed = false;
                 }
 
 
                 if (employee.EDate != null)
                 {
-                    if (employee.EDate.Value >= DateTime.Now.Date)
+                    if (employee.EDate.Value < DateTime.Now.Date)
                     {
                         employee.State = "خارج الخدمة";
                     }
@@ -1027,6 +1040,7 @@ namespace IntensiveLearning.Controllers
 
                     db.Entry(employee).State = EntityState.Modified;
                     db.SaveChanges();
+                    TempData["Message"] = "تم التعديل بنجاح";
                     return RedirectToAction("Index");
                 }
             }
@@ -1044,6 +1058,7 @@ namespace IntensiveLearning.Controllers
             var JAddCOManagers = db.EmployeeTypes.ToList();
             var JAddSchoolManagers = db.EmployeeTypes.ToList();
             var JAddSchoolEmployees = db.EmployeeTypes.ToList();
+            var JAddNone = db.EmployeeTypes.Where(x => x.Manager == null && x.SchoolManager == null && x.NormalEmployee == null && x.CoManager == null).ToList();
 
             var TosendCenters = db.Centers.ToList();
             var TosendJobs = db.EmployeeTypes.ToList();
@@ -1181,6 +1196,7 @@ namespace IntensiveLearning.Controllers
             {
                 TosendJobs = TosendJobs.Union(JAddSchoolEmployees).ToList();
             }
+            TosendJobs = TosendJobs.Union(JAddNone).ToList();
 
 
             if (CAddManagers != null)
@@ -1318,7 +1334,7 @@ namespace IntensiveLearning.Controllers
                     if (employee.EmployeeType.Manager == true)
                     {
 
-                        
+
                         var path = Server.MapPath("~\\App_Data\\Employees\\");
                         var prooves = db.Prooves.Where(x => x.EmployeeID == employee.id);
                         foreach (var item in prooves)

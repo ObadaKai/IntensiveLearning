@@ -24,7 +24,10 @@ namespace IntensiveLearning.Controllers
                 if (type.SeeAccToCenter == true || type.SeeAccToCity == true || type.SeeAll == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
                 {
 
-
+                    if (TempData["Message"] != null)
+                    {
+                        ViewBag.StateMessage = TempData["Message"];
+                    }
                     return View(db.ExamTypes.ToList());
 
 
@@ -104,6 +107,8 @@ namespace IntensiveLearning.Controllers
             {
                 db.ExamTypes.Add(examType);
                 db.SaveChanges();
+                TempData["Message"] = "تم الادخال بنجاح";
+
                 return RedirectToAction("Index");
             }
 
@@ -152,6 +157,8 @@ namespace IntensiveLearning.Controllers
             {
                 db.Entry(examType).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "تم التعديل بنجاح";
+
                 return RedirectToAction("Index");
             }
             return View(examType);

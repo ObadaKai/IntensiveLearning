@@ -103,6 +103,10 @@ namespace IntensiveLearning.Controllers
                     }
 
 
+                    if (TempData["Message"] != null)
+                    {
+                        ViewBag.StateMessage = TempData["Message"];
+                    }
                     return View(centers.ToList());
                 }
                 else if (type.SeeAccToCity == true)
@@ -238,10 +242,14 @@ namespace IntensiveLearning.Controllers
                 {
                     if (type.SeeAccToCity == true)
                     {
+                        ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
+
                         ViewBag.Cityid = new SelectList(db.Cities.Where(x => x.id == employee.CityID), "id", "Name");
                     }
                     else
                     {
+                        ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
+
                         ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
                     }
                     return View();
@@ -257,7 +265,28 @@ namespace IntensiveLearning.Controllers
         [HttpPost]
         public ActionResult Create(/*[Bind(Include = "Name,Place,Desc,State,HolesN,Cityid")]*/ CenterModel centerModel, IEnumerable<HttpPostedFileBase> file)
         {
+            bool sendImageError = false;
             bool proceed = true;
+            bool NumberValidation = false;
+            if (centerModel.firstMonth > 9)
+            {
+                if (centerModel.LastMonth > 9 && centerModel.LastMonth < centerModel.firstMonth)
+                {
+                    NumberValidation = true;
+                }
+            }
+            else if (centerModel.firstMonth > centerModel.LastMonth)
+            {
+                NumberValidation = true;
+            }
+
+            if (NumberValidation)
+            {
+                ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
+                ViewBag.error = "يرجى التأكد من الأشهر";
+                ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
+                return View(centerModel);
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -344,7 +373,8 @@ namespace IntensiveLearning.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
+
+                    sendImageError = true;
                     proceed = false;
                 }
                 centerModel.center.ProjectID = 1;
@@ -426,9 +456,15 @@ namespace IntensiveLearning.Controllers
                 {
                     db.Centers.Add(centerModel.center);
                     db.SaveChanges();
+                    TempData["Message"] = "تم الادخال بنجاح";
                     return RedirectToAction("Index");
                 }
             }
+            if (sendImageError)
+            {
+                ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
+            }
+            ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
             ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
             return View(centerModel);
         }
@@ -583,10 +619,12 @@ namespace IntensiveLearning.Controllers
                         {
                             return RedirectToAction("Default", "Home");
                         }
+                        ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", centerModel.center.Periodid);
                         ViewBag.Cityid = new SelectList(db.Cities.Where(x => x.id == emp.CityID), "id", "Name", centerModel.center.Cityid);
                     }
                     else
                     {
+                        ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", centerModel.center.Periodid);
                         ViewBag.Cityid = new SelectList(db.Cities, "id", "Name", centerModel.center.Cityid);
                     }
                     return View(centerModel);
@@ -621,7 +659,7 @@ namespace IntensiveLearning.Controllers
                 try
                 {
 
-                    if (file.Count() > 0)
+                    if (file.Count() > 1 || file.Count() > 0 && file.FirstOrDefault() != null)
                     {
                         var oldImages = db.Prooves.Where(x => x.CenterID == centerModel.center.id).ToList();
 
@@ -630,27 +668,28 @@ namespace IntensiveLearning.Controllers
 
                             db.Prooves.Remove(image);
                         }
-                    }
-                    if ((Directory.Exists(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id)))
-                    {
-                        try
-                        {
-                            Directory.Delete(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id, true);
-                        }
-                        catch (IOException)
-                        {
-                            Directory.Delete(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id, true);
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            Directory.Delete(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id, true);
-                        }
-                    }
 
-                    if (!Directory.Exists(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id))
-                    {
-                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id);
-                    }
+                        if ((Directory.Exists(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id)))
+                        {
+                            try
+                            {
+                                Directory.Delete(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id, true);
+                            }
+                            catch (IOException)
+                            {
+                                Directory.Delete(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id, true);
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                Directory.Delete(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id, true);
+                            }
+                        }
+
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id);
+                        }
+                    
                     foreach (var item in file)
                     {
                         if (item.ContentLength > 0)
@@ -691,17 +730,15 @@ namespace IntensiveLearning.Controllers
                         {
                             ZipFile.CreateFromDirectory(startPath, zipPath);
                         }
-                        catch (Exception wx) { }
+                        catch { }
                         centerModel.center.Proof = zipPath;
                     }
                     catch { }
-
+                    }
 
                 }
-                catch (Exception ex)
+                catch
                 {
-                    ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
-                    proceed = false;
                 }
 
                 db.SaveChanges();
@@ -817,6 +854,7 @@ namespace IntensiveLearning.Controllers
                 {
                     db.Entry(centerModel.center).State = EntityState.Modified;
                     db.SaveChanges();
+                    TempData["Message"] = "تم التعديل بنجاح";
                     return RedirectToAction("Index");
                 }
             }
@@ -826,12 +864,16 @@ namespace IntensiveLearning.Controllers
             {
                 var id = Convert.ToInt32(Session["ID"]);
                 var emp = db.Employees.Find(id);
+                ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", centerModel.center.Periodid);
                 ViewBag.Cityid = new SelectList(db.Cities.Where(x => x.id == emp.CityID), "id", "Name", centerModel.center.Cityid);
             }
             else
             {
+                ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", centerModel.center.Periodid);
                 ViewBag.Cityid = new SelectList(db.Cities, "id", "Name", centerModel.center.Cityid);
             }
+
+
             return View(centerModel);
         }
 
@@ -911,10 +953,10 @@ namespace IntensiveLearning.Controllers
                             }
                         }
 
-                            if (System.IO.File.Exists(path + "ZipFolder\\" + center.id + ".zip"))
-                            {
-                                System.IO.File.Delete(path + "ZipFolder\\" + center.id + ".zip");
-                            }
+                        if (System.IO.File.Exists(path + "ZipFolder\\" + center.id + ".zip"))
+                        {
+                            System.IO.File.Delete(path + "ZipFolder\\" + center.id + ".zip");
+                        }
 
 
                     }

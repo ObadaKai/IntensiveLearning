@@ -9,7 +9,7 @@
 {
     if ((bool)Session["AddCitesAndCenters"] == true)
     {
-        using (Html.BeginForm("Create", "Centers",FormMethod.Get))
+        using (Html.BeginForm("Create", "Centers", FormMethod.Get))
         {
             <button type="submit" class="btn btn-warning">انشاء جديد</button>
         }
@@ -62,11 +62,11 @@
                 <th rowspan="2">
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
-                </tr>
+            </tr>
             <tr class="bg-primary">
                 <th rowspan="1">
                     9
-              </th>
+                </th>
                 <th rowspan="1">
                     8
                 </th>
@@ -428,5 +428,16 @@
             }
         </tbody>
     </table>
+
+
 </div>
 <button id="btnExport" class="btn btn-warning">Export to xls</button>
+
+
+    @if (ViewBag.StateMessage != null)
+    {
+        <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            @ViewBag.StateMessage
+        </div>
+    }

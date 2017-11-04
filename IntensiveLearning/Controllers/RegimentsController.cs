@@ -23,10 +23,11 @@ namespace IntensiveLearning.Controllers
                 if (type.SeeAccToCenter == true || type.SeeAccToCity == true || type.SeeAll == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
                 {
 
-
-
-
                     var regiments = db.Regiments.Include(r => r.Period);
+                    if (TempData["Message"] != null)
+                    {
+                        ViewBag.StateMessage = TempData["Message"];
+                    }
                     return View(regiments.ToList());
 
                 }
@@ -110,6 +111,7 @@ namespace IntensiveLearning.Controllers
             {
                 db.Regiments.Add(regiment);
                 db.SaveChanges();
+                TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
 
@@ -160,6 +162,7 @@ namespace IntensiveLearning.Controllers
             {
                 db.Entry(regiment).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "تم التعديل بنجاح";
                 return RedirectToAction("Index");
             }
             ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", regiment.Periodid);

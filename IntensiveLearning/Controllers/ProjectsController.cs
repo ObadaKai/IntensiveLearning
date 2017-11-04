@@ -17,6 +17,10 @@ namespace IntensiveLearning.Controllers
         // GET: Projects
         public ActionResult Index()
         {
+            if (TempData["Message"] != null)
+            {
+                ViewBag.StateMessage = TempData["Message"];
+            }
             return View(db.Projects.ToList());
         }
 
@@ -60,6 +64,7 @@ namespace IntensiveLearning.Controllers
             {
                 db.Projects.Add(project);
                 db.SaveChanges();
+                TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
 
@@ -92,6 +97,7 @@ namespace IntensiveLearning.Controllers
             {
                 db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "تم التعديل بنجاح";
                 return RedirectToAction("Index");
             }
             return View(project);

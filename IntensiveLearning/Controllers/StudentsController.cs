@@ -27,7 +27,10 @@ namespace IntensiveLearning.Controllers
             {
                 var typeName = (string)Session["Type"];
                 var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-
+                if (TempData["Message"] != null)
+                {
+                    ViewBag.StateMessage = TempData["Message"];
+                }
                 if (type.SeeAll == true || type.SeeAllButFinance == true)
                 {
 
@@ -174,7 +177,7 @@ namespace IntensiveLearning.Controllers
             var ExactYear = Convert.ToInt16(lastTwoDigitsOfYear);
             var studentNumberString = ExactYear.ToString() + "00001";
             var studentNumber = Convert.ToInt32(studentNumberString);
-
+            student.StudentNumber = studentNumber;
 
 
 
@@ -267,27 +270,27 @@ namespace IntensiveLearning.Controllers
 
 
                 }
+                try
+                {
+                    var startPath = Server.MapPath("~/App_Data/Students" + "\\" + student.id);
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder")))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder"));
+                    }
+                    var zipPath = Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder") + "\\" + student.id + ".zip";
+
+                    if (System.IO.File.Exists(zipPath))
+                    {
+                        System.IO.File.Delete(zipPath);
+                    }
                     try
                     {
-                        var startPath = Server.MapPath("~/App_Data/Students" + "\\" + student.id);
-
-                        if (!Directory.Exists(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder")))
-                        {
-                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder"));
-                        }
-                        var zipPath = Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder") + "\\" + student.id + ".zip";
-
-                        if (System.IO.File.Exists(zipPath))
-                        {
-                            System.IO.File.Delete(zipPath);
-                        }
-                        try
-                        {
-                            ZipFile.CreateFromDirectory(startPath, zipPath);
-                        }
-                        catch (Exception wx) { }
-                        student.Proof = zipPath;
+                        ZipFile.CreateFromDirectory(startPath, zipPath);
                     }
+                    catch (Exception wx) { }
+                    student.Proof = zipPath;
+                }
                 catch { }
 
                 ViewBag.Message = "Upload successful";
@@ -306,7 +309,7 @@ namespace IntensiveLearning.Controllers
                     db.SaveChanges();
                     return Json(true);
                 }
-                catch
+                catch (Exception ex)
                 {
                     return Json(false);
                 }
@@ -373,8 +376,9 @@ namespace IntensiveLearning.Controllers
             try
             {
 
-                if (file.Count() > 0)
+                if (file.Count() > 1 || file.Count() > 0 && file.FirstOrDefault() != null)
                 {
+
                     var oldImages = db.Prooves.Where(x => x.StudentID == student.id).ToList();
 
                     foreach (var image in oldImages)
@@ -404,7 +408,7 @@ namespace IntensiveLearning.Controllers
                         Directory.CreateDirectory(Server.MapPath("~/App_Data/Students") + "\\" + student.id);
                     }
 
-                }
+                
 
                 foreach (var item in file)
                 {
@@ -448,17 +452,15 @@ namespace IntensiveLearning.Controllers
                     {
                         ZipFile.CreateFromDirectory(startPath, zipPath);
                     }
-                    catch (Exception wx) { }
+                    catch { }
                     student.Proof = zipPath;
                 }
                 catch { }
 
+                }
+            }
+            catch { }
 
-            }
-            catch (Exception ex)
-            {
-                proceed = false;
-            }
 
 
             if (student.EDate != null)
@@ -475,30 +477,31 @@ namespace IntensiveLearning.Controllers
 
                     db.Entry(student).State = EntityState.Modified;
                     db.SaveChanges();
+                    TempData["Message"] = "تم التعديل بنجاح";
                     return RedirectToAction("Index");
                 }
             }
+            
 
+            //catch (DbEntityValidationException ex)
+            //{
+            //    foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+            //    {
+            //        // Get entry
 
-                //catch (DbEntityValidationException ex)
-                //{
-                //    foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
-                //    {
-                //        // Get entry
+            //        DbEntityEntry entry = item.Entry;
+            //        string entityTypeName = entry.Entity.GetType().Name;
 
-                //        DbEntityEntry entry = item.Entry;
-                //        string entityTypeName = entry.Entity.GetType().Name;
+            //        // Display or log error messages
 
-                //        // Display or log error messages
-
-                //        foreach (DbValidationError subItem in item.ValidationErrors)
-                //        {
-                //            string message = string.Format("Error '{0}' occurred in {1} at {2}",
-                //                     subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
-                //            Console.WriteLine(message);
-                //        }
-                //    }
-                //}
+            //        foreach (DbValidationError subItem in item.ValidationErrors)
+            //        {
+            //            string message = string.Format("Error '{0}' occurred in {1} at {2}",
+            //                     subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+            //            Console.WriteLine(message);
+            //        }
+            //    }
+            //}
 
             var Sid = Convert.ToInt32(Session["ID"]);
             var emp = db.Employees.Where(x => x.id == Sid).FirstOrDefault().Centerid;
@@ -551,7 +554,7 @@ namespace IntensiveLearning.Controllers
 
                     Student student = db.Students.Find(id);
                     var path = Server.MapPath("~\\App_Data\\Students\\");
-                    var prooves = db.Prooves.Where(x => x.CenterID == student.id);
+                    var prooves = db.Prooves.Where(x => x.StudentID == student.id);
                     foreach (var item in prooves)
                     {
                         db.Prooves.Remove(item);
@@ -585,7 +588,7 @@ namespace IntensiveLearning.Controllers
                         }
 
                     }
-                    catch
+                    catch (Exception ex)
                     {
                         ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الطالب يرجى تغييرها قبل الحذف";
                         return View(student);

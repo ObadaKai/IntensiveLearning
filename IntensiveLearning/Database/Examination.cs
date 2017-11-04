@@ -27,6 +27,7 @@ namespace IntensiveLearning.Database
         [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÚáÇãÉ")]
         [DisplayName("ÇáÚáÇãÉ")]
         public Nullable<double> Mark { get; set; }
+        [DisplayName("ÇáÔÑÍ")]
         public string Desc { get; set; }
         public Nullable<int> Subjectid { get; set; }
         public Nullable<int> Studentid { get; set; }

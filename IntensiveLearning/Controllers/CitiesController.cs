@@ -18,6 +18,10 @@ namespace IntensiveLearning.Controllers
         public ActionResult Index()
         {
             var cities = db.Cities.Include(c => c.Project);
+            if (TempData["Message"] != null)
+            {
+                ViewBag.StateMessage = TempData["Message"];
+            }
             return View(cities.ToList());
         }
 
@@ -63,6 +67,7 @@ namespace IntensiveLearning.Controllers
             {
                 db.Cities.Add(city);
                 db.SaveChanges();
+                TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
 
@@ -97,6 +102,8 @@ namespace IntensiveLearning.Controllers
             {
                 db.Entry(city).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "تم التعديل بنجاح";
+
                 return RedirectToAction("Index");
             }
             ViewBag.ProjectID = new SelectList(db.Projects, "id", "ProjectName", city.ProjectID);

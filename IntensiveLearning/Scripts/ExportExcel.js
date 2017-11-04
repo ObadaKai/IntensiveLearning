@@ -26,10 +26,24 @@
 
     });
 
+        $("#ToFadeMessage").hide(3000);
+
+        if ($('#desktopTest').is(':hidden')) {
+            document.getElementById("TemplateForm").style.paddingRight = "150px";
+        } else {
+            document.getElementById("TemplateForm").style.paddingRight = "15px";
+            open = false;
+        }
 });
 var open = true;
 function openLeftMenu() {
     document.getElementById("leftMenu").style.height = "100%";
+    if ($('#desktopTest').is(':hidden')) {
+        document.getElementById("TemplateForm").style.paddingRight = "150px";
+    }
+    else {
+        document.getElementById("TemplateForm").style.paddingRight = "15px";
+    }
     //document.getElementById("TemplateForm").classList = "container body-content";
     //document.getElementById("TemplateForm").classList = "container body-content col-md-11 col-lg-11 col-sm-8 col-xs-8";
     //document.getElementById("leftMenu").classList = "col-md-1 col-lg-1 col-sm-4 col-xs-4";
@@ -37,6 +51,11 @@ function openLeftMenu() {
 }
 function closeLeftMenu() {
     document.getElementById("leftMenu").style.height = "0%";
+    if ($('#desktopTest').is(':hidden')) {
+        document.getElementById("TemplateForm").style.paddingRight = "15px";
+    } else {
+        document.getElementById("TemplateForm").style.paddingRight = "15px";
+    }
     //document.getElementById("TemplateForm").classList = "container body-content";
     open = false;
     }
@@ -58,7 +77,7 @@ uploadField.onchange = function () {
     for (var i = 0; i < this.files.length; i++) {
         size += this.files[i].size;
     }
-    if (size > 307200) {
+    if (size > 2097152) {
         alert("حجم الملفات كبير");
         this.value = "";
     };

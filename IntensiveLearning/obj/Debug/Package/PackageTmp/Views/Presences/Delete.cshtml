@@ -1,0 +1,156 @@
+﻿@model IntensiveLearning.Database.Presence
+
+@{
+    ViewBag.Title = "حذف";
+}
+
+    <h2>حذف</h2>
+
+    <h3>هل أنت متأكد من الحذف؟</h3>
+    <div class="InfoContainer">
+        <h4>الحضور والغياب</h4>
+        <hr />
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Date)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Date)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Desc)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Desc)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Lesson1)
+        </h4>
+
+        <p>
+            @if (Model.Lesson1 != null && Model.Lesson1 == true)
+            {
+                @:غياب
+                    }
+            else
+            {
+                @:حضور
+                    }
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Lesson2)
+        </h4>
+
+        <p>
+            @if (Model.Lesson2 != null && Model.Lesson2 == true)
+            {
+                @:غياب
+                    }
+            else
+            {
+                @:حضور
+                    }
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Lesson3)
+        </h4>
+
+        <p>
+            @if (Model.Lesson3 != null && Model.Lesson3 == true)
+            {
+                @:غياب
+                    }
+            else
+            {
+                @:حضور
+                    }
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Lesson4)
+        </h4>
+
+        <p>
+            @if (Model.Lesson4 != null && Model.Lesson4 == true)
+            {
+                @:غياب
+                    }
+            else
+            {
+                @:حضور
+                    }
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Lesson5)
+        </h4>
+
+        <p>
+            @if (Model.Lesson5 != null && Model.Lesson5 == true)
+            {
+                @:غياب
+                    }
+            else
+            {
+                @:حضور
+                    }
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Lesson6)
+        </h4>
+
+        <p>
+            @if (Model.Lesson6 != null && Model.Lesson6 == true)
+            {
+                @:غياب
+                    }
+            else
+            {
+                @:حضور
+                    }
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Lesson7)
+        </h4>
+
+        <p>
+            @if (Model.Lesson7 != null && Model.Lesson7 == true)
+            {
+                @:غياب
+                    }
+            else
+            {
+                @:حضور
+                    }
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Student.Name)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Student.Name)
+        </p>
+
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="حذف" class="btn btn-danger" /> |
+                @Html.ActionLink("العودة إلى اللائحة", "Index")
+            </div>
+        }
+        <p class="text-danger">@ViewBag.error</p>
+
+    </div>

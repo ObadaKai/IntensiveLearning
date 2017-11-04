@@ -1,0 +1,105 @@
+﻿@model IEnumerable<IntensiveLearning.Database.Study_subject>
+
+@{
+    ViewBag.Title = "لائحة المواد";
+}
+
+<h2>لائحة المواد</h2>
+@if (Session["AddSchoolManagingTools"] != null)
+{
+    if ((bool)Session["AddSchoolManagingTools"] == true)
+    {
+
+        using (Html.BeginForm("Create", "Study_subject", FormMethod.Get))
+        {
+            <button type="submit" class="btn btn-warning">انشاء جديد</button>
+        }
+    }
+}
+<div id="table_wrapper">
+
+    <table class="table table-striped">
+        <thead>
+            <tr class="bg-primary">
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.State)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LeastMark)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.FullMark)
+                </th>
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Desc)
+                </th>
+
+
+
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+@if (Model != null)
+{
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (Session["AddSchoolManagingTools"] != null)
+                        {
+                            if ((bool)Session["AddSchoolManagingTools"] == true)
+                            {
+                                <div style="width:130px;">
+                                    <a href="/Study_subject/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a href="/Study_subject/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                    <a href="/Study_subject/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                </div>
+                            }
+
+                        }
+                        else
+                        {
+
+                            <a href="/Study_subject/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LeastMark)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullMark)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Desc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                </tr>
+            }
+}
+        </tbody>
+    </table>
+</div>
+<button id="btnExport" class="btn btn-warning">Export to xls</button>
+@if (ViewBag.StateMessage != null)
+{
+        <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @ViewBag.StateMessage
+    </div>
+}
