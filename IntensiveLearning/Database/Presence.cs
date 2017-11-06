@@ -25,12 +25,19 @@ namespace IntensiveLearning.Database
         [DisplayName("«·‘—Õ")]
         public string Desc { get; set; }
         public Nullable<int> Studentid { get; set; }
+        [DisplayName("1«·œ—”")]
         public Nullable<bool> Lesson1 { get; set; }
+        [DisplayName("2«·œ—”")]
         public Nullable<bool> Lesson2 { get; set; }
+        [DisplayName("3«·œ—”")]
         public Nullable<bool> Lesson3 { get; set; }
+        [DisplayName("4«·œ—”")]
         public Nullable<bool> Lesson4 { get; set; }
+        [DisplayName("«·œ—”5")]
         public Nullable<bool> Lesson5 { get; set; }
+        [DisplayName("6«·œ—”")]
         public Nullable<bool> Lesson6 { get; set; }
+        [DisplayName("7«·œ—”")]
         public Nullable<bool> Lesson7 { get; set; }
     
         public virtual Student Student { get; set; }

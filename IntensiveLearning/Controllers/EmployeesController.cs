@@ -146,7 +146,7 @@ namespace IntensiveLearning.Controllers
                 var JAddCOManagers = db.EmployeeTypes.ToList();
                 var JAddSchoolManagers = db.EmployeeTypes.ToList();
                 var JAddSchoolEmployees = db.EmployeeTypes.ToList();
-                var JAddNone = db.EmployeeTypes.Where(x=>x.Manager == null && x.SchoolManager == null && x.NormalEmployee == null && x.CoManager == null).ToList();
+                var JAddNone = db.EmployeeTypes.Where(x => x.Manager == null && x.SchoolManager == null && x.NormalEmployee == null && x.CoManager == null).ToList();
 
                 var TosendCenters = db.Centers.ToList();
                 var TosendJobs = db.EmployeeTypes.ToList();
@@ -200,9 +200,18 @@ namespace IntensiveLearning.Controllers
                         var Sid = Convert.ToInt32(Session["ID"]);
                         try
                         {
-                            var emp = db.Employees.Find(Sid).CityID;
-                            CAddSchoolManagers = db.Centers.Where(x => x.Cityid == emp).ToList();
-                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                            if (type.SeeAccToCenter==true || type.SeeAccToCity ==true)
+                            {
+                                var emp = db.Employees.Find(Sid).CityID;
+                                CAddSchoolManagers = db.Centers.Where(x => x.Cityid == emp).ToList();
+                                JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+
+                            }
+                            else
+                            {
+                                CAddSchoolManagers = db.Centers.ToList();
+                                JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                            }
                         }
                         catch
                         {
@@ -569,9 +578,18 @@ namespace IntensiveLearning.Controllers
                     var Sid = Convert.ToInt32(Session["ID"]);
                     try
                     {
-                        var emp = db.Employees.Find(Sid).CityID;
-                        CAddSchoolManagers = db.Centers.Where(x => x.Cityid == emp).ToList();
-                        JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                        if (type.SeeAccToCenter == true || type.SeeAccToCity == true)
+                        {
+                            var emp = db.Employees.Find(Sid).CityID;
+                            CAddSchoolManagers = db.Centers.Where(x => x.Cityid == emp).ToList();
+                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+
+                        }
+                        else
+                        {
+                            CAddSchoolManagers = db.Centers.ToList();
+                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                        }
                     }
                     catch
                     {
@@ -783,9 +801,18 @@ namespace IntensiveLearning.Controllers
                         var Sid = Convert.ToInt32(Session["ID"]);
                         try
                         {
-                            var emp = db.Employees.Find(Sid).CityID;
-                            CAddSchoolManagers = db.Centers.Where(x => x.Cityid == emp).ToList();
-                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                            if (type.SeeAccToCenter == true || type.SeeAccToCity == true)
+                            {
+                                var emp = db.Employees.Find(Sid).CityID;
+                                CAddSchoolManagers = db.Centers.Where(x => x.Cityid == emp).ToList();
+                                JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+
+                            }
+                            else
+                            {
+                                CAddSchoolManagers = db.Centers.ToList();
+                                JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                            }
                         }
                         catch
                         {
@@ -1112,9 +1139,18 @@ namespace IntensiveLearning.Controllers
                     var Sid = Convert.ToInt32(Session["ID"]);
                     try
                     {
-                        var emp = db.Employees.Find(Sid).CityID;
-                        CAddSchoolManagers = db.Centers.Where(x => x.Cityid == emp).ToList();
-                        JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                        if (type.SeeAccToCenter == true || type.SeeAccToCity == true)
+                        {
+                            var emp = db.Employees.Find(Sid).CityID;
+                            CAddSchoolManagers = db.Centers.Where(x => x.Cityid == emp).ToList();
+                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+
+                        }
+                        else
+                        {
+                            CAddSchoolManagers = db.Centers.ToList();
+                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                        }
                     }
                     catch
                     {
@@ -1362,16 +1398,16 @@ namespace IntensiveLearning.Controllers
                                     Directory.Delete(path + "\\" + employee.id, true);
                                 }
                             }
-                            if (System.IO.File.Exists(Server.MapPath(path + "\\ZipFolder\\" + employee.id)))
+                            if (System.IO.File.Exists((path + "ZipFolder\\" + employee.id + ".zip")))
                             {
-                                System.IO.File.Delete(Server.MapPath(path + "\\ZipFolder\\" + employee.id));
+                                System.IO.File.Delete((path + "ZipFolder\\" + employee.id + ".zip"));
                             }
 
                         }
                         catch
                         {
                             ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
-                            return View();
+                            return View(employee);
                         }
                         return RedirectToAction("Index");
                     }
@@ -1414,17 +1450,18 @@ namespace IntensiveLearning.Controllers
                                     Directory.Delete(path + "\\" + employee.id, true);
                                 }
                             }
-                            if (System.IO.File.Exists(path + "ZipFolder\\" + employee.id))
+                            if (System.IO.File.Exists(path + "ZipFolder\\" + employee.id + ".zip"))
                             {
-                                System.IO.File.Delete(path + "ZipFolder\\" + employee.id);
+                                System.IO.File.Delete(path + "ZipFolder\\" + employee.id + ".zip");
                             }
 
                         }
                         catch
                         {
                             ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
-                            return View();
+                            return View(employee);
                         }
+                        return RedirectToAction("Default", "Home");
 
                     }
                 }
@@ -1466,19 +1503,77 @@ namespace IntensiveLearning.Controllers
                                     Directory.Delete(path + "\\" + employee.id, true);
                                 }
                             }
-                            if (System.IO.File.Exists(Server.MapPath(path + "\\ZipFolder\\" + employee.id)))
+                            if (System.IO.File.Exists((path + "ZipFolder\\" + employee.id + ".zip")))
                             {
-                                System.IO.File.Delete(Server.MapPath(path + "\\ZipFolder\\" + employee.id));
+                                System.IO.File.Delete((path + "ZipFolder\\" + employee.id + ".zip"));
                             }
 
                         }
                         catch
                         {
                             ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
-                            return View();
+                            return View(employee);
                         }
+                        return RedirectToAction("Default", "Home");
 
                     }
+                }
+
+                if (type.AddSchoolEmployees == true || type.AddManagers == true || type.AddCOManagers == true || type.AddSchoolManagers == true)
+                {
+                    Employee employee = db.Employees.Find(id);
+                    if (employee == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    if ((employee.EmployeeType.NormalEmployee == null || employee.EmployeeType.NormalEmployee == false) &&
+                        (employee.EmployeeType.Manager == null || employee.EmployeeType.Manager == false) &&
+                        (employee.EmployeeType.CoManager == null || employee.EmployeeType.CoManager == false) &&
+                        (employee.EmployeeType.SchoolManager == null || employee.EmployeeType.SchoolManager == false))
+                    {
+
+                        var path = Server.MapPath("~\\App_Data\\Employees\\");
+                        var prooves = db.Prooves.Where(x => x.EmployeeID == employee.id);
+                        foreach (var item in prooves)
+                        {
+                            db.Prooves.Remove(item);
+                        }
+                        db.Employees.Remove(employee);
+                        try
+                        {
+                            db.SaveChanges();
+                            if (Directory.Exists(path + "\\" + employee.id))
+                            {
+
+
+                                try
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                                catch (IOException)
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                                catch (UnauthorizedAccessException)
+                                {
+                                    Directory.Delete(path + "\\" + employee.id, true);
+                                }
+                            }
+                            if (System.IO.File.Exists(path + "ZipFolder\\" + employee.id + ".zip"))
+                            {
+                                System.IO.File.Delete(path + "ZipFolder\\" + employee.id + ".zip");
+                            }
+
+                        }
+                        catch
+                        {
+                            ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
+                            return View(employee);
+                        }
+                        return RedirectToAction("Default", "Home");
+                    }
+
+
                 }
 
                 if (type.AddSchoolEmployees == true)
@@ -1518,17 +1613,18 @@ namespace IntensiveLearning.Controllers
                                     Directory.Delete(path + "\\" + employee.id, true);
                                 }
                             }
-                            if (System.IO.File.Exists(Server.MapPath(path + "\\ZipFolder\\" + employee.id)))
+                            if (System.IO.File.Exists(path + "ZipFolder\\" + employee.id + ".zip"))
                             {
-                                System.IO.File.Delete(Server.MapPath(path + "\\ZipFolder\\" + employee.id));
+                                System.IO.File.Delete(path + "ZipFolder\\" + employee.id + ".zip");
                             }
 
                         }
                         catch
                         {
                             ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
-                            return View();
+                            return View(employee);
                         }
+                        return RedirectToAction("Default", "Home");
                     }
 
 

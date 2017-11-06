@@ -29,14 +29,16 @@
         $("#ToFadeMessage").hide(3000);
 
         if ($('#desktopTest').is(':hidden')) {
+            toggleLeftMenu();
             document.getElementById("TemplateForm").style.paddingRight = "150px";
         } else {
             document.getElementById("TemplateForm").style.paddingRight = "15px";
-            open = false;
+            
         }
 });
-var open = true;
+var open = false;
 function openLeftMenu() {
+    document.getElementById("leftMenu").style.display = "block";
     document.getElementById("leftMenu").style.height = "100%";
     if ($('#desktopTest').is(':hidden')) {
         document.getElementById("TemplateForm").style.paddingRight = "150px";

@@ -5,90 +5,88 @@
 }
 <div class="WhiteBlur">
     <h2>معلومات</h2>
-
     <div class="InfoContainer">
         <h4>امتحان</h4>
         <hr />
 
-        <div class="col-sm-6">
-            <h4>
-                @Html.DisplayNameFor(model => model.Mark)
-            </h4>
 
-            <p>
-                @Html.DisplayFor(model => model.Mark)
-            </p>
-            <h4>
-                @Html.DisplayNameFor(model => model.Stage.StageName)
-            </h4>
 
-            <p>
-                @Html.DisplayFor(model => model.Stage.StageName)
-            </p>
 
-            <h4>
-                @Html.DisplayNameFor(model => model.Study_subject.Name)
-            </h4>
 
-            <p>
-                @Html.DisplayFor(model => model.Study_subject.Name)
-            </p>
-            <h4>تحميل المحتوى</h4>
-            <p>
-                @if (Model.Proof != null)
+        <h4>
+            @Html.DisplayNameFor(model => model.Desc)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Desc)
+        </p>
+        <h4>
+            @Html.DisplayNameFor(model => model.Date)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Date)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Student.Name)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Student.Name)
+        </p>
+        <h4>
+            @Html.DisplayNameFor(model => model.ExamType.Type)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.ExamType.Type)
+        </p>
+        <h4>
+            @Html.DisplayNameFor(model => model.Mark)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Mark)
+        </p>
+        <h4>
+            @Html.DisplayNameFor(model => model.Stage.StageName)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Stage.StageName)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.Study_subject.Name)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.Study_subject.Name)
+        </p>
+        <h4>تحميل المحتوى</h4>
+        <p>
+            @if (Model.Proof != null)
             {
-                    @Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = Model.Proof }, null)
-                }
-            </p>
-        </div>
+                @Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = Model.Proof }, null)
+            }
+        </p>
 
 
 
-        <div class="col-sm-6">
-            <h4>
-                @Html.DisplayNameFor(model => model.Desc)
-            </h4>
-
-            <p>
-                @Html.DisplayFor(model => model.Desc)
-            </p>
-            <h4>
-                @Html.DisplayNameFor(model => model.Date)
-            </h4>
-
-            <p>
-                @Html.DisplayFor(model => model.Date)
-            </p>
-
-            <h4>
-                @Html.DisplayNameFor(model => model.Student.Name)
-            </h4>
-
-            <p>
-                @Html.DisplayFor(model => model.Student.Name)
-            </p>
-            <h4>
-                @Html.DisplayNameFor(model => model.ExamType.Type)
-            </h4>
-
-            <p>
-                @Html.DisplayFor(model => model.ExamType.Type)
-            </p>
 
 
-        </div>
 
-
-    </div>
-    <p>
-        @if (Session["AddExam"] != null)
-        {
-            if ((bool)Session["AddExam"] == true)
+        <p>
+            @if (Session["AddExam"] != null)
             {
-                @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
-                @: |
+                if ((bool)Session["AddExam"] == true)
+                {
+                    @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+                    @: |
     }
-        }
-        @Html.ActionLink("العودة إلى اللائحة", "Index")
-    </p>
+            }
+            @Html.ActionLink("العودة إلى اللائحة", "Index")
+        </p>
     </div>
+</div>

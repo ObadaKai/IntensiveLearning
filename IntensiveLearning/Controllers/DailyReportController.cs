@@ -55,7 +55,7 @@ namespace IntensiveLearning.Controllers
                     }
 
                 }
-                return RedirectToAction("Default", "Home");
+                return RedirectToAction("Index", "Examinations");
             }
             return RedirectToAction("Index", "Home");
         }

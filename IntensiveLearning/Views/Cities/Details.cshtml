@@ -36,16 +36,16 @@
 
 
 
-    </div>
-    <p>
-        @if (Session["AddCitesAndCenters"] != null)
-        {
-            if ((bool)Session["AddCitesAndCenters"] == true)
+        <p>
+            @if (Session["AddCitesAndCenters"] != null)
             {
-                @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
-                @: |
+                if ((bool)Session["AddCitesAndCenters"] == true)
+                {
+                    @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+                    @: |
         }
-        }
-        @Html.ActionLink("العودة إلى اللائحة", "Index")
-    </p>
+            }
+            @Html.ActionLink("العودة إلى اللائحة", "Index")
+        </p>
+    </div>
 </div>

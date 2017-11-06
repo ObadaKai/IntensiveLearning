@@ -57,7 +57,7 @@
                             <a href="/Complains/Create" class="NavBar-Type">تقديم شكوى</a>
                             <a href="/Home/Logout" class="NavBar-Type">تسجيل خروج</a>
                         </div>*@
-                    <div style="top:75px;height:100%;display:block;position:fixed;right:0;z-index:1" id="leftMenu">
+                    <div style="top:75px;height:100%;display:none;position:fixed;right:0;z-index:1"  id="leftMenu">
                         <div class="SideBar">
                             @if (Session["AddNewEmployeeType"] != null)
                             {
@@ -98,20 +98,21 @@
                                 {
 
                                     @Html.ActionLink("موظفين", "Index", "Employees")
+                                    @Html.ActionLink("انواع الموظفين", "Index", "EmployeeTypes")
                                     @Html.ActionLink("مراكز", "Index", "Centers")
                                     @Html.ActionLink("مدن", "Index", "Cities")
                                     @Html.ActionLink("الحضور", "Index", "Presences")
+                                    @Html.ActionLink("برنامج اسبوعي", "Index", "Lessons")
                                     @Html.ActionLink("امتحانات", "Index", "Examinations")
+                                    @Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")
                                     @Html.ActionLink("طلاب", "Index", "Students")
                                     @Html.ActionLink("مراحل", "Index", "Stages")
                                     @Html.ActionLink("فترات", "Index", "Periods")
-                                    @Html.ActionLink("فوج", "Index", "Regiments")
+                                    @Html.ActionLink("شعب", "Index", "Regiments")
                                     @Html.ActionLink("مواد", "Index", "Study_subject")
                                     @Html.ActionLink("الشكاوى", "Index", "Complains")
                                     @Html.ActionLink("التقارير اليومية", "Index", "DailyReport")
-                                    @Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")
-                                    @Html.ActionLink("انواع الموظفين", "Index", "EmployeeTypes")
-                                    @Html.ActionLink("دروس يومية", "Index", "Lessons")
+
 
                                 }
                             }
@@ -120,20 +121,20 @@
                                 if ((bool)Session["SeeAllButFinance"] == true)
                                 {
                                     @Html.ActionLink("موظفين", "Index", "Employees")
+                                    @Html.ActionLink("انواع الموظفين", "Index", "EmployeeTypes")
                                     @Html.ActionLink("مراكز", "Index", "Centers")
                                     @Html.ActionLink("مدن", "Index", "Cities")
                                     @Html.ActionLink("الحضور", "Index", "Presences")
+                                    @Html.ActionLink("برنامج اسبوعي", "Index", "Lessons")
                                     @Html.ActionLink("امتحانات", "Index", "Examinations")
+                                    @Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")
                                     @Html.ActionLink("طلاب", "Index", "Students")
                                     @Html.ActionLink("مراحل", "Index", "Stages")
                                     @Html.ActionLink("فترات", "Index", "Periods")
-                                    @Html.ActionLink("فوج", "Index", "Regiments")
+                                    @Html.ActionLink("شعب", "Index", "Regiments")
                                     @Html.ActionLink("مواد", "Index", "Study_subject")
                                     @Html.ActionLink("الشكاوى", "Index", "Complains")
                                     @Html.ActionLink("التقارير اليومية", "Index", "DailyReport")
-                                    @Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")
-                                    @Html.ActionLink("انواع الموظفين", "Index", "EmployeeTypes")
-                                    @Html.ActionLink("دروس يومية", "Index", "Lessons")
                                 }
                             }
                             @if (Session["SeeAccToCity"] != null)
@@ -143,18 +144,18 @@
                                 {                                  
                                     @Html.ActionLink("موظفين", "Index", "Employees")
                                     @Html.ActionLink("امتحانات", "Index", "Examinations")
+                                    @Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")
                                     @Html.ActionLink("طلاب", "Index", "Students")
                                     @Html.ActionLink("الحضور", "Index", "Presences")
+                                    @Html.ActionLink("برنامج اسبوعي", "Index", "Lessons")
                                     @Html.ActionLink("مراكز", "Index", "Centers")
                                     @Html.ActionLink("مدن", "Index", "Cities")
                                     @Html.ActionLink("مراحل", "Index", "Stages")
                                     @Html.ActionLink("فترات", "Index", "Periods")
-                                    @Html.ActionLink("فوج", "Index", "Regiments")
+                                    @Html.ActionLink("شعب", "Index", "Regiments")
                                     @Html.ActionLink("مواد", "Index", "Study_subject")
-                                    @Html.ActionLink("دروس يومية", "Index", "Lessons")
                                     @Html.ActionLink("الشكاوى", "Index", "Complains")
                                     @Html.ActionLink("التقارير اليومية", "Index", "DailyReport")
-                                    @Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")
                                 }
                             }
 
@@ -165,12 +166,12 @@
                                     @Html.ActionLink("موظفين", "Index", "Employees")
                                     @Html.ActionLink("طلاب", "Index", "Students")
                                     @Html.ActionLink("الحضور", "Index", "Presences")
+                                    @Html.ActionLink("برنامج اسبوعي", "Index", "Lessons")
                                     @Html.ActionLink("امتحانات", "Index", "Examinations")
                                     @Html.ActionLink("مراحل", "Index", "Stages")
                                     @Html.ActionLink("فترات", "Index", "Periods")
-                                    @Html.ActionLink("فوج", "Index", "Regiments")
+                                    @Html.ActionLink("شعب", "Index", "Regiments")
                                     @Html.ActionLink("مواد", "Index", "Study_subject")
-                                    @Html.ActionLink("دروس يومية", "Index", "Lessons")
                                     @Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")
                                 }
                             }

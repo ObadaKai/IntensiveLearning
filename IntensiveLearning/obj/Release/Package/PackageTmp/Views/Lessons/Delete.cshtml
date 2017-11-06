@@ -3,99 +3,115 @@
 @{
     ViewBag.Title = "حذف";
 }
-
+<div class="WhiteBlur">
     <h2>حذف</h2>
 
-    <h3>هل أنت متأكد من حذف الدرس؟</h3>
+    <h3>هل أنت متأكد من حذف برنامج الدروس؟</h3>
     <div class="InfoContainer">
-        <h4>درس</h4>
+        <h4>برنامج الدروس</h4>
         <hr />
 
-        <h4>
-            @Html.DisplayNameFor(model => model.Day)
-        </h4>
+        <div class="col-sm-6 hidden-xs">
+            <div style="padding-right:10px;">
 
-        <p>
-            @Html.DisplayFor(model => model.Day)
-        </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson2)
+                </h4>
 
+                <p>
+                    @Html.DisplayFor(model => model.Lesson2)
+                </p>
 
-        <h4>
-            @Html.DisplayNameFor(model => model.Lesson1)
-        </h4>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson4)
+                </h4>
 
-        <p>
-            @Html.DisplayFor(model => model.Lesson1)
-        </p>
+                <p>
+                    @Html.DisplayFor(model => model.Lesson4)
+                </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson6)
+                </h4>
 
-        <h4>
-            @Html.DisplayNameFor(model => model.Lesson2)
-        </h4>
+                <p>
+                    @Html.DisplayFor(model => model.Lesson6)
+                </p>
 
-        <p>
-            @Html.DisplayFor(model => model.Lesson2)
-        </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Regiment.Name)
+                </h4>
 
-        <h4>
-            @Html.DisplayNameFor(model => model.Lesson3)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.Lesson3)
-        </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Lesson4)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.Lesson4)
-        </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Lesson5)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.Lesson5)
-        </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Lesson6)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.Lesson6)
-        </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Lesson7)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.Lesson7)
-        </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.Regiment.Name)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.Regiment.Name)
-        </p>
+                <p>
+                    @Html.DisplayFor(model => model.Regiment.Name)
+                </p>
 
 
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
 
-            <div class="form-actions no-color">
-                <input type="submit" value="حذف" class="btn btn-danger" /> |
-                @Html.ActionLink("العودة إلى اللائحة", "Index")
+
 
             </div>
-        }
-        <p class="text-danger">@ViewBag.error</p>
 
+        </div>
+
+
+        <div class="col-sm-6 hidden-xs">
+            <div style="padding-left:10px;">
+                <h4>
+                    @Html.DisplayNameFor(model => model.Day)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Day)
+                </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson1)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Lesson1)
+                </p>
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson3)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Lesson3)
+                </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson5)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Lesson5)
+                </p>
+
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson7)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Lesson7)
+                </p>
+
+
+            </div>
+        </div>
     </div>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-danger" /> |
+            @Html.ActionLink("العودة إلى اللائحة", "Index")
+
+        </div>
+    }
+    <p class="text-danger">@ViewBag.error</p>
+
+</div>

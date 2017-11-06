@@ -11,7 +11,7 @@
     {
         if ((bool)Session["AddStudent"] == true)
         {
-            using (Html.BeginForm("Create","Students", FormMethod.Get))
+            using (Html.BeginForm("Create", "Students", FormMethod.Get))
             {
                 <button type="submit" class="btn btn-warning">انشاء جديد</button>
             }
@@ -32,9 +32,27 @@
             <thead>
                 <tr class="bg-primary">
                     <th></th>
-                    <th>الاثبات</th>
+                    @if (Session["SeeTeachers"] != null)
+                    {
+                        if ((bool)Session["SeeTeachers"] == true)
+                        {
+                            <th></th>
+                        }
+                        else
+                        {
+                            <th>الاثبات</th>
+                        }
+                    }
+                    else
+                    {
+                        <th>الاثبات</th>
+                    }
+
                     <th>
                         @Html.DisplayNameFor(model => model.Stage.StageName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Regiment.Period.Name)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Regiment.Name)
@@ -97,14 +115,35 @@
 
                             </td>
                             <td>
-                                @if (item.Proof != null)
+                                @if (Session["SeeTeachers"] != null)
                                 {
-                                    <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof} )" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                    if ((bool)Session["SeeTeachers"] == true)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        if (item.Proof != null)
+                                        {
+                                            <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof} )" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                        }
+                                    }
                                 }
+                                else
+                                {
+                                    if (item.Proof != null)
+                                    {
+                                        <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof} )" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                    }
+                                }
+
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Stage.StageName)
                             </td>
+                            <th>
+                                @Html.DisplayFor(model => item.Regiment.Period.Name)
+                            </th>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Regiment.Name)
                             </td>
@@ -160,9 +199,27 @@
                 <tr class="bg-primary">
 
                     <th></th>
-                    <th>الاثبات</th>
+
+                    @if (Session["SeeTeacher"] != null)
+                    {
+                        if ((bool)Session["SeeTeacher"] == true)
+                        {
+
+                        }
+                        else
+                        {
+                            <th>الاثبات</th>
+                        }
+                    }
+                    else
+                    {
+                        <th>الاثبات</th>
+                    }
                     <th>
                         @Html.DisplayNameFor(model => model.Stage.StageName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Regiment.Period.Name)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Regiment.Name)
@@ -225,9 +282,24 @@
                         }
                     </td>
                     <td>
-                        <a class="btn btn-warning" href="/Json/DownloadProof/{{Exam.Proof}}" title="تحميل"><span class="glyphicon glyphicon-download-alt"></span></a>
+                        @if (Session["SeeTeacher"] != null)
+                        {
+                            if ((bool)Session["SeeTeacher"] == true)
+                            {
+
+                            }
+                            else
+                            {
+                                <a class="btn btn-warning" href="/Json/DownloadProof/{{Exam.Proof}}" title="تحميل"><span class="glyphicon glyphicon-download-alt"></span></a>
+                            }
+                        }
+                        else
+                        {
+                            <a class="btn btn-warning" href="/Json/DownloadProof/{{Exam.Proof}}" title="تحميل"><span class="glyphicon glyphicon-download-alt"></span></a>
+                        }
                     </td>
                     <td>{{Exam.StageName}}</td>
+                    <td>{{Exam.Period}}</td>
                     <td>{{Exam.Regiment}}</td>
                     <td>{{Exam.Center}}</td>
                     <td>{{Exam.EDate | date:'MM/dd/yyyy'}}</td>
@@ -250,7 +322,7 @@
 
 @if (ViewBag.StateMessage != null)
 {
-        <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
+    <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         @ViewBag.StateMessage
     </div>

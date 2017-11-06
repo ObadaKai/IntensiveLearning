@@ -43,17 +43,18 @@
         </p>
 
 
-    </div>
-    <p>
 
-        @if (Session["AddSchoolManagingTools"] != null)
-        {
-            if ((bool)Session["AddSchoolManagingTools"] == true)
+        <p>
+
+            @if (Session["AddSchoolManagingTools"] != null)
             {
-                @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
-                @: |
+                if ((bool)Session["AddSchoolManagingTools"] == true)
+                {
+                    @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+                    @: |
     }
-        }
-        @Html.ActionLink("العودة إلى اللائحة", "Index")
-    </p>
+            }
+            @Html.ActionLink("العودة إلى اللائحة", "Index")
+        </p>
+    </div>
 </div>

@@ -6,181 +6,194 @@
 <div class="WhiteBlur">
     <h2>انشاء</h2>
 
+    <div class="visible-sm visible-lg visible-md">
+        @using (Html.BeginForm("Create", "Centers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm("Create", "Centers", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <h4>المركز</h4>
+                <hr />
 
-        <div class="form-horizontal">
-            <h4>المركز</h4>
-            <hr />
-            <div class="col-sm-6 hidden-xs"><div style="padding-right:10px;"></div></div>
-            <div class="col-sm-6 hidden-xs"><div style="padding-left:10px;"></div></div>
-            <div class="visible-xs"></div>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="col-sm-6 hidden-xs">
-                <div style="padding-right:10px;">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.center.Notes, htmlAttributes: new { @class = "control-label " })
-                        <select name="center.Notes" id="center.Notes" class="form-control ">
-                            <option selected>ذكور واناث</option>
-                            <option>ذكور</option>
-                            <option>اناث</option>
-                        </select>
-                        @Html.ValidationMessageFor(model => model.center.Notes, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-6" style="padding:0">
-                            @Html.LabelFor(model => model.LastMonth, htmlAttributes: new { @class = "control-label " })
-                            @Html.EditorFor(model => model.LastMonth, new { htmlAttributes = new { @class = "form-control ", @type = "Number" } })
-                            @Html.ValidationMessageFor(model => model.LastMonth, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="col-sm-6" style="padding:0">
-                            @Html.LabelFor(model => model.firstMonth, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.firstMonth, new { htmlAttributes = new { @class = "form-control", @type = "Number" } })
-                            @Html.ValidationMessageFor(model => model.firstMonth, "", new { @class = "text-danger" })
+                <div class="col-sm-6 hidden-xs">
+                    <div style="padding-right:10px;">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.center.Notes, htmlAttributes: new { @class = "control-label " })
+                            <select name="center.Notes" id="center.Notes" class="form-control ">
+                                <option selected>ذكور واناث</option>
+                                <option>ذكور</option>
+                                <option>اناث</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.center.Notes, "", new { @class = "text-danger" })
                         </div>
 
-                    </div>
-                    @*<div class="form-group">
-            @Html.LabelFor(model => model.center.State, htmlAttributes: new { @class = "control-label " })
-            <select name="center.State" id="center.State" class="form-control">
-                <option>متوفر</option>
-                <option>خارج الخدمة</option>
-            </select>
-            @Html.EditorFor(model => model.center.State, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.center.State, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="col-sm-6" style="padding:0">
+                                @Html.LabelFor(model => model.LastMonth, htmlAttributes: new { @class = "control-label " })
+                                @Html.EditorFor(model => model.LastMonth, new { htmlAttributes = new { @class = "form-control ", @type = "Number" } })
+                                @Html.ValidationMessageFor(model => model.LastMonth, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-sm-6" style="padding:0">
+                                @Html.LabelFor(model => model.firstMonth, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.firstMonth, new { htmlAttributes = new { @class = "form-control", @type = "Number" } })
+                                @Html.ValidationMessageFor(model => model.firstMonth, "", new { @class = "text-danger" })
+                            </div>
 
-
-        </div>*@
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.center.Owner, htmlAttributes: new { @class = "control-label " })
-                        @Html.EditorFor(model => model.center.Owner, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.center.Owner, "", new { @class = "text-danger" })
-
-
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.center.QuarterPayment, htmlAttributes: new { @class = "control-label " })
-                        @Html.EditorFor(model => model.center.QuarterPayment, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.center.QuarterPayment, "", new { @class = "text-danger" })
-
-
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Cityid, "المدينة", htmlAttributes: new { @class = "control-label " })
-                        @Html.DropDownList("Cityid", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Cityid, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Cityid, "الفترة", htmlAttributes: new { @class = "control-label " })
-                        @Html.DropDownList("Periodid", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Cityid, "", new { @class = "text-danger" })
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class = "control-label ">الاثبات</label>
-                        <div >
-                            
-                            <input id="file" type="file" aria-label="Add photos to your post" class="upload" name="file" multiple accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
-                            <p class="text-danger">@ViewBag.error</p>
                         </div>
+                        @*<div class="form-group">
+                                @Html.LabelFor(model => model.center.State, htmlAttributes: new { @class = "control-label " })
+                                <select name="center.State" id="center.State" class="form-control">
+                                    <option>متوفر</option>
+                                    <option>خارج الخدمة</option>
+                                </select>
+                                @Html.EditorFor(model => model.center.State, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.center.State, "", new { @class = "text-danger" })
+
+
+                            </div>*@
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.center.Owner, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.center.Owner, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.center.Owner, "", new { @class = "text-danger" })
+
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.center.QuarterPayment, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.center.QuarterPayment, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.center.QuarterPayment, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Cityid, "المدينة", htmlAttributes: new { @class = "control-label " })
+                            @Html.DropDownList("Cityid", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Cityid, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Cityid, "الفترة", htmlAttributes: new { @class = "control-label " })
+                            @Html.DropDownList("Periodid", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Cityid, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">الاثبات</label>
+                            <div>
+                                <input id="file" type="file" aria-label="Add photos to your post" class="upload" name="file" multiple accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                                <p class="text-danger">@ViewBag.error</p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            </div>
 
 
-            <div class="col-sm-6 hidden-xs">
-                <div style="padding-left:10px;">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.center.Name, htmlAttributes: new { @class = "control-label " })
-                        @Html.EditorFor(model => model.center.Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.center.Name, "", new { @class = "text-danger" })
+                <div class="col-sm-6 hidden-xs">
+                    <div style="padding-left:10px;">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.center.Name, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.center.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.center.Name, "", new { @class = "text-danger" })
 
 
-                    </div>
+                        </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.center.Place, htmlAttributes: new { @class = "control-label " })
-                        @Html.EditorFor(model => model.center.Place, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.center.Place, "", new { @class = "text-danger" })
-
-
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.center.Desc, htmlAttributes: new { @class = "control-label " })
-                        @Html.EditorFor(model => model.center.Desc, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.center.Desc, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.center.Place, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.center.Place, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.center.Place, "", new { @class = "text-danger" })
 
 
-                    </div>
+                        </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.center.FoundationType, htmlAttributes: new { @class = "control-label " })
-                        <select name="center.FoundationType" id="center.FoundationType" class="form-control">
-                            <option>مدرسة عامة</option>
-                            <option>عقار عام</option>
-                            <option>مدرسة خاصة</option>
-                            <option>مكاتب خاصة</option>
-                            <option>شقة</option>
-                            <option>فيلا أو منزل مستقل</option>
-                        </select>
-                        @Html.ValidationMessageFor(model => model.center.FoundationType, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.center.Desc, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.center.Desc, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.center.Desc, "", new { @class = "text-danger" })
 
 
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.center.MonthlyPayment, htmlAttributes: new { @class = "control-label " })
-                        @Html.EditorFor(model => model.center.MonthlyPayment, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.center.MonthlyPayment, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.center.FoundationType, htmlAttributes: new { @class = "control-label " })
+                            <select name="center.FoundationType" id="center.FoundationType" class="form-control">
+                                <option>مدرسة عامة</option>
+                                <option>عقار عام</option>
+                                <option>مدرسة خاصة</option>
+                                <option>مكاتب خاصة</option>
+                                <option>شقة</option>
+                                <option>فيلا أو منزل مستقل</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.center.FoundationType, "", new { @class = "text-danger" })
 
 
-                    </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.center.MonthlyPayment, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.center.MonthlyPayment, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.center.MonthlyPayment, "", new { @class = "text-danger" })
+
+
+                        </div>
 
 
 
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.center.CenterType, htmlAttributes: new { @class = "control-label " })
-                        <select name="center.CenterType" id="center.CenterType" class="form-control">
-                            <option>رئيسي</option>
-                            <option>فرعي</option>
-                        </select>
-                        @Html.ValidationMessageFor(model => model.center.CenterType, "", new { @class = "text-danger" })
-
-
-                    </div>
-
-
-                    @*<div class="form-group" ng-show="SubCenter">
+                        <div class="form-group">
                             @Html.LabelFor(model => model.center.CenterType, htmlAttributes: new { @class = "control-label " })
-                            <select name="center.CenterType" id="center.CenterType">
+                            <select name="center.CenterType" id="center.CenterType" class="form-control">
                                 <option>رئيسي</option>
                                 <option>فرعي</option>
                             </select>
                             @Html.ValidationMessageFor(model => model.center.CenterType, "", new { @class = "text-danger" })
 
 
-                        </div>*@
+                        </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.center.HolesN, htmlAttributes: new { @class = "control-label " })
-                        @Html.EditorFor(model => model.center.HolesN, new { htmlAttributes = new { @class = "form-control", @type = "Number" } })
-                        @Html.ValidationMessageFor(model => model.center.HolesN, "", new { @class = "text-danger" })
 
+                        @*<div class="form-group" ng-show="SubCenter">
+                                @Html.LabelFor(model => model.center.CenterType, htmlAttributes: new { @class = "control-label " })
+                                <select name="center.CenterType" id="center.CenterType">
+                                    <option>رئيسي</option>
+                                    <option>فرعي</option>
+                                </select>
+                                @Html.ValidationMessageFor(model => model.center.CenterType, "", new { @class = "text-danger" })
+
+
+                            </div>*@
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.center.HolesN, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.center.HolesN, new { htmlAttributes = new { @class = "form-control", @type = "Number" } })
+                            @Html.ValidationMessageFor(model => model.center.HolesN, "", new { @class = "text-danger" })
+
+
+                        </div>
 
                     </div>
-                    
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="انشاء" class="btn btn-primary" />
+                    </div>
                 </div>
             </div>
 
-            <div class="visible-xs">
+        }
+    </div>
+    <div class="visible-xs">
+        @using (Html.BeginForm("Create", "Centers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.center.Name, htmlAttributes: new { @class = "control-label " })
@@ -244,15 +257,15 @@
 
 
                 @*<div class="form-group" ng-show="SubCenter">
-            @Html.LabelFor(model => model.center.CenterType, htmlAttributes: new { @class = "control-label " })
-            <select name="center.CenterType" id="center.CenterType">
-                <option>رئيسي</option>
-                <option>فرعي</option>
-            </select>
-            @Html.ValidationMessageFor(model => model.center.CenterType, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.center.CenterType, htmlAttributes: new { @class = "control-label " })
+                        <select name="center.CenterType" id="center.CenterType">
+                            <option>رئيسي</option>
+                            <option>فرعي</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.center.CenterType, "", new { @class = "text-danger" })
 
 
-        </div>*@
+                    </div>*@
 
 
                 <div class="form-group">
@@ -306,16 +319,16 @@
 
                 </div>
                 @*<div class="form-group">
-            @Html.LabelFor(model => model.center.State, htmlAttributes: new { @class = "control-label " })
-            <select name="center.State" id="center.State" class="form-control">
-                <option>متوفر</option>
-                <option>خارج الخدمة</option>
-            </select>
-            @Html.EditorFor(model => model.center.State, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.center.State, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.center.State, htmlAttributes: new { @class = "control-label " })
+                        <select name="center.State" id="center.State" class="form-control">
+                            <option>متوفر</option>
+                            <option>خارج الخدمة</option>
+                        </select>
+                        @Html.EditorFor(model => model.center.State, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.center.State, "", new { @class = "text-danger" })
 
 
-        </div>*@
+                    </div>*@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.center.HolesN, htmlAttributes: new { @class = "control-label " })
@@ -332,19 +345,19 @@
                     </div>
                 </div>
 
-            </div>
-
-
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="انشاء" class="btn btn-primary" />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="انشاء" class="btn btn-primary" />
+                    </div>
                 </div>
             </div>
-        </div>
+        }
+    </div>
 
-    }
 </div>
+
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

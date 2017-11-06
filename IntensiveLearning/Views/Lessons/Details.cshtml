@@ -5,120 +5,109 @@
 }
 <div class="WhiteBlur">
     <h2>معلومات</h2>
-
     <div class="InfoContainer">
-        <h4>درس</h4>
+        <h4>برنامج الدروس</h4>
         <hr />
-        <div class="col-sm-6">
 
-            <h4>
-                @Html.DisplayNameFor(model => model.Lesson2)
-            </h4>
+        <div class="col-sm-6 hidden-xs">
+            <div style="padding-right:10px;">
 
-            <p>
-                @Html.DisplayFor(model => model.Lesson2)
-            </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson2)
+                </h4>
 
-            <h4>
-                @Html.DisplayNameFor(model => model.Lesson4)
-            </h4>
+                <p>
+                    @Html.DisplayFor(model => model.Lesson2)
+                </p>
 
-            <p>
-                @Html.DisplayFor(model => model.Lesson4)
-            </p>
-            <h4>
-                @Html.DisplayNameFor(model => model.Lesson6)
-            </h4>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson4)
+                </h4>
 
-            <p>
-                @Html.DisplayFor(model => model.Lesson6)
-            </p>
+                <p>
+                    @Html.DisplayFor(model => model.Lesson4)
+                </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson6)
+                </h4>
 
-            <h4>
-                @Html.DisplayNameFor(model => model.Regiment.Name)
-            </h4>
+                <p>
+                    @Html.DisplayFor(model => model.Lesson6)
+                </p>
 
-            <p>
-                @Html.DisplayFor(model => model.Regiment.Name)
-            </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Regiment.Name)
+                </h4>
 
-
-
-
-
-
-
-
-        </div>
-
-
-        <div class="col-sm-6">
-            <h4>
-                @Html.DisplayNameFor(model => model.Day)
-            </h4>
-
-            <p>
-                @Html.DisplayFor(model => model.Day)
-            </p>
-            <h4>
-                @Html.DisplayNameFor(model => model.Lesson1)
-            </h4>
-
-            <p>
-                @Html.DisplayFor(model => model.Lesson1)
-            </p>
-
-            <h4>
-                @Html.DisplayNameFor(model => model.Lesson3)
-            </h4>
-
-            <p>
-                @Html.DisplayFor(model => model.Lesson3)
-            </p>
-            <h4>
-                @Html.DisplayNameFor(model => model.Lesson5)
-            </h4>
-
-            <p>
-                @Html.DisplayFor(model => model.Lesson5)
-            </p>
-
-
-            <h4>
-                @Html.DisplayNameFor(model => model.Lesson7)
-            </h4>
-
-            <p>
-                @Html.DisplayFor(model => model.Lesson7)
-            </p>
+                <p>
+                    @Html.DisplayFor(model => model.Regiment.Name)
+                </p>
 
 
 
 
 
 
+            </div>
 
         </div>
 
 
+        <div class="col-sm-6 hidden-xs">
+            <div style="padding-left:10px;">
+                <h4>
+                    @Html.DisplayNameFor(model => model.Day)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Day)
+                </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson1)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Lesson1)
+                </p>
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson3)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Lesson3)
+                </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson5)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Lesson5)
+                </p>
 
 
+                <h4>
+                    @Html.DisplayNameFor(model => model.Lesson7)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Lesson7)
+                </p>
 
 
-
-
-
-
+            </div>
+        </div>
     </div>
+
     <p>
         @if (Session["AddSchoolManagingTools"] != null)
-        {
-            if ((bool)Session["AddSchoolManagingTools"] == true)
             {
+                if ((bool)Session["AddSchoolManagingTools"] == true)
+                {
                 @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
                 @: |
     }
-        }
+            }
         @Html.ActionLink("العودة إلى اللائحة", "Index")
     </p>
-    </div>
+</div>

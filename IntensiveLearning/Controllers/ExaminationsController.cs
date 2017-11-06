@@ -423,7 +423,7 @@ namespace IntensiveLearning.Controllers
                 {
                     Examination examination = db.Examinations.Find(id);
                     var path = Server.MapPath("~\\App_Data\\Examinations\\");
-                    var prooves = db.Prooves.Where(x => x.CenterID == examination.id);
+                    var prooves = db.Prooves.Where(x => x.ExaminationID == examination.id);
                     foreach (var item in prooves)
                     {
                         db.Prooves.Remove(item);
@@ -451,9 +451,9 @@ namespace IntensiveLearning.Controllers
                                 Directory.Delete(path + "\\" + examination.id, true);
                             }
                         }
-                        if (System.IO.File.Exists(path + "ZipFolder\\" + examination.id))
+                        if (System.IO.File.Exists(path + "ZipFolder\\" + examination.id + ".zip"))
                         {
-                            System.IO.File.Delete(path + "ZipFolder\\" + examination.id);
+                            System.IO.File.Delete(path + "ZipFolder\\" + examination.id + ".zip");
                         }
 
                     }

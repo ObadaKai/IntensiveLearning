@@ -17,6 +17,10 @@ namespace IntensiveLearning.Controllers
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
             if (Session["ID"] != null)
             {
+                if (TempData["Message"] != null)
+                {
+                    ViewBag.StateMessage = TempData["Message"];
+                }
                 if (type.SeeAll == true || type.SeeAllButFinance == true || type.SeeAccToCenter == true || type.SeeAccToCity==true)
                 {
                     return View();
@@ -54,7 +58,8 @@ namespace IntensiveLearning.Controllers
 
             db.Concerns.Add(concern);
             db.SaveChanges();
-            return View();
+            TempData["Message"] = "تم تقديم الشكوى";
+            return RedirectToAction("Default","Home");
         }
     }
 }

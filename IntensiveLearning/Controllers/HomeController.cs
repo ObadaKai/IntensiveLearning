@@ -109,7 +109,7 @@ namespace IntensiveLearning.Controllers
                 {
                     return RedirectToAction("Create", "DailyReport");
                 }
-                else if (employee.Manager == true || employee.AddNewEmployeeType ==true)
+                else if (employee.Manager == true || employee.CoManager == true)
                 {
                     return RedirectToAction("Index", "Employees");
                 }

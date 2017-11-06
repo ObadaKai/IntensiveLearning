@@ -7,15 +7,179 @@
     <h2>معلومات</h2>
 
     <div class="InfoContainer">
-        <h4>فوج</h4>
+        <h4>شعبة</h4>
         <hr />
-        <div class="col-sm-6">
+        <div class="col-sm-6 hidden-xs">
+            <div style="padding-right:10px;">
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Day5)
+                </h4>
+
+                <p>
+                    @if (Model.Day5 != null && Model.Day5 == true)
+            {
+                        @:نعم
+                }
+            else
+            {
+                        @:لا
+                }
+                </p>
+
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Day6)
+                </h4>
+
+                <p>
+                    @if (Model.Day6 != null && Model.Day6 == true)
+            {
+                        @:نعم
+                }
+            else
+            {
+                        @:لا
+                }
+                </p>
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Day7)
+                </h4>
+
+                <p>
+                    @if (Model.Day7 != null && Model.Day7 == true)
+            {
+                        @:نعم
+                }
+            else
+            {
+                        @:لا
+                }
+                </p>
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Desc)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Desc)
+                </p>
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Period.Name)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Period.Name)
+                </p>
+            </div>
+        </div>
+        <div class="col-sm-6 hidden-xs">
+            <div style="padding-left:10px;">
+                <h4>
+                    @Html.DisplayNameFor(model => model.Name)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Name)
+                </p>
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Day1)
+                </h4>
+
+                <p>
+                    @if (Model.Day1 != null && Model.Day1 == true)
+            {
+                        @:نعم
+                }
+            else
+            {
+                        @:لا
+                }
+                </p>
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Day2)
+                </h4>
+
+                <p>
+                    @if (Model.Day2 != null && Model.Day2 == true)
+            {
+                        @:نعم
+                }
+            else
+            {
+                        @:لا
+                }
+                </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Day3)
+                </h4>
+
+                <p>
+                    @if (Model.Day3 != null && Model.Day3 == true)
+            {
+                        @:نعم
+                }
+            else
+            {
+                        @:لا
+                }
+                </p>
+
+
+
+
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Day4)
+                </h4>
+
+                <p>
+                    @if (Model.Day4 != null && Model.Day4 == true)
+            {
+                        @:نعم
+                }
+            else
+            {
+                        @:لا
+                }
+                </p>
+
+            </div>
+        </div>
+        <div class="visible-xs">
+            <h4>
+                @Html.DisplayNameFor(model => model.Name)
+            </h4>
+
+            <p>
+                @Html.DisplayFor(model => model.Name)
+            </p>
+
             <h4>
                 @Html.DisplayNameFor(model => model.Day1)
             </h4>
 
             <p>
                 @if (Model.Day1 != null && Model.Day1 == true)
+            {
+                    @:نعم
+                }
+            else
+            {
+                    @:لا
+                }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.Day2)
+            </h4>
+
+            <p>
+                @if (Model.Day2 != null && Model.Day2 == true)
             {
                     @:نعم
                 }
@@ -39,70 +203,9 @@
                 }
             </p>
 
-            <h4>
-                @Html.DisplayNameFor(model => model.Day5)
-            </h4>
-
-            <p>
-                @if (Model.Day5 != null && Model.Day5 == true)
-            {
-                    @:نعم
-                }
-            else
-            {
-                    @:لا
-                }
-            </p>
-
-            <h4>
-                @Html.DisplayNameFor(model => model.Day7)
-            </h4>
-
-            <p>
-                @if (Model.Day7 != null && Model.Day7 == true)
-            {
-                    @:نعم
-                }
-            else
-            {
-                    @:لا
-                }
-            </p>
-            <h4>
-                @Html.DisplayNameFor(model => model.Period.Name)
-            </h4>
-
-            <p>
-                @Html.DisplayFor(model => model.Period.Name)
-            </p>
 
 
 
-
-        </div>
-        <div class="col-sm-6">
-            <h4>
-                @Html.DisplayNameFor(model => model.Name)
-            </h4>
-
-            <p>
-                @Html.DisplayFor(model => model.Name)
-            </p>
-
-            <h4>
-                @Html.DisplayNameFor(model => model.Day2)
-            </h4>
-
-            <p>
-                @if (Model.Day2 != null && Model.Day2 == true)
-            {
-                    @:نعم
-                }
-            else
-            {
-                    @:لا
-                }
-            </p>
 
             <h4>
                 @Html.DisplayNameFor(model => model.Day4)
@@ -110,6 +213,21 @@
 
             <p>
                 @if (Model.Day4 != null && Model.Day4 == true)
+            {
+                    @:نعم
+                }
+            else
+            {
+                    @:لا
+                }
+            </p>
+
+            <h4>
+                @Html.DisplayNameFor(model => model.Day5)
+            </h4>
+
+            <p>
+                @if (Model.Day5 != null && Model.Day5 == true)
             {
                     @:نعم
                 }
@@ -136,6 +254,21 @@
             </p>
 
             <h4>
+                @Html.DisplayNameFor(model => model.Day7)
+            </h4>
+
+            <p>
+                @if (Model.Day7 != null && Model.Day7 == true)
+            {
+                    @:نعم
+                }
+            else
+            {
+                    @:لا
+                }
+            </p>
+
+            <h4>
                 @Html.DisplayNameFor(model => model.Desc)
             </h4>
 
@@ -143,10 +276,13 @@
                 @Html.DisplayFor(model => model.Desc)
             </p>
 
+            <h4>
+                @Html.DisplayNameFor(model => model.Period.Name)
+            </h4>
 
-
-
-
+            <p>
+                @Html.DisplayFor(model => model.Period.Name)
+            </p>
         </div>
 
 
@@ -154,16 +290,16 @@
 
 
 
-    </div>
-    <p>
-        @if (Session["AddSchoolManagingTools"] != null)
-        {
-            if ((bool)Session["AddSchoolManagingTools"] == true)
+        <p>
+            @if (Session["AddSchoolManagingTools"] != null)
             {
-                @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
-                @: |
+                if ((bool)Session["AddSchoolManagingTools"] == true)
+                {
+                    @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+                    @: |
     }
-        }
-        @Html.ActionLink("العودة إلى اللائحة", "Index")
-    </p>
+            }
+            @Html.ActionLink("العودة إلى اللائحة", "Index")
+        </p>
     </div>
+</div>
