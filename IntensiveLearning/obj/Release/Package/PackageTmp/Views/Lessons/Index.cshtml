@@ -5,11 +5,21 @@
 }
 
 <h2>لائحة الدروس</h2>
-@if (Session["AddSchoolManagingTools"] != null)
+@if (Session["AddSchoolEmployees"] != null)
 {
-    if ((bool)Session["AddSchoolManagingTools"] == true)
+    if ((bool)Session["AddSchoolEmployees"] == true)
     {
-        using (Html.BeginForm("Create","Lessons", FormMethod.Get))
+        using (Html.BeginForm("Create", "Lessons", FormMethod.Get))
+        {
+            <button type="submit" class="btn btn-warning">انشاء جديد</button>
+        }
+    }
+}
+@if (Session["AddPresence"] != null)
+{
+    if ((bool)Session["AddPresence"] == true)
+    {
+        using (Html.BeginForm("Create", "Lessons", FormMethod.Get))
         {
             <button type="submit" class="btn btn-warning">انشاء جديد</button>
         }
@@ -57,9 +67,21 @@
                 {
                     <tr>
                         <td>
-                            @if (Session["AddSchoolManagingTools"] != null)
+                            @if (Session["AddSchoolEmployees"] != null)
                             {
-                                if ((bool)Session["AddSchoolManagingTools"] == true)
+                                if ((bool)Session["AddSchoolEmployees"] == true)
+                                {
+                                    <div style="width:130px;">
+                                        <a href="/Lessons/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/Lessons/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a href="/Lessons/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    </div>
+                                }
+                            }
+
+                            else if (Session["AddPresence"] != null)
+                            {
+                                if ((bool)Session["AddPresence"] == true)
                                 {
                                     <div style="width:130px;">
                                         <a href="/Lessons/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
@@ -111,7 +133,7 @@
 <button id="btnExport" class="btn btn-warning">Export to xls</button>
 @if (ViewBag.StateMessage != null)
 {
-        <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
+    <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         @ViewBag.StateMessage
     </div>

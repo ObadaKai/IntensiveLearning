@@ -17,12 +17,24 @@ namespace IntensiveLearning.Controllers
         // GET: Cities
         public ActionResult Index()
         {
-            var cities = db.Cities.Include(c => c.Project);
-            if (TempData["Message"] != null)
+            if (Session["ID"]!=null)
             {
-                ViewBag.StateMessage = TempData["Message"];
+                var empid = Convert.ToInt32(Session["ID"]);
+                var type = db.Employees.Find(empid);
+                var typename = db.EmployeeTypes.Find(type.Job);
+                if (typename.AddCitesAndCenters ==true)
+                {
+                    var cities = db.Cities.Include(c => c.Project);
+                    if (TempData["Message"] != null)
+                    {
+                        ViewBag.StateMessage = TempData["Message"];
+                    }
+                    return View(cities.ToList());
+                }
+                return RedirectToAction("Default","Home");
             }
-            return View(cities.ToList());
+           return RedirectToAction("Index", "Home");
+
         }
 
         // GET: Cities/Details/5
@@ -43,8 +55,29 @@ namespace IntensiveLearning.Controllers
         // GET: Cities/Create
         public ActionResult Create()
         {
-            ViewBag.ProjectID = new SelectList(db.Projects, "id", "ProjectName");
-            return View();
+            if (Session["ID"]!=null)
+            {
+
+            
+            var empid = Convert.ToInt32(Session["ID"]);
+            var type = db.Employees.Find(empid);
+            var typename = db.EmployeeTypes.Find(type.Job);
+            if (typename.AddCitesAndCenters == true)
+            {
+                if (typename.SeeAccToCity == true)
+                {
+                    return RedirectToAction("Default", "Home");
+                }
+                else
+                {
+                    ViewBag.ProjectID = new SelectList(db.Projects, "id", "ProjectName");
+                    return View();
+                }
+
+            }
+            return RedirectToAction("Default", "Home");
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Cities/Create
@@ -54,6 +87,7 @@ namespace IntensiveLearning.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name,CountryName,ProjectID")] City city)
         {
+
             try
             {
                 city.id = db.Cities.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
@@ -78,17 +112,34 @@ namespace IntensiveLearning.Controllers
         // GET: Cities/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+
+            if (Session["ID"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+
+                var empid = Convert.ToInt32(Session["ID"]);
+                var type = db.Employees.Find(empid);
+                var typename = db.EmployeeTypes.Find(type.Job);
+                City city = db.Cities.Find(id);
+                if (typename.AddCitesAndCenters == true)
+                {
+                    if (typename.SeeAccToCity == true)
+                    {
+                        return RedirectToAction("Default", "Home");
+                    }
+                    else
+                    {
+                        ViewBag.ProjectID = new SelectList(db.Projects, "id", "ProjectName", city.ProjectID);
+                        return View(city);
+                    }
+
+                }
+                return RedirectToAction("Default", "Home");
             }
-            City city = db.Cities.Find(id);
-            if (city == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ProjectID = new SelectList(db.Projects, "id", "ProjectName", city.ProjectID);
-            return View(city);
+            return RedirectToAction("Index", "Home");
+        
+           
+
         }
 
         // POST: Cities/Edit/5
@@ -113,16 +164,30 @@ namespace IntensiveLearning.Controllers
         // GET: Cities/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["ID"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+
+                var empid = Convert.ToInt32(Session["ID"]);
+                var type = db.Employees.Find(empid);
+                var typename = db.EmployeeTypes.Find(type.Job);
+                City city = db.Cities.Find(id);
+                if (typename.AddCitesAndCenters == true)
+                {
+                    if (typename.SeeAccToCity == true)
+                    {
+                        return RedirectToAction("Default", "Home");
+                    }
+                    else
+                    {
+                        ViewBag.ProjectID = new SelectList(db.Projects, "id", "ProjectName", city.ProjectID);
+                        return View(city);
+                    }
+
+                }
+                return RedirectToAction("Default", "Home");
             }
-            City city = db.Cities.Find(id);
-            if (city == null)
-            {
-                return HttpNotFound();
-            }
-            return View(city);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Cities/Delete/5

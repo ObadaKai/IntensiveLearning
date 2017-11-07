@@ -76,7 +76,12 @@
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Studentid, "الطالب", htmlAttributes: new { @class = "control-label " })
-                            @Html.DropDownList("Studentid", null, htmlAttributes: new { @class = "form-control" })
+                            <select name="Studentid" id="Studentid" class="form-control">
+                                @foreach (var item in ViewBag.Studentid)
+                                {
+                                    <option value="@item.id"> @item.Name @item.FathersName @item.Surname </option>
+                                }
+                            </select>
                             @Html.ValidationMessageFor(model => model.Studentid, "", new { @class = "text-danger" })
                         </div>
 
@@ -129,7 +134,12 @@
 
 
 
-                    @Html.DropDownList("Studentid", null, htmlAttributes: new { @class = "form-control" })
+                    <select name="Studentid" id="Studentid">
+                        @foreach (var item in ViewBag.Studentid)
+                        {
+                            <option value="@item.id">@item.Name @item.FathersName @item.Surname</option>
+                        }
+                    </select>
                     @Html.ValidationMessageFor(model => model.Studentid, "", new { @class = "text-danger" })
 
 

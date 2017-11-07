@@ -11,12 +11,8 @@
         <thead>
             <tr class="bg-primary">
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Employee.name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Employee.surname)
-                </th>
+
+
 
                 <th>
                     @Html.DisplayNameFor(model => model.Concern1)
@@ -25,23 +21,26 @@
                 <th>
                     @Html.DisplayNameFor(model => model.date)
                 </th>
-
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee.City.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee.Center.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee.surname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee.name)
+                </th>
             </tr>
         </thead>
         <tbody>
             @if (Model != null)
             {
-               foreach (var item in Model)
+                foreach (var item in Model)
                 {
                     <tr>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Employee.name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Employee.surname)
-                        </td>
-
                         <td>
                             @Html.DisplayFor(modelItem => item.Concern1)
                         </td>
@@ -50,8 +49,30 @@
                             @Html.DisplayFor(modelItem => item.date)
                         </td>
 
+                        <td>
+                            @if (item.Employee.CityID != null)
+                            {
+                                @Html.DisplayFor(modelItem => item.Employee.City.Name)
+                            }
+                            else if (item.Employee.Center != null)
+                            {
+                                if (item.Employee.Center.Cityid != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.Employee.Center.City.Name)
 
+                                }
 
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Employee.Center.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Employee.surname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Employee.name)
+                        </td>
                     </tr>
                 }
 

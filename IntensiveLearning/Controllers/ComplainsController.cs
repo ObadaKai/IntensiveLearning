@@ -21,9 +21,9 @@ namespace IntensiveLearning.Controllers
                 {
                     ViewBag.StateMessage = TempData["Message"];
                 }
-                if (type.SeeAll == true || type.SeeAllButFinance == true || type.SeeAccToCenter == true || type.SeeAccToCity==true)
+                if (type.SeeAll == true || type.SeeAllButFinance == true || type.SeeAccToCity==true)
                 {
-                    return View();
+                    return View(db.Concerns.ToList());
                 }
                 return RedirectToAction("Default", "Home");
             }

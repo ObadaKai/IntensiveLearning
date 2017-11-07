@@ -37,26 +37,62 @@ namespace IntensiveLearning.Controllers
                     var employees = db.Employees.Where(x => x.EmployeeType.Manager == true).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
                     return View(employees.ToList());
                 }
-                if (type.SeeAll == true || type.SeeAllButFinance == true)
+                else if (type.AddManagers == true)
                 {
                     var employees = db.Employees.Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
                     return View(employees.ToList());
                 }
-
-                if (type.SeeAccToCity == true)
+                else if (type.AddCOManagers == true)
                 {
 
-                    var employees = db.Employees.Where(x => x.CityID == emp.CityID).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
+
+                    var employees = db.Employees.Where(x => x.EmployeeType.CoManager == true || x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
                     return View(employees.ToList());
+
                 }
-                if (type.SeeAccToCenter == true)
+                else if (type.AddSchoolManagers == true)
                 {
-                    var employees = db.Employees.Where(x => x.Centerid == emp.Centerid).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
-                    return View(employees.ToList());
+                    if (type.SeeAccToCity == true)
+                    {
+
+                        var employees = db.Employees.Where(x => ((x.CityID == emp.CityID || x.Center.Cityid == emp.CityID) && (x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true)) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Center.Cityid == emp.CityID)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
+                        return View(employees.ToList());
+                    }
+                    else if (type.SeeAccToCenter == true)
+                    {
+                        var employees = db.Employees.Where(x => (x.Centerid == emp.Centerid && (x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true)) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Centerid == emp.Centerid)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
+                        return View(employees.ToList());
+                    }
+                    else
+                    {
+                        var employees = db.Employees.Where(x => x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true || x.CityID != null || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
+                        return View(employees.ToList());
+                    }
                 }
-                if (type.SeeTeachers == true)
+                else if (type.AddSchoolEmployees == true)
                 {
-                    var employees = db.Employees.Where(x => x.EmployeeType.SeeTeachers == true && x.Centerid == emp.Centerid).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
+                    if (type.SeeAccToCity == true)
+                    {
+
+                        var employees = db.Employees.Where(x => ((x.CityID == emp.CityID || x.Center.Cityid == emp.CityID) && x.EmployeeType.NormalEmployee == true) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Center.Cityid == emp.CityID)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
+                        return View(employees.ToList());
+                    }
+                    else if (type.SeeAccToCenter == true)
+                    {
+                        var employees = db.Employees.Where(x => ((x.Centerid == emp.Centerid) && x.EmployeeType.NormalEmployee == true) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Centerid == emp.Centerid)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
+                        return View(employees.ToList());
+                    }
+                    else
+                    {
+                        var employees = db.Employees.Where(x => x.EmployeeType.NormalEmployee == true || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
+                        return View(employees.ToList());
+                    }
+                }
+
+
+                else if (type.SeeTeachers == true)
+                {
+                    var employees = db.Employees.Where(x => (x.EmployeeType.SeeTeachers == true && x.Centerid == emp.Centerid) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
                     return View(employees.ToList());
                 }
                 return RedirectToAction("Default", "Home");
@@ -200,17 +236,17 @@ namespace IntensiveLearning.Controllers
                         var Sid = Convert.ToInt32(Session["ID"]);
                         try
                         {
-                            if (type.SeeAccToCenter==true || type.SeeAccToCity ==true)
+                            if (type.SeeAccToCenter == true)
                             {
                                 var emp = db.Employees.Find(Sid).CityID;
                                 CAddSchoolManagers = db.Centers.Where(x => x.Cityid == emp).ToList();
-                                JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                                JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true || x.NormalEmployee == true).ToList();
 
                             }
                             else
                             {
                                 CAddSchoolManagers = db.Centers.ToList();
-                                JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                                JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true || x.SeeAccToCity == true || x.NormalEmployee == true).ToList();
                             }
                         }
                         catch
@@ -332,7 +368,7 @@ namespace IntensiveLearning.Controllers
 
 
 
-
+                ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
                 ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name");
                 ViewBag.Job = new SelectList(TosendJobs, "id", "Type");
                 ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
@@ -351,11 +387,42 @@ namespace IntensiveLearning.Controllers
         [HttpPost]
         public ActionResult Create(/*[Bind(Include = "name,surname,BDate,Certificate,CType,State,Centerid,Periodid,SDate,Job,Username,Salary,FathersName,Sex")]*/ Employee employee, IEnumerable<HttpPostedFileBase> file)
         {
-            bool sendImageError = false;
 
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+            var jobs = db.EmployeeTypes.Find(employee.Job);
+            bool sendImageError = false;
             if (ModelState.IsValid)
             {
                 bool proceed = true;
+                if (jobs.Manager == true)
+                {
+                    employee.Centerid = null;
+                    employee.CityID = null;
+                }
+                if (jobs.CoManager == true && jobs.SeeAccToCity != true)
+                {
+                    employee.Centerid = null;
+                    employee.CityID = null;
+                }
+                if (jobs.CoManager == true && jobs.SeeAccToCity == true)
+                {
+                    if (employee.CityID == null)
+                    {
+                        ViewBag.error = "يرجى اختيار المدينة";
+                        return View(employee);
+                    }
+                    employee.Centerid = null;
+                }
+                if (jobs.SeeAccToCenter == true || jobs.SeeTeachers == true)
+                {
+                    if (employee.Centerid == null)
+                    {
+                        ViewBag.error = "يرجى اختيار المركز";
+                        return View(employee);
+                    }
+                    employee.CityID = null;
+                }
                 if (db.Employees.Where(x => x.Username == employee.Username).Count() > 0)
                 {
                     ViewBag.error = "اسم المستخم مستخدم مسبقا";
@@ -510,8 +577,6 @@ namespace IntensiveLearning.Controllers
             }
 
 
-            var typeName = (string)Session["Type"];
-            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
 
             var CAddManagers = db.Centers.ToList();
             var CAddCOManagers = db.Centers.ToList();
@@ -582,13 +647,13 @@ namespace IntensiveLearning.Controllers
                         {
                             var emp = db.Employees.Find(Sid).CityID;
                             CAddSchoolManagers = db.Centers.Where(x => x.Cityid == emp).ToList();
-                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true || x.NormalEmployee == true).ToList();
 
                         }
                         else
                         {
                             CAddSchoolManagers = db.Centers.ToList();
-                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true || x.SeeAccToCity == true || x.NormalEmployee == true).ToList();
                         }
                     }
                     catch
@@ -710,6 +775,7 @@ namespace IntensiveLearning.Controllers
             }
 
 
+            ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
 
             ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name", db.Employees.FirstOrDefault(x => x.Centerid == employee.Centerid).Centerid);
             ViewBag.Job = new SelectList(TosendJobs, "id", "Type", db.Employees.FirstOrDefault(x => x.Job == employee.Job).Job);
@@ -730,12 +796,29 @@ namespace IntensiveLearning.Controllers
             }
             if (Session["ID"] != null)
             {
+
+
                 var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
 
 
                 Employee employee = db.Employees.Find(id);
 
-
+                if (employee.EmployeeType.Manager == true && type.AddManagers != true)
+                {
+                    return RedirectToAction("Default", "Home");
+                }
+                if (employee.EmployeeType.CoManager == true && type.AddCOManagers != true)
+                {
+                    return RedirectToAction("Default", "Home");
+                }
+                if (employee.EmployeeType.SchoolManager == true && type.AddSchoolManagers != true)
+                {
+                    return RedirectToAction("Default", "Home");
+                }
+                if (employee.EmployeeType.NormalEmployee == true && type.AddSchoolEmployees != true)
+                {
+                    return RedirectToAction("Default", "Home");
+                }
                 var CAddManagers = db.Centers.ToList();
                 var CAddCOManagers = db.Centers.ToList();
                 var CAddSchoolManagers = db.Centers.ToList();
@@ -805,13 +888,13 @@ namespace IntensiveLearning.Controllers
                             {
                                 var emp = db.Employees.Find(Sid).CityID;
                                 CAddSchoolManagers = db.Centers.Where(x => x.Cityid == emp).ToList();
-                                JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                                JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true || x.NormalEmployee == true).ToList();
 
                             }
                             else
                             {
                                 CAddSchoolManagers = db.Centers.ToList();
-                                JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                                JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true || x.SeeAccToCity == true || x.NormalEmployee == true).ToList();
                             }
                         }
                         catch
@@ -932,6 +1015,7 @@ namespace IntensiveLearning.Controllers
                     TosendCenters = TosendCenters.Union(CAddSchoolEmployees).ToList();
                 }
 
+                ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
 
                 ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name", db.Employees.FirstOrDefault(x => x.Centerid == employee.Centerid).Centerid);
                 ViewBag.Job = new SelectList(TosendJobs, "id", "Type", db.Employees.FirstOrDefault(x => x.Job == employee.Job).Job);
@@ -951,6 +1035,35 @@ namespace IntensiveLearning.Controllers
         public ActionResult Edit(/*[Bind(Include = "id,name,surname,BDate,Certificate,CType,State,Centerid,Periodid,SDate,EDate,Job,Salary,Sex,Father")]*/ Employee employee, IEnumerable<HttpPostedFileBase> file)
         {
             bool proceed = true;
+            var jobs = db.EmployeeTypes.Find(employee.Job);
+            if (jobs.Manager == true)
+            {
+                employee.Centerid = null;
+                employee.CityID = null;
+            }
+            if (jobs.CoManager == true && jobs.SeeAccToCity != true)
+            {
+                employee.Centerid = null;
+                employee.CityID = null;
+            }
+            if (jobs.CoManager == true && jobs.SeeAccToCity == true)
+            {
+                if (employee.CityID == null)
+                {
+                    ViewBag.error = "يرجى اختيار المدينة";
+                    return View(employee);
+                }
+                employee.Centerid = null;
+            }
+            if (jobs.SeeAccToCenter == true || jobs.SeeTeachers == true)
+            {
+                if (employee.Centerid == null)
+                {
+                    ViewBag.error = "يرجى اختيار المركز";
+                    return View(employee);
+                }
+                employee.CityID = null;
+            }
             if (ModelState.IsValid)
             {
 
@@ -1057,11 +1170,17 @@ namespace IntensiveLearning.Controllers
 
                 if (employee.EDate != null)
                 {
-                    if (employee.EDate.Value < DateTime.Now.Date)
+                    if (employee.EDate < DateTime.Now.Date)
                     {
                         employee.State = "خارج الخدمة";
                     }
+                    else
+                    {
+                        employee.State = "متوفر";
+
+                    }
                 }
+                employee.Password = Helper.ComputeHash("123", "SHA512", null);
                 if (proceed)
                 {
 
@@ -1143,13 +1262,13 @@ namespace IntensiveLearning.Controllers
                         {
                             var emp = db.Employees.Find(Sid).CityID;
                             CAddSchoolManagers = db.Centers.Where(x => x.Cityid == emp).ToList();
-                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true || x.NormalEmployee == true).ToList();
 
                         }
                         else
                         {
                             CAddSchoolManagers = db.Centers.ToList();
-                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true).ToList();
+                            JAddSchoolManagers = db.EmployeeTypes.Where(x => x.SchoolManager == true || x.SeeAccToCity == true || x.NormalEmployee == true).ToList();
                         }
                     }
                     catch
@@ -1271,7 +1390,7 @@ namespace IntensiveLearning.Controllers
             }
 
 
-
+            ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
             ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name", db.Employees.FirstOrDefault(x => x.Centerid == employee.Centerid).Centerid);
             ViewBag.Job = new SelectList(TosendJobs, "id", "Type", db.Employees.FirstOrDefault(x => x.Job == employee.Job).Job);
             ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", db.Employees.FirstOrDefault(x => x.Periodid == employee.Periodid));

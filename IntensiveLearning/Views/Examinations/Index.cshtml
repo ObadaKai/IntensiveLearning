@@ -32,7 +32,7 @@
             <thead>
                 <tr class="bg-primary">
                     <th></th>
-                    <th>التوثيق</th>
+                    @*<th>التوثيق</th>*@
                     <th>الاثبات</th>
                     <th>
                         @Html.DisplayNameFor(model => model.Mark)
@@ -92,7 +92,7 @@
                                     <a href="/Examinations/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                                 }
                             </td>
-                            <td>
+                            @*<td>
                                 @if (Session["ApproveExam"]!= null)
                                 {
                                     if ((bool)Session["ApproveExam"] == true)
@@ -101,7 +101,7 @@
                                         
                                     }
                                 }
-                            </td>
+                            </td>*@
                             <td>
                                 @if (item.Proof != null)
                                 {

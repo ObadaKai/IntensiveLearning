@@ -38,11 +38,36 @@
                         {
                             if ((bool)Session["AddCitesAndCenters"] == true)
                             {
-                                <div style="width:130px;">
-                                    <a href="/Cities/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <a href="/Cities/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                    <a href="/Cities/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                </div>
+                                if (Session["SeeAccToCity"] != null)
+                                {
+                                    if ((bool)Session["SeeAccToCity"] == true)
+                                    {
+                                        <a href="/Study_subjectController/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+
+                                    }
+                                    else
+                                    {
+                                        <div style="width:130px;">
+                                            <a href="/Cities/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                            <a href="/Cities/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                            <a href="/Cities/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        </div>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <div style="width:130px;">
+                                        <a href="/Cities/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/Cities/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a href="/Cities/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    </div>
+
+                                }
+                            }
+                            else
+                            {
+                                <a href="/Study_subjectController/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                             }
                         }
                         else

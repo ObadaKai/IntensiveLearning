@@ -33,7 +33,12 @@
                             <ul class="nav navbar-nav hidden-xs HomePageNavBar">
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size:18px">
-                                       @Session["Type"]
+                                       @Session["Type"] 
+                                        @if (Session["Markaz"] != null)
+                                        {
+                                            @Session["Markaz"]
+                                        }
+                                       
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu">

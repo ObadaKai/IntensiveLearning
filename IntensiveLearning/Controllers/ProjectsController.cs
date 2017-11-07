@@ -17,6 +17,10 @@ namespace IntensiveLearning.Controllers
         // GET: Projects
         public ActionResult Index()
         {
+            if (Session["ID"]==null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (TempData["Message"] != null)
             {
                 ViewBag.StateMessage = TempData["Message"];
@@ -27,6 +31,10 @@ namespace IntensiveLearning.Controllers
         // GET: Projects/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -52,6 +60,10 @@ namespace IntensiveLearning.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProjectName,StartDate,EndDate")] Project project)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             try
             {
                 project.id = db.Projects.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
@@ -74,6 +86,10 @@ namespace IntensiveLearning.Controllers
         // GET: Projects/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -93,6 +109,7 @@ namespace IntensiveLearning.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,ProjectName,StartDate,EndDate")] Project project)
         {
+
             if (ModelState.IsValid)
             {
                 db.Entry(project).State = EntityState.Modified;
@@ -106,6 +123,10 @@ namespace IntensiveLearning.Controllers
         // GET: Projects/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

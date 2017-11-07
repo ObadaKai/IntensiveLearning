@@ -71,9 +71,24 @@ namespace IntensiveLearning.Controllers
             if (Session["ID"] != null)
             {
                 var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+                var id = Convert.ToInt16(Session["ID"]);
+                var emp = db.Employees.Find(id);
                 if (type.AddPresence == true)
                 {
-                    ViewBag.Studentid = new SelectList(db.Students, "id", "Name");
+                    if (emp.Centerid != null)
+                    {
+                        ViewBag.Studentid = db.Students.Where(x => x.Centerid == emp.Centerid).ToList();
+
+                    }
+                    else if (emp.CityID != null)
+                    {
+                        ViewBag.Studentid = db.Students.Where(x => x.Center.Cityid == emp.CityID).ToList();
+
+                    }
+                    else
+                    {
+                        ViewBag.Studentid = db.Students.ToList();
+                    }
                     return View();
 
 
@@ -108,10 +123,31 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
+            var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+            var id = Convert.ToInt16(Session["ID"]);
+            var emp = db.Employees.Find(id);
+            if (type.AddPresence == true)
+            {
+                if (emp.Centerid != null)
+                {
+                    ViewBag.Studentid = db.Students.Where(x => x.Centerid == emp.Centerid).ToList();
 
-            ViewBag.Studentid = new SelectList(db.Students, "id", "Name", presence.Studentid);
+                }
+                else if (emp.CityID != null)
+                {
+                    ViewBag.Studentid = db.Students.Where(x => x.Center.Cityid == emp.CityID).ToList();
+
+                }
+                else
+                {
+                    ViewBag.Studentid = db.Students.ToList();
+                }
+                
+
+
+
+            }
             return View(presence);
-
 
         }
 
@@ -132,7 +168,22 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
-                    ViewBag.Studentid = new SelectList(db.Students, "id", "Name", presence.Studentid);
+                    var empid = Convert.ToInt16(Session["ID"]);
+                    var emp = db.Employees.Find(empid);
+                    if (emp.Centerid != null)
+                    {
+                        ViewBag.Studentid = db.Students.Where(x => x.Centerid == emp.Centerid).ToList();
+
+                    }
+                    else if (emp.CityID != null)
+                    {
+                        ViewBag.Studentid = db.Students.Where(x => x.Center.Cityid == emp.CityID).ToList();
+
+                    }
+                    else
+                    {
+                        ViewBag.Studentid = db.Students.ToList();
+                    }
                     return View(presence);
 
 
@@ -159,7 +210,32 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم التعديل بنجاح";
                 return RedirectToAction("Index");
             }
-            ViewBag.Studentid = new SelectList(db.Students, "id", "Name", presence.Studentid);
+            var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            var empid = Convert.ToInt16(Session["ID"]);
+            var emp = db.Employees.Find(empid);
+            if (type.AddPresence == true)
+            {
+                if (emp.Centerid != null)
+                {
+                    ViewBag.Studentid = db.Students.Where(x => x.Centerid == emp.Centerid).ToList();
+
+                }
+                else if (emp.CityID != null)
+                {
+                    ViewBag.Studentid = db.Students.Where(x => x.Center.Cityid == emp.CityID).ToList();
+
+                }
+                else
+                {
+                    ViewBag.Studentid = db.Students.ToList();
+                }
+
+
+
+
+
+            }
             return View(presence);
         }
 

@@ -18,7 +18,7 @@ namespace IntensiveLearning.Controllers
         {
             if (Session["ID"] != null)
             {
-                RedirectToAction("Default");
+                return RedirectToAction("Default","Home");
             }
             return View();
         }
@@ -65,26 +65,21 @@ namespace IntensiveLearning.Controllers
                         Session["SeeAccToCity"] = employee.EmployeeType.SeeAccToCity;
                         Session["SeeAllButFinance"] = employee.EmployeeType.SeeAllButFinance;
                         Session["SeeTeachers"] = employee.EmployeeType.SeeTeachers;
-
-
-                        if (employee.EmployeeType.AddManagers == true)
+                        if (employee.Center!=null)
                         {
-                            return RedirectToAction("Index", "Employees");
+                            Session["Markaz"] = employee.Center.Name;
                         }
+
+
                         if (employee.EmployeeType.NormalEmployee == true)
                         {
                             return RedirectToAction("Create", "DailyReport");
                         }
-                        else if (employee.EmployeeType.Manager == true)
+                        else 
                         {
                             return RedirectToAction("Index", "Employees");
                         }
-                        else
-                        {
-                            return RedirectToAction("Index", "Complains");
-                        }
-
-
+                      
                     }
 
                 }
@@ -109,13 +104,9 @@ namespace IntensiveLearning.Controllers
                 {
                     return RedirectToAction("Create", "DailyReport");
                 }
-                else if (employee.Manager == true || employee.CoManager == true)
-                {
-                    return RedirectToAction("Index", "Employees");
-                }
                 else
                 {
-                    return RedirectToAction("Index", "Complains");
+                    return RedirectToAction("Index", "Employees");
                 }
 
 
@@ -156,6 +147,7 @@ namespace IntensiveLearning.Controllers
             Session["SeeAccToCity"] = null;
             Session["SeeAllButFinance"] = null;
             Session["SeeTeachers"] = null;
+            Session["Markaz"] = null;
             return RedirectToAction("Index");
         }
 

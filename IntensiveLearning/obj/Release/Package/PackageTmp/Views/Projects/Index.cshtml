@@ -38,17 +38,18 @@
                             if ((bool)Session["AddNewProject"] == true)
                             {
                                 <div style="width:180px">
-                                    @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-
-                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
-                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                                    <div style="width:130px;">
+                                        <a href="/Projects/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/Projects/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a href="/Projects/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    </div>
                                 </div>
                             }
 
                         }
                         else
                         {
-                            @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+                            <a href="/Projects/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
 
                         }
                     </td>

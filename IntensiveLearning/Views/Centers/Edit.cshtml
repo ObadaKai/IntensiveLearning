@@ -7,8 +7,7 @@
     <h2>تعديل</h2>
 
     <div class="visible-lg visible-md visible-sm">
-        @using (Html.BeginForm("Edit", "Centers", FormMethod.Post,
-                                                                                                                                                                                                                        new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("Edit", "Centers", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(model => model.center.id)
@@ -136,7 +135,20 @@
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.center.FoundationType, htmlAttributes: new { @class = "control-label " })
-                        @Html.EditorFor(model => model.center.FoundationType, new { htmlAttributes = new { @class = "form-control" } })
+                        <select name="center.FoundationType" id="center.FoundationType" class="form-control">
+                            <option @if (Model.center.FoundationType == "مدرسة عامة") {@:selected
+}>مدرسة عامة</option>
+                            <option @if (Model.center.FoundationType == "عقار عام") {@:selected
+}>عقار عام</option>
+                            <option @if (Model.center.FoundationType == "مدرسة خاصة") {@:selected
+}>مدرسة خاصة</option>
+                            <option @if (Model.center.FoundationType == "مكاتب خاصة") {@:selected
+}>مكاتب خاصة</option>
+                            <option @if (Model.center.FoundationType == "شقة") {@:selected
+}>شقة</option>
+                            <option @if (Model.center.FoundationType == "فيلا أو منزل مستقل") {@:selected
+}>فيلا أو منزل مستقل</option>
+                        </select>
                         @Html.ValidationMessageFor(model => model.center.FoundationType, "", new { @class = "text-danger" })
 
 
@@ -218,7 +230,32 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.center.FoundationType, htmlAttributes: new { @class = "control-label " })
-                @Html.EditorFor(model => model.center.FoundationType, new { htmlAttributes = new { @class = "form-control" } })
+                <select name="center.FoundationType" id="center.FoundationType" class="form-control">
+                    <option @if (Model.center.FoundationType == "مدرسة عامة") { @: selected
+                            }>
+                        مدرسة عامة
+                    </option>
+                    <option @if (Model.center.FoundationType == "عقار عام") { @: selected
+                            }>
+                        عقار عام
+                    </option>
+                    <option @if (Model.center.FoundationType == "مدرسة خاصة") { @: selected
+                            }>
+                        مدرسة خاصة
+                    </option>
+                    <option @if (Model.center.FoundationType == "مكاتب خاصة") { @: selected
+                            }>
+                        مكاتب خاصة
+                    </option>
+                    <option @if (Model.center.FoundationType == "شقة") { @: selected
+                            }>
+                        شقة
+                    </option>
+                    <option @if (Model.center.FoundationType == "فيلا أو منزل مستقل") { @: selected
+                            }>
+                        فيلا أو منزل مستقل
+                    </option>
+                </select>
                 @Html.ValidationMessageFor(model => model.center.FoundationType, "", new { @class = "text-danger" })
 
 
@@ -336,7 +373,7 @@
 
             <div class="form-group">
                 <div>
-                    <input id="file" type="file" aria-label="Add photos to your post" class="upload" name="file" multiple accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                    <input id="fileHuge" type="file" aria-label="Add photos to your post" class="upload" name="file" multiple accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
                 </div>
             </div>
             <div class="form-group">

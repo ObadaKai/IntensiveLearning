@@ -30,9 +30,15 @@
 
                     <th></th>
                     <th>الاثبات</th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Salary)
-                    </th>
+                    @if (Session["SeeAll"] != null)
+                    {
+                        if ((bool)Session["SeeAll"] == true)
+                        {
+                            <th>
+                                @Html.DisplayNameFor(model => model.Salary)
+                            </th>
+                        }
+                    }
 
                     <th>
                         @Html.DisplayNameFor(model => model.Period.Name)
@@ -40,6 +46,9 @@
 
                     <th>
                         @Html.DisplayNameFor(model => model.EmployeeType.Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.City.Name)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Center.Name)
@@ -105,12 +114,17 @@
                                                     @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })*@
                                             </div>
                                         }
+                                        else
+                                        {
+
+                                            @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
+
+                                        }
 
 
                                     }
                                     else
                                     {
-                                        <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
 
                                         @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
 
@@ -133,12 +147,69 @@
                                                     @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })*@
                                             </div>
                                         }
+                                        else if (item.EmployeeType.SeeAccToCity == true)
+                                        {
+                                            if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] == null)
+                                            {
+                                                if ((bool)Session["AddSchoolManagers"] == true)
+                                                {
+                                                    <div style="width:130px;">
 
 
+                                                        <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                        <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                        <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    </div>
+                                                }
+                                            }
+                                            else if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] != null)
+                                            {
+                                                if ((bool)Session["AddSchoolManagers"] == true && (bool)Session["SeeAccToCity"] == false)
+                                                {
+                                                    <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                    <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                    <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+
+                                                }
+
+                                            }
+                                        }
+                                        else
+                                        {
+
+                                            @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
+
+                                        }
+                                    }
+                                    else if (item.EmployeeType.SeeAccToCity == true)
+                                    {
+                                        if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] == null)
+                                        {
+                                            if ((bool)Session["AddSchoolManagers"] == true)
+                                            {
+                                                <div style="width:130px;">
+
+
+                                                    <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                    <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                    <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                </div>
+                                            }
+                                        }
+                                        else if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] != null)
+                                        {
+                                            if ((bool)Session["AddSchoolManagers"] == true && (bool)Session["SeeAccToCity"] == false)
+                                            {
+                                                <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+
+                                            }
+
+                                        }
                                     }
                                     else
                                     {
-                                        <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
 
                                         @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
 
@@ -164,16 +235,22 @@
                                             </div>
                                         }
 
+                                        else
+                                        {
+
+                                            @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
+
+                                        }
 
                                     }
                                     else
                                     {
-                                        <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
 
                                         @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
 
                                     }
                                 }
+
                                 @if (item.EmployeeType.NormalEmployee == true)
                                 {
                                     if (Session["AddSchoolEmployees"] != null)
@@ -191,12 +268,17 @@
                                                     @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })*@
                                             </div>
                                         }
+                                        else
+                                        {
+
+                                            @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
+
+                                        }
 
 
                                     }
                                     else
                                     {
-                                        <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
 
                                         @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
 
@@ -213,30 +295,123 @@
                                     }
                                     else
                                     {
-                                        <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                                     }
                                     @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
 
                                 }
                             </td>
                             <td>
-                                @{ var ImageName = item.Proof;
-                                    if (item.Proof != null)
+                                @if (item.EmployeeType.Manager == true)
+                                {
+                                    if (Session["AddManagers"] != null)
                                     {
-                                        <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof} )" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                        /**/
+                                        if ((bool)Session["AddManagers"] == true)
+                                        {
+                                            var ImageName = item.Proof;
+                                            if (item.Proof != null)
+                                            {
+                                                <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
 
-                                        @*@Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = item.Proof }, new { @class = "btn btn-warning" })*@
+                                                @*@Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = item.Proof }, new { @class = "btn btn-warning" })*@
+                                            }
+
+                                        }
+                                    }
+                                }
+                                @if (item.EmployeeType.CoManager == true)
+                                {
+                                    if (Session["AddCoManagers"] != null)
+                                    {
+                                        /**/
+                                        if ((bool)Session["AddCoManagers"] == true)
+                                        {
+                                            var ImageName = item.Proof;
+                                            if (item.Proof != null)
+                                            {
+                                                <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+
+                                                @*@Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = item.Proof }, new { @class = "btn btn-warning" })*@
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                                @if (item.EmployeeType.SchoolManager == true)
+                                {
+                                    if (Session["AddSchoolManagers"] != null)
+                                    {
+                                        /**/
+                                        if ((bool)Session["AddSchoolManagers"] == true)
+                                        {
+                                            var ImageName = item.Proof;
+                                            if (item.Proof != null)
+                                            {
+                                                <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+
+                                                @*@Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = item.Proof }, new { @class = "btn btn-warning" })*@
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                                @if (item.EmployeeType.NormalEmployee == true)
+                                {
+                                    if (Session["AddSchoolEmployees"] != null)
+                                    {
+                                        /**/
+                                        if ((bool)Session["AddSchoolEmployees"] == true)
+                                        {
+                                            var ImageName = item.Proof;
+                                            if (item.Proof != null)
+                                            {
+                                                <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+
+                                                @*@Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = item.Proof }, new { @class = "btn btn-warning" })*@
+                                            }
+
+                                        }
+                                    }
+                                }
+                                @if (item.EmployeeType.NormalEmployee != true && item.EmployeeType.SchoolManager != true && item.EmployeeType.CoManager != true && item.EmployeeType.Manager != true)
+                                {
+                                    if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
+                                    {
+                                        <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+
                                     }
                                 }
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Salary)
-                            </td>
+                            @if (Session["SeeAll"] != null)
+                            {
+                                if ((bool)Session["SeeAll"] == true)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Salary)
+                                    </td>
+                                }
+                            }
                             <td>
                                 @Html.DisplayFor(modelItem => item.Period.Name)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.EmployeeType.Type)
+                            </td>
+                            <td>
+                                @if (item.CityID != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.City.Name)
+                                }
+                                else if (item.Center != null)
+                                {
+                                    if (item.Center.Cityid != null)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Center.City.Name)
+
+                                    }
+                                }
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Center.Name)
@@ -266,8 +441,8 @@
                                 @Html.DisplayFor(modelItem => item.name)
                             </td>
                         </tr>
-                                        }
-                                    }
+                    }
+                }
             </tbody>
         </table>
     </div>
@@ -281,9 +456,15 @@
                 <tr class="bg-primary">
                     <th></th>
                     <th>الاثبات</th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Salary)
-                    </th>
+                    @if (Session["SeeAll"] != null)
+                    {
+                        if ((bool)Session["SeeAll"] == true)
+                        {
+                            <th>
+                                @Html.DisplayNameFor(model => model.Salary)
+                            </th>
+                        }
+                    }
 
 
                     <th>
@@ -292,6 +473,9 @@
 
                     <th>
                         @Html.DisplayNameFor(model => model.EmployeeType.Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.City.Name)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Center.Name)
@@ -352,7 +536,6 @@
                             }
                             else
                             {
-                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                             }
                         </div>
                         <div style="width:130px;" ng-if="Exam.EmpCoManager==true">
@@ -365,15 +548,86 @@
                                     <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                                     <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
                                 }
+                                else
+                                {
+                                    <div ng-if="Exam.SeeAccToCity==true">
+
+                                        @if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] == null)
+                                        {
+                                            if ((bool)Session["AddSchoolManagers"] == true)
+                                            {
+                                                <div style="width:130px;">
+                                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                </div>
+                                            }
+                                        }
+                                        else if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] != null)
+                                        {
+                                            if ((bool)Session["AddSchoolManagers"] == true && (bool)Session["SeeAccToCity"] == false)
+                                            {
+                                                <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                        }
+                                    </div>
+                                    @*<div ng-if="Exam.SeeAccToCity!=true">
+                                            <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        </div>*@
+
+                                }
+
+
 
                             }
                             else
                             {
-                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                <div ng-if="Exam.SeeAccToCity==true">
+
+                                    @if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] == null)
+                                    {
+                                        if ((bool)Session["AddSchoolManagers"] == true)
+                                        {
+                                            <div style="width:130px;">
+                                                <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                            </div>
+                                        }
+                                    }
+                                    else if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] != null)
+                                    {
+                                        if ((bool)Session["AddSchoolManagers"] == true && (bool)Session["SeeAccToCity"] == false)
+                                        {
+                                            <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                            <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                            <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                    }
+                                </div>
+                                @*<div ng-if="Exam.SeeAccToCity!=true">
+                                        <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                    </div>*@
+
                             }
+
+
+
+
+
                         </div>
-
-
                         <div style="width:130px;" ng-if="Exam.EmpSchoolManager==true">
 
                             @if (Session["AddSchoolManagers"] != null)
@@ -386,10 +640,10 @@
                                     <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
                                 }
 
+
                             }
                             else
                             {
-                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                             }
                         </div>
                         <div style="width:130px;" ng-if="Exam.EmpNormal==true">
@@ -407,20 +661,20 @@
                             }
                             else
                             {
-                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                             }
                         </div>
+
                         <div ng-if="Exam.EmpManager!=true && Exam.EmpCoManager!=true && Exam.EmpSchoolManager!=true && Exam.EmpNormal!=true">
                             @if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
                             {
                                 <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                 <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                            <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
 
                             }
+
                             else
                             {
-                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                             }
                         </div>
 
@@ -429,15 +683,85 @@
 
                     </td>
                     <td>
-                        <span ng-if="Exam.Proof != null">
-                            <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning">تحميل</a>
-                        </span>
-                    </td>
+                        <div ng-if="Exam.EmpManager==true">
 
-                    <td>{{Exam.Salary}}</td>
+                            @if (Session["AddManagers"] != null)
+                            {
+                                /**/
+                                if ((bool)Session["AddManagers"] == true)
+                                {
+                                    <span ng-if="Exam.Proof != null">
+                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning">تحميل</a>
+                                    </span>
+
+                                }
+                            }
+                        </div>
+                        <div  ng-if="Exam.EmpCoManager==true">
+                            @if (Session["AddCoManagers"] != null)
+                            {
+                                /**/
+                                if ((bool)Session["AddCoManagers"] == true)
+                                {
+                                    <span ng-if="Exam.Proof != null">
+                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning">تحميل</a>
+                                    </span>
+
+                                }
+                            }
+                        </div>
+
+                        <div  ng-if="Exam.EmpSchoolManager==true">
+                            @if (Session["AddSchoolManagers"] != null)
+                            {
+                                /**/
+                                if ((bool)Session["AddSchoolManagers"] == true)
+                                {
+                                    <span ng-if="Exam.Proof != null">
+                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning">تحميل</a>
+                                    </span>
+
+                                }
+                            }
+                        </div>
+
+                        <div  ng-if="Exam.EmpNormal==true">
+
+                            @if (Session["AddSchoolEmployees"] != null)
+                            {
+                                /**/
+                                if ((bool)Session["AddSchoolEmployees"] == true)
+                                {
+                                    <span ng-if="Exam.Proof != null">
+                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning">تحميل</a>
+                                    </span>
+
+                                }
+                            }
+                        </div>
+                        <div ng-if="Exam.EmpManager!=true && Exam.EmpCoManager!=true && Exam.EmpSchoolManager!=true && Exam.EmpNormal!=true">
+
+                            @if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
+                            {
+                                <span ng-if="Exam.Proof != null">
+                                    <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning">تحميل</a>
+                                </span>
+                            }
+                        </div>
+
+                    </td>
+                    @if (Session["SeeAll"] != null)
+                    {
+                        if ((bool)Session["SeeAll"] == true)
+                        {
+                            <td>{{Exam.Salary}}</td>
+
+                        }
+                    }
                     <td>{{Exam.Period}}</td>
 
                     <td>{{Exam.EmployeeType}}</td>
+                    <td>{{Exam.City}}</td>
                     <td>{{Exam.Center}}</td>
                     <td>{{Exam.EmployeeEDate | date:'MM/dd/yyyy'}}</td>
                     <td>{{Exam.EmployeeSDate | date:'MM/dd/yyyy'}}</td>
@@ -454,7 +778,7 @@
     <button id="btnExport2" class="btn btn-warning" ng-cloak ng-show="EmployeeAngularForm">Export to xls</button>
 </div>
 @if (ViewBag.StateMessage != null)
-{
+            {
     <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         @ViewBag.StateMessage

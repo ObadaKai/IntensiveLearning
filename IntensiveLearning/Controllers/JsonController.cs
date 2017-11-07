@@ -197,7 +197,7 @@ namespace IntensiveLearning.Controllers
             {
 
             }
-            var EmployeeStrings = db.Employees.Where(x => x.name.Contains(searchbox) || x.Center.Name.Contains(searchbox) || x.Certificate.Contains(searchbox) || x.CType.Contains(searchbox)
+            var EmployeeStrings = db.Employees.Where(x => x.name.Contains(searchbox) || x.surname.Contains(searchbox) || x.Center.Name.Contains(searchbox) || x.City.Name.Contains(searchbox) || x.Center.City.Name.Contains(searchbox) || x.Certificate.Contains(searchbox) || x.CType.Contains(searchbox)
             || x.surname.Contains(searchbox) || x.State.Contains(searchbox) || x.EmployeeType.Type.Contains(searchbox) || x.Period.Name.Contains(searchbox)).ToList();
 
             EmployeeStrings.AddRange(Salaries);
@@ -257,10 +257,18 @@ namespace IntensiveLearning.Controllers
                 }
                 if (Emp.City == null)
                 {
-                    Emp.City = new City();
+                    if (Emp.Center.Cityid != null)
+                    {
+                        Emp.City = Emp.Center.City;
+
+                    }
+                    else
+                    {
+                        Emp.City = new City();
+                    }
                 }
             }
-            
+
             var ToSendList = EmployeeStrings.Select(c => new
             {
                 ID = c.id,
@@ -283,6 +291,8 @@ namespace IntensiveLearning.Controllers
                 Salary = c.Salary,
                 Proof = c.Proof,
                 Sex = c.Sex,
+                SeeAccToCity = c.EmployeeType.SeeAccToCity,
+                SeeAll = c.EmployeeType.SeeAll,
                 City = c.City.Name
             }).ToList();
             var typeName = (string)Session["Type"];
@@ -291,30 +301,58 @@ namespace IntensiveLearning.Controllers
             var emp = db.Employees.Find(empid);
             try
             {
-                if (type.AddNewEmployeeType != null)
+                if (type.AddNewEmployeeType == true)
                 {
-                    if (type.AddNewEmployeeType == true)
+
+                    ToSendList = ToSendList.Where(x => x.EmpManager == true).ToList();
+                }
+                else if (type.AddManagers == true)
+                {
+
+                }
+                else if (type.AddCOManagers == true)
+                {
+
+
+                    ToSendList = ToSendList.Where(x => (x.EmpCoManager == true || x.EmpSchoolManager == true || x.EmpNormal == true) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true)).ToList();
+                }
+                else if (type.AddSchoolManagers == true)
+                {
+                    if (type.SeeAccToCity == true)
                     {
 
-                        ToSendList = ToSendList.Where(x => x.EmpManager == true).ToList();
+                        ToSendList = ToSendList.Where(x => ((x.City == emp.City.Name || x.City == emp.Center.City.Name) && (x.EmpSchoolManager == true || x.EmpNormal == true)) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true && x.City == emp.City.Name)).ToList();
+                    }
+                    else if (type.SeeAccToCenter == true)
+                    {
+                        ToSendList = ToSendList.Where(x => (x.Center == emp.Center.Name && (x.EmpSchoolManager == true || x.EmpNormal == true)) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true && x.Center == emp.Center.Name)).ToList();
+                    }
+                    else
+                    {
+                        ToSendList = ToSendList.Where(x => x.EmpSchoolManager == true || x.EmpNormal == true || x.City != null || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true)).ToList();
                     }
                 }
-                else if (type.SeeAll == true || type.SeeAllButFinance == true)
+                else if (type.AddSchoolEmployees == true)
                 {
+                    if (type.SeeAccToCity == true)
+                    {
+
+                        ToSendList = ToSendList.Where(x => ((x.City == emp.City.Name || x.City == emp.Center.City.Name) && x.EmpNormal == true) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true && x.City == emp.City.Name)).ToList();
+                    }
+                    else if (type.SeeAccToCenter == true)
+                    {
+                        ToSendList = ToSendList.Where(x => ((x.Center == emp.Center.Name) && x.EmpNormal == true) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true && x.Center == emp.Center.Name)).ToList();
+                    }
+                    else
+                    {
+                        ToSendList = ToSendList.Where(x => x.EmpNormal == true || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true)).ToList();
+                    }
                 }
 
-                else if (type.SeeAccToCity == true)
-                {
-                    ToSendList = ToSendList.Where(x => x.City == emp.City.Name).ToList();
-                }
-                else if (type.SeeAccToCenter == true)
-                {
-                    ToSendList = ToSendList.Where(x => x.Center == emp.Center.Name).ToList();
-                }
+
                 else if (type.SeeTeachers == true)
                 {
-                    ToSendList = ToSendList.Where(x => x.EmpSeeTeacher == true && x.Center == emp.Center.Name).ToList();
-
+                    ToSendList = ToSendList.Where(x => (x.EmpSeeTeacher == true && x.Center == emp.Center.Name) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true)).ToList();
                 }
             }
             catch
@@ -556,7 +594,6 @@ namespace IntensiveLearning.Controllers
             var exe = Path.GetExtension(ImageName);
             var c = Path.GetDirectoryName(ImageName);
             string lastFolderName = Path.GetFileName(Path.GetDirectoryName(ImageName));
-
             return File(ImageName, System.Net.Mime.MediaTypeNames.Application.Octet, DateTime.Now.Month + "/" + DateTime.Now.Day + "__" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "__" + lastFolderName + exe);
         }
 

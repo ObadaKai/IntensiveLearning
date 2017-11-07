@@ -408,54 +408,54 @@ namespace IntensiveLearning.Controllers
                         Directory.CreateDirectory(Server.MapPath("~/App_Data/Students") + "\\" + student.id);
                     }
 
-                
 
-                foreach (var item in file)
-                {
-                    if (item.ContentLength > 0)
+
+                    foreach (var item in file)
                     {
-                        var fileName = Path.GetFileName(item.FileName);
-                        if (!Directory.Exists(Server.MapPath("~/App_Data/Students") + "\\" + student.id))
+                        if (item.ContentLength > 0)
                         {
-                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Students") + "\\" + student.id);
+                            var fileName = Path.GetFileName(item.FileName);
+                            if (!Directory.Exists(Server.MapPath("~/App_Data/Students") + "\\" + student.id))
+                            {
+                                Directory.CreateDirectory(Server.MapPath("~/App_Data/Students") + "\\" + student.id);
+                            }
+                            var path = Path.Combine(Server.MapPath("~/App_Data/Students/" + student.id), fileName);
+                            item.SaveAs(path);
+                            Proove proove = new Proove();
+                            proove.Path = path;
+                            proove.id = prooveid;
+                            proove.StudentID = student.id;
+                            db.Prooves.Add(proove);
+                            prooveid++;
+
                         }
-                        var path = Path.Combine(Server.MapPath("~/App_Data/Students/" + student.id), fileName);
-                        item.SaveAs(path);
-                        Proove proove = new Proove();
-                        proove.Path = path;
-                        proove.id = prooveid;
-                        proove.StudentID = student.id;
-                        db.Prooves.Add(proove);
-                        prooveid++;
+                        else
+                        {
 
-                    }
-                    else
-                    {
-
-                    }
-                }
-                try
-                {
-                    var startPath = Server.MapPath("~/App_Data/Students" + "\\" + student.id);
-
-                    if (!Directory.Exists(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder")))
-                    {
-                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder"));
-                    }
-                    var zipPath = Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder") + "\\" + student.id + ".zip";
-
-                    if (System.IO.File.Exists(zipPath))
-                    {
-                        System.IO.File.Delete(zipPath);
+                        }
                     }
                     try
                     {
-                        ZipFile.CreateFromDirectory(startPath, zipPath);
+                        var startPath = Server.MapPath("~/App_Data/Students" + "\\" + student.id);
+
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder")))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder"));
+                        }
+                        var zipPath = Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder") + "\\" + student.id + ".zip";
+
+                        if (System.IO.File.Exists(zipPath))
+                        {
+                            System.IO.File.Delete(zipPath);
+                        }
+                        try
+                        {
+                            ZipFile.CreateFromDirectory(startPath, zipPath);
+                        }
+                        catch { }
+                        student.Proof = zipPath;
                     }
                     catch { }
-                    student.Proof = zipPath;
-                }
-                catch { }
 
                 }
             }
@@ -465,9 +465,13 @@ namespace IntensiveLearning.Controllers
 
             if (student.EDate != null)
             {
-                if (student.EDate.Value >= DateTime.Now.Date)
+                if (student.EDate < DateTime.Now.Date)
                 {
                     student.State = "خارج الخدمة";
+                }
+                else
+                {
+                    student.State = "متوفر";
                 }
             }
             if (proceed)
@@ -481,7 +485,7 @@ namespace IntensiveLearning.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            
+
 
             //catch (DbEntityValidationException ex)
             //{

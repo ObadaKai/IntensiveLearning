@@ -73,16 +73,23 @@
                     @Html.DisplayFor(model => model.EmployeeType.Type)
                 </p>
             }
-            @if (Model.Salary != null)
+            @if (Session["SeeAll"] != null)
             {
-                <h4>
-                    @Html.DisplayNameFor(model => model.Salary)
-                </h4>
+                if ((bool)Session["SeeAll"] == true)
+                {
+                    if (Model.Salary != null)
+                    {
+                        <h4>
+                            @Html.DisplayNameFor(model => model.Salary)
+                        </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.Salary)
-                </p>
+                        <p>
+                            @Html.DisplayFor(model => model.Salary)
+                        </p>
+                    }
+                }
             }
+
             @if (Model.Proof != null)
             {
                 <h4>تحميل المحتوى</h4>
@@ -176,14 +183,14 @@
             @if (Model.Username != null)
             {
 
-                    <h4>
-                        @Html.DisplayNameFor(model => model.Username)
-                    </h4>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Username)
+                </h4>
 
                     <p>
                         @Html.DisplayFor(model => model.Username)
                     </p>
-                
+
             }
 
 
@@ -192,21 +199,76 @@
         </div>
 
         <p>
-            @if (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddManagers"] != null || Session["AddCOManagers"] != null)
+            @if (Session["AddSchoolEmployees"] != null)
             {
+                if ((bool)Session["AddSchoolEmployees"] == true)
+                {
+                    if (Model.EmployeeType.NormalEmployee != null)
+                    {
+                        if (Model.EmployeeType.NormalEmployee == true)
+                        {
+                            @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+                            @: |
+                            @Html.ActionLink("اعادة تهيئة كلمة السر", "ResetDefaultPass", "Home", new { id = Model.id }, null)
+                            @: |
+                        }
+                    }
+                }
+            }
 
-                @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
-                @: |
-                @Html.ActionLink("اعادة تهيئة كلمة السر", "ResetDefaultPass", "Home", new { id = Model.id }, null)
-                @: |
+            @if (Session["AddSchoolManagers"] != null)
+            {
+                if ((bool)Session["AddSchoolManagers"] == true)
+                {
+                    if (Model.EmployeeType.SchoolManager != null)
+                    {
+                        if (Model.EmployeeType.SchoolManager == true)
+                        {
+                            @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+                            @: |
+                            @Html.ActionLink("اعادة تهيئة كلمة السر", "ResetDefaultPass", "Home", new { id = Model.id }, null)
+                            @: |
+                        }
+                    }
+                }
+            }
 
 
+            @if (Session["AddManagers"] != null)
+            {
+                if ((bool)Session["AddManagers"] == true)
+                {
+                    if (Model.EmployeeType.Manager != null)
+                    {
+                        if (Model.EmployeeType.Manager == true)
+                        {
+                            @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+                            @: |
+                            @Html.ActionLink("اعادة تهيئة كلمة السر", "ResetDefaultPass", "Home", new { id = Model.id }, null)
+                            @: |
+                        }
+                    }
+                }
+            }
+
+            @if (Session["AddCOManagers"] != null)
+            {
+                if ((bool)Session["AddCOManagers"] == true)
+                {
+                    if (Model.EmployeeType.CoManager != null)
+                    {
+                        if (Model.EmployeeType.CoManager == true)
+                        {
+                            @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
+                            @: |
+                            @Html.ActionLink("اعادة تهيئة كلمة السر", "ResetDefaultPass", "Home", new { id = Model.id }, null)
+                            @: |
+                        }
+                    }
+                }
             }
             @Html.ActionLink("العودة إلى اللائحة", "Index")
         </p>
-
-
-
 
 
     </div>

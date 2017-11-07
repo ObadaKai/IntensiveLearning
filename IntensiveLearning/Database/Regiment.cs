@@ -25,7 +25,7 @@ namespace IntensiveLearning.Database
 
         public int id { get; set; }
         [Required]
-        [DisplayName("ÇÓã ÇáİæÌ")]
+        [DisplayName("ÇÓã ÇáÔÚÈÉ")]
         public string Name { get; set; }
         [DisplayName("Çáíæã 1")]
         public Nullable<bool> Day1 { get; set; }

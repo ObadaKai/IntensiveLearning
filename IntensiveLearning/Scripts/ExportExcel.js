@@ -51,6 +51,21 @@ function openLeftMenu() {
     //document.getElementById("leftMenu").classList = "col-md-1 col-lg-1 col-sm-4 col-xs-4";
     open = true;
 }
+
+$("#Job").on("change", function () {
+    if (this.value == 8) {
+        $('#EmpCity').css('display', 'block');
+        $('#EmpCenter').css('display', 'none');
+    }
+    else if (this.value > 8) {
+        $('#EmpCenter').css('display', 'block');
+        $('#EmpCity').css('display', 'none');
+    }
+    else {
+        $('#EmpCenter').css('display', 'none');
+        $('#EmpCity').css('display', 'none');
+    }
+});
 function closeLeftMenu() {
     document.getElementById("leftMenu").style.height = "0%";
     if ($('#desktopTest').is(':hidden')) {
@@ -79,7 +94,19 @@ uploadField.onchange = function () {
     for (var i = 0; i < this.files.length; i++) {
         size += this.files[i].size;
     }
-    if (size > 2097152) {
+    if (size > 10485760) {
+        alert("حجم الملفات كبير");
+        this.value = "";
+    };
+};
+var uploadFieldHuge = document.getElementById("fileHuge");
+
+uploadFieldHuge.onchange = function () {
+    var size = 0;
+    for (var i = 0; i < this.files.length; i++) {
+        size += this.files[i].size;
+    }
+    if (size > 20971520) {
         alert("حجم الملفات كبير");
         this.value = "";
     };

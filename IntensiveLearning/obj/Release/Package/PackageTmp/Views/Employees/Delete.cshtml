@@ -77,15 +77,21 @@
                     @Html.DisplayFor(model => model.EmployeeType.Type)
                 </p>
             }
-            @if (Model.Salary != null)
+            @if (Session["SeeAll"] != null)
             {
-                <h4>
-                    @Html.DisplayNameFor(model => model.Salary)
-                </h4>
+                if ((bool)Session["SeeAll"] == true)
+                {
+                    if (Model.Salary != null)
+                    {
+                        <h4>
+                            @Html.DisplayNameFor(model => model.Salary)
+                        </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.Salary)
-                </p>
+                        <p>
+                            @Html.DisplayFor(model => model.Salary)
+                        </p>
+                    }
+                }
             }
             @if (Model.Proof != null)
             {
