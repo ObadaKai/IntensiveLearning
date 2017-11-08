@@ -45,7 +45,7 @@
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.Stage.StageName)
+                        @Html.DisplayNameFor(model => model.Student.Stage.StageName)
                     </th>
 
                     <th>
@@ -58,6 +58,9 @@
 
                     <th>
                         @Html.DisplayNameFor(model => model.Desc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Student.Center.Name)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Student.Surname)
@@ -119,7 +122,7 @@
                             </td>
 
                             <td>
-                                @Html.DisplayFor(modelItem => item.Stage.StageName)
+                                @Html.DisplayFor(modelItem => item.Student.Stage.StageName)
                             </td>
 
                             <td>
@@ -128,6 +131,9 @@
 
                             <td>
                                 @Html.DisplayFor(modelItem => item.Desc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Student.Center.Name)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Student.Surname)
@@ -172,6 +178,9 @@
 
                     <th>
                         @Html.DisplayNameFor(model => model.Desc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Student.Center.Name)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Student.Surname)
@@ -219,6 +228,7 @@
                     <td>{{Exam.Date | date:'MM/dd/yyyy'}}</td>
 
                     <td>{{Exam.Desc}}</td>
+                    <td>{{Exam.Center}}</td>
                     <td>{{Exam.StudentSurname}}</td>
                     <td>{{Exam.StudentName}}</td>
                 </tr>

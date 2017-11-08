@@ -133,7 +133,7 @@
         $scope.ExamCreate = function () {
             var Exam = {
                 'Desc': $scope.Desc, 'Subjectid': $scope.Subjectid, 'Studentid': $scope.Studentid,
-                'Stageid': $scope.Stageid, 'ExamTypeid': $scope.ExamTypeid,
+                'ExamTypeid': $scope.ExamTypeid,
                 'Mark': $scope.Mark, 'Date': $scope.Date
             };
             formData.append("Exam", angular.toJson(Exam))
@@ -149,7 +149,6 @@
                     $scope.ExCrFrom.$setUntouched();
                     $scope.Desc = null;
                     $scope.Subjectid = null;
-                    $scope.Stageid = null;
                     $scope.ExamTypeid = null;
                     $scope.Mark = null;
                     $scope.Date = new Date();

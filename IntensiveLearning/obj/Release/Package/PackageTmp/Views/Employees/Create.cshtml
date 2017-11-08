@@ -30,9 +30,9 @@
                         </div>
                         <div class="form-group" id="EmpCenter"
                              @if (Model != null) { /**/ if (Model.Centerid == null) { if (Model.Job != null) { if (Model.Job > 8) { } else { @: style="display:none"
-                                                                                                                       } } } else { @: style="display:none"
-                                                                                                                   } } else { @: style="display:none"
-                                                                                       }>
+                                                                                                                                                    } } } else { @: style="display:none"
+                                                                                                                                                } } else { @: style="display:none"
+                                                                                                                    }>
                             @Html.LabelFor(model => model.Centerid, "المركز", htmlAttributes: new { @class = "control-label " })
                             @Html.DropDownList("Centerid", null, "", htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Centerid, "", new { @class = "text-danger" })
@@ -40,10 +40,10 @@
 
                         </div>
                         <div class="form-group" id="EmpCity"
-                             @if (Model != null) { /**/  if (Model.CityID == null) { if (Model.Job != null) { if (Model.Job == 8) { } else { @: style="display:none"
-                                                                                       } } } else { @: style="display:none"
-                                                                                       } } else { @: style="display:none"
-                                                                                       }>
+                             @if (Model != null) { /**/ if (Model.CityID == null) { if (Model.Job != null) { if (Model.Job == 8) { } else { @: style="display:none"
+                                                                                                                    } } } else { @: style="display:none"
+                                                                                                                    } } else { @: style="display:none"
+                                                                                                                    }>
                             @Html.LabelFor(model => model.CityID, "المدينة", htmlAttributes: new { @class = "control-label " })
                             @Html.DropDownList("CityID", null, "", htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
@@ -186,11 +186,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="انشاء" class="btn btn-primary" />
-                    </div>
-                </div>
+                <input type="submit" value="انشاء" class="btn btn-primary" />
 
             </div>
         }
@@ -278,10 +274,9 @@
                 </div>
                 <div class="form-group" id="EmpCenter"
                      @if (Model != null) { /**/ if (Model.Centerid == null) { if (Model.Job != null) { if (Model.Job > 8) { } else { @: style="display:none"
-                                                                                                                                            } } } else { @: style="display:none"
-                                                                                                                                        } } else { @: style="display:none"
-                                                                                                            }
-                     >
+                                                                                                                                                                 } } } else { @: style="display:none"
+                                                                                                                                                             } } else { @: style="display:none"
+                                                                                                                                 }>
                     @Html.LabelFor(model => model.Centerid, "المركز", htmlAttributes: new { @class = "control-label " })
                     @Html.DropDownList("Centerid", null, "", htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Centerid, "", new { @class = "text-danger" })
@@ -290,10 +285,9 @@
                 </div>
                 <div class="form-group" id="EmpCity"
                      @if (Model != null) { /**/ if (Model.CityID == null) { if (Model.Job != null) { if (Model.Job == 8) { } else { @: style="display:none"
-                                                                                                            } } } else { @: style="display:none"
-                                                                                                            } } else { @: style="display:none"
-                                                                                                            }
-                     >
+                                                                                                                                 } } } else { @: style="display:none"
+                                                                                                                                 } } else { @: style="display:none"
+                                                                                                                                 }>
                     @Html.LabelFor(model => model.CityID, "المدينة", htmlAttributes: new { @class = "control-label " })
                     @Html.DropDownList("CityID", null, "", htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
@@ -362,11 +356,7 @@
                         <p class="text-danger">@ViewBag.error</p>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="انشاء" class="btn btn-primary" />
-                    </div>
-                </div>
+                <input type="submit" value="انشاء" class="btn btn-primary" />
             </div>
         }
     </div>

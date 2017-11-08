@@ -236,7 +236,7 @@ namespace IntensiveLearning.Controllers
                         var Sid = Convert.ToInt32(Session["ID"]);
                         try
                         {
-                            if (type.SeeAccToCenter == true)
+                            if (type.SeeAccToCity == true)
                             {
                                 var emp = db.Employees.Find(Sid).CityID;
                                 CAddSchoolManagers = db.Centers.Where(x => x.Cityid == emp).ToList();

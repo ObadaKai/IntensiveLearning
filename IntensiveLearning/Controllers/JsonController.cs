@@ -17,8 +17,10 @@ namespace IntensiveLearning.Controllers
         // GET: Json
         public JsonResult FetchStudentsOfDate()
         {
+            var id = Convert.ToInt16(Session["ID"]);
+            var emp = db.Employees.Find(id);
             var AlreadyDone = db.Examinations.Select(x => new { x.Studentid, x.Date }).ToList();
-            var Students = db.Students.Select(x => new { x.id, x.Name, x.Surname }).ToList();
+            var Students = db.Students.Where(c=>c.Centerid == emp.Centerid).Select(x => new { x.id, x.Name, x.Surname,x.FathersName }).ToList();
             foreach (var item in AlreadyDone)
             {
                 if (item.Date == DateTime.Now.Date)
@@ -33,8 +35,10 @@ namespace IntensiveLearning.Controllers
         [HttpPost]
         public JsonResult FetchStudentsOfDate(Date date)
         {
+            var id = Convert.ToInt16(Session["ID"]);
+            var emp = db.Employees.Find(id);
             var AlreadyDone = db.Examinations.Select(x => new { x.Studentid, x.Date, x.Subjectid }).ToList();
-            var Students = db.Students.Select(x => new { x.id, x.Name, x.Surname }).ToList();
+            var Students = db.Students.Where(c => c.Centerid == emp.Centerid).Select(x => new { x.id, x.Name, x.Surname,x.FathersName }).ToList();
             foreach (var item in AlreadyDone)
             {
                 if (item.Date == date.Fielpate.Date && item.Subjectid == date.Subjectid)
@@ -127,7 +131,13 @@ namespace IntensiveLearning.Controllers
             }
             examstrings.RemoveAll(item => item == null);
             examstrings.Distinct();
-
+            foreach (var item in examstrings)
+            {
+                if (item.Student.Center == null)
+                {
+                    item.Student.Center = new Center();
+                }
+            }
             var ToSendList = examstrings.Select(c => new
             {
                 ID = c.id,
@@ -139,7 +149,8 @@ namespace IntensiveLearning.Controllers
                 Date = c.Date,
                 Desc = c.Desc,
                 ExamType = c.ExamType.Type,
-                Proof = c.Proof
+                Proof = c.Proof,
+                Center= c.Student.Center.Name,
             }).ToList();
             //.Select(c => new { c.Mark, c.Stage.StageName, c.Student.Name, c.Student.Surname, c.Study_subject.Name, c.Date, c.Desc, c.ExamType.Type })
             return Json(ToSendList, JsonRequestBehavior.AllowGet);

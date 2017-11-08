@@ -75,7 +75,7 @@ namespace IntensiveLearning.Controllers
             if (Session["ID"] != null)
             {
                                 var typeName = (string)Session["Type"];var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-                if (type.AddSchoolManagingTools == true)
+                if (type.SeeAccToCenter == true)
                 {
 
 
@@ -129,7 +129,7 @@ namespace IntensiveLearning.Controllers
             if (Session["ID"] != null)
             {
                                 var typeName = (string)Session["Type"];var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-                if (type.AddSchoolManagingTools == true)
+                if (type.SeeAccToCenter == true)
                 {
 
 
@@ -179,7 +179,7 @@ namespace IntensiveLearning.Controllers
             if (Session["ID"] != null)
             {
                                 var typeName = (string)Session["Type"];var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-                if (type.AddSchoolManagingTools == true)
+                if (type.SeeAccToCenter == true)
                 {
 
 

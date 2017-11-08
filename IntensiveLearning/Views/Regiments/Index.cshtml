@@ -6,9 +6,9 @@
 
 <h2>لائحة الشعب</h2>
 
-@if (Session["AddSchoolManagingTools"] != null)
+@if (Session["SeeAccToCenter"] != null)
 {
-    if ((bool)Session["AddSchoolManagingTools"] == true)
+    if ((bool)Session["SeeAccToCenter"] == true)
     {
         using (Html.BeginForm("Create","Regiments", FormMethod.Get))
         {
@@ -69,9 +69,9 @@
                 {
                     <tr>
                         <td>
-                            @if (Session["AddSchoolManagingTools"] != null)
+                            @if (Session["SeeAccToCenter"] != null)
                             {
-                                if ((bool)Session["AddSchoolManagingTools"] == true)
+                                if ((bool)Session["SeeAccToCenter"] == true)
                                 {
                                     <div style="width:130px;">
                                         <a href="/Regiments/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>

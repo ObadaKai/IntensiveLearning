@@ -32,10 +32,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/23/2017 13:15:20</publishTime>
     </File>
     <File Include="bin/IntensiveLearning.dll">
-      <publishTime>11/07/2017 13:46:42</publishTime>
+      <publishTime>11/07/2017 15:14:59</publishTime>
     </File>
     <File Include="bin/IntensiveLearning.pdb">
-      <publishTime>11/07/2017 13:46:42</publishTime>
+      <publishTime>11/07/2017 15:14:59</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>06/27/2017 12:59:34</publishTime>
@@ -287,7 +287,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/27/2017 17:46:52</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>11/04/2017 11:55:10</publishTime>
+      <publishTime>11/07/2017 13:53:12</publishTime>
     </File>
     <File Include="Controllers/CentersController.cs">
       <publishTime>11/03/2017 17:45:52</publishTime>
@@ -383,7 +383,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/28/2017 11:27:18</publishTime>
     </File>
     <File Include="Scripts/controller.js">
-      <publishTime>11/03/2017 17:53:40</publishTime>
+      <publishTime>11/07/2017 14:39:33</publishTime>
     </File>
     <File Include="Scripts/ExportExcel.js">
       <publishTime>11/07/2017 12:27:54</publishTime>
@@ -449,7 +449,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/28/2017 11:27:19</publishTime>
     </File>
     <File Include="Views/Centers/Create.cshtml">
-      <publishTime>11/07/2017 12:24:30</publishTime>
+      <publishTime>11/07/2017 14:50:22</publishTime>
     </File>
     <File Include="Views/Centers/Delete.cshtml">
       <publishTime>11/04/2017 14:53:03</publishTime>
@@ -458,7 +458,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/04/2017 14:53:56</publishTime>
     </File>
     <File Include="Views/Centers/Edit.cshtml">
-      <publishTime>11/07/2017 12:24:43</publishTime>
+      <publishTime>11/07/2017 14:50:08</publishTime>
     </File>
     <File Include="Views/Centers/Index.cshtml">
       <publishTime>11/03/2017 15:13:22</publishTime>
@@ -491,7 +491,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/06/2017 10:27:13</publishTime>
     </File>
     <File Include="Views/Employees/Create.cshtml">
-      <publishTime>11/07/2017 12:33:07</publishTime>
+      <publishTime>11/07/2017 14:49:44</publishTime>
     </File>
     <File Include="Views/Employees/Delete.cshtml">
       <publishTime>11/07/2017 10:23:53</publishTime>
@@ -500,13 +500,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2017 10:23:44</publishTime>
     </File>
     <File Include="Views/Employees/Edit.cshtml">
-      <publishTime>11/07/2017 12:29:32</publishTime>
+      <publishTime>11/07/2017 14:49:28</publishTime>
     </File>
     <File Include="Views/Employees/Index.cshtml">
-      <publishTime>11/07/2017 11:56:36</publishTime>
+      <publishTime>11/07/2017 15:21:57</publishTime>
     </File>
     <File Include="Views/EmployeeTypes/Create.cshtml">
-      <publishTime>11/06/2017 12:08:57</publishTime>
+      <publishTime>11/07/2017 14:49:08</publishTime>
     </File>
     <File Include="Views/EmployeeTypes/Delete.cshtml">
       <publishTime>11/06/2017 12:09:11</publishTime>
@@ -515,25 +515,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/04/2017 14:38:14</publishTime>
     </File>
     <File Include="Views/EmployeeTypes/Edit.cshtml">
-      <publishTime>11/06/2017 12:10:39</publishTime>
+      <publishTime>11/07/2017 14:48:48</publishTime>
     </File>
     <File Include="Views/EmployeeTypes/Index.cshtml">
       <publishTime>11/03/2017 12:04:41</publishTime>
     </File>
     <File Include="Views/Examinations/Create.cshtml">
-      <publishTime>11/06/2017 16:19:47</publishTime>
+      <publishTime>11/07/2017 15:12:14</publishTime>
     </File>
     <File Include="Views/Examinations/Delete.cshtml">
-      <publishTime>11/04/2017 14:52:18</publishTime>
+      <publishTime>11/07/2017 15:17:34</publishTime>
     </File>
     <File Include="Views/Examinations/Details.cshtml">
-      <publishTime>11/04/2017 14:52:41</publishTime>
+      <publishTime>11/07/2017 15:17:45</publishTime>
     </File>
     <File Include="Views/Examinations/Edit.cshtml">
-      <publishTime>11/04/2017 16:19:23</publishTime>
+      <publishTime>11/07/2017 14:47:42</publishTime>
     </File>
     <File Include="Views/Examinations/Index.cshtml">
-      <publishTime>11/07/2017 12:40:17</publishTime>
+      <publishTime>11/07/2017 14:38:29</publishTime>
     </File>
     <File Include="Views/ExamTypes/Create.cshtml">
       <publishTime>11/04/2017 12:48:48</publishTime>
@@ -557,7 +557,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/01/2017 11:22:46</publishTime>
     </File>
     <File Include="Views/Lessons/Create.cshtml">
-      <publishTime>11/06/2017 10:36:07</publishTime>
+      <publishTime>11/07/2017 14:47:11</publishTime>
     </File>
     <File Include="Views/Lessons/Delete.cshtml">
       <publishTime>11/04/2017 17:19:23</publishTime>
@@ -566,10 +566,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/04/2017 17:18:55</publishTime>
     </File>
     <File Include="Views/Lessons/Edit.cshtml">
-      <publishTime>11/06/2017 14:44:50</publishTime>
+      <publishTime>11/07/2017 14:46:59</publishTime>
     </File>
     <File Include="Views/Lessons/Index.cshtml">
-      <publishTime>11/06/2017 16:17:31</publishTime>
+      <publishTime>11/07/2017 15:02:39</publishTime>
     </File>
     <File Include="Views/Orders/Create.cshtml">
       <publishTime>10/28/2017 12:27:56</publishTime>
@@ -590,13 +590,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/04/2017 14:39:16</publishTime>
     </File>
     <File Include="Views/Periods/Edit.cshtml">
-      <publishTime>11/04/2017 14:12:52</publishTime>
+      <publishTime>11/07/2017 14:46:22</publishTime>
     </File>
     <File Include="Views/Periods/Index.cshtml">
       <publishTime>11/03/2017 12:04:54</publishTime>
     </File>
     <File Include="Views/Presences/Create.cshtml">
-      <publishTime>11/07/2017 13:23:07</publishTime>
+      <publishTime>11/07/2017 14:46:17</publishTime>
     </File>
     <File Include="Views/Presences/Delete.cshtml">
       <publishTime>11/02/2017 17:42:38</publishTime>
@@ -605,13 +605,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/02/2017 17:42:35</publishTime>
     </File>
     <File Include="Views/Presences/Edit.cshtml">
-      <publishTime>11/04/2017 16:12:32</publishTime>
+      <publishTime>11/07/2017 14:45:55</publishTime>
     </File>
     <File Include="Views/Presences/Index.cshtml">
       <publishTime>11/06/2017 10:18:55</publishTime>
     </File>
     <File Include="Views/Projects/Create.cshtml">
-      <publishTime>11/06/2017 12:14:02</publishTime>
+      <publishTime>11/07/2017 14:45:42</publishTime>
     </File>
     <File Include="Views/Projects/Delete.cshtml">
       <publishTime>11/06/2017 12:15:13</publishTime>
@@ -626,19 +626,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2017 12:14:47</publishTime>
     </File>
     <File Include="Views/Regiments/Create.cshtml">
-      <publishTime>11/04/2017 17:17:04</publishTime>
+      <publishTime>11/07/2017 14:45:18</publishTime>
     </File>
     <File Include="Views/Regiments/Delete.cshtml">
       <publishTime>11/04/2017 17:16:38</publishTime>
     </File>
     <File Include="Views/Regiments/Details.cshtml">
-      <publishTime>11/04/2017 17:16:51</publishTime>
+      <publishTime>11/07/2017 14:52:28</publishTime>
     </File>
     <File Include="Views/Regiments/Edit.cshtml">
-      <publishTime>11/04/2017 17:16:49</publishTime>
+      <publishTime>11/07/2017 14:52:42</publishTime>
     </File>
     <File Include="Views/Regiments/Index.cshtml">
-      <publishTime>11/04/2017 17:16:24</publishTime>
+      <publishTime>11/07/2017 14:52:13</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>10/31/2017 17:29:11</publishTime>
@@ -647,7 +647,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/06/2017 16:34:00</publishTime>
     </File>
     <File Include="Views/Stages/Create.cshtml">
-      <publishTime>11/04/2017 17:19:53</publishTime>
+      <publishTime>11/07/2017 14:45:02</publishTime>
     </File>
     <File Include="Views/Stages/Delete.cshtml">
       <publishTime>11/04/2017 14:45:40</publishTime>
@@ -656,13 +656,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/04/2017 14:45:54</publishTime>
     </File>
     <File Include="Views/Stages/Edit.cshtml">
-      <publishTime>11/04/2017 14:17:48</publishTime>
+      <publishTime>11/07/2017 14:44:54</publishTime>
     </File>
     <File Include="Views/Stages/Index.cshtml">
       <publishTime>11/03/2017 12:04:55</publishTime>
     </File>
     <File Include="Views/Students/Create.cshtml">
-      <publishTime>11/06/2017 16:47:01</publishTime>
+      <publishTime>11/07/2017 14:44:46</publishTime>
     </File>
     <File Include="Views/Students/Delete.cshtml">
       <publishTime>11/04/2017 14:47:15</publishTime>
@@ -671,10 +671,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/04/2017 14:49:52</publishTime>
     </File>
     <File Include="Views/Students/Edit.cshtml">
-      <publishTime>11/04/2017 16:15:09</publishTime>
+      <publishTime>11/07/2017 14:44:33</publishTime>
     </File>
     <File Include="Views/Students/Index.cshtml">
-      <publishTime>11/07/2017 11:44:16</publishTime>
+      <publishTime>11/07/2017 14:08:41</publishTime>
     </File>
     <File Include="Views/Study_subject/Create.cshtml">
       <publishTime>11/04/2017 13:00:47</publishTime>

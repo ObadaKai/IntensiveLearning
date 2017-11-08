@@ -5,9 +5,9 @@
 }
 
 <h2>لائحة الدروس</h2>
-@if (Session["AddSchoolEmployees"] != null)
+@if (Session["SeeAccToCenter"] != null)
 {
-    if ((bool)Session["AddSchoolEmployees"] == true)
+    if ((bool)Session["SeeAccToCenter"] == true)
     {
         using (Html.BeginForm("Create", "Lessons", FormMethod.Get))
         {
@@ -15,16 +15,7 @@
         }
     }
 }
-@if (Session["AddPresence"] != null)
-{
-    if ((bool)Session["AddPresence"] == true)
-    {
-        using (Html.BeginForm("Create", "Lessons", FormMethod.Get))
-        {
-            <button type="submit" class="btn btn-warning">انشاء جديد</button>
-        }
-    }
-}
+
 <div id="table_wrapper">
     <table class="table table-striped">
         <thead>
@@ -67,21 +58,9 @@
                 {
                     <tr>
                         <td>
-                            @if (Session["AddSchoolEmployees"] != null)
+                            @if (Session["SeeAccToCenter"] != null)
                             {
-                                if ((bool)Session["AddSchoolEmployees"] == true)
-                                {
-                                    <div style="width:130px;">
-                                        <a href="/Lessons/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                        <a href="/Lessons/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                        <a href="/Lessons/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                    </div>
-                                }
-                            }
-
-                            else if (Session["AddPresence"] != null)
-                            {
-                                if ((bool)Session["AddPresence"] == true)
+                                if ((bool)Session["SeeAccToCenter"] == true)
                                 {
                                     <div style="width:130px;">
                                         <a href="/Lessons/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>

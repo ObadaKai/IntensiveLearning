@@ -291,9 +291,9 @@
 
 
         <p>
-            @if (Session["AddSchoolManagingTools"] != null)
+            @if (Session["AddSchoolEmployees"] != null)
             {
-                if ((bool)Session["AddSchoolManagingTools"] == true)
+                if ((bool)Session["AddSchoolEmployees"] == true)
                 {
                     @Html.ActionLink("تعديل", "Edit", new { id = Model.id })
                     @: |

@@ -544,13 +544,15 @@
                             {
                                 if ((bool)Session["AddCoManagers"] == true)
                                 {
-                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                   
+                                        <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    
                                 }
                                 else
                                 {
-                                    <div ng-if="Exam.SeeAccToCity==true">
+                                    <div style="width:130px" ng-if="Exam.SeeAccToCity==true">
 
                                         @if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] == null)
                                         {
@@ -606,10 +608,11 @@
                                     {
                                         if ((bool)Session["AddSchoolManagers"] == true && (bool)Session["SeeAccToCity"] == false)
                                         {
-                                            <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                            <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                            <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-
+                                            <div style="width:130px">
+                                                <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                            </div>
                                         }
 
                                     }
@@ -635,9 +638,11 @@
                                 /**/
                                 if ((bool)Session["AddSchoolManagers"] == true)
                                 {
-                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+
+                                        <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+
                                 }
 
 
@@ -664,7 +669,7 @@
                             }
                         </div>
 
-                        <div ng-if="Exam.EmpManager!=true && Exam.EmpCoManager!=true && Exam.EmpSchoolManager!=true && Exam.EmpNormal!=true">
+                        <div style="width:130px;" ng-if="Exam.EmpManager!=true && Exam.EmpCoManager!=true && Exam.EmpSchoolManager!=true && Exam.EmpNormal!=true">
                             @if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
                             {
                                 <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
@@ -691,41 +696,41 @@
                                 if ((bool)Session["AddManagers"] == true)
                                 {
                                     <span ng-if="Exam.Proof != null">
-                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning">تحميل</a>
+                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
                                     </span>
 
                                 }
                             }
                         </div>
-                        <div  ng-if="Exam.EmpCoManager==true">
+                        <div ng-if="Exam.EmpCoManager==true">
                             @if (Session["AddCoManagers"] != null)
                             {
                                 /**/
                                 if ((bool)Session["AddCoManagers"] == true)
                                 {
                                     <span ng-if="Exam.Proof != null">
-                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning">تحميل</a>
+                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
                                     </span>
 
                                 }
                             }
                         </div>
 
-                        <div  ng-if="Exam.EmpSchoolManager==true">
+                        <div ng-if="Exam.EmpSchoolManager==true">
                             @if (Session["AddSchoolManagers"] != null)
                             {
                                 /**/
                                 if ((bool)Session["AddSchoolManagers"] == true)
                                 {
                                     <span ng-if="Exam.Proof != null">
-                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning">تحميل</a>
+                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
                                     </span>
 
                                 }
                             }
                         </div>
 
-                        <div  ng-if="Exam.EmpNormal==true">
+                        <div ng-if="Exam.EmpNormal==true">
 
                             @if (Session["AddSchoolEmployees"] != null)
                             {
@@ -733,7 +738,7 @@
                                 if ((bool)Session["AddSchoolEmployees"] == true)
                                 {
                                     <span ng-if="Exam.Proof != null">
-                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning">تحميل</a>
+                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
                                     </span>
 
                                 }
@@ -744,7 +749,7 @@
                             @if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
                             {
                                 <span ng-if="Exam.Proof != null">
-                                    <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning">تحميل</a>
+                                    <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
                                 </span>
                             }
                         </div>

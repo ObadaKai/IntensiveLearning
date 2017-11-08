@@ -202,15 +202,13 @@
                 <div class="form-group">
                     <label class="control-label">الاثبات</label>
                     <div>
-                        <input id="imgInp" type="file" aria-label="Add photos to your post" class="upload" style="color:white;" multiple name="file" onchange="angular.element(this).scope().LoadFileData(this.files)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                        <input id="imgInp" type="file" aria-label="Add photos to your post" class="upload"  multiple name="file" onchange="angular.element(this).scope().LoadFileData(this.files)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
 
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+
                         <input type="submit" value="Create" class="btn btn-default" ng-disabled="!StCrForm.$valid" />
-                    </div>
-                </div>
+
 
 
                 @*form is : {{StCrForm.$valid}}*@

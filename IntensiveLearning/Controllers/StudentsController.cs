@@ -172,12 +172,21 @@ namespace IntensiveLearning.Controllers
             Student student = new JavaScriptSerializer().Deserialize<Student>(name);
 
             var files = Request.Files;
-            var yearS = DateTime.Now;
-            string lastTwoDigitsOfYear = yearS.ToString("yy");
-            var ExactYear = Convert.ToInt16(lastTwoDigitsOfYear);
-            var studentNumberString = ExactYear.ToString() + "00001";
-            var studentNumber = Convert.ToInt32(studentNumberString);
-            student.StudentNumber = studentNumber;
+            try
+            {
+                student.StudentNumber = db.Students.OrderByDescending(x => x.StudentNumber).FirstOrDefault().StudentNumber + 1;
+
+            }
+            catch
+            {
+                var yearS = DateTime.Now;
+                string lastTwoDigitsOfYear = yearS.ToString("yy");
+                var ExactYear = Convert.ToInt16(lastTwoDigitsOfYear);
+                var studentNumberString = ExactYear.ToString() + "00001";
+                var studentNumber = Convert.ToInt32(studentNumberString);
+                student.StudentNumber = studentNumber;
+            }
+
 
 
 

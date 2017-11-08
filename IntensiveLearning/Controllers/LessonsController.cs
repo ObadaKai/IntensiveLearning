@@ -70,7 +70,7 @@ namespace IntensiveLearning.Controllers
             if (Session["ID"] != null)
             {
                 var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-                if (type.AddSchoolEmployees == true || type.AddPresence == true)
+                if (type.SeeAccToCenter ==true)
                 {
                     ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name");
                     ViewBag.Lesson1 = new SelectList(db.Study_subject, "id", "Name");
@@ -155,7 +155,7 @@ namespace IntensiveLearning.Controllers
             if (Session["ID"] != null)
             {
                 var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-                if (type.AddSchoolEmployees == true || type.AddPresence == true)
+                if (type.SeeAccToCenter == true)
                 {
 
 
@@ -222,7 +222,7 @@ namespace IntensiveLearning.Controllers
             if (Session["ID"] != null)
             {
                 var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-                if (type.AddSchoolEmployees == true || type.AddPresence == true)
+                if (type.SeeAccToCenter == true)
                 {
 
 
