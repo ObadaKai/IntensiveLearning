@@ -21,7 +21,7 @@ namespace IntensiveLearning.Database
         {
             this.Examinations = new HashSet<Examination>();
         }
-    
+
         public int id { get; set; }
         [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáäæÚ ")]
         [DisplayName("ÇáäæÚ")]

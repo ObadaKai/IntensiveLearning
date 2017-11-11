@@ -19,9 +19,10 @@ namespace IntensiveLearning.Models
         [Required(ErrorMessage = "يرجى ادخال الشهر الأخير")]
         [DisplayName("الشهر الأخير")]
         public int LastMonth { get; set; }
-        [Required(ErrorMessage = "يرجى ادخال المدينة")]
-        public int Cityid { get; set; }
+        public int? Cityid { get; set; }
 
+        [DisplayName("معتمد على")]
+        public int? DependedOn { get; set; }
         public CenterModel() {
             center = new Center();
         }

@@ -22,7 +22,7 @@ namespace IntensiveLearning.Database
             this.Centers = new HashSet<Center>();
             this.Employees = new HashSet<Employee>();
         }
-    
+
         public int id { get; set; }
         [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·„œÌ‰…")]
         [DisplayName("«·„œÌ‰…")]
@@ -31,6 +31,8 @@ namespace IntensiveLearning.Database
         [DisplayName("«·œÊ·…")]
         public string CountryName { get; set; }
         public Nullable<int> ProjectID { get; set; }
+        public Nullable<System.DateTime> AddingDate { get; set; }
+        public Nullable<System.TimeSpan> AddingTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Center> Centers { get; set; }

@@ -51,10 +51,10 @@ namespace IntensiveLearning.Database
         [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·„—ﬂ“")]
 
         public Nullable<int> Centerid { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·—Õ·…")]
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·„—Õ·…")]
 
         public Nullable<int> Stageid { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·›ÊÃ")]
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·‘⁄»…")]
 
         public Nullable<int> Regimentid { get; set; }
         [Required(ErrorMessage = "Ì—ÃÏ «œŒ«·  «—ÌŒ «·»œ¡")]
@@ -81,15 +81,22 @@ namespace IntensiveLearning.Database
 
         [DisplayName("«·Ã‰”")]
         public string Sex { get; set; }
-
+        public Nullable<bool> Approval { get; set; }
+        public Nullable<int> ApprovedBy { get; set; }
+        public Nullable<int> AddedBy { get; set; }
+        public Nullable<System.DateTime> AddingDate { get; set; }
+        public Nullable<System.TimeSpan> AddingTime { get; set; }
+    
         public virtual Center Center { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Employee Employee1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Examination> Examinations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Presence> Presences { get; set; }
-        public virtual Regiment Regiment { get; set; }
-        public virtual Stage Stage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Proove> Prooves { get; set; }
+        public virtual Regiment Regiment { get; set; }
+        public virtual Stage Stage { get; set; }
     }
 }

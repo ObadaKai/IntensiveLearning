@@ -209,6 +209,9 @@ namespace IntensiveLearning.Controllers
             {
                 prooveid = 1;
             }
+            student.AddedBy = Convert.ToInt32(Session["ID"]);
+            student.AddingDate = DateTime.Now.Date;
+            student.AddingTime = DateTime.Now.TimeOfDay;
 
             try
             {
@@ -306,8 +309,8 @@ namespace IntensiveLearning.Controllers
             }
             catch
             {
-                ViewBag.Message = "Upload failed";
-                return Json(false);
+                //ViewBag.Message = "Upload failed";
+                //return Json(false);
             }
 
             if (ModelState.IsValid)

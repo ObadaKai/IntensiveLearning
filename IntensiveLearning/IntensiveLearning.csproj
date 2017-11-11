@@ -250,9 +250,6 @@
     <Compile Include="Database\Study_subject.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\sysdiagram.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -264,6 +261,7 @@
     <Compile Include="Models\StudentWithUpload.cs" />
     <Compile Include="Models\TextBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\ExcelImportController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -315,6 +313,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\controller.js" />
     <Content Include="Scripts\ExportExcel.js" />
+    <None Include="Properties\PublishProfiles\CustomProfile2.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -425,6 +424,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+    <Content Include="Views\ExcelImport\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Centers\" />
@@ -432,6 +432,7 @@
     <Folder Include="App_Data\Examinations\" />
     <Folder Include="App_Data\Orders\" />
     <Folder Include="App_Data\Students\" />
+    <Folder Include="App_Data\Test\" />
     <Folder Include="Views\Json\" />
     <Folder Include="Views\TryOut\" />
   </ItemGroup>

@@ -131,6 +131,9 @@ namespace IntensiveLearning.Controllers
             {
                 prooveid = 1;
             }
+            examination.AddedBy = Convert.ToInt32(Session["ID"]);
+            examination.AddingDate = DateTime.Now.Date;
+            examination.AddingTime = DateTime.Now.TimeOfDay;
 
             try
             {

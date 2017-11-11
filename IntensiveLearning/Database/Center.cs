@@ -19,10 +19,11 @@ namespace IntensiveLearning.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Center()
         {
+            this.Centers1 = new HashSet<Center>();
             this.Employees = new HashSet<Employee>();
             this.Orders = new HashSet<Order>();
-            this.Students = new HashSet<Student>();
             this.Prooves = new HashSet<Proove>();
+            this.Students = new HashSet<Student>();
         }
 
         public int id { get; set; }
@@ -79,8 +80,19 @@ namespace IntensiveLearning.Database
         public Nullable<int> QuarterPayment { get; set; }
         public string Proof { get; set; }
         public Nullable<int> ProjectID { get; set; }
-
+        public Nullable<bool> Approval { get; set; }
+        public Nullable<int> ApprovedBy { get; set; }
+        public Nullable<int> AddedBy { get; set; }
+        public Nullable<int> DependedOn { get; set; }
+        public Nullable<System.DateTime> AddingDate { get; set; }
+        public Nullable<System.TimeSpan> AddingTime { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Center> Centers1 { get; set; }
+        public virtual Center Center1 { get; set; }
         public virtual City City { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Employee Employee1 { get; set; }
         public virtual Period Period { get; set; }
         public virtual Project Project { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -88,8 +100,8 @@ namespace IntensiveLearning.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Student> Students { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Proove> Prooves { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Student> Students { get; set; }
     }
 }

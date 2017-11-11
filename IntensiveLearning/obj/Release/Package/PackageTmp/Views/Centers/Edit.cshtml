@@ -34,15 +34,21 @@
 
 
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="CenterCity">
                         @Html.LabelFor(model => model.Cityid, "المدينة", htmlAttributes: new { @class = "control-label " })
                         @Html.DropDownList("Cityid", null, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Cityid, "", new { @class = "text-danger" })
                     </div>
+
+                    <div class="form-group" id="CenterDependency" style="display:none">
+                        @Html.LabelFor(model => model.DependedOn, htmlAttributes: new { @class = "control-label " })
+                        @Html.DropDownList("DependedOn", null, "", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DependedOn, "", new { @class = "text-danger" })
+                    </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Cityid, "الفترة", htmlAttributes: new { @class = "control-label " })
                         @Html.DropDownList("Periodid", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Cityid, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.center.Periodid, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.center.Notes, htmlAttributes: new { @class = "control-label " })
@@ -155,7 +161,16 @@
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.center.CenterType, htmlAttributes: new { @class = "control-label " })
-                        @Html.EditorFor(model => model.center.CenterType, new { htmlAttributes = new { @class = "form-control" } })
+                        <select name="center.CenterType" id="CenterType" class="form-control">
+                            <option @if (Model.center.CenterType == "رئيسي")
+	{
+		 @:selected
+	}>رئيسي</option>
+                            <option @if (Model.center.CenterType == "فرعي")
+	{
+		 @:selected
+	}>فرعي</option>
+                        </select>
                         @Html.ValidationMessageFor(model => model.center.CenterType, "", new { @class = "text-danger" })
 
 

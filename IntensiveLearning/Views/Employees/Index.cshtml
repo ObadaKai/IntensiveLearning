@@ -8,10 +8,27 @@
     <h2>لائحة الموظفين</h2>
     @if (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddManagers"] != null || Session["AddCOManagers"] != null)
     {
-        using (Html.BeginForm("Create", "Employees", FormMethod.Get))
-        {
-            <button type="submit" class="btn btn-warning">انشاء جديد</button>
-        }
+        <div style="display:block;margin-bottom:10px;">
+
+            @using (Html.BeginForm("Create", "Employees", FormMethod.Get, new { style = "display:inline-block;" }))
+            {
+                <button type="submit" class="btn btn-warning">انشاء جديد</button>
+            }
+            <button id="btnImport" style="float:left;display:inline-block;margin-bottom:10px;" class="btn btn-warning">xls استيراد من</button>
+
+            <div id="ImportExcel" style="display:none;float:left;margin-left:10px;background-color:rgba(255,255,255,0.7);padding:2px;border-radius:5px;">
+                @using (Html.BeginForm("ImportEmployees", "ExcelImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="file" name="file" style="color:#337ab7;display:inline-block" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                    <input type="submit" class="btn btn-primary" value="ارسال" />
+                    if (ViewBag.Importerror != null)
+                    {
+                        <p>@ViewBag.Importerror</p>
+                    }
+
+                }
+            </div>
+        </div>
     }
     <div class="col-md-12" style="margin-bottom:20px;padding:0;border:0">
         <div class="col-md-10" style="margin:0;padding:0;border:0">
@@ -30,6 +47,7 @@
 
                     <th></th>
                     <th>الاثبات</th>
+                    <th>التوقيع</th>
                     @if (Session["SeeAll"] != null)
                     {
                         if ((bool)Session["SeeAll"] == true)
@@ -86,6 +104,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.name)
                     </th>
+                    <th></th>
 
                 </tr>
             </thead>
@@ -168,7 +187,7 @@
                                                 {
                                                     <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                                     <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                    <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                        <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
 
                                                 }
 
@@ -202,7 +221,7 @@
                                             {
                                                 <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                                 <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
 
                                             }
 
@@ -290,7 +309,7 @@
                                     {
                                         <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                         <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                        <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                            <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
 
                                     }
                                     else
@@ -384,6 +403,46 @@
                                     }
                                 }
                             </td>
+                            <td>
+                                @if (Session["HighAcceptance"] != null)
+                                {
+                                    if (item.Approval == null)
+                                    {
+                                        <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = true })" style="color:forestgreen">قبول</a>
+                                        <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = false })" style="color:darkred">رفض</a>
+                                    }
+                                    else if (item.Approval != null)
+                                    {
+                                        if (item.Approval == true)
+                                        {
+                                            <p style="color:forestgreen">مقبول</p>
+
+                                        }
+                                        else
+                                        {
+                                            <p style="color:darkred">مرفوض</p>
+
+                                        }
+                                    }
+                                }
+                                else if (item.Approval == null)
+                                {
+                                    <p style="color:gray">بالانتظار</p>
+                                }
+                                else if (item.Approval != null)
+                                {
+                                    if (item.Approval == true)
+                                    {
+                                        <p style="color:forestgreen">مقبول</p>
+
+                                    }
+                                    else
+                                    {
+                                        <p style="color:darkred">مرفوض</p>
+
+                                    }
+                                }
+                            </td>
                             @if (Session["SeeAll"] != null)
                             {
                                 if ((bool)Session["SeeAll"] == true)
@@ -440,6 +499,10 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.name)
                             </td>
+                            <td @if (item.Approval == null) { @: style="background-color:gray"
+                                                                                                                                                                } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:forestgreen"
+                                                                                                                                                                    } else { @: style="background-color:red"
+                                                                                                                                                                    } }></td>
                         </tr>
                     }
                 }
@@ -456,6 +519,7 @@
                 <tr class="bg-primary">
                     <th></th>
                     <th>الاثبات</th>
+                    <th>التوقيع</th>
                     @if (Session["SeeAll"] != null)
                     {
                         if ((bool)Session["SeeAll"] == true)
@@ -513,7 +577,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.name)
                     </th>
-
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -528,7 +592,7 @@
                                 {
                                     <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                     <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
                                 }
 
 
@@ -544,11 +608,11 @@
                             {
                                 if ((bool)Session["AddCoManagers"] == true)
                                 {
-                                   
-                                        <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                        <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+
+                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                                         <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                    
+
                                 }
                                 else
                                 {
@@ -571,7 +635,7 @@
                                             {
                                                 <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                                 <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
 
                                             }
 
@@ -639,8 +703,8 @@
                                 if ((bool)Session["AddSchoolManagers"] == true)
                                 {
 
-                                        <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                        <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                                         <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
 
                                 }
@@ -660,7 +724,7 @@
                                 {
                                     <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                     <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
                                 }
 
                             }
@@ -674,7 +738,7 @@
                             {
                                 <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                 <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
 
                             }
 
@@ -755,6 +819,29 @@
                         </div>
 
                     </td>
+
+
+                    <td>
+                        @if (Session["HighAcceptance"] != null)
+                        {
+
+                            <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=true" style="color:forestgreen">قبول</a>
+                            <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=false" style="color:darkred">رفض</a>
+
+                                <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                                <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
+
+
+
+                        }
+                        else
+                        {
+                            <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
+                            <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                                <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
+                        }
+                    </td>
+
                     @if (Session["SeeAll"] != null)
                     {
                         if ((bool)Session["SeeAll"] == true)
@@ -776,12 +863,18 @@
                     <td>{{Exam.EmployeeBDate | date:'MM/dd/yyyy'}}</td>
                     <td>{{Exam.surname}}</td>
                     <td>{{Exam.name}}</td>
+                    <td ng-if="Approval == null" style="background-color:gray"></td>
+                    <td ng-if="Approval == true" style="background-color:forestgreen"></td>
+                    <td ng-if="Approval == false" style="background-color:darkred"></td>
+
                 </tr>
             </tbody>
         </table>
     </div>
-    <button id="btnExport2" class="btn btn-warning" ng-cloak ng-show="EmployeeAngularForm">Export to xls</button>
+    <button id="btnExport2" class="btn btn-warning" ng-cloak ng-show="EmployeeAngularForm">xls تصدير ل</button>
 </div>
+
+
 @if (ViewBag.StateMessage != null)
             {
     <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">

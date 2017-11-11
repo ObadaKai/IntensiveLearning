@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace IntensiveLearning.Database
 {
     using System;

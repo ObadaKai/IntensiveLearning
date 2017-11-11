@@ -11,10 +11,25 @@
     {
         if ((bool)Session["AddStudent"] == true)
         {
-            using (Html.BeginForm("Create", "Students", FormMethod.Get))
-            {
+            <div style="display:block;margin-bottom:10px;">
+                @using (Html.BeginForm("Create", "Students", FormMethod.Get, new { style = "display:inline-block;" }))
+                {
                 <button type="submit" class="btn btn-warning">انشاء جديد</button>
-            }
+                }
+                <button id="btnImport" style="float:left;display:inline-block" class="btn btn-warning">xls استيراد من</button>
+
+                <div id="ImportExcel" style="display:none;float:left;margin-left:10px;background-color:rgba(255,255,255,0.7);padding:2px;border-radius:5px;">
+                    @using (Html.BeginForm("ImportStudents", "ExcelImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input type="file" name="file" style="color:#337ab7;display:inline-block" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                        <input type="submit" class="btn btn-primary" value="ارسال" />
+                        if (ViewBag.Importerror != null)
+                        {
+                            <p>@ViewBag.Importerror</p>
+                        }
+                    }
+                </div>
+            </div>
         }
     }
     <div class="col-md-12" style="margin-bottom:20px;padding:0;border:0">
@@ -47,7 +62,7 @@
                     {
                         <th>الاثبات</th>
                     }
-
+                    <th>التوقيع</th>
                     <th>
                         @Html.DisplayNameFor(model => model.Stage.StageName)
                     </th>
@@ -87,6 +102,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -139,6 +155,46 @@
 
                             </td>
                             <td>
+                                @if (Session["HighAcceptance"] != null)
+                                {
+                                    if (item.Approval == null)
+                                    {
+                                        <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = true })" style="color:forestgreen">قبول</a>
+                                        <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = false })" style="color:darkred">رفض</a>
+                                    }
+                                    else if (item.Approval != null)
+                                    {
+                                        if (item.Approval == true)
+                                        {
+                                            <p style="color:forestgreen">مقبول</p>
+
+                                        }
+                                        else
+                                        {
+                                            <p style="color:darkred">مرفوض</p>
+
+                                        }
+                                    }
+                                }
+                                else if (item.Approval == null)
+                                {
+                                    <p style="color:gray">بالانتظار</p>
+                                }
+                                else if (item.Approval != null)
+                                {
+                                    if (item.Approval == true)
+                                    {
+                                        <p style="color:forestgreen">مقبول</p>
+
+                                    }
+                                    else
+                                    {
+                                        <p style="color:darkred">مرفوض</p>
+
+                                    }
+                                }
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Stage.StageName)
                             </td>
                             <td>
@@ -177,7 +233,10 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
-
+                            <td @if (item.Approval == null) { @: style="background-color:gray"
+                                                                                            } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:forestgreen"
+                                                                                                } else { @: style="background-color:red"
+                                                                                                } }></td>
                         </tr>
                     }
                 }
@@ -215,6 +274,7 @@
                     {
                         <th>الاثبات</th>
                     }
+                    <th>التوقيع</th>
                     <th>
                         @Html.DisplayNameFor(model => model.Stage.StageName)
                     </th>
@@ -254,7 +314,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
-
+                    <th></th>
 
 
                 </tr>
@@ -298,6 +358,26 @@
                             <a class="btn btn-warning" href="/Json/DownloadProof/{{Exam.Proof}}" title="تحميل"><span class="glyphicon glyphicon-download-alt"></span></a>
                         }
                     </td>
+                    <td>
+                        @if (Session["HighAcceptance"] != null)
+                        {
+
+                            <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=true" style="color:forestgreen">قبول</a>
+                                <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=false" style="color:darkred">رفض</a>
+
+                                <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                                <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
+
+
+
+                        }
+                        else
+                        {
+                            <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
+                            <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                            <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
+                        }
+                    </td>
                     <td>{{Exam.StageName}}</td>
                     <td>{{Exam.Period}}</td>
                     <td>{{Exam.Regiment}}</td>
@@ -311,6 +391,9 @@
                     <td>{{Exam.BDate | date:'MM/dd/yyyy'}}</td>
                     <td>{{Exam.Surname}}</td>
                     <td>{{Exam.Name}}</td>
+                    <td ng-if="Approval == null" style="background-color:gray"></td>
+                    <td ng-if="Approval == true" style="background-color:forestgreen"></td>
+                    <td ng-if="Approval == false" style="background-color:darkred"></td>
                 </tr>
             </tbody>
         </table>
@@ -319,6 +402,7 @@
     <button id="btnExport2" class="btn btn-warning" ng-cloak ng-show="StudentAngularForm">Export to xls</button>
 
 </div>
+
 
 @if (ViewBag.StateMessage != null)
 {

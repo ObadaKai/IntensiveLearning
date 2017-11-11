@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace IntensiveLearning.Database
 {
     using System;
@@ -22,7 +23,7 @@ namespace IntensiveLearning.Database
             this.Centers = new HashSet<Center>();
             this.Cities = new HashSet<City>();
         }
-    
+
         public int id { get; set; }
         [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·„‘—Ê⁄")]
         [DisplayName("«”„ «·„‘—Ê⁄")]
@@ -37,7 +38,7 @@ namespace IntensiveLearning.Database
 
         [DisplayName(" «—ÌŒ «·‰Â«Ì…")]
         public Nullable<System.DateTime> EndDate { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Center> Centers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

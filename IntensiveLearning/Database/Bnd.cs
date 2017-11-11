@@ -21,7 +21,7 @@ namespace IntensiveLearning.Database
         {
             this.Orders = new HashSet<Order>();
         }
-    
+
         public int id { get; set; }
         [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·»‰œ")]
         [DisplayName("«”„ «·»‰œ")]
@@ -31,7 +31,7 @@ namespace IntensiveLearning.Database
         public Nullable<int> TotalNum { get; set; }
         [DisplayName("«·—ﬁ„ »⁄œ «· Œ›Ì÷")]
         public Nullable<int> AfterReductionNum { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }

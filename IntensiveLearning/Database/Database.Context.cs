@@ -40,11 +40,10 @@ namespace IntensiveLearning.Database
         public virtual DbSet<Period> Periods { get; set; }
         public virtual DbSet<Presence> Presences { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<Proove> Prooves { get; set; }
         public virtual DbSet<Regiment> Regiments { get; set; }
         public virtual DbSet<Stage> Stages { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Study_subject> Study_subject { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<Proove> Prooves { get; set; }
     }
 }

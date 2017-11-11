@@ -32,10 +32,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/23/2017 13:15:20</publishTime>
     </File>
     <File Include="bin/IntensiveLearning.dll">
-      <publishTime>11/07/2017 15:14:59</publishTime>
+      <publishTime>11/08/2017 11:21:40</publishTime>
     </File>
     <File Include="bin/IntensiveLearning.pdb">
-      <publishTime>11/07/2017 15:14:59</publishTime>
+      <publishTime>11/08/2017 11:21:40</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>06/27/2017 12:59:34</publishTime>
@@ -449,7 +449,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/28/2017 11:27:19</publishTime>
     </File>
     <File Include="Views/Centers/Create.cshtml">
-      <publishTime>11/07/2017 14:50:22</publishTime>
+      <publishTime>11/07/2017 16:29:31</publishTime>
     </File>
     <File Include="Views/Centers/Delete.cshtml">
       <publishTime>11/04/2017 14:53:03</publishTime>
@@ -491,7 +491,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/06/2017 10:27:13</publishTime>
     </File>
     <File Include="Views/Employees/Create.cshtml">
-      <publishTime>11/07/2017 14:49:44</publishTime>
+      <publishTime>11/07/2017 16:29:28</publishTime>
     </File>
     <File Include="Views/Employees/Delete.cshtml">
       <publishTime>11/07/2017 10:23:53</publishTime>
@@ -662,7 +662,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2017 12:04:55</publishTime>
     </File>
     <File Include="Views/Students/Create.cshtml">
-      <publishTime>11/07/2017 14:44:46</publishTime>
+      <publishTime>11/07/2017 16:29:55</publishTime>
     </File>
     <File Include="Views/Students/Delete.cshtml">
       <publishTime>11/04/2017 14:47:15</publishTime>

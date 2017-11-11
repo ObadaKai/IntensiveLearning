@@ -38,7 +38,14 @@ namespace IntensiveLearning.Database
 
         public Nullable<System.DateTime> Date { get; set; }
         public string Proof { get; set; }
+        public Nullable<bool> Approval { get; set; }
+        public Nullable<int> ApprovedBy { get; set; }
+        public Nullable<int> AddedBy { get; set; }
+        public Nullable<System.DateTime> AddingDate { get; set; }
+        public Nullable<System.TimeSpan> AddingTime { get; set; }
     
+        public virtual Employee Employee { get; set; }
+        public virtual Employee Employee1 { get; set; }
         public virtual ExamType ExamType { get; set; }
         public virtual Stage Stage { get; set; }
         public virtual Student Student { get; set; }

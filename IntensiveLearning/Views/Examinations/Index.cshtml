@@ -34,6 +34,8 @@
                     <th></th>
                     @*<th>التوثيق</th>*@
                     <th>الاثبات</th>
+                    <th>التوقيع</th>
+
                     <th>
                         @Html.DisplayNameFor(model => model.Mark)
                     </th>
@@ -68,7 +70,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Student.Name)
                     </th>
-
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -112,6 +114,46 @@
                                 }
                             </td>
                             <td>
+                                @if (Session["HighAcceptance"] != null)
+                                {
+                                    if (item.Approval == null)
+                                    {
+                                        <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = true })" style="color:forestgreen">قبول</a>
+                                        <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = false })" style="color:darkred">رفض</a>
+                                    }
+                                    else if (item.Approval != null)
+                                    {
+                                        if (item.Approval == true)
+                                        {
+                                            <p style="color:forestgreen">مقبول</p>
+
+                                        }
+                                        else
+                                        {
+                                            <p style="color:darkred">مرفوض</p>
+
+                                        }
+                                    }
+                                }
+                                else if (item.Approval == null)
+                                {
+                                    <p style="color:gray">بالانتظار</p>
+                                }
+                                else if (item.Approval != null)
+                                {
+                                    if (item.Approval == true)
+                                    {
+                                        <p style="color:forestgreen">مقبول</p>
+
+                                    }
+                                    else
+                                    {
+                                        <p style="color:darkred">مرفوض</p>
+
+                                    }
+                                }
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Mark)
                             </td>
                             <td>
@@ -141,6 +183,10 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Student.Name)
                             </td>
+                            <td @if (item.Approval == null) { @: style="background-color:gray"
+                                                                                                                            } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:forestgreen"
+                                                                                                                                } else { @: style="background-color:red"
+                                                                                                                                } }></td>
                         </tr>
                     }
                 }
@@ -154,6 +200,7 @@
                 <tr class="bg-primary">
                     <th></th>
                     <th>الاثبات</th>
+                    <th>التوقيع</th>
                     <th>
                         @Html.DisplayNameFor(model => model.Mark)
                     </th>
@@ -188,7 +235,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Student.Name)
                     </th>
-
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -218,7 +265,26 @@
                         <a class="btn btn-warning" href="/Json/DownloadProof/{{Exam.Proof}}"><span class="glyphicon glyphicon-download-alt"></span></a>
 </a>
                     </td>
+                    <td>
+                        @if (Session["HighAcceptance"] != null)
+                        {
 
+                            <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=true" style="color:forestgreen">قبول</a>
+                            <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=false" style="color:darkred">رفض</a>
+
+                                <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                                <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
+
+
+
+                        }
+                        else
+                        {
+                            <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
+                            <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                            <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
+                        }
+                    </td>
                     <td>{{Exam.Mark}}</td>
                     <td>{{Exam.ExamType}}</td>
                     <td>{{Exam.Subject}}</td>
@@ -231,6 +297,10 @@
                     <td>{{Exam.Center}}</td>
                     <td>{{Exam.StudentSurname}}</td>
                     <td>{{Exam.StudentName}}</td>
+                    <td ng-if="Approval == null" style="background-color:gray"></td>
+                    <td ng-if="Approval == true" style="background-color:forestgreen"></td>
+                    <td ng-if="Approval == false" style="background-color:darkred"></td>
+
                 </tr>
             </tbody>
         </table>

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using IntensiveLearning.Database;
 using IntensiveLearning.Models;
+using System.Data.Entity;
 
 namespace IntensiveLearning.Controllers
 {
@@ -20,7 +21,7 @@ namespace IntensiveLearning.Controllers
             var id = Convert.ToInt16(Session["ID"]);
             var emp = db.Employees.Find(id);
             var AlreadyDone = db.Examinations.Select(x => new { x.Studentid, x.Date }).ToList();
-            var Students = db.Students.Where(c=>c.Centerid == emp.Centerid).Select(x => new { x.id, x.Name, x.Surname,x.FathersName }).ToList();
+            var Students = db.Students.Where(c => c.Centerid == emp.Centerid).Select(x => new { x.id, x.Name, x.Surname, x.FathersName }).ToList();
             foreach (var item in AlreadyDone)
             {
                 if (item.Date == DateTime.Now.Date)
@@ -38,7 +39,7 @@ namespace IntensiveLearning.Controllers
             var id = Convert.ToInt16(Session["ID"]);
             var emp = db.Employees.Find(id);
             var AlreadyDone = db.Examinations.Select(x => new { x.Studentid, x.Date, x.Subjectid }).ToList();
-            var Students = db.Students.Where(c => c.Centerid == emp.Centerid).Select(x => new { x.id, x.Name, x.Surname,x.FathersName }).ToList();
+            var Students = db.Students.Where(c => c.Centerid == emp.Centerid).Select(x => new { x.id, x.Name, x.Surname, x.FathersName }).ToList();
             foreach (var item in AlreadyDone)
             {
                 if (item.Date == date.Fielpate.Date && item.Subjectid == date.Subjectid)
@@ -150,7 +151,8 @@ namespace IntensiveLearning.Controllers
                 Desc = c.Desc,
                 ExamType = c.ExamType.Type,
                 Proof = c.Proof,
-                Center= c.Student.Center.Name,
+                Center = c.Student.Center.Name,
+                Approval = c.Approval,
             }).ToList();
             //.Select(c => new { c.Mark, c.Stage.StageName, c.Student.Name, c.Student.Surname, c.Study_subject.Name, c.Date, c.Desc, c.ExamType.Type })
             return Json(ToSendList, JsonRequestBehavior.AllowGet);
@@ -304,7 +306,8 @@ namespace IntensiveLearning.Controllers
                 Sex = c.Sex,
                 SeeAccToCity = c.EmployeeType.SeeAccToCity,
                 SeeAll = c.EmployeeType.SeeAll,
-                City = c.City.Name
+                City = c.City.Name,
+                Approval = c.Approval,
             }).ToList();
             var typeName = (string)Session["Type"];
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
@@ -608,5 +611,75 @@ namespace IntensiveLearning.Controllers
             return File(ImageName, System.Net.Mime.MediaTypeNames.Application.Octet, DateTime.Now.Month + "/" + DateTime.Now.Day + "__" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "__" + lastFolderName + exe);
         }
 
+        public ActionResult Approvals(int id, string type,bool acceptance)
+        {
+            if (Session["ID"] != null)
+            {
+                var Myid = Convert.ToInt32(Session["ID"]);
+                var typeName = (string)Session["Type"];
+                var Emptype = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+                if (type == "Employees")
+                {
+                    var emp = db.Employees.Find(id);
+                    if (Emptype.HighAcceptance == true)
+                    {
+                        emp.Approval = acceptance;
+                        emp.ApprovedBy = Myid;
+                        db.Entry(emp).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction("Index", "Centers");
+
+                }
+                else if (type == "Students")
+                {
+                    var student = db.Students.Find(id);
+
+                    if (Emptype.AddSchoolManagers ==true)
+                    {
+                        student.Approval = acceptance;
+                        student.ApprovedBy = Myid;
+                        db.Entry(student).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                    }
+                    return RedirectToAction("Index", "Centers");
+
+                }
+                else if (type == "Examinations")
+                {
+                    var exam = db.Examinations.Find(id);
+
+                    if (Emptype.AddSchoolEmployees == true)
+                    {
+                        exam.Approval = acceptance;
+                        exam.ApprovedBy = Myid;
+                        db.Entry(exam).State = EntityState.Modified;
+                        db.SaveChanges();
+
+
+                    }
+                    return RedirectToAction("Index", "Centers");
+
+                }
+                else if (type == "Centers")
+                {
+                    var center = db.Centers.Find(id);
+
+                    if (Emptype.HighAcceptance == true)
+                    {
+                        center.Approval = acceptance;
+                        center.ApprovedBy = Myid;
+                        db.Entry(center).State = EntityState.Modified;
+                        db.SaveChanges();
+
+
+                    }
+                    return RedirectToAction("Index", "Centers");
+                }
+            }
+            return RedirectToAction("Index","Home");
+        }
     }
 }

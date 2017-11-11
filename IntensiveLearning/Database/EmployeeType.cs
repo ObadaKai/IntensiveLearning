@@ -20,7 +20,8 @@ namespace IntensiveLearning.Database
         {
             this.Employees = new HashSet<Employee>();
         }
-    
+
+
         public int id { get; set; }
         [DisplayName("«·‰Ê⁄")]
         public string Type { get; set; }
@@ -103,7 +104,6 @@ namespace IntensiveLearning.Database
         [DisplayName("—ƒÌ… ÿ·«» Ê «„ Õ«‰« ")]
         public Nullable<bool> SeeTeachers { get; set; }
 
-    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
     }

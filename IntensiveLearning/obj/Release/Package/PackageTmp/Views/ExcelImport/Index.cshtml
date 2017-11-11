@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm("ImportEmployees", "ExcelImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @:Employees
+    <input type="file" name="file" />
+    <input type="submit" value="OK" />
+}
+
+<br />
+<br />
+<br />
+<br />
+
+@using (Html.BeginForm("ImportStudents", "ExcelImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @:Students
+    <input type="file" name="file" />
+    <input type="submit" value="OK" />
+}

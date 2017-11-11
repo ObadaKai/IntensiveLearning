@@ -23,7 +23,7 @@ namespace IntensiveLearning.Database
             this.Employees = new HashSet<Employee>();
             this.Regiments = new HashSet<Regiment>();
         }
-    
+
         public int id { get; set; }
 
         [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇÓã ÇáİÊÑÉ")]

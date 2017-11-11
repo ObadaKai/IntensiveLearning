@@ -95,6 +95,10 @@ namespace IntensiveLearning.Controllers
                     var employees = db.Employees.Where(x => (x.EmployeeType.SeeTeachers == true && x.Centerid == emp.Centerid) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period);
                     return View(employees.ToList());
                 }
+                else if(type.CoManager == true && type.AddManagers!=true && type.AddCOManagers !=true && type.AddSchoolManagers!=true&&type.AddSchoolEmployees !=true)
+                {
+                    return View(db.Employees.Where(x => x.EmployeeType.CoManager == true && x.EmployeeType.SeeAccToCity == true || x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee==true).ToList());
+                }
                 return RedirectToAction("Default", "Home");
             }
             return RedirectToAction("Index", "Home");
@@ -387,7 +391,10 @@ namespace IntensiveLearning.Controllers
         [HttpPost]
         public ActionResult Create(/*[Bind(Include = "name,surname,BDate,Certificate,CType,State,Centerid,Periodid,SDate,Job,Username,Salary,FathersName,Sex")]*/ Employee employee, IEnumerable<HttpPostedFileBase> file)
         {
-
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var typeName = (string)Session["Type"];
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
             var jobs = db.EmployeeTypes.Find(employee.Job);
@@ -535,10 +542,11 @@ namespace IntensiveLearning.Controllers
                 }
                 catch (Exception ex)
                 {
-                    sendImageError = true;
-                    proceed = false;
-                }
 
+                }
+                employee.AddedBy = Convert.ToInt32(Session["ID"]);
+                employee.AddingDate = DateTime.Now.Date;
+                employee.AddingTime = DateTime.Now.TimeOfDay;
 
                 employee.State = "متوفر";
                 employee.Password = Helper.ComputeHash("123", "SHA512", null);
@@ -1034,6 +1042,10 @@ namespace IntensiveLearning.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(/*[Bind(Include = "id,name,surname,BDate,Certificate,CType,State,Centerid,Periodid,SDate,EDate,Job,Salary,Sex,Father")]*/ Employee employee, IEnumerable<HttpPostedFileBase> file)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             bool proceed = true;
             var jobs = db.EmployeeTypes.Find(employee.Job);
             if (jobs.Manager == true)

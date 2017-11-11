@@ -17,7 +17,7 @@ namespace IntensiveLearning.Database
     public partial class Presence
     {
         public int id { get; set; }
-        [Required(ErrorMessage ="íÑÌì æÖÚ ÊÇÑíÎ ÇáÛíÇÈ")]
+        [Required(ErrorMessage = "íÑÌì æÖÚ ÊÇÑíÎ ÇáÛíÇÈ")]
         [DisplayName("ÊÇÑíÎ ÇáÛíÇÈ")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
 
@@ -39,7 +39,14 @@ namespace IntensiveLearning.Database
         public Nullable<bool> Lesson6 { get; set; }
         [DisplayName("7ÇáÏÑÓ")]
         public Nullable<bool> Lesson7 { get; set; }
+        public Nullable<bool> Approval { get; set; }
+        public Nullable<int> ApprovedBy { get; set; }
+        public Nullable<int> AddedBy { get; set; }
+        public Nullable<System.DateTime> AddingDate { get; set; }
+        public Nullable<System.TimeSpan> AddingTime { get; set; }
     
+        public virtual Employee Employee { get; set; }
+        public virtual Employee Employee1 { get; set; }
         public virtual Student Student { get; set; }
     }
 }

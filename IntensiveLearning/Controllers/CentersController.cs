@@ -245,12 +245,16 @@ namespace IntensiveLearning.Controllers
                         ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
 
                         ViewBag.Cityid = new SelectList(db.Cities.Where(x => x.id == employee.CityID), "id", "Name");
+
+                        ViewBag.DependedOn = new SelectList(db.Centers.Where(x => x.Cityid == employee.CityID && x.CenterType == "رئيسي"), "id", "Name");
                     }
                     else
                     {
                         ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
 
                         ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
+
+                        ViewBag.DependedOn = new SelectList(db.Centers.Where(x=> x.CenterType == "رئيسي"), "id", "Name");
                     }
                     return View();
                 }
@@ -265,9 +269,22 @@ namespace IntensiveLearning.Controllers
         [HttpPost]
         public ActionResult Create(/*[Bind(Include = "Name,Place,Desc,State,HolesN,Cityid")]*/ CenterModel centerModel, IEnumerable<HttpPostedFileBase> file)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (centerModel.DependedOn == null && centerModel.Cityid == null)
+            {
+                ViewBag.error = "الرجاء التأكد من اتمام معلومات المركز ومدينته";
+                return View(centerModel);
+            }
             bool sendImageError = false;
             bool proceed = true;
             bool NumberValidation = false;
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+            var empid = Convert.ToInt32(Session["ID"]);
+            var employee = db.Employees.Find(empid);
             if (centerModel.firstMonth > 9)
             {
                 if (centerModel.LastMonth > 9 && centerModel.LastMonth < centerModel.firstMonth)
@@ -374,8 +391,7 @@ namespace IntensiveLearning.Controllers
                 catch (Exception ex)
                 {
 
-                    sendImageError = true;
-                    proceed = false;
+
                 }
                 centerModel.center.ProjectID = 1;
                 if (centerModel.firstMonth > centerModel.LastMonth)
@@ -442,10 +458,18 @@ namespace IntensiveLearning.Controllers
                     }
                 }
 
-
-                centerModel.center.Cityid = centerModel.Cityid;
-                var typeName = (string)Session["Type"];
-                var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+                if (centerModel.Cityid == null)
+                {
+                    centerModel.center.Cityid = db.Centers.Find(centerModel.DependedOn).Cityid;
+                }
+                else
+                {
+                    centerModel.center.Cityid = centerModel.Cityid;
+                }
+                centerModel.center.AddedBy = employee.id;
+                centerModel.center.AddingDate = DateTime.Now.Date;
+                centerModel.center.AddingTime = DateTime.Now.TimeOfDay;
+                centerModel.center.DependedOn = centerModel.DependedOn;
                 if (type.SeeAccToCity == true)
                 {
                     var id = Convert.ToInt32(Session["ID"]);
@@ -464,9 +488,24 @@ namespace IntensiveLearning.Controllers
             {
                 ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
             }
-            ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
-            ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
+            if (type.SeeAccToCity == true)
+            {
+                ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
+
+                ViewBag.Cityid = new SelectList(db.Cities.Where(x => x.id == employee.CityID), "id", "Name");
+
+                ViewBag.DependedOn = new SelectList(db.Centers.Where(x => x.Cityid == employee.CityID && x.CenterType == "رئيسي"), "id", "Name");
+            }
+            else
+            {
+                ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
+
+                ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
+
+                ViewBag.DependedOn = new SelectList(db.Centers.Where(x => x.CenterType == "رئيسي"), "id", "Name");
+            }
             return View(centerModel);
+
         }
 
         // GET: Centers/Edit/5
@@ -621,11 +660,14 @@ namespace IntensiveLearning.Controllers
                         }
                         ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", centerModel.center.Periodid);
                         ViewBag.Cityid = new SelectList(db.Cities.Where(x => x.id == emp.CityID), "id", "Name", centerModel.center.Cityid);
+                        ViewBag.DependedOn = new SelectList(db.Centers.Where(x => x.Cityid == emp.CityID && x.CenterType == "رئيسي" && x.id != id), "id", "Name", centerModel.center.DependedOn);
+
                     }
                     else
                     {
                         ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", centerModel.center.Periodid);
                         ViewBag.Cityid = new SelectList(db.Cities, "id", "Name", centerModel.center.Cityid);
+                        ViewBag.DependedOn = new SelectList(db.Centers.Where(x => x.CenterType == "رئيسي" && x.id != id), "id", "Name", centerModel.center.DependedOn);
                     }
                     return View(centerModel);
                 }
@@ -642,7 +684,10 @@ namespace IntensiveLearning.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(/*[Bind(Include = "id,Name,Place,Desc,State,HolesN,Cityid")]*/ CenterModel centerModel, IEnumerable<HttpPostedFileBase> file)
         {
-
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             bool proceed = true;
             if (ModelState.IsValid)
@@ -689,51 +734,51 @@ namespace IntensiveLearning.Controllers
                         {
                             Directory.CreateDirectory(Server.MapPath("~/App_Data/Centers") + "\\" + centerModel.center.id);
                         }
-                    
-                    foreach (var item in file)
-                    {
-                        if (item.ContentLength > 0)
+
+                        foreach (var item in file)
                         {
-                            var fileName = Path.GetFileName(item.FileName);
+                            if (item.ContentLength > 0)
+                            {
+                                var fileName = Path.GetFileName(item.FileName);
 
-                            var path = Path.Combine(Server.MapPath("~/App_Data/Centers/" + centerModel.center.id), fileName);
-                            item.SaveAs(path);
-                            Proove proove = new Proove();
-                            proove.Path = path;
-                            proove.id = prooveid;
-                            proove.CenterID = centerModel.center.id;
-                            db.Prooves.Add(proove);
-                            prooveid++;
+                                var path = Path.Combine(Server.MapPath("~/App_Data/Centers/" + centerModel.center.id), fileName);
+                                item.SaveAs(path);
+                                Proove proove = new Proove();
+                                proove.Path = path;
+                                proove.id = prooveid;
+                                proove.CenterID = centerModel.center.id;
+                                db.Prooves.Add(proove);
+                                prooveid++;
 
-                        }
-                        else
-                        {
+                            }
+                            else
+                            {
 
-                        }
-                    }
-                    try
-                    {
-
-                        var startPath = Server.MapPath("~/App_Data/Centers" + "\\" + centerModel.center.id);
-
-                        if (!Directory.Exists(Server.MapPath("~/App_Data/Centers" + "\\" + "ZipFolder")))
-                        {
-                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Centers" + "\\" + "ZipFolder"));
-                        }
-                        var zipPath = Server.MapPath("~/App_Data/Centers" + "\\" + "ZipFolder") + "\\" + centerModel.center.id + ".zip";
-
-                        if (System.IO.File.Exists(zipPath))
-                        {
-                            System.IO.File.Delete(zipPath);
+                            }
                         }
                         try
                         {
-                            ZipFile.CreateFromDirectory(startPath, zipPath);
+
+                            var startPath = Server.MapPath("~/App_Data/Centers" + "\\" + centerModel.center.id);
+
+                            if (!Directory.Exists(Server.MapPath("~/App_Data/Centers" + "\\" + "ZipFolder")))
+                            {
+                                Directory.CreateDirectory(Server.MapPath("~/App_Data/Centers" + "\\" + "ZipFolder"));
+                            }
+                            var zipPath = Server.MapPath("~/App_Data/Centers" + "\\" + "ZipFolder") + "\\" + centerModel.center.id + ".zip";
+
+                            if (System.IO.File.Exists(zipPath))
+                            {
+                                System.IO.File.Delete(zipPath);
+                            }
+                            try
+                            {
+                                ZipFile.CreateFromDirectory(startPath, zipPath);
+                            }
+                            catch { }
+                            centerModel.center.Proof = zipPath;
                         }
                         catch { }
-                        centerModel.center.Proof = zipPath;
-                    }
-                    catch { }
                     }
 
                 }
@@ -742,7 +787,16 @@ namespace IntensiveLearning.Controllers
                 }
 
                 db.SaveChanges();
-                centerModel.center.Cityid = centerModel.Cityid;
+                if (centerModel.Cityid == null)
+                {
+                    centerModel.center.Cityid = db.Centers.Find(centerModel.DependedOn).Cityid;
+                }
+                else
+                {
+                    centerModel.center.Cityid = centerModel.Cityid;
+                }
+                centerModel.center.DependedOn = centerModel.DependedOn;
+
                 for (int i = 0; i <= 12; i++)
                 {
                     switch (i)
@@ -866,11 +920,15 @@ namespace IntensiveLearning.Controllers
                 var emp = db.Employees.Find(id);
                 ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", centerModel.center.Periodid);
                 ViewBag.Cityid = new SelectList(db.Cities.Where(x => x.id == emp.CityID), "id", "Name", centerModel.center.Cityid);
+                ViewBag.DependedOn = new SelectList(db.Centers.Where(x => x.Cityid == emp.CityID && x.CenterType == "رئيسي" && x.id != centerModel.center.id), "id", "Name", centerModel.center.DependedOn);
+
             }
             else
             {
                 ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", centerModel.center.Periodid);
                 ViewBag.Cityid = new SelectList(db.Cities, "id", "Name", centerModel.center.Cityid);
+                ViewBag.DependedOn = new SelectList(db.Centers.Where(x=> x.CenterType == "رئيسي" && x.id != centerModel.center.id), "id", "Name", centerModel.center.DependedOn);
+
             }
 
 

@@ -23,6 +23,7 @@
 
                 <th rowspan="2"></th>
                 <th rowspan="2">الاثبات</th>
+                <th rowspan="2">التوقيع</th>
                 <th rowspan="2">
                     @Html.DisplayNameFor(model => model.HolesN)
                 </th>
@@ -59,9 +60,11 @@
                     @Html.DisplayNameFor(model => model.Place)
                 </th>
 
-                <th rowspan="2">
+                <th rowspan="2" >
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
+                <th rowspan="2"></th>
+
             </tr>
             <tr class="bg-primary">
                 <th rowspan="1">
@@ -139,7 +142,46 @@
                                 <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof} )" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
                             }
                         </td>
+                        <td>
+                            @if (Session["HighAcceptance"] != null)
+                            {
+                                if (item.Approval == null)
+                                {
+                                    <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Centers",acceptance = true })" style="color:forestgreen">قبول</a>
+                                    <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Centers",acceptance = false })" style="color:darkred">رفض</a>
+                                }
+                                else if (item.Approval != null)
+                                {
+                                    if (item.Approval == true)
+                                    {
+                                        <p style="color:forestgreen">مقبول</p>
 
+                                    }
+                                    else
+                                    {
+                                        <p style="color:darkred">مرفوض</p>
+
+                                    }
+                                }
+                            }
+                            else if (item.Approval == null)
+                            {
+                                <p style="color:gray">بالانتظار</p>
+                            }
+                            else if (item.Approval != null)
+                            {
+                                if (item.Approval == true)
+                                {
+                                    <p style="color:forestgreen">مقبول</p>
+
+                                }
+                                else
+                                {
+                                    <p style="color:darkred">مرفوض</p>
+
+                                }
+                            }
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.HolesN)
                         </td>
@@ -423,6 +465,24 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
+                        <td 
+                            @if (item.Approval == null)
+                            {
+                                @:style="background-color:gray"
+                            }
+                            else if (item.Approval != null)
+                            {
+                                if (item.Approval == true)
+                                { 
+                                    @:style="background-color:forestgreen"
+                                }
+                                else
+                                {
+                                   @: style="background-color:red"
+                                }
+                            }>
+                        </td>
+
                     </tr>
                 }
             }
@@ -434,10 +494,10 @@
 <button id="btnExport" class="btn btn-warning">Export to xls</button>
 
 
-    @if (ViewBag.StateMessage != null)
-    {
-        <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            @ViewBag.StateMessage
-        </div>
-    }
+@if (ViewBag.StateMessage != null)
+{
+    <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @ViewBag.StateMessage
+    </div>
+}

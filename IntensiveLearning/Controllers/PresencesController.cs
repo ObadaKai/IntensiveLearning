@@ -116,6 +116,10 @@ namespace IntensiveLearning.Controllers
             {
                 presence.id = 1;
             }
+            presence.AddedBy = Convert.ToInt32(Session["ID"]);
+            presence.AddingDate = DateTime.Now.Date;
+            presence.AddingTime = DateTime.Now.TimeOfDay;
+
             if (ModelState.IsValid)
             {
                 db.Presences.Add(presence);
@@ -123,6 +127,7 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
+
             var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
             var id = Convert.ToInt16(Session["ID"]);
             var emp = db.Employees.Find(id);

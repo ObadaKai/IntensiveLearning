@@ -35,6 +35,19 @@
             document.getElementById("TemplateForm").style.paddingRight = "15px";
             
         }
+        $('#DependedOn').val("")
+
+        if ($('#CenterType').val() == "فرعي") {
+            $('#CenterDependency').css('display', 'block');
+            $('#CenterCity').css('display', 'none');
+            $('#Cityid').val("")
+        }
+        else {
+            $('#CenterDependency').css('display', 'none');
+            $('#CenterCity').css('display', 'block');
+            $('#DependedOn').val("")
+        }
+
 });
 var open = false;
 function openLeftMenu() {
@@ -52,19 +65,41 @@ function openLeftMenu() {
     open = true;
 }
 
-$("#Job").on("change", function () {
-    if (this.value == 8) {
-        $('#EmpCity').css('display', 'block');
-        $('#EmpCenter').css('display', 'none');
-    }
-    else if (this.value > 8) {
-        $('#EmpCenter').css('display', 'block');
-        $('#EmpCity').css('display', 'none');
+$("#CenterType").on("change", function () {
+    if (this.value == "فرعي") {
+        $('#CenterDependency').css('display', 'block');
+        $('#CenterCity').css('display', 'none');
+        $('#Cityid').val("")
     }
     else {
-        $('#EmpCenter').css('display', 'none');
-        $('#EmpCity').css('display', 'none');
+        $('#CenterDependency').css('display', 'none');
+        $('#CenterCity').css('display', 'block');
+        $('#DependedOn').val("")
     }
+});
+
+
+$("#Job").on("change", function () {
+    if (this.value == 8) {
+        $("#EmpCity").css('display', 'block');
+        $("#EmpCenter").css('display', 'none');
+    }
+    else if (this.value > 8) {
+        $("#EmpCity").css('display', 'none');
+        $("#EmpCenter").css('display', 'block');
+    }
+    else {
+        $("#EmpCity").css('display', 'none');
+        $("#EmpCenter").css('display', 'none');
+    }
+
+
+});
+var toggleimport = false;
+$('#btnImport').on("click", function () {
+    toggleimport ? toggleimport = false : toggleimport = true;
+    toggleimport ? $('#ImportExcel').css('display', 'block') : $('#ImportExcel').css('display', 'none');
+
 });
 function closeLeftMenu() {
     document.getElementById("leftMenu").style.height = "0%";
