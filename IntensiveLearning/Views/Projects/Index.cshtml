@@ -14,17 +14,22 @@
     <table class="table table-striped">
         <thead>
             <tr class="bg-primary">
-                <th></th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EndDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StartDate)
-                </th>
-
                 <th>
                     @Html.DisplayNameFor(model => model.ProjectName)
                 </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+
+
+
+
+                <th></th>
+
 
             </tr>
         </thead>
@@ -32,6 +37,20 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+
+
+
+
                     <td>
                         @if (Session["AddNewProject"] != null)
                         {
@@ -53,15 +72,6 @@
 
                         }
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EndDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StartDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProjectName)
-                    </td>
 
 
 
@@ -71,7 +81,7 @@
         </tbody>
     </table>
 </div>
-<button id="btnExport" class="btn btn-warning">Export to xls</button>
+<button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>
 @if (ViewBag.StateMessage != null)
 {
         <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">

@@ -123,7 +123,7 @@ namespace IntensiveLearning.Views.TryOut
                     employee.FathersName = ds.Tables[0].Rows[i]["اسم الأب"].ToString();
                     try
                     {
-                        employee.BDate = DateTime.ParseExact(ds.Tables[0].Rows[i]["تاريخ الولادة"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        employee.BDate = DateTime.ParseExact(ds.Tables[0].Rows[i]["تاريخ الولادة"].ToString(), "d/M/yyyy", CultureInfo.InvariantCulture);
                     }
                     catch
                     {
@@ -132,11 +132,19 @@ namespace IntensiveLearning.Views.TryOut
                     
                     }
                     employee.Certificate = ds.Tables[0].Rows[i]["الشهادة"].ToString();
-                    employee.CType = ds.Tables[0].Rows[i]["نوع الشهادة"].ToString();
-                    employee.Sex = ds.Tables[0].Rows[i]["الجنس"].ToString();
+                    if (ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "ابتدائي" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "اعدادي" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "ثانوي" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "جامعي 4 سنوات" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "جامعي 5 سنوات" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "جامعي 6 سنوات" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "ماجستير" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "دكتوراة")
+                    {
+                        employee.CType = ds.Tables[0].Rows[i]["نوع الشهادة"].ToString();
+
+                    }
+                    if (ds.Tables[0].Rows[i]["الجنس"].ToString() == "ذكر" || ds.Tables[0].Rows[i]["الجنس"].ToString() == "انثى")
+                    {
+                        employee.Sex = ds.Tables[0].Rows[i]["الجنس"].ToString();
+
+                    }
                     try
                     {
-                        employee.SDate = DateTime.ParseExact(ds.Tables[0].Rows[i]["تاريخ البدء"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        employee.SDate = DateTime.ParseExact(ds.Tables[0].Rows[i]["تاريخ البدء"].ToString(), "d/M/yyyy", CultureInfo.InvariantCulture);
                     }
                     catch
                     {
@@ -169,14 +177,14 @@ namespace IntensiveLearning.Views.TryOut
                         try
                         {
                             employee.Job = db.EmployeeTypes.FirstOrDefault(x => x.Type == jobname).id;
-                            if (employee.Job > 8)
+                            if (employee.Job < 8)
                             {
-                                employee.Job = null;
+                                employee.Job = 16;
                             }
                         }
                         catch
                         {
-                            employee.Job = null;
+                            employee.Job = 16;
                         }
 
                         try
@@ -205,14 +213,14 @@ namespace IntensiveLearning.Views.TryOut
                         try
                         {
                             employee.Job = db.EmployeeTypes.FirstOrDefault(x => x.Type == jobname).id;
-                            if (employee.Job > 7)
+                            if (employee.Job < 7)
                             {
-                                employee.Job = null;
+                                employee.Job = 16;
                             }
                         }
                         catch
                         {
-                            employee.Job = null;
+                            employee.Job = 16;
                         }
 
                         try
@@ -251,14 +259,14 @@ namespace IntensiveLearning.Views.TryOut
                         try
                         {
                             employee.Job = db.EmployeeTypes.FirstOrDefault(x => x.Type == jobname).id;
-                            if (employee.Job > 8)
+                            if (employee.Job < 8)
                             {
-                                employee.Job = null;
+                                employee.Job = 16;
                             }
                         }
                         catch
                         {
-                            employee.Job = null;
+                            employee.Job = 16;
                         }
 
                         try
@@ -294,6 +302,7 @@ namespace IntensiveLearning.Views.TryOut
                     {
                         employee.Username = null;
                     }
+                    employee.Proof = null;
                     employee.Password = Helper.ComputeHash("123", "SHA512", null);
                     db.Employees.Add(employee);
                     //string conn = ConfigurationManager.ConnectionStrings["Data Source=DESKTOP-N6HJU8V;Initial Catalog=TaalimCopyOnline;Integrated Security=True"].ConnectionString;
@@ -391,7 +400,7 @@ namespace IntensiveLearning.Views.TryOut
                     ds.ReadXml(xmlreader);
                     xmlreader.Close();
                 }
-
+                
                 int counter;
                 try
                 {
@@ -402,6 +411,21 @@ namespace IntensiveLearning.Views.TryOut
                     counter = 1;
                 }
 
+                int studentnumber;
+                try
+                {
+                    studentnumber = (int)db.Students.OrderByDescending(x => x.StudentNumber).FirstOrDefault().StudentNumber + 1;
+
+                }
+                catch
+                {
+                    var yearS = DateTime.Now;
+                    string lastTwoDigitsOfYear = yearS.ToString("yy");
+                    var ExactYear = Convert.ToInt16(lastTwoDigitsOfYear);
+                    var studentNumberString = ExactYear.ToString() + "00001";
+                    var studentNumber = Convert.ToInt32(studentNumberString);
+                    studentnumber = studentNumber;
+                }
 
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
@@ -418,7 +442,7 @@ namespace IntensiveLearning.Views.TryOut
                     student.FathersName = ds.Tables[0].Rows[i]["اسم الأب"].ToString();
                     try
                     {
-                        student.BDate = DateTime.ParseExact(ds.Tables[0].Rows[i]["تاريخ الولادة"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        student.BDate = DateTime.ParseExact(ds.Tables[0].Rows[i]["تاريخ الولادة"].ToString(), "d/M/yyyy", CultureInfo.InvariantCulture);
                     }
                     catch
                     {
@@ -435,10 +459,14 @@ namespace IntensiveLearning.Views.TryOut
                     {
                         student.Mark = null;
                     }
-                    student.Sex = ds.Tables[0].Rows[i]["الجنس"].ToString();
+                    if (ds.Tables[0].Rows[i]["الجنس"].ToString() == "ذكر"|| ds.Tables[0].Rows[i]["الجنس"].ToString() == "انثى")
+                    {
+                        student.Sex = ds.Tables[0].Rows[i]["الجنس"].ToString();
+
+                    }
                     try
                     {
-                        student.SDate = DateTime.ParseExact(ds.Tables[0].Rows[i]["تاريخ البدء"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        student.SDate = DateTime.ParseExact(ds.Tables[0].Rows[i]["تاريخ البدء"].ToString(), "d/M/yyyy", CultureInfo.InvariantCulture);
                     }
                     catch
                     {
@@ -486,20 +514,9 @@ namespace IntensiveLearning.Views.TryOut
                     {
                         student.Stageid = null;
                     }
-                    try
-                    {
-                        student.StudentNumber = db.Students.OrderByDescending(x => x.StudentNumber).FirstOrDefault().StudentNumber + 1;
 
-                    }
-                    catch
-                    {
-                        var yearS = DateTime.Now;
-                        string lastTwoDigitsOfYear = yearS.ToString("yy");
-                        var ExactYear = Convert.ToInt16(lastTwoDigitsOfYear);
-                        var studentNumberString = ExactYear.ToString() + "00001";
-                        var studentNumber = Convert.ToInt32(studentNumberString);
-                        student.StudentNumber = studentNumber;
-                    }
+                    student.StudentNumber = studentnumber;
+                    studentnumber++;
 
                     db.Students.Add(student);
                     //string conn = ConfigurationManager.ConnectionStrings["Data Source=DESKTOP-N6HJU8V;Initial Catalog=TaalimCopyOnline;Integrated Security=True"].ConnectionString;

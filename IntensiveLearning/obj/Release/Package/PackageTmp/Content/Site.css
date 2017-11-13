@@ -29,32 +29,54 @@ body {
     width: 100%;
 }
 
-.WhiteBlur {
-    background-color: rgba(255,255,255,0.9);
-    display: block;
-    width: 70%;
-    border-radius: 10px;
-    padding: 10px 30px;
-    margin: auto;
-    margin-top: 30px;
-    text-align: right;
+@media screen and (max-width: 786px) {
+    #TemplateForm {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
 }
 
-    .WhiteBlur hr {
-        border-top: 1px solid #a55c52;
+@media screen and (max-width: 550px) {
+    .WhiteBlur {
+        background-color: rgba(255,255,255,0.9);
+        display: block;
+        width: 100%;
+        border-radius: 10px;
+        padding: 10px 30px;
+        margin: auto;
+        margin-top: 30px;
+        text-align: right;
     }
+}
 
-    .WhiteBlur h4, .WhiteBlur label {
-        color: #a55c52;
+@media screen and (min-width: 550px) {
+    .WhiteBlur {
+        background-color: rgba(255,255,255,0.9);
+        display: block;
+        width: 70%;
+        border-radius: 10px;
+        padding: 10px 30px;
+        margin: auto;
+        margin-top: 30px;
+        text-align: right;
     }
+}
 
-    .WhiteBlur h2, .WhiteBlur p, .WhiteBlur h3 {
-        color: black;
-    }
+.WhiteBlur hr {
+    border-top: 1px solid #a55c52;
+}
 
-    .WhiteBlur a {
-        color: #bb7c22;
-    }
+.WhiteBlur h4, .WhiteBlur label {
+    color: #a55c52;
+}
+
+.WhiteBlur h2, .WhiteBlur p, .WhiteBlur h3 {
+    color: black;
+}
+
+.WhiteBlur a {
+    color: #bb7c22;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -318,6 +340,7 @@ textarea {
     scrollbar-darkshadow-color: #FFFFFF;
     scrollbar-track-color: rgba(36, 157, 127,0.6);
     scrollbar-arrow-color: #FFFFFF;
+    direction:rtl;
 }
 
     #table_wrapper::-webkit-scrollbar {
@@ -349,6 +372,7 @@ textarea {
     scrollbar-darkshadow-color: #FFFFFF;
     scrollbar-track-color: rgba(36, 157, 127,0.6);
     scrollbar-arrow-color: #FFFFFF;
+    direction:rtl;
 }
 
     #table_wrapper2::-webkit-scrollbar {

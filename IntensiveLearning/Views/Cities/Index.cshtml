@@ -14,16 +14,20 @@
     <table class="table table-striped">
         <thead>
             <tr class="bg-primary">
-                <th></th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Project.ProjectName)
+                    @Html.DisplayNameFor(model => model.Name)
                 </th>
+
                 <th>
                     @Html.DisplayNameFor(model => model.CountryName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    @Html.DisplayNameFor(model => model.Project.ProjectName)
                 </th>
+                <th></th>
+
+
+
 
 
 
@@ -33,6 +37,19 @@
             @foreach (var item in Model)
             {
                 <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CountryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Project.ProjectName)
+                    </td>
+
+
+
                     <td>
                         @if (Session["AddCitesAndCenters"] != null)
                         {
@@ -75,15 +92,6 @@
                             <a href="/Cities/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                         }
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Project.ProjectName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CountryName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
 
 
 
@@ -93,7 +101,7 @@
         </tbody>
     </table>
 </div>
-<button id="btnExport" class="btn btn-warning">Export to xls</button>
+<button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>
 @if (ViewBag.StateMessage != null)
 {
         <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">

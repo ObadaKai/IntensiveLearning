@@ -433,7 +433,8 @@ namespace IntensiveLearning.Controllers
                 Lesson6 = c.Lesson6,
                 Lesson7 = c.Lesson7,
                 StudentSurname = c.Student.Surname,
-                StudentName = c.Student.Name
+                StudentName = c.Student.Name,
+                Approval = c.Approval
             }).ToList();
             //.Select(c => new { c.Mark, c.Stage.StageName, c.Student.Name, c.Student.Surname, c.Study_subject.Name, c.Date, c.Desc, c.ExamType.Type })
             return Json(ToSendList, JsonRequestBehavior.AllowGet);
@@ -672,6 +673,22 @@ namespace IntensiveLearning.Controllers
                         center.Approval = acceptance;
                         center.ApprovedBy = Myid;
                         db.Entry(center).State = EntityState.Modified;
+                        db.SaveChanges();
+
+
+                    }
+                    return RedirectToAction("Index", "Centers");
+                }
+
+                else if (type == "Presences")
+                {
+                    var presence = db.Presences.Find(id);
+
+                    if (Emptype.HighAcceptance == true)
+                    {
+                        presence.Approval = acceptance;
+                        presence.ApprovedBy = Myid;
+                        db.Entry(presence).State = EntityState.Modified;
                         db.SaveChanges();
 
 

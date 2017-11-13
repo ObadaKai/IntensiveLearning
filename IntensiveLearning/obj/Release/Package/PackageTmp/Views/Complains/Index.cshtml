@@ -11,24 +11,32 @@
         <thead>
             <tr class="bg-primary">
                 <th>
-                    @Html.DisplayNameFor(model => model.Concern1)
+                    @Html.DisplayNameFor(model => model.Employee.name)
                 </th>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Employee.City.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Employee.Center.Name)
-                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Employee.surname)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Employee.name)
+                    @Html.DisplayNameFor(model => model.Employee.Center.Name)
                 </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee.City.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.date)
+                </th>
+
+
+
+
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Concern1)
+                </th>
+
             </tr>
         </thead>
         <tbody>
@@ -38,13 +46,15 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Concern1)
+                            @Html.DisplayFor(modelItem => item.Employee.name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Employee.surname)
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => item.date)
+                            @Html.DisplayFor(modelItem => item.Employee.Center.Name)
                         </td>
-
                         <td>
                             @if (item.Employee.CityID != null)
                             {
@@ -60,15 +70,18 @@
 
                             }
                         </td>
+
                         <td>
-                            @Html.DisplayFor(modelItem => item.Employee.Center.Name)
+                            @Html.DisplayFor(modelItem => item.date)
                         </td>
+
+
+
                         <td>
-                            @Html.DisplayFor(modelItem => item.Employee.surname)
+                            @Html.DisplayFor(modelItem => item.Concern1)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Employee.name)
-                        </td>
+
+
                     </tr>
                 }
 
@@ -77,7 +90,7 @@
         </tbody>
     </table>
 </div>
-<button id="btnExport" class="btn btn-warning">Export to xls</button>
+<button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>
 @if (ViewBag.StateMessage != null)
 {
     <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">

@@ -22,19 +22,22 @@
     <table class="table table-striped">
         <thead>
             <tr class="bg-primary">
-                <th></th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.EDate)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.SDate)
-                </th>
-
                 <th>
                     @Html.DisplayNameFor(model => model.StageName)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EDate)
+                </th>
+                <th></th>
+
+
+
+
+
+
             </tr>
         </thead>
         <tbody>
@@ -43,6 +46,17 @@
                 foreach (var item in Model)
                 {
                     <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StageName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SDate)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EDate)
+                        </td>
+
                         <td>
                             @if (Session["AddSchoolManagingTools"] != null)
                             {
@@ -61,18 +75,9 @@
                             }
                         </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SDate)
-                        </td>
 
 
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StageName)
-                        </td>
 
 
 
@@ -84,7 +89,7 @@
     </table>
 
 </div>
-<button id="btnExport" class="btn btn-warning">Export to xls</button>
+<button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>
 @if (ViewBag.StateMessage != null)
 {
         <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">

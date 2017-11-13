@@ -20,46 +20,45 @@
     <table class="table table-striped">
         <thead>
             <tr class="bg-primary">
-
-                <th></th>
-
-
-
-
                 <th>
-                    @Html.DisplayNameFor(model => model.Day7)
+                    @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Day6)
+                    @Html.DisplayNameFor(model => model.Period.Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Day5)
+                    @Html.DisplayNameFor(model => model.Desc)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Day4)
+                    @Html.DisplayNameFor(model => model.Day1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Day2)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Day3)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Day2)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.Day1)
-                </th>
-
-
-                <th>
-                    @Html.DisplayNameFor(model => model.Desc)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.Period.Name)
+                    @Html.DisplayNameFor(model => model.Day4)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    @Html.DisplayNameFor(model => model.Day5)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Day6)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Day7)
+                </th>
+                <th></th>
+
+
+
+
+
+
+
+
             </tr>
         </thead>
         <tbody>
@@ -69,25 +68,16 @@
                 {
                     <tr>
                         <td>
-                            @if (Session["SeeAccToCenter"] != null)
-                            {
-                                if ((bool)Session["SeeAccToCenter"] == true)
-                                {
-                                    <div style="width:130px;">
-                                        <a href="/Regiments/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                        <a href="/Regiments/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                        <a href="/Regiments/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                    </div>
-                                }
-                            }
-                            else
-                            {
-                                <a href="/Regiments/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                            }
+                            @Html.DisplayFor(modelItem => item.Name)
                         </td>
-
                         <td>
-                            @if (item.Day7 != null && item.Day7 == true)
+                            @Html.DisplayFor(modelItem => item.Period.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Desc)
+                        </td>
+                        <td>
+                            @if (item.Day1 != null && item.Day1 == true)
                             {
                                 @:نعم
                 }
@@ -97,7 +87,7 @@
                 }
                         </td>
                         <td>
-                            @if (item.Day6 != null && item.Day6 == true)
+                            @if (item.Day2 != null && item.Day2 == true)
                             {
                                 @:نعم
                 }
@@ -107,7 +97,7 @@
                 }
                         </td>
                         <td>
-                            @if (item.Day5 != null && item.Day5 == true)
+                            @if (item.Day3 != null && item.Day3 == true)
                             {
                                 @:نعم
                 }
@@ -127,18 +117,7 @@
                 }
                         </td>
                         <td>
-                            @if (item.Day3 != null && item.Day3 == true)
-                            {
-                                @:نعم
-                }
-                            else
-                            {
-                                @:لا
-                }
-                        </td>
-
-                        <td>
-                            @if (item.Day2 != null && item.Day2 == true)
+                            @if (item.Day5 != null && item.Day5 == true)
                             {
                                 @:نعم
                 }
@@ -148,7 +127,7 @@
                 }
                         </td>
                         <td>
-                            @if (item.Day1 != null && item.Day1 == true)
+                            @if (item.Day6 != null && item.Day6 == true)
                             {
                                 @:نعم
                 }
@@ -158,16 +137,39 @@
                 }
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Desc)
+                            @if (item.Day7 != null && item.Day7 == true)
+                            {
+                                @:نعم
+                }
+                            else
+                            {
+                                @:لا
+                }
                         </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Period.Name)
-                        </td>
+
 
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @if (Session["SeeAccToCenter"] != null)
+                            {
+                                if ((bool)Session["SeeAccToCenter"] == true)
+                                {
+                                    <div style="width:130px;">
+                                        <a href="/Regiments/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/Regiments/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a href="/Regiments/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <a href="/Regiments/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                            }
                         </td>
+
+
+
+
                     </tr>
                 }
             }
@@ -175,7 +177,7 @@
 
     </table>
 </div>
-<button id="btnExport" class="btn btn-warning">Export to xls</button>
+<button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>
 
 @if (ViewBag.StateMessage != null)
 {

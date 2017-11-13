@@ -30,10 +30,13 @@
 
         if ($('#desktopTest').is(':hidden')) {
             toggleLeftMenu();
-            document.getElementById("TemplateForm").style.paddingRight = "150px";
+            document.getElementById("TemplateForm").style.marginRight = document.getElementById("leftMenu").clientWidth + 28 + "px";
+            document.getElementById("TemplateForm").style.marginLeft = "auto";
         } else {
-            document.getElementById("TemplateForm").style.paddingRight = "15px";
+            document.getElementById("TemplateForm").style.marginRight = "auto";
+            document.getElementById("TemplateForm").style.marginLeft = "auto";
             
+
         }
         $('#DependedOn').val("")
 
@@ -54,15 +57,40 @@ function openLeftMenu() {
     document.getElementById("leftMenu").style.display = "block";
     document.getElementById("leftMenu").style.height = "100%";
     if ($('#desktopTest').is(':hidden')) {
-        document.getElementById("TemplateForm").style.paddingRight = "150px";
+        document.getElementById("TemplateForm").style.marginRight = document.getElementById("leftMenu").clientWidth + 2 + "px";
+        document.getElementById("TemplateForm").style.marginLeft = "auto";
+
     }
     else {
-        document.getElementById("TemplateForm").style.paddingRight = "15px";
+        document.getElementById("TemplateForm").style.marginRight = "auto";
+        document.getElementById("TemplateForm").style.marginLeft = "auto";
+
     }
     //document.getElementById("TemplateForm").classList = "container body-content";
     //document.getElementById("TemplateForm").classList = "container body-content col-md-11 col-lg-11 col-sm-8 col-xs-8";
     //document.getElementById("leftMenu").classList = "col-md-1 col-lg-1 col-sm-4 col-xs-4";
     open = true;
+}
+
+
+function closeLeftMenu() {
+    document.getElementById("leftMenu").style.height = "0%";
+    if ($('#desktopTest').is(':hidden')) {
+        document.getElementById("TemplateForm").style.marginRight = document.getElementById("leftMenu").clientWidth / 2 + 1 + "px";
+        document.getElementById("TemplateForm").style.marginLeft = document.getElementById("leftMenu").clientWidth / 2 + 1 + "px";
+
+    } else {
+        document.getElementById("TemplateForm").style.marginRight = "auto";
+        document.getElementById("TemplateForm").style.marginLeft = "auto";
+    }
+    //document.getElementById("TemplateForm").classList = "container body-content";
+    open = false;
+}
+
+
+
+function toggleLeftMenu() {
+    open ? closeLeftMenu() : openLeftMenu();
 }
 
 $("#CenterType").on("change", function () {
@@ -101,22 +129,7 @@ $('#btnImport').on("click", function () {
     toggleimport ? $('#ImportExcel').css('display', 'block') : $('#ImportExcel').css('display', 'none');
 
 });
-function closeLeftMenu() {
-    document.getElementById("leftMenu").style.height = "0%";
-    if ($('#desktopTest').is(':hidden')) {
-        document.getElementById("TemplateForm").style.paddingRight = "15px";
-    } else {
-        document.getElementById("TemplateForm").style.paddingRight = "15px";
-    }
-    //document.getElementById("TemplateForm").classList = "container body-content";
-    open = false;
-    }
 
-
-
-function toggleLeftMenu() {
-    open ? closeLeftMenu() : openLeftMenu();
-}
 
 function GoToDefault() {
     window.location.href = "/Home/Default";

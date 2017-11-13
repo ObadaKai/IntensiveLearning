@@ -19,79 +19,27 @@
     <table class="table table-striped">
         <thead>
             <tr class="bg-primary">
-                <th></th>
                 <th>
-                    @Html.DisplayNameFor(model => model.SeeTeachers)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SeeAccToCenter)
+                    @Html.DisplayNameFor(model => model.Type)
                 </th>
 
                 <th>
-                    @Html.DisplayNameFor(model => model.SeeAccToCity)
-                </th>
-
-
-                <th>
-                    @Html.DisplayNameFor(model => model.SeeAllButFinance)
-                </th>
-
-
-                <th>
-                    @Html.DisplayNameFor(model => model.SeeAll)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.BuyingAcceptance)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.HighAcceptance)
+                    @Html.DisplayNameFor(model => model.Manager)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Finance)
+                    @Html.DisplayNameFor(model => model.CoManager)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.AddStudent)
-                </th>
-
-
-                <th>
-                    @Html.DisplayNameFor(model => model.AddPresence)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.ApproveExam)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.AddExam)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.AddDaileyReport)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.AddSchoolManagingTools)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.AddCitesAndCenters)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.AddSchoolEmployees)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.AddSchoolManagers)
+                    @Html.DisplayNameFor(model => model.SchoolManager)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.AddCOManagers)
+                    @Html.DisplayNameFor(model => model.NormalEmployee)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.AddManagers)
+                    @Html.DisplayNameFor(model => model.AddNewEmployeeType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AddNewProject)
                 </th>
 
                 <th>
@@ -99,35 +47,63 @@
                 </th>
 
                 <th>
-                    @Html.DisplayNameFor(model => model.AddNewProject)
+                    @Html.DisplayNameFor(model => model.AddManagers)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.AddNewEmployeeType)
-                </th>
-
-
-                <th>
-                    @Html.DisplayNameFor(model => model.NormalEmployee)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.SchoolManager)
-                </th>
-
-
-                <th>
-                    @Html.DisplayNameFor(model => model.CoManager)
-                </th>
-
-
-                <th>
-                    @Html.DisplayNameFor(model => model.Manager)
+                    @Html.DisplayNameFor(model => model.AddCOManagers)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Type)
+                    @Html.DisplayNameFor(model => model.AddSchoolManagers)
                 </th>
-
-
+                <th>
+                    @Html.DisplayNameFor(model => model.AddSchoolEmployees)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AddCitesAndCenters)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AddSchoolManagingTools)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AddDaileyReport)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AddExam)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApproveExam)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AddPresence)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AddStudent)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Finance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HighAcceptance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BuyingAcceptance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SeeAll)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SeeAllButFinance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SeeAccToCity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SeeAccToCenter)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SeeTeachers)
+                </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -138,29 +114,10 @@
                 {
                     <tr>
                         <td>
-                            @if (Session["AddNewEmployeeType"] != null)
-                            {
-                                if ((bool)Session["AddNewEmployeeType"] == true)
-                                {
-                                    <div style="width:130px;">
-                                        <a href="/EmployeeTypes/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                        <a href="/EmployeeTypes/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                        <a href="/EmployeeTypes/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                    </div>
-                                }
-                            }
-                            else
-                            {
-                                <a href="/EmployeeTypes/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                            }
+                            <strong>@Html.DisplayFor(modelItem => item.Type)</strong>
                         </td>
-
-
-
-
-
                         <td>
-                            @if (item.SeeTeachers != null && item.SeeTeachers == true)
+                            @if (item.Manager != null && item.Manager == true)
                             {
                                 @:نعم
 	                            }
@@ -170,7 +127,217 @@
                             }
                         </td>
                         <td>
-                            @if (item.SeeAccToCenter != null && item.SeeAccToCenter == true)
+                            @if (item.CoManager != null && item.CoManager == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.SchoolManager != null && item.SchoolManager == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.NormalEmployee != null && item.NormalEmployee == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.AddNewEmployeeType != null && item.AddNewEmployeeType == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.AddNewProject != null && item.AddNewProject == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.AddBuyingRequest != null && item.AddBuyingRequest == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.AddManagers != null && item.AddManagers == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.AddCOManagers != null && item.AddCOManagers == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.AddSchoolManagers != null && item.AddSchoolManagers == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.AddSchoolEmployees != null && item.AddSchoolEmployees == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.AddCitesAndCenters != null && item.AddCitesAndCenters == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.AddSchoolManagingTools != null && item.AddSchoolManagingTools == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.AddDaileyReport != null && item.AddDaileyReport == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.AddExam != null && item.AddExam == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.ApproveExam != null && item.ApproveExam == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.AddPresence != null && item.AddPresence == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.AddStudent != null && item.AddStudent == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.Finance != null && item.Finance == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.HighAcceptance != null && item.HighAcceptance == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.BuyingAcceptance != null && item.BuyingAcceptance == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.SeeAll != null && item.SeeAll == true)
+                            {
+                                @:نعم
+	                            }
+                            else
+                            {
+                                @:لا
+                            }
+                        </td>
+                        <td>
+                            @if (item.SeeAllButFinance != null && item.SeeAllButFinance == true)
                             {
                                 @:نعم
 	                            }
@@ -190,252 +357,7 @@
                             }
                         </td>
                         <td>
-                            @if (item.SeeAllButFinance != null && item.SeeAllButFinance == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-                        <td>
-                            @if (item.SeeAll != null && item.SeeAll == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-
-
-                        <td>
-                            @if (item.BuyingAcceptance != null && item.BuyingAcceptance == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-
-                        <td>
-                            @if (item.HighAcceptance != null && item.HighAcceptance == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-
-                        <td>
-                            @if (item.Finance != null && item.Finance == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-
-                        <td>
-                            @if (item.AddStudent != null && item.AddStudent == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-
-                        <td>
-                            @if (item.AddPresence != null && item.AddPresence == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-
-                        <td>
-                            @if (item.ApproveExam != null && item.ApproveExam == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-
-                        <td>
-                            @if (item.AddExam != null && item.AddExam == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-
-                        <td>
-                            @if (item.AddDaileyReport != null && item.AddDaileyReport == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-
-                        <td>
-                            @if (item.AddSchoolManagingTools != null && item.AddSchoolManagingTools == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-
-                        <td>
-                            @if (item.AddCitesAndCenters != null && item.AddCitesAndCenters == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-
-                        <td>
-                            @if (item.AddSchoolEmployees != null && item.AddSchoolEmployees == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-                        <td>
-                            @if (item.AddSchoolManagers != null && item.AddSchoolManagers == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-                        <td>
-                            @if (item.AddCOManagers != null && item.AddCOManagers == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-                        <td>
-                            @if (item.AddManagers != null && item.AddManagers == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-
-                        <td>
-                            @if (item.AddBuyingRequest != null && item.AddBuyingRequest == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-                        <td>
-                            @if (item.AddNewProject != null && item.AddNewProject == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-                        <td>
-                            @if (item.AddNewEmployeeType != null && item.AddNewEmployeeType == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-                        <td>
-                            @if (item.NormalEmployee != null && item.NormalEmployee == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-                        <td>
-                            @if (item.SchoolManager != null && item.SchoolManager == true)
-                            {
-                                @:نعم
-	                            }
-                            else
-                            {
-                                @:لا
-                            }
-                        </td>
-
-
-                        <td>
-                            @if (item.CoManager != null && item.CoManager == true)
+                            @if (item.SeeAccToCenter != null && item.SeeAccToCenter == true)
                             {
                                 @:نعم
 	                            }
@@ -445,7 +367,7 @@
                             }
                         </td>
                         <td>
-                            @if (item.Manager != null && item.Manager == true)
+                            @if (item.SeeTeachers != null && item.SeeTeachers == true)
                             {
                                 @:نعم
 	                            }
@@ -454,9 +376,22 @@
                                 @:لا
                             }
                         </td>
-
                         <td>
-                            <strong>@Html.DisplayFor(modelItem => item.Type)</strong>
+                            @if (Session["AddNewEmployeeType"] != null)
+                            {
+                                if ((bool)Session["AddNewEmployeeType"] == true)
+                                {
+                                    <div style="width:130px;">
+                                        <a href="/EmployeeTypes/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/EmployeeTypes/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a href="/EmployeeTypes/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <a href="/EmployeeTypes/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                            }
                         </td>
                     </tr>
                 }
@@ -464,7 +399,7 @@
         </tbody>
     </table>
 </div>
-<button id="btnExport" class="btn btn-warning">Export to xls</button>
+<button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>
 @if (ViewBag.StateMessage != null)
 {
     <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
