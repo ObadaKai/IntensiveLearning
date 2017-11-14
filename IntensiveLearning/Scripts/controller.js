@@ -41,7 +41,8 @@
                 "Certificate": $scope.Certificate, "Mark": $scope.Mark,
                 "SDate": $scope.SDate,
                 "Regimentid": $scope.Regimentid, "Stageid": $scope.Stageid,
-                "Centerid": $scope.Centerid, "Sex": $scope.Sex, "FathersName": $scope.FathersName
+                "Centerid": $scope.Centerid, "Sex": $scope.Sex, "FathersName": $scope.FathersName, "OldSchool": $scope.OldSchool,
+                "Mothersname": $scope.Mothersname, "StudentState": $scope.StudentState,
             };
 
 
@@ -70,9 +71,13 @@
                     $scope.Centerid = null;
                     $scope.Sex = null;
                     $scope.FathersName = null;
+                    $scope.Mothersname = null;
+                    $scope.OldSchool = null;
+                    $scope.StudentState = null;
                     $scope.File = null;
                     $scope.Warning = false;
                     $scope.Success = true;
+
                     formData.delete('student');
                     $("#imgInp").val(null);
                     $timeout(function () {

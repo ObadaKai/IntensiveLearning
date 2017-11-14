@@ -19,26 +19,7 @@
         <p>
             @Html.DisplayFor(model => model.StageName)
         </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.SDate)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.SDate)
-        </p>
-
-        <h4>
-            @Html.DisplayNameFor(model => model.EDate)
-        </h4>
-
-        <p>
-            @Html.DisplayFor(model => model.EDate)
-        </p>
-
-
-
-
+        
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()

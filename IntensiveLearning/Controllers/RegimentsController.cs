@@ -23,7 +23,7 @@ namespace IntensiveLearning.Controllers
                 if (type.SeeAccToCenter == true || type.SeeAccToCity == true || type.SeeAll == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
                 {
 
-                    var regiments = db.Regiments.Include(r => r.Period);
+                    var regiments = db.Regiments;
                     if (TempData["Message"] != null)
                     {
                         ViewBag.StateMessage = TempData["Message"];
@@ -59,6 +59,7 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+
                     return View(regiment);
 
                 }
@@ -114,8 +115,8 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
+            ViewBag.Periodid = new SelectList(db.Periods, "id", "Name",regiment.Periodid);
 
-            ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", regiment.Periodid);
             return View(regiment);
         }
 
@@ -141,6 +142,7 @@ namespace IntensiveLearning.Controllers
                         return HttpNotFound();
                     }
                     ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", regiment.Periodid);
+
                     return View(regiment);
 
                 }
@@ -166,6 +168,7 @@ namespace IntensiveLearning.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", regiment.Periodid);
+
             return View(regiment);
         }
 
@@ -208,7 +211,7 @@ namespace IntensiveLearning.Controllers
             if (Session["ID"] != null)
             {
                                 var typeName = (string)Session["Type"];var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-                if (type.AddSchoolManagingTools == true)
+                if (type.SeeAccToCenter == true)
                 {
 
 

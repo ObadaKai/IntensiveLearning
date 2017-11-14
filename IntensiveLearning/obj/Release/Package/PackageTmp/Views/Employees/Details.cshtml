@@ -63,6 +63,16 @@
                     @Html.DisplayFor(model => model.EDate)
                 </p>
             }
+            @if (Model.InsideOrOutside != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.InsideOrOutside)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.InsideOrOutside)
+                </p>
+            }
             @if (Model.EmployeeType.Type != null)
             {
                 <h4>
@@ -131,6 +141,26 @@
 
                 <p>
                     @Html.DisplayFor(model => model.BDate)
+                </p>
+            }
+            @if (Model.ExpYears != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.ExpYears)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.ExpYears)
+                </p>
+            }
+            @if (Model.OldJob != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.OldJob)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.OldJob)
                 </p>
             }
             @if (Model.CType != null)

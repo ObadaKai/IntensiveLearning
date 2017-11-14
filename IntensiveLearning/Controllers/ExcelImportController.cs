@@ -121,9 +121,11 @@ namespace IntensiveLearning.Views.TryOut
                     employee.name = ds.Tables[0].Rows[i]["الاسم"].ToString();
                     employee.surname = ds.Tables[0].Rows[i]["الكنية"].ToString();
                     employee.FathersName = ds.Tables[0].Rows[i]["اسم الأب"].ToString();
+
                     try
                     {
-                        employee.BDate = DateTime.ParseExact(ds.Tables[0].Rows[i]["تاريخ الولادة"].ToString(), "d/M/yyyy", CultureInfo.InvariantCulture);
+                        employee.BDate = DateTime.Parse(ds.Tables[0].Rows[i]["تاريخ الولادة"].ToString(), CultureInfo.CreateSpecificCulture("fr-FR"));
+
                     }
                     catch
                     {
@@ -131,6 +133,17 @@ namespace IntensiveLearning.Views.TryOut
                         employee.BDate = null;
                     
                     }
+                    employee.OldJob = ds.Tables[0].Rows[i]["الوظيفة القديمة"].ToString();
+                    try
+                    {
+                        employee.ExpYears = Convert.ToInt32(ds.Tables[0].Rows[i]["عدد سنوات الخبرة"].ToString());
+                    }
+                    catch
+                    {
+                        employee.ExpYears = null;
+                    }
+                    employee.InsideOrOutside = ds.Tables[0].Rows[i]["داخل أو خارج الملاك"].ToString();
+
                     employee.Certificate = ds.Tables[0].Rows[i]["الشهادة"].ToString();
                     if (ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "ابتدائي" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "اعدادي" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "ثانوي" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "جامعي 4 سنوات" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "جامعي 5 سنوات" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "جامعي 6 سنوات" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "ماجستير" || ds.Tables[0].Rows[i]["نوع الشهادة"].ToString() == "دكتوراة")
                     {
@@ -144,7 +157,8 @@ namespace IntensiveLearning.Views.TryOut
                     }
                     try
                     {
-                        employee.SDate = DateTime.ParseExact(ds.Tables[0].Rows[i]["تاريخ البدء"].ToString(), "d/M/yyyy", CultureInfo.InvariantCulture);
+                        employee.SDate = DateTime.Parse(ds.Tables[0].Rows[i]["تاريخ البدء"].ToString(), CultureInfo.CreateSpecificCulture("fr-FR"));
+
                     }
                     catch
                     {
@@ -279,17 +293,6 @@ namespace IntensiveLearning.Views.TryOut
                         }
                     }
 
-
-
-
-                    try
-                    {
-                        employee.Salary = Convert.ToInt32(ds.Tables[0].Rows[i]["الراتب"].ToString());
-                    }
-                    catch
-                    {
-                        employee.Salary = null;
-                    }
                     try
                     {
                         employee.Username = ds.Tables[0].Rows[i]["اسم المستخدم"].ToString();
@@ -440,9 +443,11 @@ namespace IntensiveLearning.Views.TryOut
                     student.Name = ds.Tables[0].Rows[i]["الاسم"].ToString();
                     student.Surname = ds.Tables[0].Rows[i]["الكنية"].ToString();
                     student.FathersName = ds.Tables[0].Rows[i]["اسم الأب"].ToString();
+                    student.Mothersname = ds.Tables[0].Rows[i]["اسم الأم"].ToString();
+
                     try
                     {
-                        student.BDate = DateTime.ParseExact(ds.Tables[0].Rows[i]["تاريخ الولادة"].ToString(), "d/M/yyyy", CultureInfo.InvariantCulture);
+                        student.BDate = DateTime.Parse(ds.Tables[0].Rows[i]["تاريخ الولادة"].ToString(), CultureInfo.CreateSpecificCulture("fr-FR"));
                     }
                     catch
                     {
@@ -459,16 +464,25 @@ namespace IntensiveLearning.Views.TryOut
                     {
                         student.Mark = null;
                     }
+                    student.OldSchool = ds.Tables[0].Rows[i]["المدرسة التي كان يدرس فيها"].ToString();
+                    string mutassarreb = ds.Tables[0].Rows[i]["وضع التلميذ متسرب/راسب/منقطع"].ToString();
+                    if (mutassarreb == "متسرب" || mutassarreb == "راسب" || mutassarreb == "منقطع")
+                    {
+                        student.StudentState = ds.Tables[0].Rows[i]["وضع التلميذ متسرب/راسب/منقطع"].ToString();
+
+                    }
+                    
                     if (ds.Tables[0].Rows[i]["الجنس"].ToString() == "ذكر"|| ds.Tables[0].Rows[i]["الجنس"].ToString() == "انثى")
                     {
                         student.Sex = ds.Tables[0].Rows[i]["الجنس"].ToString();
 
                     }
+                    var sdate = ds.Tables[0].Rows[i]["تاريخ البدء"].ToString();
                     try
                     {
-                        student.SDate = DateTime.ParseExact(ds.Tables[0].Rows[i]["تاريخ البدء"].ToString(), "d/M/yyyy", CultureInfo.InvariantCulture);
+                        student.SDate = DateTime.Parse(ds.Tables[0].Rows[i]["تاريخ البدء"].ToString(), CultureInfo.CreateSpecificCulture("fr-FR"));
                     }
-                    catch
+                    catch(Exception x)
                     {
 
                         student.SDate = null;

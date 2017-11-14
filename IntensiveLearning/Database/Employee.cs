@@ -89,6 +89,12 @@ namespace IntensiveLearning.Database
         public Nullable<int> ApprovedBy { get; set; }
         public Nullable<System.DateTime> AddingDate { get; set; }
         public Nullable<System.TimeSpan> AddingTime { get; set; }
+        [DisplayName("⁄œœ ”‰Ê«  «·Œ»—…")]
+        public Nullable<int> ExpYears { get; set; }
+        [DisplayName("«·ÊŸÌ›… «·ﬁœÌ„…")]
+        public string OldJob { get; set; }
+        [DisplayName("œ«Œ· √Ê Œ«—Ã «·„·«ﬂ")]
+        public string InsideOrOutside { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Center> Centers { get; set; }

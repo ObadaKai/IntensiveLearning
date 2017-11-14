@@ -25,12 +25,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.StageName)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EDate)
-                </th>
+
                 <th></th>
 
 
@@ -49,13 +44,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.StageName)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SDate)
-                        </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EDate)
-                        </td>
 
                         <td>
                             @if (Session["AddSchoolManagingTools"] != null)

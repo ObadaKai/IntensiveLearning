@@ -145,6 +145,9 @@
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Employees" FromRole="Employees" ToRole="Prooves" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Employees" FromRole="Employees" ToRole="Students" />
     <NavigationProperty Name="Students1" Relationship="Self.FK_Students_Employees1" FromRole="Employees" ToRole="Students" />
+    <Property Name="ExpYears" Type="Int32" />
+    <Property Name="OldJob" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InsideOrOutside" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="EmployeeType">
     <Key>
@@ -230,6 +233,10 @@
     <Property Name="Lesson7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Regimentid" Type="Int32" />
     <NavigationProperty Name="Regiment" Relationship="Self.FK_Lessons_Regiments2" FromRole="Lessons" ToRole="Regiments" />
+    <Property Name="Stageid" Type="Int32" />
+    <Property Name="Periodid" Type="Int32" />
+    <NavigationProperty Name="Period" Relationship="TaalimModel.FK_Lessons_Periods" FromRole="Lesson" ToRole="Period" />
+    <NavigationProperty Name="Stage" Relationship="TaalimModel.FK_Lessons_Stages" FromRole="Lesson" ToRole="Stage" />
   </EntityType>
   <EntityType Name="NonUserAddRequest">
     <Key>
@@ -286,7 +293,8 @@
     <Property Name="EndTime" Type="Time" Precision="7" />
     <NavigationProperty Name="Centers" Relationship="Self.FK_Centers_Periods" FromRole="Periods" ToRole="Centers" />
     <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Periods" FromRole="Periods" ToRole="Employees" />
-    <NavigationProperty Name="Regiments" Relationship="Self.FK_Regiments_Periods" FromRole="Periods" ToRole="Regiments" />
+    <NavigationProperty Name="Lessons" Relationship="TaalimModel.FK_Lessons_Periods" FromRole="Period" ToRole="Lesson" />
+    <NavigationProperty Name="Regiments" Relationship="TaalimModel.FK_Regiments_Periods" FromRole="Period" ToRole="Regiment" />
   </EntityType>
   <EntityType Name="Presence">
     <Key>
@@ -347,18 +355,10 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Day1" Type="Boolean" />
-    <Property Name="Day2" Type="Boolean" />
-    <Property Name="Day3" Type="Boolean" />
-    <Property Name="Day4" Type="Boolean" />
-    <Property Name="Day5" Type="Boolean" />
-    <Property Name="Day6" Type="Boolean" />
-    <Property Name="Day7" Type="Boolean" />
-    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Periodid" Type="Int32" />
     <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Regiments2" FromRole="Regiments" ToRole="Lessons" />
-    <NavigationProperty Name="Period" Relationship="Self.FK_Regiments_Periods" FromRole="Regiments" ToRole="Periods" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Regiments" FromRole="Regiments" ToRole="Students" />
+    <Property Name="Periodid" Type="Int32" />
+    <NavigationProperty Name="Period" Relationship="TaalimModel.FK_Regiments_Periods" FromRole="Regiment" ToRole="Period" />
   </EntityType>
   <EntityType Name="Stage">
     <Key>
@@ -366,10 +366,9 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="StageName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="SDate" Type="DateTime" Precision="0" />
-    <Property Name="EDate" Type="DateTime" Precision="0" />
     <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_Stages" FromRole="Stages" ToRole="Examination" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Stages" FromRole="Stages" ToRole="Students" />
+    <NavigationProperty Name="Lessons" Relationship="TaalimModel.FK_Lessons_Stages" FromRole="Stage" ToRole="Lesson" />
   </EntityType>
   <EntityType Name="Student">
     <Key>
@@ -404,6 +403,9 @@
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Students" FromRole="Students" ToRole="Prooves" />
     <NavigationProperty Name="Regiment" Relationship="Self.FK_Students_Regiments" FromRole="Students" ToRole="Regiments" />
     <NavigationProperty Name="Stage" Relationship="Self.FK_Students_Stages" FromRole="Students" ToRole="Stages" />
+    <Property Name="OldSchool" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StudentState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mothersname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Study_subject">
     <Key>
@@ -825,18 +827,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Regiments_Periods">
-    <End Role="Periods" Type="Self.Period" Multiplicity="0..1" />
-    <End Role="Regiments" Type="Self.Regiment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Periods">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Regiments">
-        <PropertyRef Name="Periodid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Presence_Students">
     <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
     <End Role="Presence" Type="Self.Presence" Multiplicity="*" />
@@ -1042,10 +1032,6 @@
       <End Role="Order" EntitySet="Orders" />
       <End Role="Prooves" EntitySet="Prooves" />
     </AssociationSet>
-    <AssociationSet Name="FK_Regiments_Periods" Association="Self.FK_Regiments_Periods">
-      <End Role="Periods" EntitySet="Periods" />
-      <End Role="Regiments" EntitySet="Regiments" />
-    </AssociationSet>
     <AssociationSet Name="FK_Presence_Students" Association="Self.FK_Presence_Students">
       <End Role="Students" EntitySet="Students" />
       <End Role="Presence" EntitySet="Presences" />
@@ -1062,5 +1048,53 @@
       <End Role="Stages" EntitySet="Stages" />
       <End Role="Students" EntitySet="Students" />
     </AssociationSet>
+    <AssociationSet Name="FK_Lessons_Periods" Association="TaalimModel.FK_Lessons_Periods">
+      <End Role="Period" EntitySet="Periods" />
+      <End Role="Lesson" EntitySet="Lessons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lessons_Stages" Association="TaalimModel.FK_Lessons_Stages">
+      <End Role="Stage" EntitySet="Stages" />
+      <End Role="Lesson" EntitySet="Lessons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Regiments_Periods" Association="TaalimModel.FK_Regiments_Periods">
+      <End Role="Period" EntitySet="Periods" />
+      <End Role="Regiment" EntitySet="Regiments" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_Lessons_Periods">
+    <End Type="TaalimModel.Period" Role="Period" Multiplicity="0..1" />
+    <End Type="TaalimModel.Lesson" Role="Lesson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Period">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Lesson">
+        <PropertyRef Name="Periodid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lessons_Stages">
+    <End Type="TaalimModel.Stage" Role="Stage" Multiplicity="0..1" />
+    <End Type="TaalimModel.Lesson" Role="Lesson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stage">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Lesson">
+        <PropertyRef Name="Stageid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Regiments_Periods">
+    <End Type="TaalimModel.Period" Role="Period" Multiplicity="0..1" />
+    <End Type="TaalimModel.Regiment" Role="Regiment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Period">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Regiment">
+        <PropertyRef Name="Periodid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

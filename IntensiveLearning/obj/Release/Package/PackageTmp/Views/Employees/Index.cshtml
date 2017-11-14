@@ -62,6 +62,15 @@
                         @Html.DisplayNameFor(model => model.CType)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.OldJob)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ExpYears)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InsideOrOutside)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.State)
                     </th>
                     <th>
@@ -105,9 +114,9 @@
                     {
                         <tr>
                             <td @if (item.Approval == null) { @: style="background-color:gray"
-                                                                                                                                                                                                                                                                                                } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:forestgreen"
-                                                                                                                                                                                                                                                                                                    } else { @: style="background-color:red"
-                                                                                                                                                                                                                                                                                                    } }></td>
+                                                                                                                                                                                                                                                                                                                                } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:forestgreen"
+                                                                                                                                                                                                                                                                                                                                    } else { @: style="background-color:red"
+                                                                                                                                                                                                                                                                                                                                    } }></td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.name)
                             </td>
@@ -122,6 +131,15 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.CType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OldJob)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExpYears)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.InsideOrOutside)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.State)
@@ -560,6 +578,15 @@
                         @Html.DisplayNameFor(model => model.CType)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.OldJob)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ExpYears)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InsideOrOutside)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.State)
                     </th>
                     <th>
@@ -607,6 +634,9 @@
                     <td>{{Exam.EmployeeBDate | date:'MM/dd/yyyy'}}</td>
                     <td>{{Exam.Certificate}}</td>
                     <td>{{Exam.CType}}</td>
+                    <td>{{Exam.OldJob}}</td>
+                    <td>{{Exam.ExpYears}}</td>
+                    <td>{{Exam.InsideOrOutside}}</td>
                     <td>{{Exam.State}}</td>
                     <td>{{Exam.EmployeeSDate | date:'MM/dd/yyyy'}}</td>
                     <td>{{Exam.EmployeeEDate | date:'MM/dd/yyyy'}}</td>

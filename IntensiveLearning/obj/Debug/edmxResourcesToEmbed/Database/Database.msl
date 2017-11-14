@@ -89,6 +89,9 @@
     <EntitySetMapping Name="Employees">
       <EntityTypeMapping TypeName="TaalimModel.Employee">
         <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="InsideOrOutside" ColumnName="InsideOrOutside" />
+          <ScalarProperty Name="OldJob" ColumnName="OldJob" />
+          <ScalarProperty Name="ExpYears" ColumnName="ExpYears" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="surname" ColumnName="surname" />
@@ -181,6 +184,8 @@
     <EntitySetMapping Name="Lessons">
       <EntityTypeMapping TypeName="TaalimModel.Lesson">
         <MappingFragment StoreEntitySet="Lessons">
+          <ScalarProperty Name="Periodid" ColumnName="Periodid" />
+          <ScalarProperty Name="Stageid" ColumnName="Stageid" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Day" ColumnName="Day" />
           <ScalarProperty Name="State" ColumnName="State" />
@@ -297,17 +302,9 @@
     <EntitySetMapping Name="Regiments">
       <EntityTypeMapping TypeName="TaalimModel.Regiment">
         <MappingFragment StoreEntitySet="Regiments">
+          <ScalarProperty Name="Periodid" ColumnName="Periodid" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Day1" ColumnName="Day1" />
-          <ScalarProperty Name="Day2" ColumnName="Day2" />
-          <ScalarProperty Name="Day3" ColumnName="Day3" />
-          <ScalarProperty Name="Day4" ColumnName="Day4" />
-          <ScalarProperty Name="Day5" ColumnName="Day5" />
-          <ScalarProperty Name="Day6" ColumnName="Day6" />
-          <ScalarProperty Name="Day7" ColumnName="Day7" />
-          <ScalarProperty Name="Desc" ColumnName="Desc" />
-          <ScalarProperty Name="Periodid" ColumnName="Periodid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -316,14 +313,15 @@
         <MappingFragment StoreEntitySet="Stages">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="StageName" ColumnName="StageName" />
-          <ScalarProperty Name="SDate" ColumnName="SDate" />
-          <ScalarProperty Name="EDate" ColumnName="EDate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Students">
       <EntityTypeMapping TypeName="TaalimModel.Student">
         <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="Mothersname" ColumnName="Mothersname" />
+          <ScalarProperty Name="StudentState" ColumnName="StudentState" />
+          <ScalarProperty Name="OldSchool" ColumnName="OldSchool" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="BDate" ColumnName="BDate" />
           <ScalarProperty Name="Name" ColumnName="Name" />

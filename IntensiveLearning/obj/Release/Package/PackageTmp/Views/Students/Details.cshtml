@@ -12,13 +12,7 @@
         <div class="col-sm-6 hidden-xs">
             <div style="padding-right:10px;">
 
-                <h4>
-                    @Html.DisplayNameFor(model => model.Surname)
-                </h4>
 
-                <p>
-                    @Html.DisplayFor(model => model.Surname)
-                </p>
                 <h4>
                     @Html.DisplayNameFor(model => model.Certificate)
                 </h4>
@@ -34,7 +28,20 @@
                 <p>
                     @Html.DisplayFor(model => model.Mark)
                 </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.OldSchool)
+                </h4>
 
+                <p>
+                    @Html.DisplayFor(model => model.OldSchool)
+                </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.StudentState)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.StudentState)
+                </p>
                 <h4>
                     @Html.DisplayNameFor(model => model.SDate)
                 </h4>
@@ -73,13 +80,27 @@
         <div class="col-sm-6 hidden-xs">
             <div style="padding-left:10px;">
                 <h4>
+                    @Html.DisplayNameFor(model => model.StudentNumber)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.StudentNumber)
+                </p>
+
+                <h4>
                     @Html.DisplayNameFor(model => model.Name)
                 </h4>
 
                 <p>
                     @Html.DisplayFor(model => model.Name)
                 </p>
+                <h4>
+                    @Html.DisplayNameFor(model => model.Surname)
+                </h4>
 
+                <p>
+                    @Html.DisplayFor(model => model.Surname)
+                </p>
                 <h4>
                     @Html.DisplayNameFor(model => model.FathersName)
                 </h4>
@@ -88,13 +109,12 @@
                     @Html.DisplayFor(model => model.FathersName)
                 </p>
                 <h4>
-                    @Html.DisplayNameFor(model => model.StudentNumber)
+                    @Html.DisplayNameFor(model => model.Mothersname)
                 </h4>
 
                 <p>
-                    @Html.DisplayFor(model => model.StudentNumber)
+                    @Html.DisplayFor(model => model.Mothersname)
                 </p>
-
                 <h4>
                     @Html.DisplayNameFor(model => model.BDate)
                 </h4>
@@ -157,6 +177,13 @@
 
         <div class="visible-xs">
             <h4>
+                @Html.DisplayNameFor(model => model.StudentNumber)
+            </h4>
+
+            <p>
+                @Html.DisplayFor(model => model.StudentNumber)
+            </p>
+            <h4>
                 @Html.DisplayNameFor(model => model.Name)
             </h4>
 
@@ -180,12 +207,13 @@
                 @Html.DisplayFor(model => model.FathersName)
             </p>
             <h4>
-                @Html.DisplayNameFor(model => model.StudentNumber)
+                @Html.DisplayNameFor(model => model.Mothersname)
             </h4>
 
             <p>
-                @Html.DisplayFor(model => model.StudentNumber)
+                @Html.DisplayFor(model => model.Mothersname)
             </p>
+
 
 
             <h4>
@@ -258,6 +286,20 @@
 
             <p>
                 @Html.DisplayFor(model => model.Mark)
+            </p>
+            <h4>
+                @Html.DisplayNameFor(model => model.OldSchool)
+            </h4>
+
+            <p>
+                @Html.DisplayFor(model => model.OldSchool)
+            </p>
+            <h4>
+                @Html.DisplayNameFor(model => model.StudentState)
+            </h4>
+
+            <p>
+                @Html.DisplayFor(model => model.StudentState)
             </p>
 
             <h4>

@@ -21,6 +21,7 @@ namespace IntensiveLearning.Database
         {
             this.Centers = new HashSet<Center>();
             this.Employees = new HashSet<Employee>();
+            this.Lessons = new HashSet<Lesson>();
             this.Regiments = new HashSet<Regiment>();
         }
 
@@ -47,6 +48,8 @@ namespace IntensiveLearning.Database
         public virtual ICollection<Center> Centers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lesson> Lessons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Regiment> Regiments { get; set; }
     }

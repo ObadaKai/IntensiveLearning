@@ -327,6 +327,7 @@ textarea {
         }
 
 .table-striped {
+    direction: rtl;
     margin-bottom: 0;
 }
 
@@ -340,7 +341,7 @@ textarea {
     scrollbar-darkshadow-color: #FFFFFF;
     scrollbar-track-color: rgba(36, 157, 127,0.6);
     scrollbar-arrow-color: #FFFFFF;
-    direction:rtl;
+    direction: rtl;
 }
 
     #table_wrapper::-webkit-scrollbar {
@@ -372,7 +373,7 @@ textarea {
     scrollbar-darkshadow-color: #FFFFFF;
     scrollbar-track-color: rgba(36, 157, 127,0.6);
     scrollbar-arrow-color: #FFFFFF;
-    direction:rtl;
+    direction: rtl;
 }
 
     #table_wrapper2::-webkit-scrollbar {

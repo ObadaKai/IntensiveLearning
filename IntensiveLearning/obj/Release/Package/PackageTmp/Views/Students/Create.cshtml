@@ -65,7 +65,18 @@
                             @Html.LabelFor(model => model.SDate, htmlAttributes: new { @class = "control-label " })
                             <input type="date" class="form-control" name="SDate" id="SDate" ng-model="SDate" required />
                         </div>
-
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.OldSchool, htmlAttributes: new { @class = "control-label " })
+                            <input type="text" class="form-control" name="OldSchool" id="OldSchool" ng-model="OldSchool" />
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StudentState, htmlAttributes: new { @class = "control-label " })
+                            <select class="form-control" name="StudentState" id="StudentState" ng-model="StudentState">
+                                <option>متسرب</option>
+                                <option>راسب</option>
+                                <option>منقطع</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label " })
 
@@ -102,6 +113,10 @@
                             @Html.LabelFor(model => model.FathersName, htmlAttributes: new { @class = "control-label " })
                             <input type="text" class="form-control" name="FathersName" id="FathersName" ng-model="FathersName" required />
                         </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Mothersname, htmlAttributes: new { @class = "control-label " })
+                            <input type="text" class="form-control" name="Mothersname" id="Mothersname" ng-model="Mothersname" required />
+                        </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Certificate, htmlAttributes: new { @class = "control-label " })
@@ -112,6 +127,8 @@
                             @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label " })
                             <input type="number" class="form-control" name="Mark" id="Mark" ng-model="Mark" required />
                         </div>
+
+
 
 
 
@@ -140,6 +157,10 @@
                         @Html.LabelFor(model => model.FathersName, htmlAttributes: new { @class = "control-label " })
                         <input type="text" class="form-control" name="FathersName" id="FathersName" ng-model="FathersName" required />
                     </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Mothersname, htmlAttributes: new { @class = "control-label " })
+                        <input type="text" class="form-control" name="Mothersname" id="Mothersname" ng-model="Mothersname" required />
+                    </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Certificate, htmlAttributes: new { @class = "control-label " })
@@ -150,7 +171,14 @@
                         @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label " })
                         <input type="number" class="form-control" name="Mark" id="Mark" ng-model="Mark" required />
                     </div>
-
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StudentState, htmlAttributes: new { @class = "control-label " })
+                        <select class="form-control" name="StudentState" id="StudentState" ng-model="StudentState">
+                            <option>متسرب</option>
+                            <option>راسب</option>
+                            <option>منقطع</option>
+                        </select>
+                    </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Centerid, "المركز", htmlAttributes: new { @class = "control-label " })
@@ -186,7 +214,10 @@
                         @Html.LabelFor(model => model.SDate, htmlAttributes: new { @class = "control-label " })
                         <input type="date" class="form-control" name="SDate" id="SDate" ng-model="SDate" required />
                     </div>
-
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.OldSchool, htmlAttributes: new { @class = "control-label " })
+                        <input type="text" class="form-control" name="OldSchool" id="OldSchool" ng-model="OldSchool" />
+                    </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label " })
 

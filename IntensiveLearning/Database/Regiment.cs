@@ -7,7 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-
 namespace IntensiveLearning.Database
 {
     using System;
@@ -23,33 +22,17 @@ namespace IntensiveLearning.Database
             this.Lessons = new HashSet<Lesson>();
             this.Students = new HashSet<Student>();
         }
-
+    
         public int id { get; set; }
         [Required]
         [DisplayName("«”„ «·‘⁄»…")]
         public string Name { get; set; }
-        [DisplayName("«·ÌÊ„ 1")]
-        public Nullable<bool> Day1 { get; set; }
-        [DisplayName("«·ÌÊ„ 2")]
-        public Nullable<bool> Day2 { get; set; }
-        [DisplayName("«·ÌÊ„ 3")]
-        public Nullable<bool> Day3 { get; set; }
-        [DisplayName("«·ÌÊ„ 4")]
-        public Nullable<bool> Day4 { get; set; }
-        [DisplayName("«·ÌÊ„ 5")]
-        public Nullable<bool> Day5 { get; set; }
-        [DisplayName("«·ÌÊ„ 6")]
-        public Nullable<bool> Day6 { get; set; }
-        [DisplayName("«·ÌÊ„ 7")]
-        public Nullable<bool> Day7 { get; set; }
-        [DisplayName("«·‘—Õ")]
-        public string Desc { get; set; }
         public Nullable<int> Periodid { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lesson> Lessons { get; set; }
-        public virtual Period Period { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Students { get; set; }
+        public virtual Period Period { get; set; }
     }
 }

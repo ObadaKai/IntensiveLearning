@@ -167,10 +167,21 @@ namespace IntensiveLearning.Controllers
             List<Employee> EmployeeEDate = new List<Employee>();
             List<Employee> StringDate = new List<Employee>();
             List<Employee> Salaries = new List<Employee>();
+            List<Employee> Expyears = new List<Employee>();
             try
             {
                 var salary = Convert.ToDouble(textBox.SearchBoxData);
                 Salaries = db.Employees.Where(x => x.Salary == salary).ToList();
+            }
+            catch (Exception)
+            {
+
+
+            }
+            try
+            {
+                var Expyear = Convert.ToDouble(textBox.SearchBoxData);
+                Expyears = db.Employees.Where(x => x.Salary == Expyear).ToList();
             }
             catch (Exception)
             {
@@ -211,9 +222,10 @@ namespace IntensiveLearning.Controllers
 
             }
             var EmployeeStrings = db.Employees.Where(x => x.name.Contains(searchbox) || x.surname.Contains(searchbox) || x.Center.Name.Contains(searchbox) || x.City.Name.Contains(searchbox) || x.Center.City.Name.Contains(searchbox) || x.Certificate.Contains(searchbox) || x.CType.Contains(searchbox)
-            || x.surname.Contains(searchbox) || x.State.Contains(searchbox) || x.EmployeeType.Type.Contains(searchbox) || x.Period.Name.Contains(searchbox)).ToList();
+            || x.surname.Contains(searchbox) || x.State.Contains(searchbox) || x.EmployeeType.Type.Contains(searchbox) || x.Period.Name.Contains(searchbox) || x.InsideOrOutside.Contains(searchbox) || x.OldJob.Contains(searchbox)).ToList();
 
             EmployeeStrings.AddRange(Salaries);
+            EmployeeStrings.AddRange(Expyears);
             EmployeeStrings.AddRange(StringDate);
 
             if (textBox.SearchBoxData == null)
@@ -308,6 +320,9 @@ namespace IntensiveLearning.Controllers
                 SeeAll = c.EmployeeType.SeeAll,
                 City = c.City.Name,
                 Approval = c.Approval,
+                OldJob = c.OldJob,
+                ExpYears = c.ExpYears,
+                InsideOrOutside = c.InsideOrOutside
             }).ToList();
             var typeName = (string)Session["Type"];
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
@@ -445,6 +460,7 @@ namespace IntensiveLearning.Controllers
         {
             string searchbox = textBox.SearchBoxData;
             List<Student> examNum = new List<Student>();
+            List<Student> StudentNumber = new List<Student>();
             List<Student> BDate = new List<Student>();
             List<Student> SDate = new List<Student>();
             List<Student> EDate = new List<Student>();
@@ -453,6 +469,15 @@ namespace IntensiveLearning.Controllers
             {
                 var num = Convert.ToInt32(searchbox);
                 examNum = db.Students.Where(x => x.Mark == num).ToList();
+            }
+            catch (Exception)
+            {
+
+            }
+            try
+            {
+                var num = Convert.ToInt32(searchbox);
+                StudentNumber = db.Students.Where(x => x.StudentNumber == num).ToList();
             }
             catch (Exception)
             {
@@ -493,11 +518,12 @@ namespace IntensiveLearning.Controllers
 
             }
 
-            var Studentstrings = db.Students.Where(x => x.Center.Name.Contains(searchbox) || x.Name.Contains(searchbox) || x.Surname.Contains(searchbox) || x.Regiment.Name.Contains(searchbox) || x.Stage.StageName.Contains(searchbox)
+            var Studentstrings = db.Students.Where(x => x.Center.Name.Contains(searchbox) || x.Name.Contains(searchbox) || x.Surname.Contains(searchbox) ||x.FathersName.Contains(searchbox)||x.Mothersname.Contains(searchbox) ||x.OldSchool.Contains(searchbox)||x.StudentState.Contains(searchbox)|| x.Regiment.Name.Contains(searchbox) || x.Stage.StageName.Contains(searchbox)
             || x.Certificate.Contains(searchbox) || x.State.Contains(searchbox) || x.Sex.Contains(searchbox)).ToList();
 
             Studentstrings.AddRange(DateTextBox);
             Studentstrings.AddRange(examNum);
+            Studentstrings.AddRange(StudentNumber);
             Studentstrings.AddRange(BDate);
             Studentstrings.AddRange(SDate);
             Studentstrings.AddRange(EDate);
@@ -532,7 +558,12 @@ namespace IntensiveLearning.Controllers
                 Period = c.Regiment.Period.Name,
                 Sex = c.Sex,
                 Proof = c.Proof,
-                City = c.Center.City.Name
+                City = c.Center.City.Name,
+                Fathersname = c.FathersName,
+                Mothersname = c.Mothersname,
+                StudentNumber = c.StudentNumber,
+                StudentState = c.StudentState,
+                OldSchool = c.OldSchool,
             }).ToList();
             var typeName = (string)Session["Type"];
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();

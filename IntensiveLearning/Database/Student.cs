@@ -86,6 +86,15 @@ namespace IntensiveLearning.Database
         public Nullable<int> AddedBy { get; set; }
         public Nullable<System.DateTime> AddingDate { get; set; }
         public Nullable<System.TimeSpan> AddingTime { get; set; }
+        [DisplayName("«·„œ—”… «· Ì ﬂ«‰ Ìœ—” »Â«")]
+
+        public string OldSchool { get; set; }
+        [DisplayName("Õ«·… «·ÿ«·»")]
+
+        public string StudentState { get; set; }
+        [DisplayName("«”„ «·√„")]
+
+        public string Mothersname { get; set; }
     
         public virtual Center Center { get; set; }
         public virtual Employee Employee { get; set; }

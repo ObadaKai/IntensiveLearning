@@ -34,7 +34,7 @@
                             @Html.LabelFor(model => model.Lesson6, htmlAttributes: new { @class = "control-label " })
 
 
-                            @Html.DropDownList("Lesson6", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("Lesson6", null, "", htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Lesson6, "", new { @class = "text-danger" })
 
 
@@ -44,7 +44,7 @@
                             @Html.LabelFor(model => model.Lesson7, htmlAttributes: new { @class = "control-label " })
 
 
-                            @Html.DropDownList("Lesson7", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("Lesson7", null, "", htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Lesson7, "", new { @class = "text-danger" })
 
 
@@ -60,6 +60,16 @@
 
                         </div>
 
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Stageid, "المرحلة", htmlAttributes: new { @class = "control-label " })
+
+
+                            @Html.DropDownList("Stageid", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Stageid, "", new { @class = "text-danger" })
+
+
+                        </div>
 
 
 
@@ -124,7 +134,15 @@
 
 
                         </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Periodid, "الفترة", htmlAttributes: new { @class = "control-label " })
 
+
+                            @Html.DropDownList("Periodid", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Periodid, "", new { @class = "text-danger" })
+
+
+                        </div>
 
                     </div>
                 </div>
@@ -239,7 +257,25 @@
 
 
                 </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Stageid, "المرحلة", htmlAttributes: new { @class = "control-label " })
 
+
+                    @Html.DropDownList("Stageid", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Stageid, "", new { @class = "text-danger" })
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Periodid, "الفترة", htmlAttributes: new { @class = "control-label " })
+
+
+                    @Html.DropDownList("Periodid", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Periodid, "", new { @class = "text-danger" })
+
+
+                </div>
                         <input type="submit" value="انشاء" class="btn btn-primary" />
                     </div>
 

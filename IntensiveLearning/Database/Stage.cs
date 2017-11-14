@@ -21,27 +21,19 @@ namespace IntensiveLearning.Database
         {
             this.Examinations = new HashSet<Examination>();
             this.Students = new HashSet<Student>();
+            this.Lessons = new HashSet<Lesson>();
         }
-
+    
         public int id { get; set; }
         [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·„—Õ·… ")]
         [DisplayName("«”„ «·„—Õ·…")]
         public string StageName { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«·  «—ÌŒ «·»œ¡ ")]
-        [DisplayName(" «—ÌŒ «·»œ¡")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-
-        public Nullable<System.DateTime> SDate { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«·  «—ÌŒ «·«‰ Â«¡ ")]
-        [DisplayName(" «—ÌŒ «·«‰ Â«¡")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-
-        public Nullable<System.DateTime> EDate { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Examination> Examinations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Students { get; set; }
-        public virtual Employee Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lesson> Lessons { get; set; }
     }
 }

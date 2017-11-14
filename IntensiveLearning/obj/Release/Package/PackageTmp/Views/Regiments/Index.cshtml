@@ -16,7 +16,6 @@
         }
         }
     }
-<div id="table_wrapper">
     <table class="table table-striped">
         <thead>
             <tr class="bg-primary">
@@ -25,30 +24,6 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Period.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Desc)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Day1)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Day2)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Day3)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Day4)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Day5)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Day6)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Day7)
                 </th>
                 <th></th>
 
@@ -73,81 +48,6 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Period.Name)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Desc)
-                        </td>
-                        <td>
-                            @if (item.Day1 != null && item.Day1 == true)
-                            {
-                                @:نعم
-                }
-                            else
-                            {
-                                @:لا
-                }
-                        </td>
-                        <td>
-                            @if (item.Day2 != null && item.Day2 == true)
-                            {
-                                @:نعم
-                }
-                            else
-                            {
-                                @:لا
-                }
-                        </td>
-                        <td>
-                            @if (item.Day3 != null && item.Day3 == true)
-                            {
-                                @:نعم
-                }
-                            else
-                            {
-                                @:لا
-                }
-                        </td>
-                        <td>
-                            @if (item.Day4 != null && item.Day4 == true)
-                            {
-                                @:نعم
-                }
-                            else
-                            {
-                                @:لا
-                }
-                        </td>
-                        <td>
-                            @if (item.Day5 != null && item.Day5 == true)
-                            {
-                                @:نعم
-                }
-                            else
-                            {
-                                @:لا
-                }
-                        </td>
-                        <td>
-                            @if (item.Day6 != null && item.Day6 == true)
-                            {
-                                @:نعم
-                }
-                            else
-                            {
-                                @:لا
-                }
-                        </td>
-                        <td>
-                            @if (item.Day7 != null && item.Day7 == true)
-                            {
-                                @:نعم
-                }
-                            else
-                            {
-                                @:لا
-                }
-                        </td>
-
-
 
                         <td>
                             @if (Session["SeeAccToCenter"] != null)
@@ -176,9 +76,6 @@
         </tbody>
 
     </table>
-</div>
-<button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>
-
 @if (ViewBag.StateMessage != null)
 {
         <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">

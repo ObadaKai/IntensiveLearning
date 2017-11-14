@@ -23,7 +23,7 @@ namespace IntensiveLearning.Database
         [DisplayName("ÇáÍÇáÉ")]
         public string State { get; set; }
         [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÏÑÓ ")]
-        [DisplayName("1 ÇáÏÑÓ")]
+        [DisplayName("ÇáÏÑÓ 1")]
         public string Lesson1 { get; set; }
         [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÏÑÓ ")]
         [DisplayName("ÇáÏÑÓ 2")]
@@ -37,14 +37,16 @@ namespace IntensiveLearning.Database
         [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÏÑÓ ")]
         [DisplayName("ÇáÏÑÓ 5")]
         public string Lesson5 { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÏÑÓ ")]
         [DisplayName("ÇáÏÑÓ 6")]
         public string Lesson6 { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÏÑÓ ")]
         [DisplayName("ÇáÏÑÓ 7")]
         public string Lesson7 { get; set; }
         public Nullable<int> Regimentid { get; set; }
-
+        public Nullable<int> Stageid { get; set; }
+        public Nullable<int> Periodid { get; set; }
+    
         public virtual Regiment Regiment { get; set; }
+        public virtual Period Period { get; set; }
+        public virtual Stage Stage { get; set; }
     }
 }

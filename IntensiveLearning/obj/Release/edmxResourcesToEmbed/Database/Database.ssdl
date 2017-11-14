@@ -108,6 +108,9 @@
     <Property Name="ApprovedBy" Type="int" />
     <Property Name="AddingDate" Type="date" />
     <Property Name="AddingTime" Type="time" Precision="7" />
+    <Property Name="ExpYears" Type="int" />
+    <Property Name="OldJob" Type="nvarchar(max)" />
+    <Property Name="InsideOrOutside" Type="nvarchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="EmployeeType">
     <Key>
@@ -183,6 +186,8 @@
     <Property Name="Lesson6" Type="nvarchar(max)" />
     <Property Name="Lesson7" Type="nvarchar(max)" />
     <Property Name="Regimentid" Type="int" />
+    <Property Name="Stageid" Type="int" />
+    <Property Name="Periodid" Type="int" />
   </EntityType>
   <EntityType Name="NonUserAddRequest">
     <Key>
@@ -283,14 +288,6 @@
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" />
-    <Property Name="Day1" Type="bit" />
-    <Property Name="Day2" Type="bit" />
-    <Property Name="Day3" Type="bit" />
-    <Property Name="Day4" Type="bit" />
-    <Property Name="Day5" Type="bit" />
-    <Property Name="Day6" Type="bit" />
-    <Property Name="Day7" Type="bit" />
-    <Property Name="Desc" Type="nvarchar(max)" />
     <Property Name="Periodid" Type="int" />
   </EntityType>
   <EntityType Name="Stages">
@@ -299,8 +296,6 @@
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="StageName" Type="nvarchar(max)" />
-    <Property Name="SDate" Type="date" />
-    <Property Name="EDate" Type="date" />
   </EntityType>
   <EntityType Name="Students">
     <Key>
@@ -327,6 +322,9 @@
     <Property Name="AddedBy" Type="int" />
     <Property Name="AddingDate" Type="date" />
     <Property Name="AddingTime" Type="time" Precision="7" />
+    <Property Name="OldSchool" Type="nvarchar(max)" />
+    <Property Name="StudentState" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mothersname" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Study_subject">
     <Key>
@@ -591,6 +589,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Lessons_Periods">
+    <End Role="Periods" Type="Self.Periods" Multiplicity="0..1" />
+    <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Periods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Lessons">
+        <PropertyRef Name="Periodid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Lessons_Regiments2">
     <End Role="Regiments" Type="Self.Regiments" Multiplicity="0..1" />
     <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
@@ -600,6 +610,18 @@
       </Principal>
       <Dependent Role="Lessons">
         <PropertyRef Name="Regimentid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lessons_Stages">
+    <End Role="Stages" Type="Self.Stages" Multiplicity="0..1" />
+    <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stages">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Lessons">
+        <PropertyRef Name="Stageid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -912,8 +934,16 @@
       <End Role="Study_subject" EntitySet="Study_subject" />
       <End Role="Examination" EntitySet="Examination" />
     </AssociationSet>
+    <AssociationSet Name="FK_Lessons_Periods" Association="Self.FK_Lessons_Periods">
+      <End Role="Periods" EntitySet="Periods" />
+      <End Role="Lessons" EntitySet="Lessons" />
+    </AssociationSet>
     <AssociationSet Name="FK_Lessons_Regiments2" Association="Self.FK_Lessons_Regiments2">
       <End Role="Regiments" EntitySet="Regiments" />
+      <End Role="Lessons" EntitySet="Lessons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lessons_Stages" Association="Self.FK_Lessons_Stages">
+      <End Role="Stages" EntitySet="Stages" />
       <End Role="Lessons" EntitySet="Lessons" />
     </AssociationSet>
     <AssociationSet Name="FK_Order_Bnd" Association="Self.FK_Order_Bnd">

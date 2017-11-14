@@ -30,27 +30,7 @@
                 </div>
 
 
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SDate, htmlAttributes: new { @class = "control-label " })
-
-
-                    @Html.EditorFor(model => model.SDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                    @Html.ValidationMessageFor(model => model.SDate, "", new { @class = "text-danger" })
-
-
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EDate, htmlAttributes: new { @class = "control-label " })
-
-
-                    @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                    @Html.ValidationMessageFor(model => model.EDate, "", new { @class = "text-danger" })
-
-
-                </div>
-
+                
                         <input type="submit" value="انشاء" class="btn btn-primary" />
             </div>
         }

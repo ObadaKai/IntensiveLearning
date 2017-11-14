@@ -100,7 +100,24 @@
                             @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ExpYears, htmlAttributes: new { @class = "control-label " })
+                        @Html.EditorFor(model => model.ExpYears, new { htmlAttributes = new { @class = "form-control", @type = "Number" } })
+                        @Html.ValidationMessageFor(model => model.ExpYears, "", new { @class = "text-danger" })
 
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.InsideOrOutside, htmlAttributes: new { @class = "control-label " })
+                        <select name="InsideOrOutside" id="InsideOrOutside">
+                            <option @if (Model.InsideOrOutside == "داخل") {@:selected
+                                    }>داخل</option>
+                            <option @if (Model.InsideOrOutside == "خارج") {@:selected
+                                    }>خارج</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.InsideOrOutside, "", new { @class = "text-danger" })
+                    </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label " })
@@ -316,7 +333,11 @@
 
 
                         </div>
-
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.OldJob, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.OldJob, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.OldJob, "", new { @class = "text-danger" })
+                        </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label" })
@@ -328,6 +349,8 @@
                             </div>
 
                         </div>
+
+
                         <div class="form-group">
                             <label class="control-label ">الاثبات</label>
                             <div>
@@ -516,7 +539,32 @@
 
                 </div>
 
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ExpYears, htmlAttributes: new { @class = "control-label " })
+                    @Html.EditorFor(model => model.ExpYears, new { htmlAttributes = new { @class = "form-control", @type = "Number" } })
+                    @Html.ValidationMessageFor(model => model.ExpYears, "", new { @class = "text-danger" })
+                </div>
 
+                <div class="form-group">
+                    @Html.LabelFor(model => model.InsideOrOutside, htmlAttributes: new { @class = "control-label " })
+                    <select name="InsideOrOutside" id="InsideOrOutside">
+                        <option @if (Model.InsideOrOutside == "داخل") { @: selected
+                                                                    }>
+                            داخل
+                        </option>
+                        <option @if (Model.InsideOrOutside == "خارج") { @: selected
+                                                                    }>
+                            خارج
+                        </option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.InsideOrOutside, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OldJob, htmlAttributes: new { @class = "control-label " })
+                    @Html.EditorFor(model => model.OldJob, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OldJob, "", new { @class = "text-danger" })
+                </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label" })
 

@@ -22,7 +22,7 @@ namespace IntensiveLearning.Controllers
                 var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.SeeAccToCenter == true || type.SeeAccToCity == true || type.SeeAll == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
                 {
-                    var lessons = db.Lessons.Include(l => l.Regiment);
+                    var lessons = db.Lessons;
                     if (TempData["Message"] != null)
                     {
                         ViewBag.StateMessage = TempData["Message"];
@@ -73,13 +73,15 @@ namespace IntensiveLearning.Controllers
                 if (type.SeeAccToCenter ==true)
                 {
                     ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name");
-                    ViewBag.Lesson1 = new SelectList(db.Study_subject, "id", "Name");
-                    ViewBag.Lesson2 = new SelectList(db.Study_subject, "id", "Name");
-                    ViewBag.Lesson3 = new SelectList(db.Study_subject, "id", "Name");
-                    ViewBag.Lesson4 = new SelectList(db.Study_subject, "id", "Name");
-                    ViewBag.Lesson5 = new SelectList(db.Study_subject, "id", "Name");
-                    ViewBag.Lesson6 = new SelectList(db.Study_subject, "id", "Name");
-                    ViewBag.Lesson7 = new SelectList(db.Study_subject, "id", "Name");
+                    ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName");
+                    ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
+                    ViewBag.Lesson1 = new SelectList(db.Study_subject, "Name", "Name");
+                    ViewBag.Lesson2 = new SelectList(db.Study_subject, "Name", "Name");
+                    ViewBag.Lesson3 = new SelectList(db.Study_subject, "Name", "Name");
+                    ViewBag.Lesson4 = new SelectList(db.Study_subject, "Name", "Name");
+                    ViewBag.Lesson5 = new SelectList(db.Study_subject, "Name", "Name");
+                    ViewBag.Lesson6 = new SelectList(db.Study_subject, "Name", "Name");
+                    ViewBag.Lesson7 = new SelectList(db.Study_subject, "Name", "Name");
                     return View();
 
                 }
@@ -95,29 +97,8 @@ namespace IntensiveLearning.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Day,State,Lesson1,Lesson2,Lesson3,Lesson4,Lesson5,Lesson6,Lesson7,Regimentid")] Lesson lesson)
+        public ActionResult Create([Bind(Include = "Day,State,Lesson1,Lesson2,Lesson3,Lesson4,Lesson5,Lesson6,Lesson7,Regimentid,Periodid,Stageid")] Lesson lesson)
         {
-            var Lesson1ID = Convert.ToInt32(lesson.Lesson1);
-            lesson.Lesson1 = db.Study_subject.Find(Lesson1ID).Name;
-
-            var Lesson2ID = Convert.ToInt32(lesson.Lesson2);
-            lesson.Lesson2 = db.Study_subject.Find(Lesson2ID).Name;
-
-            var Lesson3ID = Convert.ToInt32(lesson.Lesson3);
-            lesson.Lesson3 = db.Study_subject.Find(Lesson3ID).Name;
-
-            var Lesson4ID = Convert.ToInt32(lesson.Lesson4);
-            lesson.Lesson4 = db.Study_subject.Find(Lesson4ID).Name;
-
-            var Lesson5ID = Convert.ToInt32(lesson.Lesson5);
-            lesson.Lesson5 = db.Study_subject.Find(Lesson5ID).Name;
-
-            var Lesson6ID = Convert.ToInt32(lesson.Lesson6);
-            lesson.Lesson6 = db.Study_subject.Find(Lesson6ID).Name;
-
-            var Lesson7ID = Convert.ToInt32(lesson.Lesson7);
-            lesson.Lesson7 = db.Study_subject.Find(Lesson7ID).Name;
-
             try
             {
                 lesson.id = db.Lessons.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
@@ -133,15 +114,17 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
-            ViewBag.Lesson1 = new SelectList(db.Study_subject, "id", "Name",lesson.Lesson1);
-            ViewBag.Lesson2 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson2);
-            ViewBag.Lesson3 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson3);
-            ViewBag.Lesson4 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson4);
-            ViewBag.Lesson5 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson5);
-            ViewBag.Lesson6 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson6);
-            ViewBag.Lesson7 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson7);
+            ViewBag.Lesson1 = new SelectList(db.Study_subject, "Name", "Name",lesson.Lesson1);
+            ViewBag.Lesson2 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson2);
+            ViewBag.Lesson3 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson3);
+            ViewBag.Lesson4 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson4);
+            ViewBag.Lesson5 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson5);
+            ViewBag.Lesson6 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson6);
+            ViewBag.Lesson7 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson7);
 
             ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name", lesson.Regimentid);
+            ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName", lesson.Stageid);
+            ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", lesson.Periodid);
             return View(lesson);
         }
 
@@ -167,15 +150,18 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
-                    ViewBag.Lesson1 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson1);
-                    ViewBag.Lesson2 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson2);
-                    ViewBag.Lesson3 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson3);
-                    ViewBag.Lesson4 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson4);
-                    ViewBag.Lesson5 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson5);
-                    ViewBag.Lesson6 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson6);
-                    ViewBag.Lesson7 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson7);
+                    ViewBag.Lesson1 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson1);
+                    ViewBag.Lesson2 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson2);
+                    ViewBag.Lesson3 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson3);
+                    ViewBag.Lesson4 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson4);
+                    ViewBag.Lesson5 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson5);
+                    ViewBag.Lesson6 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson6);
+                    ViewBag.Lesson7 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson7);
 
                     ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name", lesson.Regimentid);
+                    ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName",lesson.Stageid);
+                    ViewBag.Periodid = new SelectList(db.Periods, "id", "Name",lesson.Periodid);
+
                     return View(lesson);
 
                 }
@@ -191,7 +177,7 @@ namespace IntensiveLearning.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Day,State,Lesson1,Lesson2,Lesson3,Lesson4,Lesson5,Lesson6,Lesson7,Regimentid")] Lesson lesson)
+        public ActionResult Edit([Bind(Include = "id,Day,State,Lesson1,Lesson2,Lesson3,Lesson4,Lesson5,Lesson6,Lesson7,Regimentid,Periodid,Stageid")] Lesson lesson)
         {
             if (ModelState.IsValid)
             {
@@ -200,15 +186,17 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم التعديل بنجاح";
                 return RedirectToAction("Index");
             }
-            ViewBag.Lesson1 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson1);
-            ViewBag.Lesson2 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson2);
-            ViewBag.Lesson3 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson3);
-            ViewBag.Lesson4 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson4);
-            ViewBag.Lesson5 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson5);
-            ViewBag.Lesson6 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson6);
-            ViewBag.Lesson7 = new SelectList(db.Study_subject, "id", "Name", lesson.Lesson7);
+            ViewBag.Lesson1 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson1);
+            ViewBag.Lesson2 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson2);
+            ViewBag.Lesson3 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson3);
+            ViewBag.Lesson4 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson4);
+            ViewBag.Lesson5 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson5);
+            ViewBag.Lesson6 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson6);
+            ViewBag.Lesson7 = new SelectList(db.Study_subject, "Name", "Name", lesson.Lesson7);
 
             ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name", lesson.Regimentid);
+            ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName", lesson.Stageid);
+            ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", lesson.Periodid);
             return View(lesson);
         }
 
