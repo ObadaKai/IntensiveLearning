@@ -26,30 +26,30 @@
 
     });
 
-        $("#ToFadeMessage").hide(3000);
+    $("#ToFadeMessage").hide(3000);
 
-        if ($('#desktopTest').is(':hidden')) {
-            toggleLeftMenu();
-            document.getElementById("TemplateForm").style.marginRight = document.getElementById("leftMenu").clientWidth + 28 + "px";
-            document.getElementById("TemplateForm").style.marginLeft = "auto";
-        } else {
-            document.getElementById("TemplateForm").style.marginRight = "auto";
-            document.getElementById("TemplateForm").style.marginLeft = "auto";
-            
+    if ($('#desktopTest').is(':hidden')) {
+        toggleLeftMenu();
+        document.getElementById("TemplateForm").style.marginRight = document.getElementById("leftMenu").clientWidth + 28 + "px";
+        document.getElementById("TemplateForm").style.marginLeft = "auto";
+    } else {
+        document.getElementById("TemplateForm").style.marginRight = "auto";
+        document.getElementById("TemplateForm").style.marginLeft = "auto";
 
-        }
+
+    }
+    $('#DependedOn').val("")
+
+    if ($('#CenterType').val() == "فرعي") {
+        $('#CenterDependency').css('display', 'block');
+        $('#CenterCity').css('display', 'none');
+        $('#Cityid').val("")
+    }
+    else {
+        $('#CenterDependency').css('display', 'none');
+        $('#CenterCity').css('display', 'block');
         $('#DependedOn').val("")
-
-        if ($('#CenterType').val() == "فرعي") {
-            $('#CenterDependency').css('display', 'block');
-            $('#CenterCity').css('display', 'none');
-            $('#Cityid').val("")
-        }
-        else {
-            $('#CenterDependency').css('display', 'none');
-            $('#CenterCity').css('display', 'block');
-            $('#DependedOn').val("")
-        }
+    }
 
 });
 var open = false;
@@ -134,6 +134,9 @@ $('#btnImport').on("click", function () {
 function GoToDefault() {
     window.location.href = "/Home/Default";
 }
+
+
+
 
 var uploadField = document.getElementById("file");
 

@@ -11,20 +11,14 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Concern
     {
         public int id { get; set; }
         public Nullable<int> Employeeid { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·‘ﬂÊÏ")]
-        [DisplayName("«·‘ﬂÊÏ")]
         public string Concern1 { get; set; }
-        [DisplayName("«· «—ÌŒ")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> date { get; set; }
-
+    
         public virtual Employee Employee { get; set; }
     }
 }

@@ -127,9 +127,9 @@
                 foreach (var item in Model)
                 {
                     <tr>
-                        <td @if (item.Approval == null) { @: style="background-color:gray"
-                                                        } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:forestgreen"
-                                                            } else { @: style="background-color:red"
+                        <td  @if (item.Approval == null) { @:style="background-color:gray"
+                                                        } else if (item.Approval != null) { if (item.Approval == true) { @:style="background-color:forestgreen"
+                                                            } else { @:style="background-color:red"
                                                             } }></td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)

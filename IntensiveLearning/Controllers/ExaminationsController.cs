@@ -223,7 +223,7 @@ namespace IntensiveLearning.Controllers
                     {
                         ZipFile.CreateFromDirectory(startPath, zipPath);
                     }
-                    catch (Exception wx) { }
+                    catch  { }
                     examination.Proof = zipPath;
                 }
                 catch { }
@@ -375,14 +375,14 @@ namespace IntensiveLearning.Controllers
                     {
                         ZipFile.CreateFromDirectory(startPath, zipPath);
                     }
-                    catch (Exception wx) { }
+                    catch  { }
                     examination.Proof = zipPath;
                 }
                 catch { }
 
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
                 proceed = false;

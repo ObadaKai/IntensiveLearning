@@ -533,14 +533,14 @@ namespace IntensiveLearning.Controllers
                         {
                             ZipFile.CreateFromDirectory(startPath, zipPath);
                         }
-                        catch (Exception wx) { }
+                        catch { }
                         employee.Proof = zipPath;
                     }
                     catch { }
 
 
                 }
-                catch (Exception ex)
+                catch 
                 {
 
                 }
@@ -1168,13 +1168,13 @@ namespace IntensiveLearning.Controllers
                             {
                                 ZipFile.CreateFromDirectory(startPath, zipPath);
                             }
-                            catch (Exception wx) { }
+                            catch  { }
                             employee.Proof = zipPath;
                         }
                         catch { }
                     }
                 }
-                catch (Exception ex)
+                catch 
                 {
 
                 }

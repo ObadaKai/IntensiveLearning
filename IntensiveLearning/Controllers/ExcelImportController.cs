@@ -482,7 +482,7 @@ namespace IntensiveLearning.Views.TryOut
                     {
                         student.SDate = DateTime.Parse(ds.Tables[0].Rows[i]["تاريخ البدء"].ToString(), CultureInfo.CreateSpecificCulture("fr-FR"));
                     }
-                    catch(Exception x)
+                    catch
                     {
 
                         student.SDate = null;

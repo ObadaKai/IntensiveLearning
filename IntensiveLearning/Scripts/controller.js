@@ -42,11 +42,11 @@
                 "SDate": $scope.SDate,
                 "Regimentid": $scope.Regimentid, "Stageid": $scope.Stageid,
                 "Centerid": $scope.Centerid, "Sex": $scope.Sex, "FathersName": $scope.FathersName, "OldSchool": $scope.OldSchool,
-                "Mothersname": $scope.Mothersname, "StudentState": $scope.StudentState,
+                "Mothersname": $scope.Mothersname, "StudentState": $scope.StudentState
             };
 
 
-            formData.append("student", angular.toJson(Student))
+            formData.append("student", angular.toJson(Student));
 
             $http.post("/Students/Create", formData, {
                 withCredentials: true,
@@ -97,7 +97,7 @@
                     }, 3000);
                 }
 
-            },function errorCallback(response) {
+            }, function errorCallback(response) {
                 Student = {};
                 $scope.Success = false;
                 $scope.Warning = true;
@@ -141,12 +141,12 @@
                 'ExamTypeid': $scope.ExamTypeid,
                 'Mark': $scope.Mark, 'Date': $scope.Date
             };
-            formData.append("Exam", angular.toJson(Exam))
-                $http.post("/Examinations/Create", formData, {
-                    withCredentials: true,
-                    headers: { 'Content-Type': undefined },
-                    transformRequest: angular.identity
-                }).then(function successCallback(response) {
+            formData.append("Exam", angular.toJson(Exam));
+            $http.post("/Examinations/Create", formData, {
+                withCredentials: true,
+                headers: { 'Content-Type': undefined },
+                transformRequest: angular.identity
+            }).then(function successCallback(response) {
 
                 if (response.data) {
                     Exam = {};
@@ -180,16 +180,16 @@
                         $scope.Warning = false;
                     }, 3000);
                 }
-                    }, function errorCallback(response) {
-                        $scope.Success = false;
-                        $scope.Warning = true;
+            }, function errorCallback(response) {
+                $scope.Success = false;
+                $scope.Warning = true;
 
-                        formData.delete('Exam');
-                        $("#imgInp").val(null);
-                        $timeout(function () {
-                            $scope.Warning = false;
-                        }, 3000);
-                    });
+                formData.delete('Exam');
+                $("#imgInp").val(null);
+                $timeout(function () {
+                    $scope.Warning = false;
+                }, 3000);
+            });
         };
         $scope.ChangeDate = function () {
             var date = { 'Fielpate': $scope.Date, 'Subjectid': $scope.Subjectid };
@@ -311,11 +311,12 @@
     }]);
 
     myApp.controller('OrdersCtrl', ['$http', '$scope', '$filter', function ($http, $scope) {
+        formData = new FormData();
         $http.get("/Orders/GetOrders")
             .then(function (response) {
                 $scope.Orders = response.data[0];
                 $scope.empid = response.data[1];
-                
+                $scope.Bnds = response.data[2];
                 $scope.Orders.Date = new Date($scope.Orders.Date);
 
                 angular.forEach($scope.Orders, function (value, key) {
@@ -325,6 +326,53 @@
 
 
                 });
+            });
+        $scope.BndChange = function (id, Bnd) {
+            $http({ method: 'POST', url: '/Orders/AssignBnd', data: { Bndid: Bnd, id: id } }).then(function successCallback(response) {
+
+            });
+
+        };
+
+        $scope.LoadFileData = function (files,id) {
+
+            for (var file in files) {
+                formData.append("file", files[file]);
+            }
+            var Order = id;
+            formData.append("Order", angular.toJson(Order));
+
+            $http.post("/Orders/SaveProof", formData, {
+                withCredentials: true,
+                headers: { 'Content-Type': undefined },
+                transformRequest: angular.identity
+            }).then(function successCallback(response) {
+            });
+        };
+
+
+
+
+
+    }]);
+
+
+    myApp.controller('SubBndsCtrl', ['$http', '$scope', '$filter', function ($http, $scope) {
+        $http.get("/SubBnds/GetSubBnds")
+            .then(function (response) {
+                $scope.SubBnds = response.data[0];
+                $scope.empid = response.data[1];
+                $scope.Bnd = response.data[2];
+                $scope.Centers = response.data[3];
+
+                angular.forEach($scope.SubBnds, function (value, key) {
+                    if (value[6]) {
+                        value[6] = new Date(parseInt(value[6].substr(6)));
+                    }
+
+
+                });
+
             });
 
 

@@ -11,28 +11,43 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Bnd
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Bnd()
         {
             this.Orders = new HashSet<Order>();
+            this.SubBnds = new HashSet<SubBnd>();
         }
-
+    
         public int id { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·»‰œ")]
-        [DisplayName("«”„ «·»‰œ")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·—ﬁ„ «·ﬂ·Ì")]
-        [DisplayName("«·—ﬁ„ «·ﬂ·Ì")]
-        public Nullable<int> TotalNum { get; set; }
-        [DisplayName("«·—ﬁ„ »⁄œ «· Œ›Ì÷")]
-        public Nullable<int> AfterReductionNum { get; set; }
-
+        public Nullable<double> TotalNum { get; set; }
+        public Nullable<double> AfterReductionNum { get; set; }
+        public Nullable<double> Month1Share { get; set; }
+        public Nullable<double> Month2Share { get; set; }
+        public Nullable<double> Month3Share { get; set; }
+        public Nullable<double> Month4Share { get; set; }
+        public Nullable<double> Month5Share { get; set; }
+        public Nullable<double> Month6Share { get; set; }
+        public Nullable<double> Month7Share { get; set; }
+        public Nullable<double> Month8Share { get; set; }
+        public Nullable<double> Month9Share { get; set; }
+        public Nullable<double> Month10Share { get; set; }
+        public Nullable<double> Month11Share { get; set; }
+        public Nullable<double> Month12Share { get; set; }
+        public Nullable<double> Month13Share { get; set; }
+        public string Unit { get; set; }
+        public Nullable<double> PeriodOnMonth { get; set; }
+        public Nullable<double> PercentOfCostChargedtoProject { get; set; }
+        public string BudgetLineItem { get; set; }
+        public Nullable<int> NumberOfUnits { get; set; }
+        public Nullable<double> PerUnitCost { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubBnd> SubBnds { get; set; }
     }
 }

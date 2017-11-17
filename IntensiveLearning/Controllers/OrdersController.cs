@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using IntensiveLearning.Database;
+using System.IO.Compression;
+using System.Web.Script.Serialization;
 
 namespace IntensiveLearning.Controllers
 {
@@ -15,29 +17,41 @@ namespace IntensiveLearning.Controllers
         // GET: Orders
         public ActionResult Index()
         {
-            if (Session["ID"]!=null)
+            if (Session["ID"] != null)
             {
                 var typeName = (string)Session["Type"];
                 var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-
-                if (type.BuyingAcceptance != null)
-                {
-                    if (type.BuyingAcceptance == true)
-                    {
-                        return View();
-                    }
-
-                }
-                return RedirectToAction("Default", "Home");
-
+                return View();
             }
             return RedirectToAction("Index", "Home");
         }
 
         public JsonResult GetOrders()
         {
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
             var empid = Convert.ToInt32(Session["ID"]);
             var order = db.Orders.ToList();
+            if (type.SeeAll == true || type.SeeAllButFinance == true)
+            {
+                order = db.Orders.ToList();
+            }
+            else if (type.SeeAccToCity == true)
+            {
+                var emp = db.Employees.Find(empid);
+                order = db.Orders.Where(x => x.Center.Cityid == emp.CityID).ToList();
+            }
+            else if (type.SeeAccToCenter == true)
+            {
+                var emp = db.Employees.Find(empid);
+                order = db.Orders.Where(x => x.CenterID == emp.Centerid).ToList();
+            }
+            else if (type.SeeTeachers == true)
+            {
+                order = db.Orders.Where(x => x.Employeeid == empid).ToList();
+            }
+            var Bnd = db.Bnds.ToList();
             foreach (var o in order)
             {
                 if (o.Bnd == null)
@@ -48,39 +62,43 @@ namespace IntensiveLearning.Controllers
                 {
                     o.Employee = new Employee();
                 }
+                if (o.Center == null)
+                {
+                    o.Center = new Center();
+                }
             }
 
             var Orders = order.Select(x => new
             {
-                Bnd = x.Bndid,
-                Center = x.CenterID,
+                Bnd = x.Bnd.Name,
+                Center = x.Center.Name,
                 Date = x.Date,
-                Desc = x.Desc,
+                Subject = x.Subject,
                 EmployeeName = x.Employee.name,
                 EmployeeSurname = x.Employee.surname,
                 PeacePrice = x.PeacePrice,
                 Quantity = x.Quantity,
-                Proof = x.Proof,
                 State = x.State,
                 Time = x.Time,
                 id = x.id,
                 FirstLevelSign = x.FirstLevelSign,
                 SecondLevelSign = x.SecondLevelSign,
                 ThirdLevelSign = x.ThirdLevelSign,
-                FourthLevelSign = x.FourthLevelSign,
-                FifthLevelSign = x.FifthLevelSign,
-                SixthLevelSign = x.SixthLevelSign,
-                SeventhLevelSign = x.SeventhLevelSign,
-                SendingLevelSign = x.SendingLevelSign,
-                RecievingLevelSign = x.RecievingLevelSign,
-                AfterRecieveFirstLevelSign = x.AfterRecieveFirstLevelSign,
-                AfterRecieveSecondLevelSign = x.AfterRecieveSecondLevelSign,
                 EmployeeID = x.Employeeid,
+                Bndid = x.Bndid,
+                Centerid = x.CenterID,
+            }).ToList();
+
+            var Bnds = Bnd.Select(x => new
+            {
+                id = x.id,
+                Name = x.Name,
             }).ToList();
 
             List<object> toSendList = new List<object>();
             toSendList.Add(Orders);
             toSendList.Add(empid);
+            toSendList.Add(Bnds);
             return Json(toSendList, JsonRequestBehavior.AllowGet);
         }
 
@@ -97,37 +115,150 @@ namespace IntensiveLearning.Controllers
             return RedirectToAction("Default", "Index");
         }
 
-        [HttpPost]
-        public ActionResult Create(Order order, HttpPostedFileBase file)
+        public ActionResult SaveProof(FormCollection formCollection)
         {
-            if (Session["ID"] != null)
+            string o = formCollection["Order"];
+            int id = new JavaScriptSerializer().Deserialize<int>(o);
+            Order order = db.Orders.Find(id);
+            var files = Request.Files;
+            int prooveid;
+            try
             {
-                try
+                prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+            }
+            catch (Exception)
+            {
+                prooveid = 1;
+            }
+            try
+            {
+
+                if (Request.Files.Count > 0)
                 {
+                    var oldImages = db.Prooves.Where(x => x.OrderID == id).ToList();
 
-                    if (file.ContentLength > 0)
+                    foreach (var image in oldImages)
                     {
-                        var fileName = Path.GetFileName(file.FileName);
-                        var path = Path.Combine(Server.MapPath("~/App_Data/Orders"), fileName);
-                        file.SaveAs(path);
-                        order.Proof = path;
 
+                        db.Prooves.Remove(image);
+                    }
+
+                    if ((Directory.Exists(Server.MapPath("~/App_Data/Orders") + "\\" + id)))
+                    {
+                        try
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Orders") + "\\" + id, true);
+                        }
+                        catch (IOException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Orders") + "\\" + id, true);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Orders") + "\\" + id, true);
+                        }
+                    }
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Orders") + "\\" + id))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Orders") + "\\" + id);
+                    }
+
+                }
+                if (Request.Files.Count == 0)
+                {
+                    return Json(false);
+                }
+                foreach (string file in Request.Files)
+                {
+                    var fileContent = Request.Files[file];
+                    if (fileContent != null && fileContent.ContentLength > 0)
+                    {
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Orders/" + id)))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Orders/" + id));
+                        }
+                        var inputStream = fileContent.InputStream;
+                        var fileName = fileContent.FileName;
+                        var path = Path.Combine(Server.MapPath("~/App_Data/Orders/" + id), fileName);
+                        using (var fileStream = System.IO.File.Create(path))
+                        {
+                            inputStream.CopyTo(fileStream);
+
+                            Proove proove = new Proove();
+                            proove.Path = path;
+                            proove.id = prooveid;
+                            proove.OrderID = id;
+                            db.Prooves.Add(proove);
+                            prooveid++;
+                        }
                     }
                     else
                     {
-                        ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
-                        return View(order);
                     }
-                }
-                catch
-                {
+
 
                 }
+                try
+                {
+                    var startPath = Server.MapPath("~/App_Data/Orders" + "\\" + id);
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Orders" + "\\" + "ZipFolder")))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Orders" + "\\" + "ZipFolder"));
+                    }
+                    var zipPath = Server.MapPath("~/App_Data/Orders" + "\\" + "ZipFolder") + "\\" + id + ".zip";
+
+                    if (System.IO.File.Exists(zipPath))
+                    {
+                        System.IO.File.Delete(zipPath);
+                    }
+                    try
+                    {
+                        ZipFile.CreateFromDirectory(startPath, zipPath);
+                    }
+                    catch { }
+                    order.SubBnd.proof = zipPath;
+                    db.Entry(order).State = EntityState.Modified;
+                }
+                catch { }
+
+                ViewBag.Message = "Upload successful";
+            }
+            catch
+            {
+                //ViewBag.Message = "Upload failed";
+                //return Json(false);
+            }
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+
+
+        [HttpPost]
+        public ActionResult Create(Order order)
+        {
+            if (Session["ID"] != null)
+            {
+
 
                 int empid = Convert.ToInt32(Session["ID"]);
                 Employee emp = db.Employees.Find(empid);
                 var typeName = (string)Session["Type"];
                 var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+                try
+                {
+                    order.id = db.Orders.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+                }
+                catch (Exception)
+                {
+                    order.id = 1;
+                }
+
+
+
                 if (type.AddBuyingRequest == true)
                 {
                     if (emp.Centerid == null)
@@ -135,40 +266,25 @@ namespace IntensiveLearning.Controllers
                         order.Date = DateTime.Now.Date;
                         order.Employeeid = empid;
                         order.Time = DateTime.Now.TimeOfDay;
-                        //منسق محافظة
-                        if (type.CoManager == true && type.SeeAccToCity == true)
-                        {
-                            order.FirstLevelSign = true;
-                        }
-                        //منسق عام
-                        else if (type.CoManager == true && type.AddCitesAndCenters == true)
+                        //مالي
+                        if (type.Finance == true && type.CoManager == true && type.BuyingAcceptance == true)
                         {
                             order.SecondLevelSign = true;
                         }
-                        //مراقبة وتقييم
-                        else if (type.CoManager == true && type.HighAcceptance == true)
+                        //مدير تنفيذي
+                        else if (type.Manager == true && type.AddNewProject == true && type.BuyingAcceptance == true)
                         {
                             order.ThirdLevelSign = true;
                         }
+                        //مراقبة وتقييم
+                        //else if (type.CoManager == true && type.HighAcceptance == true && type.BuyingAcceptance == true)
+                        //{
+                        //    order.ThirdLevelSign = true;
+                        //}
                         //متابعة
-                        else if (type.CoManager == true && type.SeeAll == true)
+                        else if (type.CoManager == true && type.SeeAll == true && type.BuyingAcceptance == true)
                         {
-                            order.FourthLevelSign = true;
-                        }
-                        //مدير المشروع
-                        else if (type.Manager == true && type.AddNewProject != true)
-                        {
-                            order.FifthLevelSign = true;
-                        }
-                        //مدير تنفيذي
-                        else if (type.Manager == true && type.AddNewProject == true)
-                        {
-                            order.SeventhLevelSign = true;
-                        }
-                        //مالي
-                        else if (type.Finance == true && type.CoManager == true)
-                        {
-                            order.SixthLevelSign = true;
+                            order.FirstLevelSign = true;
                         }
                     }
                     //مدير مركز
@@ -187,11 +303,11 @@ namespace IntensiveLearning.Controllers
 
             }
             ViewBag.error = "حصل خطأ أثناء عملية التخزين";
-            return View(order);
+            return Json(order, JsonRequestBehavior.AllowGet);
         }
 
 
-        public JsonResult ConfirmOrder(int id)
+        public ActionResult ConfirmOrder(int id)
         {
             int empid = Convert.ToInt32(Session["ID"]);
             Employee emp = db.Employees.Find(empid);
@@ -203,46 +319,110 @@ namespace IntensiveLearning.Controllers
 
             if (emp.Centerid == null)
             {
-                order.Date = DateTime.Now.Date;
-                order.Employeeid = empid;
-                order.Time = DateTime.Now.TimeOfDay;
 
-                //منسق محافظة
-                if (type.CoManager == true && type.SeeAccToCity == true && type.BuyingAcceptance == true)
-                {
-                    order.FirstLevelSign = true;
-                }
-                //منسق عام
-                else if (type.CoManager == true && type.AddCitesAndCenters == true && type.BuyingAcceptance == true)
+
+
+                //مالي
+                if (type.Finance == true && type.CoManager == true)
                 {
                     order.SecondLevelSign = true;
                 }
-                //مراقبة وتقييم
-                else if (type.CoManager == true && type.HighAcceptance == true && type.BuyingAcceptance == true)
+                //مدير تنفيذي
+                else if (type.Manager == true && type.AddNewProject == true)
                 {
                     order.ThirdLevelSign = true;
                 }
+                //مراقبة وتقييم
+                //else if (type.CoManager == true && type.HighAcceptance == true && type.BuyingAcceptance == true)
+                //{
+                //    order.ThirdLevelSign = true;
+                //}
                 //متابعة
-                else if (type.CoManager == true && type.SeeAll == true && type.BuyingAcceptance == true)
+                else if (type.CoManager == true && type.SeeAll == true)
                 {
-                    order.FourthLevelSign = true;
+                    order.FirstLevelSign = true;
                 }
-                //مدير المشروع
-                else if (type.Manager == true && type.AddNewProject != true && type.BuyingAcceptance == true)
-                {
-                    order.FifthLevelSign = true;
-                }
-                //مدير تنفيذي
-                else if (type.Manager == true && type.AddNewProject == true && type.BuyingAcceptance == true)
-                {
-                    order.SeventhLevelSign = true;
-                }
-                //مالي
-                else if (type.Finance == true && type.CoManager == true && type.BuyingAcceptance == true)
-                {
-                    order.SixthLevelSign = true;
-                }
+
+
             }
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            if (order.FirstLevelSign == true && order.SecondLevelSign == true && order.ThirdLevelSign == true && order.Bndid != null)
+            {
+                SubBnd subBnd = new SubBnd();
+
+                try
+                {
+                    subBnd.id = db.SubBnds.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+                }
+                catch (Exception)
+                {
+                    subBnd.id = 1;
+                }
+                subBnd.BndId = order.Bndid;
+                subBnd.CenterId = order.CenterID;
+                subBnd.Date = order.Date;
+                order.SubBndid = subBnd.id;
+                order.State = "تم قبول الطلب";
+                subBnd.PeacePrice = order.PeacePrice;
+                subBnd.Quantity = (int)order.Quantity;
+                subBnd.Subject = order.Subject;
+                subBnd.SumPrice = subBnd.PeacePrice * subBnd.Quantity;
+
+                Center ce = db.Centers.Find(order.CenterID);
+                if (ce.DependedOn != null)
+                {
+                    Center center = db.Centers.Find(ce.DependedOn);
+                    try
+                    {
+                        center.SpentBudget += subBnd.SumPrice;
+                    }
+                    catch
+                    {
+                        center.SpentBudget = subBnd.SumPrice;
+                    }
+                    db.Entry(center).State = EntityState.Modified;
+                }
+                else
+                {
+                    try
+                    {
+                        ce.SpentBudget += subBnd.SumPrice;
+                    }
+                    catch
+                    {
+                        ce.SpentBudget = subBnd.SumPrice;
+                    }
+                    db.Entry(ce).State = EntityState.Modified;
+                }
+
+
+                PaymentsRecord paymentsRecord = new PaymentsRecord();
+                try
+                {
+                    paymentsRecord.id = db.PaymentsRecords.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+                }
+                catch (Exception)
+                {
+                    paymentsRecord.id = 1;
+                }
+                paymentsRecord.Orderid = order.id;
+                db.PaymentsRecords.Add(paymentsRecord);
+                subBnd.Paymentid = paymentsRecord.id;
+                db.SubBnds.Add(subBnd);
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+
+            }
+            return RedirectToAction("Index");
+        }
+
+        public JsonResult AssignBnd(int Bndid, int id)
+        {
+            var order = db.Orders.Find(id);
+            order.Bndid = Bndid;
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
             return Json(true);
         }
 
@@ -262,15 +442,15 @@ namespace IntensiveLearning.Controllers
                 if (file.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/Employees"), fileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/Orders"), fileName);
                     Order mystd = db.Orders.Find(order.id);
-                    string EmpProof = mystd.Proof;
+                    string EmpProof = mystd.SubBnd.proof;
                     if ((System.IO.File.Exists(EmpProof)))
                     {
                         System.IO.File.Delete(EmpProof);
                     }
                     file.SaveAs(path);
-                    order.Proof = path;
+                    order.SubBnd.proof = path;
                     db.Entry(mystd).State = EntityState.Detached;
                 }
                 ViewBag.Message = "Upload successful";

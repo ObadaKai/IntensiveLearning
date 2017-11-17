@@ -1,12 +1,12 @@
 ﻿@{
-    ViewBag.Title = "طلابات";
+    ViewBag.Title = "طلبات";
 }
 <div ng-controller="OrdersCtrl">
-    <h2>Index</h2>
+    <h2>طلبات</h2>
 
-    @using (Html.BeginForm("Create","Orders", FormMethod.Get))
+    @using (Html.BeginForm("Create", "Orders", FormMethod.Get))
     {
-    <button type="submit" class="btn btn-warning">انشاء جديد</button>
+        <button type="submit" class="btn btn-warning">انشاء جديد</button>
     }
 
     <div class="col-md-12" style="margin-bottom:20px;padding:0;border:0">
@@ -24,6 +24,44 @@
             <thead>
 
                 <tr class="bg-primary">
+                    <th rowspan="2">
+                        الاسم
+                    </th>
+                    <th rowspan="2">
+                        الكنية
+                    </th>
+                    <th rowspan="2">
+                        المعلومات
+                    </th>
+
+                    <th rowspan="2">
+                        البند
+                    </th>
+                    <th rowspan="2">
+                        المركز
+                    </th>
+                    <th rowspan="2">
+                        سعر القطعة
+                    </th>
+                    <th rowspan="2">
+                        العدد
+                    </th>
+                    <th rowspan="2">
+                        التاريخ
+                    </th>
+                    <th rowspan="2">
+                        الوقت
+                    </th>
+                    <th rowspan="1" colspan="3">التواقيع</th>
+                    <th rowspan="2">
+                        الحالة
+                    </th>
+
+                    <th rowspan="2">
+                        الاثبات
+                    </th>
+
+
                     @if (Session["Finance"] != null && Session["CoManager"] != null)
                     {
                         if ((bool)Session["Finance"] == true && (bool)Session["CoManager"] == true)
@@ -34,81 +72,20 @@
                         }
                     }
 
-                    <th rowspan="2">
-                        الحالة
-                    </th>
-                    <th rowspan="1" colspan="2">بعد الاستلام</th>
 
-                    <th rowspan="1" colspan="2">بعد البعث</th>
 
-                    <th rowspan="2">
-                        الاثبات
-                    </th>
-                    <th rowspan="1" colspan="7">التواقيع</th>
-
-                    <th rowspan="2">
-                        الوقت
-                    </th>
-                    <th rowspan="2">
-                        التاريخ
-                    </th>
-                    <th rowspan="2">
-                        العدد
-                    </th>
-                    <th rowspan="2">
-                        سعر القطعة
-                    </th>
-                    <th rowspan="2">
-                        المركز
-                    </th>
-
-                    <th rowspan="2">
-                        البند
-                    </th>
-                    <th rowspan="2">
-                        المعلومات
-                    </th>
-                    <th rowspan="2">
-                        الكنية
-                    </th>
-                    <th rowspan="2">
-                        الاسم
-                    </th>
                 </tr>
                 <tr class="bg-primary">
-                    <th>
-                        2
-                    </th>
+
                     <th>
                         1
                     </th>
                     <th>
                         2
-                    </th>
-                    <th>
-                        1
                     </th>
 
                     <th>
-                        7
-                    </th>
-                    <th>
-                        6
-                    </th>
-                    <th>
-                        5
-                    </th>
-                    <th>
-                        4
-                    </th>
-                    <th>
                         3
-                    </th>
-                    <th>
-                        2
-                    </th>
-                    <th>
-                        1
                     </th>
                 </tr>
             </thead>
@@ -116,6 +93,130 @@
 
             <tbody>
                 <tr ng-repeat="Order in Orders">
+                    <td>
+                        {{Order.EmployeeName}}
+                    </td>
+                    <td>
+                        {{Order.EmployeeSurname}}
+                    </td>
+                    <td>
+                        {{Order.Subject}}
+                    </td>
+                    <td>
+                        {{Order.Bnd}}
+                    </td>
+                    <td>
+                        {{Order.Center}}
+                    </td>
+                    <td>
+                        {{Order.PeacePrice | currency}}
+                    </td>
+                    <td>
+                        {{Order.Quantity}}
+                    </td>
+                    <td>
+                        {{Order.Date | date:'MM/dd/yyyy'}}
+                    </td>
+                    <td>
+                        {{Order.Time.Hours}}:{{Order.Time.Minutes}}
+                    </td>
+                    <td>
+                        <span ng-if="Order.FirstLevelSign == true">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </span>
+
+
+                        <span ng-if="Order.FirstLevelSign != true">
+                            @if (Session["CoManager"] != null && Session["SeeAll"] != null)
+                            {
+                                if (Session["Finance"] == null)
+                                {
+                                    if ((bool)Session["CoManager"] == true && (bool)Session["SeeAll"] == true)
+                                    {
+
+                                        <a href="Orders/ConfirmOrder/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                    }
+                                }
+                                else if ((bool)Session["Finance"] == false)
+                                {
+                                    if ((bool)Session["CoManager"] == true && (bool)Session["SeeAll"] == true)
+                                    {
+                                        <a href="Orders/ConfirmOrder/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                    }
+                                }
+
+
+                            }
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-if="Order.SecondLevelSign == true">
+
+                            @if (Session["CoManager"] != null && Session["Finance"] != null)
+                            {
+                                if ((bool)Session["CoManager"] == true && (bool)Session["Finance"] == true)
+                                {
+
+                                    <select ng-if="Order.Bnd == null" class="form-control" ng-change="BndChange(Order.id,BndAssign)" ng-model="BndAssign">
+                                        <option ng-repeat="Bnd in Bnds" value="{{Bnd.id}}">{{Bnd.Name}}</option>
+                                    </select>
+                                    <span ng-if="Order.Bnd != null" class="glyphicon glyphicon-ok"></span>
+
+                                }
+                                else
+                                {
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                }
+
+                            }
+                            else
+                            {
+                                <span class="glyphicon glyphicon-ok"></span>
+                            }
+
+
+                        </span>
+                        <span ng-if="Order.SecondLevelSign != true">
+                            @if (Session["CoManager"] != null && Session["Finance"] != null)
+                            {
+                                if ((bool)Session["CoManager"] == true && (bool)Session["Finance"] == true)
+                                {
+                                    <a href="Orders/ConfirmOrder/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                }
+
+                            }
+                        </span>
+                    </td>
+                    <td>
+
+                        <span ng-if="Order.ThirdLevelSign == true">
+
+                            <span class="glyphicon glyphicon-ok"></span>
+
+
+                        </span>
+                        <span ng-if="Order.ThirdLevelSign != true">
+                            @if (Session["Manager"] != null && Session["AddNewProject"] != null)
+                            {
+                                if ((bool)Session["Manager"] == true && (bool)Session["AddNewProject"] == true)
+                                {
+                                    <a href="Orders/ConfirmOrder/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                }
+
+                            }
+                        </span>
+
+                    </td>
+                    <td>
+                        {{Order.State}}
+                    </td>
+                    <td>
+                        <span ng-if="Order.State == 'تم قبول الطلب'">
+                            
+                                <input id="{{Order.id}}" type="file" aria-label="Add photos to your post" class="upload" multiple name="file" onchange="angular.element(this).scope().LoadFileData(this.files,this.id)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                        </span>
+                </td>
+
 
 
                     @if (Session["Finance"] != null && Session["CoManager"] != null)
@@ -123,7 +224,7 @@
                         <td>
                             @if ((bool)Session["Finance"] == true && (bool)Session["CoManager"] == true)
                             {
-                                <span ng-if="Order.FirstLevelSign && Order.SecondLevelSign && Order.ThirdLevelSign && Order.FourthLevelSign && Order.FifthLevelSign && Order.SixthLevelSign && Order.SeventhLevelSign && Order.SendingLevelSign && Order.RecievingLevelSign && Order.AfterRecieveFirstLevelSign && Order.AfterRecieveSecondLevelSign">
+                                <span ng-if="Order.FirstLevelSign && Order.SecondLevelSign && Order.ThirdLevelSign">
                                     <a href="Orders/Close"><span class="glyphicon glyphicon-ok"></span></a>
                                 </span>
 
@@ -134,234 +235,15 @@
                     }
 
 
-                    <td>
-                        {{Order.State}}
-                    </td>
-                    <td>
-                        <span ng-if="Order.AfterRecieveSecondLevelSign">
-                            @if (Session["Manager"] != null && Session["AddNewProject"] != null)
-                            {
-                                <a href="Orders/Edit/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-
-                            }
-                            else
-                            {
-                                <span class="glyphicon glyphicon-ok"></span>
-                            }
-                        </span>
-                    </td>
-                    <td>
-                        <span ng-if="Order.AfterRecieveFirstLevelSign">
-                            @if (Session["CoManager"] != null && Session["Finance"] != null)
-                            {
-                                <a href="Orders/Edit/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-
-                            }
-                            else
-                            {
-                                <span class="glyphicon glyphicon-ok"></span>
-                            }
-                        </span>
-                    </td>
-                    <td>
-                        <span ng-if="Order.RecievingLevelSign">
-                            <span ng-if="Order.EmployeeID==empid">
-                                <a href="Orders/Edit/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                            </span>
-                            <span ng-if="Order.EmployeeID==empid">
-                                <span class="glyphicon glyphicon-ok"></span>
-                            </span>
-                        </span>
-                    </td>
-                    <td>
-                        <span ng-if="Order.SendingLevelSign">
-                            @if (Session["CoManager"] != null && Session["Finance"] != null)
-                            {
-                                if ((bool)Session["CoManager"] == true && (bool)Session["Finance"] == true)
-                                {
-                                    <a href="Orders/Edit/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                }
-
-                            }
-                            else
-                            {
-                                <span class="glyphicon glyphicon-ok"></span>
-                            }
-                        </span>
-                    </td>
-                    <td>
-                        <span ng-if="Exam.Proof != null">
-                            <a href="/Json/DownloadProof/{{Exam.Proof}}">تحميل</a>
-                        </span>
-                    </td>
 
 
-                    <td>
-                        <span ng-if="Order.SeventhLevelSign != null">
-                            <span ng-if="Order.SeventhLevelSign == true">
-                                @if (Session["Manager"] != null && Session["AddNewProject"] != null)
-                                {
-                                    if ((bool)Session["Manager"] == true && (bool)Session["AddNewProject"] == true)
-                                    {
-                                        <a href="Orders/Edit/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                    }
 
-                                }
-                                else
-                                {
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                }
-
-                            </span>
-                        </span>
-                    </td>
-                    <td>
-                        <span ng-if="Order.SixthLevelSign != null">
-                            <span ng-if="Order.SixthLevelSign == true">
-                                @if (Session["Finance"] != null && Session["CoManager"] != null)
-                                {
-                                    if ((bool)Session["Finance"] == true && (bool)Session["CoManager"] == true)
-                                    {
-                                        <a href="Orders/Edit/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                    }
-
-                                }
-                                else
-                                {
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                }
-
-                            </span>
-                        </span>
-                    </td>
-                    <td>
-                        <span ng-if="Order.FifthLevelSign != null">
-                            <span ng-if="Order.FifthLevelSign == true">
-                                @if (Session["Manager"] != null && Session["AddNewProject"] != null)
-                                {
-                                    if ((bool)Session["Manager"] == true && (bool)Session["AddNewProject"] != true)
-                                    {
-                                        <a href="Orders/Edit/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                    }
-
-                                }
-                                else
-                                {
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                }
-
-                            </span>
-                        </span>
-                    </td>
-                    <td>
-                        <span ng-if="Order.FourthLevelSign != null">
-                            <span ng-if="Order.FourthLevelSign == true">
-                                @if (Session["CoManager"] != null && Session["SeeAll"] != null)
-                                {
-                                    if ((bool)Session["CoManager"] == true && (bool)Session["SeeAll"] == true)
-                                    {
-                                        <a href="Orders/Edit/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                    }
-
-                                }
-                                else
-                                {
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                }
-
-                            </span>
-                        </span>
-                    </td>
-                    <td>
-                        <span ng-if="Order.ThirdLevelSign != null">
-                            <span ng-if="Order.ThirdLevelSign == true">
-                                @if (Session["CoManager"] != null && Session["HighAcceptance"] != null)
-                                {
-                                    if ((bool)Session["CoManager"] == true && (bool)Session["HighAcceptance"] == true)
-                                    {
-                                        <a href="Orders/Edit/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                    }
-
-                                }
-                                else
-                                {
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                }
-
-                            </span>
-                        </span>
-                    </td>
-                    <td>
-                        <span ng-if="Order.SecondLevelSign != null">
-                            <span ng-if="Order.FirstLevelSign == true">
-                                @if (Session["CoManager"] != null && Session["AddCitesAndCenters"] != null)
-                                {
-                                    if ((bool)Session["CoManager"] == true && (bool)Session["AddCitesAndCenters"] == true)
-                                    {
-                                        <a href="Orders/Edit/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                    }
-
-                                }
-                                else
-                                {
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                }
-
-                            </span>
-                        </span>
-                    </td>
-                    <td>
-                        <span ng-if="Order.FirstLevelSign != null">
-                            <span ng-if="Order.FirstLevelSign == true">
-                                @if (Session["CoManager"] != null && Session["SeeAccToCity"] != null)
-                                {
-                                    if ((bool)Session["CoManager"] == true && (bool)Session["SeeAccToCity"] == true)
-                                    {
-                                        <a href="Orders/Edit/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                    }
-
-                                }
-                                else
-                                {
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                }
-                            </span>
-                        </span>
-                    </td>
-                    <td>
-                        {{Order.Time.Hours}}:{{Order.Time.Minutes}}
-                    </td>
-                    <td>
-                        {{Order.Date | date:'MM/dd/yyyy'}}
-                    </td>
-                    <td>
-                        {{Order.Quantity}}
-                    </td>
-
-                    <td>
-                        {{Order.PeacePrice}}
-                    </td>
-                    <td>
-                        {{Order.Center}}
-                    </td>
-                    <td>
-                        {{Order.Bnd}}
-                    </td>
-                    <td>
-                        {{Order.Desc}}
-                    </td>
-                    <td>
-                        {{Order.EmployeeSurname}}
-                    </td>
-                    <td>
-                        {{Order.EmployeeName}}
-                    </td>
 
                 </tr>
             </tbody>
 
         </table>
     </div>
-    <button id="btnExport" class="btn btn-warning">Export to xls</button>
+    <button id="btnExport" class="btn btn-warning">xls تصدير ل </button>
 
 </div>

@@ -155,6 +155,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BndsController.cs" />
     <Compile Include="Controllers\CentersController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\ComplainsController.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Controllers\StagesController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\Study_subjectController.cs" />
+    <Compile Include="Controllers\SubBndsController.cs" />
     <Compile Include="Controllers\TryOutController.cs" />
     <Compile Include="Database\Bnd.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -226,6 +228,9 @@
     <Compile Include="Database\Order.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\PaymentsRecord.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\Period.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -250,6 +255,12 @@
     <Compile Include="Database\Study_subject.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\SubBnd.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sysdiagram.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -259,6 +270,7 @@
     <Compile Include="Models\ExamTextBoxes.cs" />
     <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\StudentWithUpload.cs" />
+    <Compile Include="Models\SubBndCenters.cs" />
     <Compile Include="Models\TextBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ExcelImportController.cs" />
@@ -425,6 +437,12 @@
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
     <Content Include="Views\ExcelImport\Index.cshtml" />
+    <Content Include="Views\Bnds\Create.cshtml" />
+    <Content Include="Views\Bnds\Delete.cshtml" />
+    <Content Include="Views\Bnds\Details.cshtml" />
+    <Content Include="Views\Bnds\Edit.cshtml" />
+    <Content Include="Views\Bnds\Index.cshtml" />
+    <Content Include="Views\SubBnds\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Centers\" />

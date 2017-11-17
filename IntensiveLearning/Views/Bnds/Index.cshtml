@@ -1,0 +1,132 @@
+﻿@model IEnumerable<IntensiveLearning.Database.Bnd>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<div id="table_wrapper">
+    <table class="table table-striped">
+        <thead>
+            <tr class="bg-primary">
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalNum)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AfterReductionNum)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month1Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month2Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month3Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month4Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month5Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month6Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month7Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month8Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month9Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month10Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month11Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month12Share)
+                </th>
+                <th>
+                    المحتوى
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalNum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AfterReductionNum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month1Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month2Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month3Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month4Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month5Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month6Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month7Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month8Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month9Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month10Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month11Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month12Share)
+                    </td>
+                    <td>
+                        <a href="/SubBnds/Index/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-info-sign"></span></a>
+                    </td>
+                    <td>
+                        <a href="/Bnds/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a href="/Bnds/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                        <a href="/Bnds/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>

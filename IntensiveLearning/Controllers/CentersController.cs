@@ -384,11 +384,11 @@ namespace IntensiveLearning.Controllers
                     {
                         ZipFile.CreateFromDirectory(startPath, zipPath);
                     }
-                    catch (Exception wx) { }
+                    catch { }
                     centerModel.center.Proof = zipPath;
 
                 }
-                catch (Exception ex)
+                catch 
                 {
 
 

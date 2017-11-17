@@ -300,7 +300,7 @@ namespace IntensiveLearning.Controllers
                     {
                         ZipFile.CreateFromDirectory(startPath, zipPath);
                     }
-                    catch (Exception wx) { }
+                    catch{ }
                     student.Proof = zipPath;
                 }
                 catch { }
@@ -321,7 +321,7 @@ namespace IntensiveLearning.Controllers
                     db.SaveChanges();
                     return Json(true);
                 }
-                catch (Exception ex)
+                catch 
                 {
                     return Json(false);
                 }
@@ -604,7 +604,7 @@ namespace IntensiveLearning.Controllers
                         }
 
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الطالب يرجى تغييرها قبل الحذف";
                         return View(student);

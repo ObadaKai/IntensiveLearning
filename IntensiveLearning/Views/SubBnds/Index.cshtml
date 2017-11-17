@@ -1,0 +1,151 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div ng-controller="SubBndsCtrl">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <div style="display:block;margin-bottom:15px;">
+        <div class="row">
+            <div class="col-sm-4">
+                <table  class="table table-striped">
+                    <tr>
+                        <th style="background-color:rgba(37, 8, 4,0.7);color:white;">رقم البند</th>
+                        <td>{{Bnd.Bndid}}</td>
+
+                    </tr>
+                    <tr>
+                        <th style="background-color:rgba(37, 8, 4,0.7);color:white;">اسم البند</th>
+                        <td>{{Bnd.Bndname}}</td>
+
+                    </tr>
+                    <tr>
+                        <th style="background-color:rgba(37, 8, 4,0.7);color:white;">موازنة البند</th>
+                        <td>{{Bnd.BndTotalNum | currency}}</td>
+
+                    </tr>
+                    <tr>
+                        <th style="background-color:rgba(37, 8, 4,0.7);color:white;">المشتريات</th>
+                        <td>{{Bnd.BndPaidAmount | currency}}</td>
+
+                    </tr>
+                    <tr>
+                        <th style="background-color:rgba(37, 8, 4,0.7);color:white;">القيمة المتبقية</th>
+                        <td ng-style= "{'background-color': Bnd.BndRemaining > 0 ? '#5cb85c' :'#d9534f' }" >{{Bnd.BndRemaining | currency}}</td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="col-sm-8">
+                <table  class="table table-striped">
+                    <thead>
+                        <tr class="bg-primary">
+                            <th ng-repeat="Center in Centers">{{Center.id}}. {{Center.Name}}</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td ng-repeat="Center in Centers">{{Center.Center | currency}}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div id="table_wrapper">
+        <table class="table table-striped">
+            <thead>
+
+                <tr class="bg-primary">
+                    <th>
+                        المعلومات
+                    </th>
+                    <th>
+                        سعر القطعة
+                    </th>
+                    <th>
+                        العدد
+                    </th>
+
+                    <th>
+                        اسم المركز
+                    </th>
+                    <th>
+                        اسم الرئيسي
+                    </th>
+                    <th>
+                        المجموع الكلي
+                    </th>
+
+                    <th>
+                        تاريخ الادخال
+                    </th>
+                    <th>
+                        الدفع
+                    </th>
+                    <th>
+                        الشراء
+                    </th>
+
+                    <th>
+                        قبول الاثبات
+                    </th>
+                    <th>
+                        الاثبات
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="SubBnd in SubBnds">
+                    <td>
+                        {{SubBnd[0]}}
+                    </td>
+                    <td>
+                        {{SubBnd[1] | currency}}
+                    </td>
+                    <td>
+                        {{SubBnd[2]}}
+                    </td>
+                    <td>
+                        {{SubBnd[3]}}
+                    </td>
+                    <td>
+                        {{SubBnd[4]}}
+                    </td>
+                    <td>
+                        {{SubBnd[5] | currency}}
+                    </td>
+                    <td>
+                        {{SubBnd[6] | date:'MM/dd/yyyy'}}
+                    </td>
+                    <td>
+                        {{SubBnd[7]}}
+                    </td>
+                    <td>
+                        {{SubBnd[8]}}
+                    </td>
+                    <td>
+                        {{SubBnd[9]}}
+                    </td>
+                    <td>
+                        {{SubBnd[10]}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button id="btnExport" class="btn btn-warning">xls تصدير ل </button>
+
+</div>

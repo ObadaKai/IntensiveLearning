@@ -47,6 +47,10 @@ body {
         margin-top: 30px;
         text-align: right;
     }
+    .Login-Card {
+        width: 100%;
+        padding: 10px;
+    }
 }
 
 @media screen and (min-width: 550px) {
@@ -59,6 +63,15 @@ body {
         margin: auto;
         margin-top: 30px;
         text-align: right;
+    }
+    .Login-Card {
+        width: 400px;
+        display: inline-block;
+
+        right:0;
+        left:0;
+        margin: auto;
+        padding: 20px;
     }
 }
 
@@ -206,15 +219,8 @@ textarea {
 
 .Login-Card {
     position: absolute;
-    width: 400px;
-    display: inline-block;
     top: 37.5%;
-    left: 0;
-    right: 0;
-    margin: auto;
-    background-color: #ffffff;
     background-color: rgba(255,255,255,0.7);
-    padding: 20px;
 }
 
     .Login-Card h4 {
@@ -241,11 +247,8 @@ textarea {
 
 
 
-.Login-Card-Mobile {
+/*.Login-Card-Mobile {
     position: fixed;
-    top: 33%;
-    width: 100%;
-    padding: 10px;
     background-color: rgba(255,255,255,0.7);
 }
 
@@ -255,7 +258,7 @@ textarea {
     width: 100%;
     position: absolute;
     z-index: -1;
-}
+}*/
 
 .Search-TextBox {
     height: 1.5em;

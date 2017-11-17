@@ -18,36 +18,31 @@ namespace IntensiveLearning.Database
         public Order()
         {
             this.Prooves = new HashSet<Proove>();
+            this.PaymentsRecords = new HashSet<PaymentsRecord>();
         }
     
         public int id { get; set; }
         public Nullable<int> Employeeid { get; set; }
         public Nullable<int> Bndid { get; set; }
-        public string Desc { get; set; }
+        public string Subject { get; set; }
         public Nullable<double> Quantity { get; set; }
         public Nullable<double> PeacePrice { get; set; }
         public string State { get; set; }
         public Nullable<bool> FirstLevelSign { get; set; }
         public Nullable<bool> SecondLevelSign { get; set; }
         public Nullable<bool> ThirdLevelSign { get; set; }
-        public Nullable<bool> FourthLevelSign { get; set; }
-        public Nullable<bool> FifthLevelSign { get; set; }
-        public Nullable<bool> SixthLevelSign { get; set; }
-        public Nullable<bool> SeventhLevelSign { get; set; }
-        public Nullable<bool> EightithLevelSign { get; set; }
-        public string Proof { get; set; }
-        public Nullable<bool> SendingLevelSign { get; set; }
-        public Nullable<bool> RecievingLevelSign { get; set; }
-        public Nullable<bool> AfterRecieveFirstLevelSign { get; set; }
-        public Nullable<bool> AfterRecieveSecondLevelSign { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<System.TimeSpan> Time { get; set; }
         public Nullable<int> CenterID { get; set; }
+        public Nullable<int> SubBndid { get; set; }
     
         public virtual Bnd Bnd { get; set; }
         public virtual Center Center { get; set; }
         public virtual Employee Employee { get; set; }
+        public virtual SubBnd SubBnd { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Proove> Prooves { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PaymentsRecord> PaymentsRecords { get; set; }
     }
 }
