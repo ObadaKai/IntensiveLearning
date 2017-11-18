@@ -5,13 +5,13 @@
 <h2>Index</h2>
 <div ng-controller="SubBndsCtrl">
     <p>
-        @Html.ActionLink("Create New", "Create")
+        <a href="/SubBnds/Create/{{Bnd.Bndid}}">انشاء جديد</a>
     </p>
 
     <div style="display:block;margin-bottom:15px;">
         <div class="row">
             <div class="col-sm-4">
-                <table  class="table table-striped">
+                <table class="table table-striped">
                     <tr>
                         <th style="background-color:rgba(37, 8, 4,0.7);color:white;">رقم البند</th>
                         <td>{{Bnd.Bndid}}</td>
@@ -34,13 +34,13 @@
                     </tr>
                     <tr>
                         <th style="background-color:rgba(37, 8, 4,0.7);color:white;">القيمة المتبقية</th>
-                        <td ng-style= "{'background-color': Bnd.BndRemaining > 0 ? '#5cb85c' :'#d9534f' }" >{{Bnd.BndRemaining | currency}}</td>
+                        <td ng-style="{'background-color': Bnd.BndRemaining > 0 ? '#5cb85c' :'#d9534f' }">{{Bnd.BndRemaining | currency}}</td>
                     </tr>
                 </table>
 
             </div>
             <div class="col-sm-8">
-                <table  class="table table-striped">
+                <table class="table table-striped">
                     <thead>
                         <tr class="bg-primary">
                             <th ng-repeat="Center in Centers">{{Center.id}}. {{Center.Name}}</th>
@@ -110,42 +110,88 @@
             <tbody>
                 <tr ng-repeat="SubBnd in SubBnds">
                     <td>
-                        {{SubBnd[0]}}
+                        {{SubBnd.Subject}}
                     </td>
                     <td>
-                        {{SubBnd[1] | currency}}
+                        {{SubBnd.PeacePrice | currency}}
                     </td>
                     <td>
-                        {{SubBnd[2]}}
+                        {{SubBnd.Quantity}}
                     </td>
                     <td>
-                        {{SubBnd[3]}}
+                        {{SubBnd.Center}}
                     </td>
                     <td>
-                        {{SubBnd[4]}}
+                        {{SubBnd.CenterDepended}}
                     </td>
                     <td>
-                        {{SubBnd[5] | currency}}
+                        {{SubBnd.SumPrice | currency}}
                     </td>
                     <td>
-                        {{SubBnd[6] | date:'MM/dd/yyyy'}}
+                        {{SubBnd.Date | date:'MM/dd/yyyy'}}
                     </td>
                     <td>
-                        {{SubBnd[7]}}
+                        @if (Session["Finance"] != null)
+                        {
+                            if ((bool)Session["Finance"] == true)
+                            {
+                                <span ng-if="SubBnd.BuyingApprove == null"><a ng-href="@Url.Action("BuyingApprove","SubBnds")/{{SubBnd.id}}"><span class="glyphicon glyphicon-ok"></span></a></span>
+                                <span ng-if="SubBnd.BuyingApprove != null" class="glyphicon glyphicon-ok"></span>
+                            }
+                            else
+                            {
+                                <span ng-if="SubBnd.BuyingApprove != null" class="glyphicon glyphicon-ok"></span>
+                            }
+                        }
+                        else
+                        {
+                            <span ng-if="SubBnd.BuyingApprove != null" class="glyphicon glyphicon-ok"></span>
+                        }
+
                     </td>
                     <td>
-                        {{SubBnd[8]}}
+                        @if (Session["Finance"] != null)
+                        {
+                            if ((bool)Session["Finance"] == true)
+                            {
+                                <span ng-if="SubBnd.PayymentApprove == null && SubBnd.BuyingApprove != null"><a ng-href="@Url.Action("PayymentApprove", "SubBnds")/{{SubBnd.id}}"><span class="glyphicon glyphicon-ok"></span></a></span>
+                                <span ng-if="SubBnd.PayymentApprove != null" class="glyphicon glyphicon-ok"></span>
+                            }
+                            else
+                            {
+                                <span ng-if="SubBnd.PayymentApprove != null" class="glyphicon glyphicon-ok"></span>
+                            }
+                        }
+                        else
+                        {
+                            <span ng-if="SubBnd.PayymentApprove != null" class="glyphicon glyphicon-ok"></span>
+                        }
                     </td>
                     <td>
-                        {{SubBnd[9]}}
+                        @if (Session["Finance"] != null)
+                        {
+                            if ((bool)Session["Finance"] == true)
+                            {
+                                <span ng-if="SubBnd.ProofAcceptance == null && SubBnd.PayymentApprove != null && SubBnd.BuyingApprove != null && SubBnd.proof != null"><a ng-href="@Url.Action("ProofAcceptance","SubBnds")/{{SubBnd.id}}"><span class="glyphicon glyphicon-ok"></span></a></span>
+                                <span ng-if="SubBnd.ProofAcceptance != null" class="glyphicon glyphicon-ok"></span>
+                            }
+                            else
+                            {
+                                <span ng-if="SubBnd.ProofAcceptance != null" class="glyphicon glyphicon-ok"></span>
+                            }
+                        }
+                        else
+                        {
+                            <span ng-if="SubBnd.ProofAcceptance != null" class="glyphicon glyphicon-ok"></span>
+                        }
                     </td>
                     <td>
-                        {{SubBnd[10]}}
+                        <a ng-if="SubBnd.proof != null" ng-href="@Url.Action("DownloadProof","Json")/{{SubBnd.proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <button id="btnExport" class="btn btn-warning">xls تصدير ل </button>
+    <button id="btnExport" class="btn btn-warning">xls تصدير ل</button>
 
 </div>

@@ -32,6 +32,7 @@
           <Property Name="BudgetLineItem" Type="nvarchar(max)" />
           <Property Name="NumberOfUnits" Type="int" />
           <Property Name="PerUnitCost" Type="float" />
+          <Property Name="Simbol" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Centers">
           <Key>
@@ -245,6 +246,7 @@
           <Property Name="Time" Type="time" Precision="7" />
           <Property Name="CenterID" Type="int" />
           <Property Name="SubBndid" Type="int" />
+          <Property Name="BuyingSign" Type="bit" />
         </EntityType>
         <EntityType Name="PaymentsRecord">
           <Key>
@@ -304,6 +306,7 @@
           <Property Name="Path" Type="varchar(max)" />
           <Property Name="Type" Type="varchar(max)" />
           <Property Name="EmployeeID" Type="int" />
+          <Property Name="ZipFilePath" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Regiments">
           <Key>
@@ -377,6 +380,7 @@
           <Property Name="proof" Type="nvarchar(max)" />
           <Property Name="ProofAcceptance" Type="bit" />
           <Property Name="Paymentid" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -892,6 +896,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubBnd_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SubBnd">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SubBnd_PaymentsRecord">
           <End Role="PaymentsRecord" Type="Self.PaymentsRecord" Multiplicity="0..1" />
           <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
@@ -1096,6 +1112,10 @@
             <End Role="Centers" EntitySet="Centers" />
             <End Role="SubBnd" EntitySet="SubBnd" />
           </AssociationSet>
+          <AssociationSet Name="FK_SubBnd_Employees" Association="Self.FK_SubBnd_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="SubBnd" EntitySet="SubBnd" />
+          </AssociationSet>
           <AssociationSet Name="FK_SubBnd_PaymentsRecord" Association="Self.FK_SubBnd_PaymentsRecord">
             <End Role="PaymentsRecord" EntitySet="PaymentsRecord" />
             <End Role="SubBnd" EntitySet="SubBnd" />
@@ -1134,6 +1154,7 @@
           <Property Name="BudgetLineItem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NumberOfUnits" Type="Int32" />
           <Property Name="PerUnitCost" Type="Double" />
+          <Property Name="Simbol" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Center">
           <Key>
@@ -1271,6 +1292,7 @@
           <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Employees" FromRole="Employees" ToRole="Prooves" />
           <NavigationProperty Name="Students" Relationship="Self.FK_Students_Employees" FromRole="Employees" ToRole="Students" />
           <NavigationProperty Name="Students1" Relationship="Self.FK_Students_Employees1" FromRole="Employees" ToRole="Students" />
+          <NavigationProperty Name="SubBnds" Relationship="TaalimModel.FK_SubBnd_Employees" FromRole="Employee" ToRole="SubBnd" />
         </EntityType>
         <EntityType Name="EmployeeType">
           <Key>
@@ -1398,6 +1420,7 @@
           <NavigationProperty Name="SubBnd" Relationship="Self.FK_Order_SubBnd" FromRole="Order" ToRole="SubBnd" />
           <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Order" FromRole="Order" ToRole="Prooves" />
           <NavigationProperty Name="PaymentsRecords" Relationship="TaalimModel.FK_PaymentsRecord_Order" FromRole="Order" ToRole="PaymentsRecord" />
+          <Property Name="BuyingSign" Type="Boolean" />
         </EntityType>
         <EntityType Name="Period">
           <Key>
@@ -1462,6 +1485,7 @@
           <NavigationProperty Name="Examination" Relationship="Self.FK_Prooves_Examination" FromRole="Prooves" ToRole="Examination" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Prooves_Order" FromRole="Prooves" ToRole="Order" />
           <NavigationProperty Name="Student" Relationship="Self.FK_Prooves_Students" FromRole="Prooves" ToRole="Students" />
+          <Property Name="ZipFilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Regiment">
           <Key>
@@ -1554,6 +1578,8 @@
           <Property Name="Quantity" Type="Int32" />
           <Property Name="Paymentid" Type="Int32" />
           <NavigationProperty Name="PaymentsRecord" Relationship="TaalimModel.FK_SubBnd_PaymentsRecord" FromRole="SubBnd" ToRole="PaymentsRecord" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="TaalimModel.FK_SubBnd_Employees" FromRole="SubBnd" ToRole="Employee" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -2253,6 +2279,10 @@
             <End Role="PaymentsRecord" EntitySet="PaymentsRecords" />
             <End Role="SubBnd" EntitySet="SubBnds" />
           </AssociationSet>
+          <AssociationSet Name="FK_SubBnd_Employees" Association="TaalimModel.FK_SubBnd_Employees">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="SubBnd" EntitySet="SubBnds" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="PaymentsRecord">
           <Key>
@@ -2287,6 +2317,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubBnd_Employees">
+          <End Type="TaalimModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="TaalimModel.SubBnd" Role="SubBnd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SubBnd">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2296,6 +2338,7 @@
           <EntitySetMapping Name="Bnds">
             <EntityTypeMapping TypeName="TaalimModel.Bnd">
               <MappingFragment StoreEntitySet="Bnd">
+                <ScalarProperty Name="Simbol" ColumnName="Simbol" />
                 <ScalarProperty Name="PerUnitCost" ColumnName="PerUnitCost" />
                 <ScalarProperty Name="NumberOfUnits" ColumnName="NumberOfUnits" />
                 <ScalarProperty Name="BudgetLineItem" ColumnName="BudgetLineItem" />
@@ -2529,6 +2572,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="TaalimModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="BuyingSign" ColumnName="BuyingSign" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Employeeid" ColumnName="Employeeid" />
                 <ScalarProperty Name="Bndid" ColumnName="Bndid" />
@@ -2591,6 +2635,7 @@
           <EntitySetMapping Name="Prooves">
             <EntityTypeMapping TypeName="TaalimModel.Proove">
               <MappingFragment StoreEntitySet="Prooves">
+                <ScalarProperty Name="ZipFilePath" ColumnName="ZipFilePath" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="StudentID" ColumnName="StudentID" />
                 <ScalarProperty Name="CenterID" ColumnName="CenterID" />
@@ -2664,6 +2709,7 @@
           <EntitySetMapping Name="SubBnds">
             <EntityTypeMapping TypeName="TaalimModel.SubBnd">
               <MappingFragment StoreEntitySet="SubBnd">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Paymentid" ColumnName="Paymentid" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="id" ColumnName="id" />

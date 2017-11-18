@@ -635,8 +635,13 @@ namespace IntensiveLearning.Controllers
         //}
 
 
-        public FileResult DownloadProof(string ImageName)
+        public FileResult DownloadProof(string ImageName,int id)
         {
+            if (ImageName == null)
+            {
+                Proove proove = db.Prooves.Find(id);
+                ImageName = proove.ZipFilePath;
+            }
             var exe = Path.GetExtension(ImageName);
             var c = Path.GetDirectoryName(ImageName);
             string lastFolderName = Path.GetFileName(Path.GetDirectoryName(ImageName));

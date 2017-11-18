@@ -299,6 +299,7 @@
     <EntitySetMapping Name="Prooves">
       <EntityTypeMapping TypeName="TaalimModel.Proove">
         <MappingFragment StoreEntitySet="Prooves">
+          <ScalarProperty Name="ZipFilePath" ColumnName="ZipFilePath" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="StudentID" ColumnName="StudentID" />
           <ScalarProperty Name="CenterID" ColumnName="CenterID" />
@@ -372,6 +373,7 @@
     <EntitySetMapping Name="SubBnds">
       <EntityTypeMapping TypeName="TaalimModel.SubBnd">
         <MappingFragment StoreEntitySet="SubBnd">
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="Paymentid" ColumnName="Paymentid" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="id" ColumnName="id" />

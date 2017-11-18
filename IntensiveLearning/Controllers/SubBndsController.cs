@@ -2,6 +2,7 @@
 using IntensiveLearning.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,28 +11,27 @@ namespace IntensiveLearning.Controllers
 {
     public class SubBndsController : Controller
     {
-        private static int bndid; 
         TaalimEntities db = new TaalimEntities();
         // GET: SubBnd
         public ActionResult Index(int? id)
         {
-            
             if (Session["ID"] == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            if (id == null)
+            if (id != null)
             {
-                return RedirectToAction("Index", "Bnds");
+                Session["Bndid"] = id;
             }
 
-            bndid = (int)id;
+            
             return View();
         }
 
 
         public JsonResult GetSubBnds()
         {
+            var bndid = Convert.ToInt32(Session["Bndid"]);
             var bnd = db.Bnds.Find(bndid);
             var sum = db.SubBnds.Where(x => x.BndId == bndid).Sum(c => c.SumPrice);
 
@@ -82,7 +82,8 @@ namespace IntensiveLearning.Controllers
             }
 
             var empid = Convert.ToInt32(Session["ID"]);
-            var Subbnd = db.SubBnds.Where(x=>x.BndId == bndid).ToList();
+            var Subbnd = db.SubBnds.Where(x => x.BndId == bndid).ToList();
+
             foreach (var CC in Subbnd)
             {
                 if (CC.Bnd == null)
@@ -96,7 +97,6 @@ namespace IntensiveLearning.Controllers
 
             }
 
-            
 
             var SubBnds = Subbnd.Select(x => new
             {
@@ -117,76 +117,98 @@ namespace IntensiveLearning.Controllers
                 ProofAcceptance = x.ProofAcceptance,
                 proof = x.proof
             }).ToList();
-            List<object> o = new List<object>();
+            List<SubBndItems> o = new List<SubBndItems>();
             foreach (var item in SubBnds)
             {
-                var list = new List<object>();
-                try { 
-                var xxx = db.Centers.Find(item.Centerid).DependedOn;
+                SubBndItems subBndItems = new SubBndItems();
+                try
+                {
+                    var xxx = db.Centers.Find(item.Centerid).DependedOn;
                     if (xxx != null)
                     {
                         var RealCenter = db.Centers.Find(xxx);
-                        list.Add(item.Subject);
-                        list.Add(item.PeacePrice);
-                        list.Add(item.Quantity);
-                        list.Add(item.Center);
-                        list.Add(RealCenter.Name);
-                        list.Add(item.SumPrice);
-                        list.Add(item.Date);
-                        list.Add(item.PayymentApprove);
-                        list.Add(item.BuyingApprove);
-                        list.Add(item.ProofAcceptance);
-                        list.Add(item.proof);
-
-                        list.Add(item.Bndid);
-                        list.Add(item.Bnd);
-                        list.Add(item.Centerid);
-                        list.Add(item.id);
+                        subBndItems.Subject = item.Subject;
+                        subBndItems.PeacePrice = item.PeacePrice;
+                        subBndItems.Quantity = item.Quantity;
+                        subBndItems.Center = item.Center;
+                        subBndItems.CenterDepended = RealCenter.Name;
+                        subBndItems.SumPrice = item.SumPrice;
+                        subBndItems.Date =  item.Date;
+                        subBndItems.BuyingApprove = item.BuyingApprove;
+                        subBndItems.PayymentApprove = item.PayymentApprove;
+                        subBndItems.ProofAcceptance = item.ProofAcceptance;
+                        if (item.proof != null)
+                        {
+                            int proof = db.Prooves.Where(x => x.ZipFilePath == item.proof).FirstOrDefault().id;
+                            subBndItems.proof = proof;
+                        }
+                        else
+                        {
+                            subBndItems.proof = item.proof;
+                        }
+                        subBndItems.Bndid = item.Bndid;
+                        subBndItems.Bnd = item.Bnd;
+                        subBndItems.Centerid =  item.Centerid;
+                        subBndItems.id =  item.id;
 
                     }
                     else
                     {
-                        list.Add(item.Subject);
-                        list.Add(item.PeacePrice);
-                        list.Add(item.Quantity);
-                        list.Add(item.Center);
-                        list.Add(item.Center);
-                        list.Add(item.SumPrice);
-                        list.Add(item.Date);
-                        list.Add(item.PayymentApprove);
-                        list.Add(item.BuyingApprove);
-                        list.Add(item.ProofAcceptance);
-                        list.Add(item.proof);
-
-                        list.Add(item.Bndid);
-                        list.Add(item.Bnd);
-                        list.Add(item.Centerid);
-                        list.Add(item.id);
+                        subBndItems.Subject = item.Subject;
+                        subBndItems.PeacePrice = item.PeacePrice;
+                        subBndItems.Quantity = item.Quantity;
+                        subBndItems.Center = item.Center;
+                        subBndItems.CenterDepended = item.Center;
+                        subBndItems.SumPrice = item.SumPrice;
+                        subBndItems.Date = item.Date;
+                        subBndItems.BuyingApprove = item.BuyingApprove;
+                        subBndItems.PayymentApprove = item.PayymentApprove;
+                        subBndItems.ProofAcceptance = item.ProofAcceptance;
+                        if (item.proof != null)
+                        {
+                            int proof = db.Prooves.Where(x => x.ZipFilePath == item.proof).FirstOrDefault().id;
+                            subBndItems.proof = proof;
+                        }
+                        else
+                        {
+                            subBndItems.proof = item.proof;
+                        }
+                        subBndItems.Bndid = item.Bndid;
+                        subBndItems.Bnd = item.Bnd;
+                        subBndItems.Centerid = item.Centerid;
+                        subBndItems.id = item.id;
                     }
                 }
                 catch
                 {
-                    list.Add(item.Subject);
-                    list.Add(item.PeacePrice);
-                    list.Add(item.Quantity);
-                    list.Add(item.Center);
-                    list.Add(item.Center);
-                    list.Add(item.SumPrice);
-                    list.Add(item.Date);
-                    list.Add(item.PayymentApprove);
-                    list.Add(item.BuyingApprove);
-                    list.Add(item.ProofAcceptance);
-                    list.Add(item.proof);
-
-                    list.Add(item.Bndid);
-                    list.Add(item.Bnd);
-                    list.Add(item.Centerid);
-                    list.Add(item.id);
+                    subBndItems.Subject = item.Subject;
+                    subBndItems.PeacePrice = item.PeacePrice;
+                    subBndItems.Quantity = item.Quantity;
+                    subBndItems.Center = item.Center;
+                    subBndItems.CenterDepended = item.Center;
+                    subBndItems.SumPrice = item.SumPrice;
+                    subBndItems.Date = item.Date;
+                    subBndItems.BuyingApprove = item.BuyingApprove;
+                    subBndItems.PayymentApprove = item.PayymentApprove;
+                    subBndItems.ProofAcceptance = item.ProofAcceptance;
+                    if (item.proof != null)
+                    {
+                        int proof = db.Prooves.Where(x => x.ZipFilePath == item.proof).FirstOrDefault().id;
+                        subBndItems.proof = proof;
+                    }
+                    else
+                    {
+                        subBndItems.proof = item.proof;
+                    }
+                    subBndItems.Bndid = item.Bndid;
+                    subBndItems.Bnd = item.Bnd;
+                    subBndItems.Centerid = item.Centerid;
+                    subBndItems.id = item.id;
                 }
-                o.Add(list);
+                o.Add(subBndItems);
 
 
-                
+
             }
 
             List<object> toSendList = new List<object>();
@@ -196,5 +218,273 @@ namespace IntensiveLearning.Controllers
             toSendList.Add(ToSendCenters);
             return Json(toSendList, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult Create(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Bnds");
+            }
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            ViewBag.CenterId = new SelectList(db.Centers, "id", "Name");
+            ViewBag.bndid = id;
+            if (type.Finance == true)
+            {
+                return View();
+
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(SubBnd subBnd)
+        {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            int empid = Convert.ToInt32(Session["ID"]);
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    subBnd.id = db.SubBnds.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+                }
+                catch (Exception)
+                {
+                    subBnd.id = 1;
+                }
+                subBnd.CreatedBy = empid;
+                subBnd.Date = DateTime.Now.Date;
+                subBnd.SumPrice = subBnd.PeacePrice * subBnd.Quantity;
+                PaymentsRecord paymentsRecord = new PaymentsRecord();
+                try
+                {
+                    paymentsRecord.id = db.PaymentsRecords.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+                }
+                catch (Exception)
+                {
+                    paymentsRecord.id = 1;
+                }
+                subBnd.Paymentid = paymentsRecord.id;
+                db.SubBnds.Add(subBnd);
+                db.PaymentsRecords.Add(paymentsRecord);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.CenterId = new SelectList(db.Centers, "id", "Name");
+
+            return View(subBnd);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Bnds");
+            }
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            int empid = Convert.ToInt32(Session["ID"]);
+            SubBnd subBnd = db.SubBnds.Find(id);
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            if (empid == subBnd.CreatedBy && type.Finance == true)
+            {
+                ViewBag.CenterId = new SelectList(db.Centers, "id", "Name", subBnd.CenterId);
+                return View(subBnd);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Edit(SubBnd subBnd)
+        {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (ModelState.IsValid)
+            {
+                subBnd.Date = DateTime.Now.Date;
+                subBnd.SumPrice = subBnd.PeacePrice * subBnd.Quantity;
+                subBnd.BuyingApprove = null;
+                subBnd.ProofAcceptance = null;
+                subBnd.PayymentApprove = null;
+                db.Entry(subBnd).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.CenterId = new SelectList(db.Centers, "id", "Name", subBnd.CenterId);
+
+            return View(subBnd);
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Bnds");
+            }
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+            int empid = Convert.ToInt32(Session["ID"]);
+            SubBnd subBnd = db.SubBnds.Find(id);
+            var Bndid = subBnd.BndId;
+            if (type.Finance == true && subBnd.CreatedBy == empid)
+            {
+                return View(subBnd);
+            }
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+            SubBnd subBnd = db.SubBnds.Find(id);
+            var Bndid = subBnd.BndId;
+            if (type.Finance == true)
+            {
+                db.SubBnds.Remove(subBnd);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+
+        }
+
+
+        public ActionResult BuyingApprove(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Default", "Home");
+            }
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+            SubBnd subBnd = db.SubBnds.Find(id);
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            if (type.Finance == true)
+            {
+                subBnd.BuyingApprove = true;
+                db.Entry(subBnd).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult PayymentApprove(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Default", "Home");
+            }
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+            SubBnd subBnd = db.SubBnds.Find(id);
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            if (type.Finance == true)
+            {
+                subBnd.PayymentApprove = true;
+                db.Entry(subBnd).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ProofAcceptance(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Default", "Home");
+            }
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+            SubBnd subBnd = db.SubBnds.Find(id);
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            if (type.Finance == true)
+            {
+
+                Center ce = db.Centers.Find(subBnd.CenterId);
+                if (ce.DependedOn != null)
+                {
+                    Center center = db.Centers.Find(ce.DependedOn);
+                    try
+                    {
+                        center.SpentBudget += subBnd.SumPrice;
+                    }
+                    catch
+                    {
+                        center.SpentBudget = subBnd.SumPrice;
+                    }
+                    db.Entry(center).State = EntityState.Modified;
+                }
+                else
+                {
+                    try
+                    {
+                        ce.SpentBudget += subBnd.SumPrice;
+                    }
+                    catch
+                    {
+                        ce.SpentBudget = subBnd.SumPrice;
+                    }
+                    db.Entry(ce).State = EntityState.Modified;
+                }
+
+                subBnd.ProofAcceptance = true;
+                Order order = db.Orders.FirstOrDefault(x => x.SubBndid == id);
+                order.State = "منتهية";
+                db.Entry(subBnd).State = EntityState.Modified;
+                db.Entry(order).State = EntityState.Modified;
+
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
     }
 }

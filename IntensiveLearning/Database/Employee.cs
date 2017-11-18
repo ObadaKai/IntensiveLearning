@@ -29,6 +29,7 @@ namespace IntensiveLearning.Database
             this.Prooves = new HashSet<Proove>();
             this.Students = new HashSet<Student>();
             this.Students1 = new HashSet<Student>();
+            this.SubBnds = new HashSet<SubBnd>();
         }
     
         public int id { get; set; }
@@ -89,5 +90,7 @@ namespace IntensiveLearning.Database
         public virtual ICollection<Student> Students { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Students1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubBnd> SubBnds { get; set; }
     }
 }

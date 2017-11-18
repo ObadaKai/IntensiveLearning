@@ -1,20 +1,26 @@
 ﻿@model IEnumerable<IntensiveLearning.Database.Bnd>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "لائحة البنود";
 }
 
-<h2>Index</h2>
+<h2>لائحة البنود</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@using (Html.BeginForm("Create", "Bnds", FormMethod.Get))
+{
+    <div style="margin-bottom:15px;">
+        <button type="submit" class="btn btn-warning">انشاء جديد</button>
+    </div>
+}
 
 
 <div id="table_wrapper">
     <table class="table table-striped">
         <thead>
             <tr class="bg-primary">
+                <th>
+                    @Html.DisplayNameFor(model=>model.Simbol)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
@@ -72,6 +78,9 @@
             {
                 <tr>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Simbol)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
@@ -120,9 +129,11 @@
                         <a href="/SubBnds/Index/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-info-sign"></span></a>
                     </td>
                     <td>
-                        <a href="/Bnds/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                        <a href="/Bnds/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                        <a href="/Bnds/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <div style="width:130px;">
+                            <a href="/Bnds/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a href="/Bnds/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                            <a href="/Bnds/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                        </div>
                     </td>
                 </tr>
             }

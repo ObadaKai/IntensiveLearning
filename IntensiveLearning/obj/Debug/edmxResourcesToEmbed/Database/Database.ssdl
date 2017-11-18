@@ -299,6 +299,7 @@
     <Property Name="Path" Type="varchar(max)" />
     <Property Name="Type" Type="varchar(max)" />
     <Property Name="EmployeeID" Type="int" />
+    <Property Name="ZipFilePath" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Regiments">
     <Key>
@@ -372,6 +373,7 @@
     <Property Name="proof" Type="nvarchar(max)" />
     <Property Name="ProofAcceptance" Type="bit" />
     <Property Name="Paymentid" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -887,6 +889,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SubBnd_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SubBnd_PaymentsRecord">
     <End Role="PaymentsRecord" Type="Self.PaymentsRecord" Multiplicity="0..1" />
     <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
@@ -1089,6 +1103,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_SubBnd_Centers" Association="Self.FK_SubBnd_Centers">
       <End Role="Centers" EntitySet="Centers" />
+      <End Role="SubBnd" EntitySet="SubBnd" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_Employees" Association="Self.FK_SubBnd_Employees">
+      <End Role="Employees" EntitySet="Employees" />
       <End Role="SubBnd" EntitySet="SubBnd" />
     </AssociationSet>
     <AssociationSet Name="FK_SubBnd_PaymentsRecord" Association="Self.FK_SubBnd_PaymentsRecord">

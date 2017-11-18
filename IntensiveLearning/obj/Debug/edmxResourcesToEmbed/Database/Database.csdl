@@ -166,6 +166,7 @@
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Employees" FromRole="Employees" ToRole="Prooves" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Employees" FromRole="Employees" ToRole="Students" />
     <NavigationProperty Name="Students1" Relationship="Self.FK_Students_Employees1" FromRole="Employees" ToRole="Students" />
+    <NavigationProperty Name="SubBnds" Relationship="TaalimModel.FK_SubBnd_Employees" FromRole="Employee" ToRole="SubBnd" />
   </EntityType>
   <EntityType Name="EmployeeType">
     <Key>
@@ -357,6 +358,7 @@
     <NavigationProperty Name="Examination" Relationship="Self.FK_Prooves_Examination" FromRole="Prooves" ToRole="Examination" />
     <NavigationProperty Name="Order" Relationship="Self.FK_Prooves_Order" FromRole="Prooves" ToRole="Order" />
     <NavigationProperty Name="Student" Relationship="Self.FK_Prooves_Students" FromRole="Prooves" ToRole="Students" />
+    <Property Name="ZipFilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Regiment">
     <Key>
@@ -449,6 +451,8 @@
     <Property Name="Quantity" Type="Int32" />
     <Property Name="Paymentid" Type="Int32" />
     <NavigationProperty Name="PaymentsRecord" Relationship="TaalimModel.FK_SubBnd_PaymentsRecord" FromRole="SubBnd" ToRole="PaymentsRecord" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <NavigationProperty Name="Employee" Relationship="TaalimModel.FK_SubBnd_Employees" FromRole="SubBnd" ToRole="Employee" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -1148,6 +1152,10 @@
       <End Role="PaymentsRecord" EntitySet="PaymentsRecords" />
       <End Role="SubBnd" EntitySet="SubBnds" />
     </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_Employees" Association="TaalimModel.FK_SubBnd_Employees">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="SubBnd" EntitySet="SubBnds" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="PaymentsRecord">
     <Key>
@@ -1179,6 +1187,18 @@
       </Principal>
       <Dependent Role="SubBnd">
         <PropertyRef Name="Paymentid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubBnd_Employees">
+    <End Type="TaalimModel.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="TaalimModel.SubBnd" Role="SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="CreatedBy" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

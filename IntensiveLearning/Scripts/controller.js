@@ -366,8 +366,8 @@
                 $scope.Centers = response.data[3];
 
                 angular.forEach($scope.SubBnds, function (value, key) {
-                    if (value[6]) {
-                        value[6] = new Date(parseInt(value[6].substr(6)));
+                    if (value.Date) {
+                        value.Date = new Date(parseInt(value.Date.substr(6)));
                     }
 
 

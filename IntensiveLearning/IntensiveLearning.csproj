@@ -271,6 +271,7 @@
     <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\StudentWithUpload.cs" />
     <Compile Include="Models\SubBndCenters.cs" />
+    <Compile Include="Models\SubBndItems.cs" />
     <Compile Include="Models\TextBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ExcelImportController.cs" />
@@ -443,6 +444,9 @@
     <Content Include="Views\Bnds\Edit.cshtml" />
     <Content Include="Views\Bnds\Index.cshtml" />
     <Content Include="Views\SubBnds\Index.cshtml" />
+    <Content Include="Views\SubBnds\Create.cshtml" />
+    <Content Include="Views\SubBnds\Edit.cshtml" />
+    <Content Include="Views\SubBnds\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Centers\" />

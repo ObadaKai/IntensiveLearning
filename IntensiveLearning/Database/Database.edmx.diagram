@@ -71,6 +71,7 @@
         <EntityTypeShape EntityType="TaalimModel.PaymentsRecord" Width="1.5" PointX="15.75" PointY="19" />
         <AssociationConnector Association="TaalimModel.FK_PaymentsRecord_Order" />
         <AssociationConnector Association="TaalimModel.FK_SubBnd_PaymentsRecord" />
+        <AssociationConnector Association="TaalimModel.FK_SubBnd_Employees" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

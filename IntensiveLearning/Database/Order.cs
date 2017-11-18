@@ -35,6 +35,7 @@ namespace IntensiveLearning.Database
         public Nullable<System.TimeSpan> Time { get; set; }
         public Nullable<int> CenterID { get; set; }
         public Nullable<int> SubBndid { get; set; }
+        public Nullable<bool> BuyingSign { get; set; }
     
         public virtual Bnd Bnd { get; set; }
         public virtual Center Center { get; set; }

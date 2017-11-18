@@ -66,6 +66,10 @@ namespace IntensiveLearning.Controllers
                 {
                     o.Center = new Center();
                 }
+                if (o.SubBnd == null)
+                {
+                    o.SubBnd = new SubBnd();
+                }
             }
 
             var Orders = order.Select(x => new
@@ -87,6 +91,8 @@ namespace IntensiveLearning.Controllers
                 EmployeeID = x.Employeeid,
                 Bndid = x.Bndid,
                 Centerid = x.CenterID,
+                Bought = x.BuyingSign,
+                proof = x.SubBnd.proof,
             }).ToList();
 
             var Bnds = Bnd.Select(x => new
@@ -121,6 +127,7 @@ namespace IntensiveLearning.Controllers
             int id = new JavaScriptSerializer().Deserialize<int>(o);
             Order order = db.Orders.Find(id);
             var files = Request.Files;
+            int proovesNum = 0;
             int prooveid;
             try
             {
@@ -184,12 +191,13 @@ namespace IntensiveLearning.Controllers
                         using (var fileStream = System.IO.File.Create(path))
                         {
                             inputStream.CopyTo(fileStream);
-
+                            proovesNum++;
                             Proove proove = new Proove();
                             proove.Path = path;
                             proove.id = prooveid;
                             proove.OrderID = id;
                             db.Prooves.Add(proove);
+
                             prooveid++;
                         }
                     }
@@ -218,8 +226,17 @@ namespace IntensiveLearning.Controllers
                         ZipFile.CreateFromDirectory(startPath, zipPath);
                     }
                     catch { }
+                    db.SaveChanges();
+                    prooveid--;
+                    for (int i = 0; i < proovesNum; i++)
+                    {
+                        var proovetozip = db.Prooves.Find(prooveid - i);
+                        proovetozip.ZipFilePath = zipPath;
+                        db.Entry(proovetozip).State = EntityState.Modified;
+                    }
                     order.SubBnd.proof = zipPath;
                     db.Entry(order).State = EntityState.Modified;
+                    db.SaveChanges();
                 }
                 catch { }
 
@@ -230,7 +247,6 @@ namespace IntensiveLearning.Controllers
                 //ViewBag.Message = "Upload failed";
                 //return Json(false);
             }
-            db.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -319,9 +335,6 @@ namespace IntensiveLearning.Controllers
 
             if (emp.Centerid == null)
             {
-
-
-
                 //مالي
                 if (type.Finance == true && type.CoManager == true)
                 {
@@ -369,32 +382,6 @@ namespace IntensiveLearning.Controllers
                 subBnd.Subject = order.Subject;
                 subBnd.SumPrice = subBnd.PeacePrice * subBnd.Quantity;
 
-                Center ce = db.Centers.Find(order.CenterID);
-                if (ce.DependedOn != null)
-                {
-                    Center center = db.Centers.Find(ce.DependedOn);
-                    try
-                    {
-                        center.SpentBudget += subBnd.SumPrice;
-                    }
-                    catch
-                    {
-                        center.SpentBudget = subBnd.SumPrice;
-                    }
-                    db.Entry(center).State = EntityState.Modified;
-                }
-                else
-                {
-                    try
-                    {
-                        ce.SpentBudget += subBnd.SumPrice;
-                    }
-                    catch
-                    {
-                        ce.SpentBudget = subBnd.SumPrice;
-                    }
-                    db.Entry(ce).State = EntityState.Modified;
-                }
 
 
                 PaymentsRecord paymentsRecord = new PaymentsRecord();
@@ -461,5 +448,26 @@ namespace IntensiveLearning.Controllers
             }
             return View();
         }
+
+
+        public ActionResult CheckBought(int id) {
+
+            var order = db.Orders.Find(id);
+            var empid = Convert.ToInt16(Session["ID"]);
+            var emp = db.Employees.Find(empid);
+            if (order.Employeeid == empid)
+            {
+                if (order.FirstLevelSign ==true && order.SecondLevelSign == true && order.ThirdLevelSign == true)
+                {
+                    order.BuyingSign = true;
+                    db.Entry(order).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

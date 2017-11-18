@@ -6,7 +6,9 @@
 
     @using (Html.BeginForm("Create", "Orders", FormMethod.Get))
     {
-        <button type="submit" class="btn btn-warning">انشاء جديد</button>
+        <div style="margin-bottom:15px;">
+            <button type="submit" class="btn btn-warning">انشاء جديد</button>
+        </div>
     }
 
     <div class="col-md-12" style="margin-bottom:20px;padding:0;border:0">
@@ -56,7 +58,9 @@
                     <th rowspan="2">
                         الحالة
                     </th>
-
+                    <th rowspan="2">
+                        الشراء
+                    </th>
                     <th rowspan="2">
                         الاثبات
                     </th>
@@ -211,33 +215,17 @@
                         {{Order.State}}
                     </td>
                     <td>
-                        <span ng-if="Order.State == 'تم قبول الطلب'">
-                            
-                                <input id="{{Order.id}}" type="file" aria-label="Add photos to your post" class="upload" multiple name="file" onchange="angular.element(this).scope().LoadFileData(this.files,this.id)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                        <span ng-if="Order.proof == null && Order.EmployeeID == empid && Order.Bought == true && Order.FirstLevelSign == true && Order.SecondLevelSign == true && Order.ThirdLevelSign == true">
+                            <input id="{{Order.id}}" type="file" aria-label="Add photos to your post" class="upload" multiple name="file" onchange="angular.element(this).scope().LoadFileData(this.files,this.id)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
                         </span>
-                </td>
-
-
-
-                    @if (Session["Finance"] != null && Session["CoManager"] != null)
-                    {
-                        <td>
-                            @if ((bool)Session["Finance"] == true && (bool)Session["CoManager"] == true)
-                            {
-                                <span ng-if="Order.FirstLevelSign && Order.SecondLevelSign && Order.ThirdLevelSign">
-                                    <a href="Orders/Close"><span class="glyphicon glyphicon-ok"></span></a>
-                                </span>
-
-                            }
-                        </td>
-
-
-                    }
-
-
-
-
-
+                        <span ng-if="Order.proof != null && Order.EmployeeID == empid && Order.Bought == true && Order.FirstLevelSign == true && Order.SecondLevelSign == true && Order.ThirdLevelSign == true">
+                            <a ng-href="@Url.Action("DownloadProof","Json")/{{Order.proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-if="Order.EmployeeID == empid && Order.Bought == true && Order.FirstLevelSign == true && Order.SecondLevelSign == true && Order.ThirdLevelSign == true"><span class="glyphicon glyphicon-ok"></span></span>
+                        <span ng-if="Order.EmployeeID == empid && Order.Bought != true && Order.FirstLevelSign ==true &&Order.SecondLevelSign ==true &&Order.ThirdLevelSign ==true"><a href="Orders/CheckBought/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a></span>
+                    </td>
 
                 </tr>
             </tbody>

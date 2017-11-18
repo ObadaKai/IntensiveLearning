@@ -22,6 +22,7 @@ namespace IntensiveLearning.Database
         public string Path { get; set; }
         public string Type { get; set; }
         public Nullable<int> EmployeeID { get; set; }
+        public string ZipFilePath { get; set; }
     
         public virtual Center Center { get; set; }
         public virtual Employee Employee { get; set; }

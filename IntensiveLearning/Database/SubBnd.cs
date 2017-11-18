@@ -33,11 +33,13 @@ namespace IntensiveLearning.Database
         public Nullable<bool> ProofAcceptance { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<int> Paymentid { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
     
         public virtual Bnd Bnd { get; set; }
         public virtual Center Center { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         public virtual PaymentsRecord PaymentsRecord { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

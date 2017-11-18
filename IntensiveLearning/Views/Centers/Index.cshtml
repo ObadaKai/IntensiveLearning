@@ -11,7 +11,9 @@
     {
         using (Html.BeginForm("Create", "Centers", FormMethod.Get))
         {
-            <button type="submit" class="btn btn-warning">انشاء جديد</button>
+            <div style="margin-bottom:15px;">
+                <button type="submit" class="btn btn-warning">انشاء جديد</button>
+            </div>
         }
     }
 }
@@ -59,7 +61,13 @@
                 </th>
                 <th rowspan="2">التوقيع</th>
                 <th rowspan="2">الاثبات</th>
-
+                @if (Session["SeeAll"]!=null)
+                {
+                    if ((bool)Session["SeeAll"] == true)
+                    {
+                        <th rowspan="2">الميزانية</th>
+                    }
+                }
 
 
 
@@ -465,7 +473,13 @@
                         </td>
 
 
-
+                        @if (Session["SeeAll"] != null)
+                        {
+                            if ((bool)Session["SeeAll"] == true)
+                            {
+                                <td rowspan="2">@Html.DisplayFor(modelItem => item.SpentBudget)</td>
+                            }
+                        }
                         <td>
                             @if (Session["AddCitesAndCenters"] != null)
                             {
