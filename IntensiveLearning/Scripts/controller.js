@@ -310,7 +310,7 @@
 
     }]);
 
-    myApp.controller('OrdersCtrl', ['$http', '$scope', '$filter', function ($http, $scope) {
+    myApp.controller('OrdersCtrl', ['$http', '$scope', '$window', function ($http, $scope, $window) {
         formData = new FormData();
         $http.get("/Orders/GetOrders")
             .then(function (response) {
@@ -329,12 +329,14 @@
             });
         $scope.BndChange = function (id, Bnd) {
             $http({ method: 'POST', url: '/Orders/AssignBnd', data: { Bndid: Bnd, id: id } }).then(function successCallback(response) {
-
+                if (response.data === true) {
+                    $window.location.reload();
+                }
             });
 
         };
 
-        $scope.LoadFileData = function (files,id) {
+        $scope.LoadFileData = function (files, id) {
 
             for (var file in files) {
                 formData.append("file", files[file]);
@@ -347,6 +349,9 @@
                 headers: { 'Content-Type': undefined },
                 transformRequest: angular.identity
             }).then(function successCallback(response) {
+                if (response.data === true) {
+                    $window.location.reload();
+                }
             });
         };
 

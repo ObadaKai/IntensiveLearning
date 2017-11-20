@@ -25,21 +25,22 @@ namespace IntensiveLearning.Database
         public Nullable<int> CenterId { get; set; }
         public string Subject { get; set; }
         public Nullable<double> PeacePrice { get; set; }
+        public Nullable<int> Quantity { get; set; }
         public Nullable<double> SumPrice { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<bool> PayymentApprove { get; set; }
         public Nullable<bool> BuyingApprove { get; set; }
-        public string proof { get; set; }
+        public Nullable<int> proof { get; set; }
         public Nullable<bool> ProofAcceptance { get; set; }
-        public Nullable<int> Quantity { get; set; }
         public Nullable<int> Paymentid { get; set; }
         public Nullable<int> CreatedBy { get; set; }
     
         public virtual Bnd Bnd { get; set; }
         public virtual Center Center { get; set; }
+        public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         public virtual PaymentsRecord PaymentsRecord { get; set; }
-        public virtual Employee Employee { get; set; }
+        public virtual Proove Proove { get; set; }
     }
 }

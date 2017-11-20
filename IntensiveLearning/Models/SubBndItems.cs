@@ -22,6 +22,8 @@ namespace IntensiveLearning.Models
         public bool? BuyingApprove { get; set; }
         public bool? ProofAcceptance { get; set; }
         public object proof { get; set; }
+        public int? Payment { get; set; }
+        public bool? Bought { get; set; }
 
 
     }

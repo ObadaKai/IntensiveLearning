@@ -51,6 +51,20 @@
         $('#DependedOn').val("")
     }
 
+
+    if ($('#Job').find(":selected").data("value") == 1) {
+        $("#EmpCity").css('display', 'block');
+        $("#EmpCenter").css('display', 'none');
+    }
+    else if ($('#Job').find(":selected").data("value") == 2) {
+        $("#EmpCity").css('display', 'none');
+        $("#EmpCenter").css('display', 'block');
+    }
+    else {
+        $("#EmpCity").css('display', 'none');
+        $("#EmpCenter").css('display', 'none');
+    }
+
 });
 var open = false;
 function openLeftMenu() {
@@ -108,11 +122,11 @@ $("#CenterType").on("change", function () {
 
 
 $("#Job").on("change", function () {
-    if (this.value == 8) {
+    if ($(this).find(":selected").data("value") == 1) {
         $("#EmpCity").css('display', 'block');
         $("#EmpCenter").css('display', 'none');
     }
-    else if (this.value > 8) {
+    else if ($(this).find(":selected").data("value") == 2) {
         $("#EmpCity").css('display', 'none');
         $("#EmpCenter").css('display', 'block');
     }

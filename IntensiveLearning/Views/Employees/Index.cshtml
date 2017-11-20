@@ -114,9 +114,9 @@
                     {
                         <tr>
                             <td @if (item.Approval == null) { @: style="background-color:gray"
-                                                                                                                                                                                                                                                                                                                                } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:forestgreen"
-                                                                                                                                                                                                                                                                                                                                    } else { @: style="background-color:red"
-                                                                                                                                                                                                                                                                                                                                    } }></td>
+                                 } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:#5cb85c"
+                                  } else { @: style="background-color:#d9534f"
+                                  } }></td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.name)
                             </td>

@@ -77,8 +77,8 @@
                     {
                         <tr>
                             <td @if (item.Approval == null) { @: style="background-color:gray"
-                                                                                                                                                                                            } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:forestgreen"
-                                                                                                                                                                                                } else { @: style="background-color:red"
+                                                                                                                                                                                            } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:#5cb85c"
+                                                                                                                                                                                                } else { @: style="background-color:#d9534f"
                                                                                                                                                                                                 } }></td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Student.Name)
@@ -114,8 +114,8 @@
                                     {
                                         if (item.Approval == null)
                                         {
-                                            <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = true })" style="color:forestgreen">قبول</a>
-                                            <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = false })" style="color:darkred">رفض</a>
+                                            <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = true })" style="color:#5cb85c">قبول</a>
+                                            <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = false })" style="color:#d9534f">رفض</a>
                                         }
                                         else if (item.Approval != null)
                                         {

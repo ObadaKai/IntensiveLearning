@@ -4,13 +4,6 @@
     <EntitySetMapping Name="Bnds">
       <EntityTypeMapping TypeName="TaalimModel.Bnd">
         <MappingFragment StoreEntitySet="Bnd">
-          <ScalarProperty Name="PerUnitCost" ColumnName="PerUnitCost" />
-          <ScalarProperty Name="NumberOfUnits" ColumnName="NumberOfUnits" />
-          <ScalarProperty Name="BudgetLineItem" ColumnName="BudgetLineItem" />
-          <ScalarProperty Name="PercentOfCostChargedtoProject" ColumnName="PercentOfCostChargedtoProject" />
-          <ScalarProperty Name="PeriodOnMonth" ColumnName="PeriodOnMonth" />
-          <ScalarProperty Name="Unit" ColumnName="Unit" />
-          <ScalarProperty Name="Month13Share" ColumnName="Month13Share" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="TotalNum" ColumnName="TotalNum" />
@@ -27,13 +20,20 @@
           <ScalarProperty Name="Month10Share" ColumnName="Month10Share" />
           <ScalarProperty Name="Month11Share" ColumnName="Month11Share" />
           <ScalarProperty Name="Month12Share" ColumnName="Month12Share" />
+          <ScalarProperty Name="Month13Share" ColumnName="Month13Share" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="PeriodOnMonth" ColumnName="PeriodOnMonth" />
+          <ScalarProperty Name="PercentOfCostChargedtoProject" ColumnName="PercentOfCostChargedtoProject" />
+          <ScalarProperty Name="BudgetLineItem" ColumnName="BudgetLineItem" />
+          <ScalarProperty Name="NumberOfUnits" ColumnName="NumberOfUnits" />
+          <ScalarProperty Name="PerUnitCost" ColumnName="PerUnitCost" />
+          <ScalarProperty Name="Simbol" ColumnName="Simbol" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Centers">
       <EntityTypeMapping TypeName="TaalimModel.Center">
         <MappingFragment StoreEntitySet="Centers">
-          <ScalarProperty Name="SpentBudget" ColumnName="SpentBudget" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Place" ColumnName="Place" />
@@ -70,6 +70,7 @@
           <ScalarProperty Name="DependedOn" ColumnName="DependedOn" />
           <ScalarProperty Name="AddingDate" ColumnName="AddingDate" />
           <ScalarProperty Name="AddingTime" ColumnName="AddingTime" />
+          <ScalarProperty Name="SpentBudget" ColumnName="SpentBudget" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -251,6 +252,15 @@
           <ScalarProperty Name="Time" ColumnName="Time" />
           <ScalarProperty Name="CenterID" ColumnName="CenterID" />
           <ScalarProperty Name="SubBndid" ColumnName="SubBndid" />
+          <ScalarProperty Name="BuyingSign" ColumnName="BuyingSign" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PaymentsRecords">
+      <EntityTypeMapping TypeName="TaalimModel.PaymentsRecord">
+        <MappingFragment StoreEntitySet="PaymentsRecord">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Orderid" ColumnName="Orderid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -299,7 +309,6 @@
     <EntitySetMapping Name="Prooves">
       <EntityTypeMapping TypeName="TaalimModel.Proove">
         <MappingFragment StoreEntitySet="Prooves">
-          <ScalarProperty Name="ZipFilePath" ColumnName="ZipFilePath" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="StudentID" ColumnName="StudentID" />
           <ScalarProperty Name="CenterID" ColumnName="CenterID" />
@@ -308,6 +317,7 @@
           <ScalarProperty Name="Path" ColumnName="Path" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="ZipFilePath" ColumnName="ZipFilePath" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -373,20 +383,20 @@
     <EntitySetMapping Name="SubBnds">
       <EntityTypeMapping TypeName="TaalimModel.SubBnd">
         <MappingFragment StoreEntitySet="SubBnd">
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="Paymentid" ColumnName="Paymentid" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="BndId" ColumnName="BndId" />
           <ScalarProperty Name="CenterId" ColumnName="CenterId" />
           <ScalarProperty Name="Subject" ColumnName="Subject" />
           <ScalarProperty Name="PeacePrice" ColumnName="PeacePrice" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="SumPrice" ColumnName="SumPrice" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="PayymentApprove" ColumnName="PayymentApprove" />
           <ScalarProperty Name="BuyingApprove" ColumnName="BuyingApprove" />
           <ScalarProperty Name="proof" ColumnName="proof" />
           <ScalarProperty Name="ProofAcceptance" ColumnName="ProofAcceptance" />
+          <ScalarProperty Name="Paymentid" ColumnName="Paymentid" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -398,14 +408,6 @@
           <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
           <ScalarProperty Name="version" ColumnName="version" />
           <ScalarProperty Name="definition" ColumnName="definition" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="PaymentsRecords">
-      <EntityTypeMapping TypeName="TaalimModel.PaymentsRecord">
-        <MappingFragment StoreEntitySet="PaymentsRecord">
-          <ScalarProperty Name="Orderid" ColumnName="Orderid" />
-          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

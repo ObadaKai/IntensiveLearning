@@ -136,8 +136,8 @@
                 {
                     <tr>
                         <td  @if (item.Approval == null) { @:style="background-color:gray"
-                                                        } else if (item.Approval != null) { if (item.Approval == true) { @:style="background-color:forestgreen"
-                                                            } else { @:style="background-color:red"
+                                                        } else if (item.Approval != null) { if (item.Approval == true) { @:style="background-color:#5cb85c"
+                                                            } else { @:style="background-color:#d9534f"
                                                             } }></td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
@@ -477,7 +477,7 @@
                         {
                             if ((bool)Session["SeeAll"] == true)
                             {
-                                <td rowspan="2">@Html.DisplayFor(modelItem => item.SpentBudget)</td>
+                                <td>@Html.DisplayFor(modelItem => item.SpentBudget)</td>
                             }
                         }
                         <td>

@@ -93,6 +93,9 @@
                         تاريخ الادخال
                     </th>
                     <th>
+                        رقم الدفع
+                    </th>
+                    <th>
                         الدفع
                     </th>
                     <th>
@@ -131,6 +134,9 @@
                         {{SubBnd.Date | date:'MM/dd/yyyy'}}
                     </td>
                     <td>
+                        {{SubBnd.Payment}}
+                    </td>
+                    <td>
                         @if (Session["Finance"] != null)
                         {
                             if ((bool)Session["Finance"] == true)
@@ -154,7 +160,7 @@
                         {
                             if ((bool)Session["Finance"] == true)
                             {
-                                <span ng-if="SubBnd.PayymentApprove == null && SubBnd.BuyingApprove != null"><a ng-href="@Url.Action("PayymentApprove", "SubBnds")/{{SubBnd.id}}"><span class="glyphicon glyphicon-ok"></span></a></span>
+                                <span ng-if="SubBnd.PayymentApprove == null && SubBnd.BuyingApprove != null && SubBnd.Bought != null"><a ng-href="@Url.Action("PayymentApprove", "SubBnds")/{{SubBnd.id}}"><span class="glyphicon glyphicon-ok"></span></a></span>
                                 <span ng-if="SubBnd.PayymentApprove != null" class="glyphicon glyphicon-ok"></span>
                             }
                             else

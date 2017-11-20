@@ -24,7 +24,7 @@ namespace IntensiveLearning.Controllers
                 Session["Bndid"] = id;
             }
 
-            
+
             return View();
         }
 
@@ -115,7 +115,8 @@ namespace IntensiveLearning.Controllers
                 PayymentApprove = x.PayymentApprove,
                 BuyingApprove = x.BuyingApprove,
                 ProofAcceptance = x.ProofAcceptance,
-                proof = x.proof
+                proof = x.proof,
+                Payment = x.Paymentid,
             }).ToList();
             List<SubBndItems> o = new List<SubBndItems>();
             foreach (var item in SubBnds)
@@ -133,24 +134,17 @@ namespace IntensiveLearning.Controllers
                         subBndItems.Center = item.Center;
                         subBndItems.CenterDepended = RealCenter.Name;
                         subBndItems.SumPrice = item.SumPrice;
-                        subBndItems.Date =  item.Date;
+                        subBndItems.Date = item.Date;
                         subBndItems.BuyingApprove = item.BuyingApprove;
                         subBndItems.PayymentApprove = item.PayymentApprove;
                         subBndItems.ProofAcceptance = item.ProofAcceptance;
-                        if (item.proof != null)
-                        {
-                            int proof = db.Prooves.Where(x => x.ZipFilePath == item.proof).FirstOrDefault().id;
-                            subBndItems.proof = proof;
-                        }
-                        else
-                        {
-                            subBndItems.proof = item.proof;
-                        }
+                        subBndItems.proof = item.proof;
                         subBndItems.Bndid = item.Bndid;
                         subBndItems.Bnd = item.Bnd;
-                        subBndItems.Centerid =  item.Centerid;
-                        subBndItems.id =  item.id;
-
+                        subBndItems.Centerid = item.Centerid;
+                        subBndItems.id = item.id;
+                        subBndItems.Payment = item.Payment;
+                        subBndItems.Bought = db.Orders.FirstOrDefault(x => x.SubBndid == item.id).BuyingSign;
                     }
                     else
                     {
@@ -164,19 +158,14 @@ namespace IntensiveLearning.Controllers
                         subBndItems.BuyingApprove = item.BuyingApprove;
                         subBndItems.PayymentApprove = item.PayymentApprove;
                         subBndItems.ProofAcceptance = item.ProofAcceptance;
-                        if (item.proof != null)
-                        {
-                            int proof = db.Prooves.Where(x => x.ZipFilePath == item.proof).FirstOrDefault().id;
-                            subBndItems.proof = proof;
-                        }
-                        else
-                        {
-                            subBndItems.proof = item.proof;
-                        }
+                        subBndItems.proof = item.proof;
                         subBndItems.Bndid = item.Bndid;
                         subBndItems.Bnd = item.Bnd;
                         subBndItems.Centerid = item.Centerid;
                         subBndItems.id = item.id;
+                        subBndItems.Payment = item.Payment;
+                        subBndItems.Bought = db.Orders.FirstOrDefault(x => x.SubBndid == item.id).BuyingSign;
+
                     }
                 }
                 catch
@@ -191,19 +180,14 @@ namespace IntensiveLearning.Controllers
                     subBndItems.BuyingApprove = item.BuyingApprove;
                     subBndItems.PayymentApprove = item.PayymentApprove;
                     subBndItems.ProofAcceptance = item.ProofAcceptance;
-                    if (item.proof != null)
-                    {
-                        int proof = db.Prooves.Where(x => x.ZipFilePath == item.proof).FirstOrDefault().id;
-                        subBndItems.proof = proof;
-                    }
-                    else
-                    {
-                        subBndItems.proof = item.proof;
-                    }
+                    subBndItems.proof = item.proof;
                     subBndItems.Bndid = item.Bndid;
                     subBndItems.Bnd = item.Bnd;
                     subBndItems.Centerid = item.Centerid;
                     subBndItems.id = item.id;
+                    subBndItems.Payment = item.Payment;
+                    subBndItems.Bought = db.Orders.FirstOrDefault(x => x.SubBndid == item.id).BuyingSign;
+
                 }
                 o.Add(subBndItems);
 
@@ -447,33 +431,50 @@ namespace IntensiveLearning.Controllers
 
             if (type.Finance == true)
             {
-
-                Center ce = db.Centers.Find(subBnd.CenterId);
-                if (ce.DependedOn != null)
+                try
                 {
-                    Center center = db.Centers.Find(ce.DependedOn);
-                    try
+                    Center ce = db.Centers.Find(subBnd.CenterId);
+                    if (ce.DependedOn != null)
                     {
-                        center.SpentBudget += subBnd.SumPrice;
+                        Center center = db.Centers.Find(ce.DependedOn);
+                        try
+                        {
+                            if (center.SpentBudget != null)
+                            {
+                                center.SpentBudget += subBnd.SumPrice;
+                            }
+                            else
+                            {
+                                center.SpentBudget = subBnd.SumPrice;
+                            }
+                        }
+                        catch
+                        {
+                            center.SpentBudget = subBnd.SumPrice;
+                        }
+                        db.Entry(center).State = EntityState.Modified;
                     }
-                    catch
+                    else
                     {
-                        center.SpentBudget = subBnd.SumPrice;
+                        try
+                        {
+                            if (ce.SpentBudget != null)
+                            {
+                                ce.SpentBudget += subBnd.SumPrice;
+                            }
+                            else
+                            {
+                                ce.SpentBudget = subBnd.SumPrice;
+                            }
+                        }
+                        catch
+                        {
+                            ce.SpentBudget = subBnd.SumPrice;
+                        }
+                        db.Entry(ce).State = EntityState.Modified;
                     }
-                    db.Entry(center).State = EntityState.Modified;
                 }
-                else
-                {
-                    try
-                    {
-                        ce.SpentBudget += subBnd.SumPrice;
-                    }
-                    catch
-                    {
-                        ce.SpentBudget = subBnd.SumPrice;
-                    }
-                    db.Entry(ce).State = EntityState.Modified;
-                }
+                catch { }
 
                 subBnd.ProofAcceptance = true;
                 Order order = db.Orders.FirstOrDefault(x => x.SubBndid == id);

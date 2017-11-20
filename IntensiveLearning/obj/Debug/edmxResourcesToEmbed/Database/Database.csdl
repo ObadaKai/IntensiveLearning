@@ -20,8 +20,6 @@
     <Property Name="Month10Share" Type="Double" />
     <Property Name="Month11Share" Type="Double" />
     <Property Name="Month12Share" Type="Double" />
-    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Bnd" FromRole="Bnd" ToRole="Order" />
-    <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Bnd" FromRole="Bnd" ToRole="SubBnd" />
     <Property Name="Month13Share" Type="Double" />
     <Property Name="Unit" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="PeriodOnMonth" Type="Double" />
@@ -29,6 +27,9 @@
     <Property Name="BudgetLineItem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="NumberOfUnits" Type="Int32" />
     <Property Name="PerUnitCost" Type="Double" />
+    <Property Name="Simbol" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Bnd" FromRole="Bnd" ToRole="Order" />
+    <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Bnd" FromRole="Bnd" ToRole="SubBnd" />
   </EntityType>
   <EntityType Name="Center">
     <Key>
@@ -70,6 +71,7 @@
     <Property Name="DependedOn" Type="Int32" />
     <Property Name="AddingDate" Type="DateTime" Precision="0" />
     <Property Name="AddingTime" Type="Time" Precision="7" />
+    <Property Name="SpentBudget" Type="Double" />
     <NavigationProperty Name="City" Relationship="Self.FK_Centers_Cities" FromRole="Centers" ToRole="Cities" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Centers_Employees" FromRole="Centers" ToRole="Employees" />
     <NavigationProperty Name="Employee1" Relationship="Self.FK_Centers_Employees1" FromRole="Centers" ToRole="Employees" />
@@ -80,7 +82,6 @@
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Centers" FromRole="Centers" ToRole="Prooves" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Centers" FromRole="Centers" ToRole="Students" />
     <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Centers" FromRole="Centers" ToRole="SubBnd" />
-    <Property Name="SpentBudget" Type="Double" />
   </EntityType>
   <EntityType Name="City">
     <Key>
@@ -166,7 +167,7 @@
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Employees" FromRole="Employees" ToRole="Prooves" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Employees" FromRole="Employees" ToRole="Students" />
     <NavigationProperty Name="Students1" Relationship="Self.FK_Students_Employees1" FromRole="Employees" ToRole="Students" />
-    <NavigationProperty Name="SubBnds" Relationship="TaalimModel.FK_SubBnd_Employees" FromRole="Employee" ToRole="SubBnd" />
+    <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Employees" FromRole="Employees" ToRole="SubBnd" />
   </EntityType>
   <EntityType Name="EmployeeType">
     <Key>
@@ -288,12 +289,22 @@
     <Property Name="Time" Type="Time" Precision="7" />
     <Property Name="CenterID" Type="Int32" />
     <Property Name="SubBndid" Type="Int32" />
+    <Property Name="BuyingSign" Type="Boolean" />
     <NavigationProperty Name="Bnd" Relationship="Self.FK_Order_Bnd" FromRole="Order" ToRole="Bnd" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Order_Centers" FromRole="Order" ToRole="Centers" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Order_Employees" FromRole="Order" ToRole="Employees" />
     <NavigationProperty Name="SubBnd" Relationship="Self.FK_Order_SubBnd" FromRole="Order" ToRole="SubBnd" />
+    <NavigationProperty Name="PaymentsRecords" Relationship="Self.FK_PaymentsRecord_Order" FromRole="Order" ToRole="PaymentsRecord" />
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Order" FromRole="Order" ToRole="Prooves" />
-    <NavigationProperty Name="PaymentsRecords" Relationship="TaalimModel.FK_PaymentsRecord_Order" FromRole="Order" ToRole="PaymentsRecord" />
+  </EntityType>
+  <EntityType Name="PaymentsRecord">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="Orderid" Type="Int32" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_PaymentsRecord_Order" FromRole="PaymentsRecord" ToRole="Order" />
+    <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_PaymentsRecord" FromRole="PaymentsRecord" ToRole="SubBnd" />
   </EntityType>
   <EntityType Name="Period">
     <Key>
@@ -353,12 +364,13 @@
     <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="EmployeeID" Type="Int32" />
+    <Property Name="ZipFilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Prooves_Centers" FromRole="Prooves" ToRole="Centers" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Prooves_Employees" FromRole="Prooves" ToRole="Employees" />
     <NavigationProperty Name="Examination" Relationship="Self.FK_Prooves_Examination" FromRole="Prooves" ToRole="Examination" />
     <NavigationProperty Name="Order" Relationship="Self.FK_Prooves_Order" FromRole="Prooves" ToRole="Order" />
     <NavigationProperty Name="Student" Relationship="Self.FK_Prooves_Students" FromRole="Prooves" ToRole="Students" />
-    <Property Name="ZipFilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Prooves" FromRole="Prooves" ToRole="SubBnd" />
   </EntityType>
   <EntityType Name="Regiment">
     <Key>
@@ -439,20 +451,21 @@
     <Property Name="CenterId" Type="Int32" />
     <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="PeacePrice" Type="Double" />
+    <Property Name="Quantity" Type="Int32" />
     <Property Name="SumPrice" Type="Double" />
     <Property Name="Date" Type="DateTime" Precision="0" />
     <Property Name="PayymentApprove" Type="Boolean" />
     <Property Name="BuyingApprove" Type="Boolean" />
-    <Property Name="proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="proof" Type="Int32" />
     <Property Name="ProofAcceptance" Type="Boolean" />
+    <Property Name="Paymentid" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
     <NavigationProperty Name="Bnd" Relationship="Self.FK_SubBnd_Bnd" FromRole="SubBnd" ToRole="Bnd" />
     <NavigationProperty Name="Center" Relationship="Self.FK_SubBnd_Centers" FromRole="SubBnd" ToRole="Centers" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_SubBnd_Employees" FromRole="SubBnd" ToRole="Employees" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Order_SubBnd" FromRole="SubBnd" ToRole="Order" />
-    <Property Name="Quantity" Type="Int32" />
-    <Property Name="Paymentid" Type="Int32" />
-    <NavigationProperty Name="PaymentsRecord" Relationship="TaalimModel.FK_SubBnd_PaymentsRecord" FromRole="SubBnd" ToRole="PaymentsRecord" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <NavigationProperty Name="Employee" Relationship="TaalimModel.FK_SubBnd_Employees" FromRole="SubBnd" ToRole="Employee" />
+    <NavigationProperty Name="PaymentsRecord" Relationship="Self.FK_SubBnd_PaymentsRecord" FromRole="SubBnd" ToRole="PaymentsRecord" />
+    <NavigationProperty Name="Proove" Relationship="Self.FK_SubBnd_Prooves" FromRole="SubBnd" ToRole="Prooves" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -776,6 +789,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SubBnd_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Examination_ExamType">
     <End Role="ExamType" Type="Self.ExamType" Multiplicity="0..1" />
     <End Role="Examination" Type="Self.Examination" Multiplicity="*" />
@@ -884,6 +909,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PaymentsRecord_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+    <End Role="PaymentsRecord" Type="Self.PaymentsRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PaymentsRecord">
+        <PropertyRef Name="Orderid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Prooves_Order">
     <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
     <End Role="Prooves" Type="Self.Proove" Multiplicity="*" />
@@ -893,6 +930,18 @@
       </Principal>
       <Dependent Role="Prooves">
         <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubBnd_PaymentsRecord">
+    <End Role="PaymentsRecord" Type="Self.PaymentsRecord" Multiplicity="0..1" />
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentsRecord">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="Paymentid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -929,6 +978,18 @@
       </Principal>
       <Dependent Role="Prooves">
         <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubBnd_Prooves">
+    <End Role="Prooves" Type="Self.Proove" Multiplicity="0..1" />
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prooves">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="proof" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -969,6 +1030,7 @@
     <EntitySet Name="Lessons" EntityType="Self.Lesson" />
     <EntitySet Name="NonUserAddRequests" EntityType="Self.NonUserAddRequest" />
     <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="PaymentsRecords" EntityType="Self.PaymentsRecord" />
     <EntitySet Name="Periods" EntityType="Self.Period" />
     <EntitySet Name="Presences" EntityType="Self.Presence" />
     <EntitySet Name="Projects" EntityType="Self.Project" />
@@ -1083,6 +1145,10 @@
       <End Role="Employees" EntitySet="Employees" />
       <End Role="Students" EntitySet="Students" />
     </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_Employees" Association="Self.FK_SubBnd_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="SubBnd" EntitySet="SubBnds" />
+    </AssociationSet>
     <AssociationSet Name="FK_Examination_ExamType" Association="Self.FK_Examination_ExamType">
       <End Role="ExamType" EntitySet="ExamTypes" />
       <End Role="Examination" EntitySet="Examinations" />
@@ -1119,9 +1185,17 @@
       <End Role="SubBnd" EntitySet="SubBnds" />
       <End Role="Order" EntitySet="Orders" />
     </AssociationSet>
+    <AssociationSet Name="FK_PaymentsRecord_Order" Association="Self.FK_PaymentsRecord_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="PaymentsRecord" EntitySet="PaymentsRecords" />
+    </AssociationSet>
     <AssociationSet Name="FK_Prooves_Order" Association="Self.FK_Prooves_Order">
       <End Role="Order" EntitySet="Orders" />
       <End Role="Prooves" EntitySet="Prooves" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_PaymentsRecord" Association="Self.FK_SubBnd_PaymentsRecord">
+      <End Role="PaymentsRecord" EntitySet="PaymentsRecords" />
+      <End Role="SubBnd" EntitySet="SubBnds" />
     </AssociationSet>
     <AssociationSet Name="FK_Regiments_Periods" Association="Self.FK_Regiments_Periods">
       <End Role="Periods" EntitySet="Periods" />
@@ -1135,6 +1209,10 @@
       <End Role="Students" EntitySet="Students" />
       <End Role="Prooves" EntitySet="Prooves" />
     </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_Prooves" Association="Self.FK_SubBnd_Prooves">
+      <End Role="Prooves" EntitySet="Prooves" />
+      <End Role="SubBnd" EntitySet="SubBnds" />
+    </AssociationSet>
     <AssociationSet Name="FK_Students_Regiments" Association="Self.FK_Students_Regiments">
       <End Role="Regiments" EntitySet="Regiments" />
       <End Role="Students" EntitySet="Students" />
@@ -1143,63 +1221,5 @@
       <End Role="Stages" EntitySet="Stages" />
       <End Role="Students" EntitySet="Students" />
     </AssociationSet>
-    <EntitySet Name="PaymentsRecords" EntityType="TaalimModel.PaymentsRecord" />
-    <AssociationSet Name="FK_PaymentsRecord_Order" Association="TaalimModel.FK_PaymentsRecord_Order">
-      <End Role="Order" EntitySet="Orders" />
-      <End Role="PaymentsRecord" EntitySet="PaymentsRecords" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SubBnd_PaymentsRecord" Association="TaalimModel.FK_SubBnd_PaymentsRecord">
-      <End Role="PaymentsRecord" EntitySet="PaymentsRecords" />
-      <End Role="SubBnd" EntitySet="SubBnds" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SubBnd_Employees" Association="TaalimModel.FK_SubBnd_Employees">
-      <End Role="Employee" EntitySet="Employees" />
-      <End Role="SubBnd" EntitySet="SubBnds" />
-    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="PaymentsRecord">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="Orderid" Type="Int32" />
-    <NavigationProperty Name="Order" Relationship="TaalimModel.FK_PaymentsRecord_Order" FromRole="PaymentsRecord" ToRole="Order" />
-    <NavigationProperty Name="SubBnds" Relationship="TaalimModel.FK_SubBnd_PaymentsRecord" FromRole="PaymentsRecord" ToRole="SubBnd" />
-  </EntityType>
-  <Association Name="FK_PaymentsRecord_Order">
-    <End Type="TaalimModel.Order" Role="Order" Multiplicity="0..1" />
-    <End Type="TaalimModel.PaymentsRecord" Role="PaymentsRecord" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Order">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="PaymentsRecord">
-        <PropertyRef Name="Orderid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SubBnd_PaymentsRecord">
-    <End Type="TaalimModel.PaymentsRecord" Role="PaymentsRecord" Multiplicity="0..1" />
-    <End Type="TaalimModel.SubBnd" Role="SubBnd" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PaymentsRecord">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="SubBnd">
-        <PropertyRef Name="Paymentid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SubBnd_Employees">
-    <End Type="TaalimModel.Employee" Role="Employee" Multiplicity="0..1" />
-    <End Type="TaalimModel.SubBnd" Role="SubBnd" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Employee">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="SubBnd">
-        <PropertyRef Name="CreatedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>

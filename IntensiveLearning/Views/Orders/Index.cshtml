@@ -64,32 +64,18 @@
                     <th rowspan="2">
                         الاثبات
                     </th>
-
-
-                    @if (Session["Finance"] != null && Session["CoManager"] != null)
-                    {
-                        if ((bool)Session["Finance"] == true && (bool)Session["CoManager"] == true)
-                        {
-                            <th rowspan="2">
-                                انهاء
-                            </th>
-                        }
-                    }
-
-
-
                 </tr>
                 <tr class="bg-primary">
 
                     <th>
-                        1
+                        المتابعة
                     </th>
                     <th>
-                        2
+                        المالية
                     </th>
 
                     <th>
-                        3
+                        المدير التنفيذي
                     </th>
                 </tr>
             </thead>
@@ -138,14 +124,14 @@
                                     if ((bool)Session["CoManager"] == true && (bool)Session["SeeAll"] == true)
                                     {
 
-                                        <a href="Orders/ConfirmOrder/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                        <a ng-href="@Url.Action("ConfirmOrder","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
                                     }
                                 }
                                 else if ((bool)Session["Finance"] == false)
                                 {
                                     if ((bool)Session["CoManager"] == true && (bool)Session["SeeAll"] == true)
                                     {
-                                        <a href="Orders/ConfirmOrder/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                        <a ng-href="@Url.Action("ConfirmOrder","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
                                     }
                                 }
 
@@ -185,7 +171,7 @@
                             {
                                 if ((bool)Session["CoManager"] == true && (bool)Session["Finance"] == true)
                                 {
-                                    <a href="Orders/ConfirmOrder/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                    <a ng-href="@Url.Action("ConfirmOrder","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
                                 }
 
                             }
@@ -204,7 +190,7 @@
                             {
                                 if ((bool)Session["Manager"] == true && (bool)Session["AddNewProject"] == true)
                                 {
-                                    <a href="Orders/ConfirmOrder/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                    <a ng-href="@Url.Action("ConfirmOrder","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
                                 }
 
                             }
@@ -214,19 +200,19 @@
                     <td>
                         {{Order.State}}
                     </td>
+
+                    <td>
+                        <span ng-if="Order.Bought == true"><span class="glyphicon glyphicon-ok"></span></span>
+                        <span ng-if="Order.EmployeeID == empid && Order.Bought != true && Order.FirstLevelSign ==true &&Order.SecondLevelSign ==true &&Order.ThirdLevelSign ==true"><a href="Orders/CheckBought/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a></span>
+                    </td>
                     <td>
                         <span ng-if="Order.proof == null && Order.EmployeeID == empid && Order.Bought == true && Order.FirstLevelSign == true && Order.SecondLevelSign == true && Order.ThirdLevelSign == true">
                             <input id="{{Order.id}}" type="file" aria-label="Add photos to your post" class="upload" multiple name="file" onchange="angular.element(this).scope().LoadFileData(this.files,this.id)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
                         </span>
-                        <span ng-if="Order.proof != null && Order.EmployeeID == empid && Order.Bought == true && Order.FirstLevelSign == true && Order.SecondLevelSign == true && Order.ThirdLevelSign == true">
+                        <span ng-if="Order.proof != null">
                             <a ng-href="@Url.Action("DownloadProof","Json")/{{Order.proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
                         </span>
                     </td>
-                    <td>
-                        <span ng-if="Order.EmployeeID == empid && Order.Bought == true && Order.FirstLevelSign == true && Order.SecondLevelSign == true && Order.ThirdLevelSign == true"><span class="glyphicon glyphicon-ok"></span></span>
-                        <span ng-if="Order.EmployeeID == empid && Order.Bought != true && Order.FirstLevelSign ==true &&Order.SecondLevelSign ==true &&Order.ThirdLevelSign ==true"><a href="Orders/CheckBought/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a></span>
-                    </td>
-
                 </tr>
             </tbody>
 

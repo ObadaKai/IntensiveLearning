@@ -234,7 +234,7 @@ namespace IntensiveLearning.Controllers
                         proovetozip.ZipFilePath = zipPath;
                         db.Entry(proovetozip).State = EntityState.Modified;
                     }
-                    order.SubBnd.proof = zipPath;
+                    order.SubBnd.proof = prooveid;
                     db.Entry(order).State = EntityState.Modified;
                     db.SaveChanges();
                 }
@@ -426,21 +426,21 @@ namespace IntensiveLearning.Controllers
         {
             try
             {
-                if (file.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/Orders"), fileName);
-                    Order mystd = db.Orders.Find(order.id);
-                    string EmpProof = mystd.SubBnd.proof;
-                    if ((System.IO.File.Exists(EmpProof)))
-                    {
-                        System.IO.File.Delete(EmpProof);
-                    }
-                    file.SaveAs(path);
-                    order.SubBnd.proof = path;
-                    db.Entry(mystd).State = EntityState.Detached;
-                }
-                ViewBag.Message = "Upload successful";
+                //if (file.ContentLength > 0)
+                //{
+                //    var fileName = Path.GetFileName(file.FileName);
+                //    var path = Path.Combine(Server.MapPath("~/App_Data/Orders"), fileName);
+                //    Order mystd = db.Orders.Find(order.id);
+                //    string EmpProof = mystd.SubBnd.proof;
+                //    if ((System.IO.File.Exists(EmpProof)))
+                //    {
+                //        System.IO.File.Delete(EmpProof);
+                //    }
+                //    file.SaveAs(path);
+                //    order.SubBnd.proof = path;
+                //    db.Entry(mystd).State = EntityState.Detached;
+                //}
+                //ViewBag.Message = "Upload successful";
             }
             catch
             {

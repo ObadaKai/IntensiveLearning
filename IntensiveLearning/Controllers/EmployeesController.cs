@@ -374,7 +374,7 @@ namespace IntensiveLearning.Controllers
 
                 ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
                 ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name");
-                ViewBag.Job = new SelectList(TosendJobs, "id", "Type");
+                ViewBag.Jobs = TosendJobs;
                 ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
                 return View();
 
@@ -783,11 +783,12 @@ namespace IntensiveLearning.Controllers
             }
 
 
-            ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
+            ViewBag.Cityid = new SelectList(db.Cities, "id", "Name", employee.CityID);
 
-            ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name", db.Employees.FirstOrDefault(x => x.Centerid == employee.Centerid).Centerid);
-            ViewBag.Job = new SelectList(TosendJobs, "id", "Type", db.Employees.FirstOrDefault(x => x.Job == employee.Job).Job);
-            ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", db.Employees.FirstOrDefault(x => x.Periodid == employee.Periodid));
+            ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name", employee.Centerid);
+            ViewBag.Jobs = TosendJobs;
+            ViewBag.SelectedJob = employee.Job;
+            ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", employee.Periodid);
             if (sendImageError)
             {
                 ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
@@ -1023,11 +1024,12 @@ namespace IntensiveLearning.Controllers
                     TosendCenters = TosendCenters.Union(CAddSchoolEmployees).ToList();
                 }
 
-                ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
+                ViewBag.Cityid = new SelectList(db.Cities, "id", "Name", employee.CityID);
 
-                ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name", db.Employees.FirstOrDefault(x => x.Centerid == employee.Centerid).Centerid);
-                ViewBag.Job = new SelectList(TosendJobs, "id", "Type", db.Employees.FirstOrDefault(x => x.Job == employee.Job).Job);
-                ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", db.Employees.FirstOrDefault(x => x.Periodid == employee.Periodid));
+                ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name", employee.Centerid);
+                ViewBag.Jobs = TosendJobs;
+                ViewBag.SelectedJob = employee.Job;
+                ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", employee.Periodid);
                 return View(employee);
             }
             return RedirectToAction("Index", "Home");
@@ -1402,10 +1404,12 @@ namespace IntensiveLearning.Controllers
             }
 
 
-            ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
-            ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name", db.Employees.FirstOrDefault(x => x.Centerid == employee.Centerid).Centerid);
-            ViewBag.Job = new SelectList(TosendJobs, "id", "Type", db.Employees.FirstOrDefault(x => x.Job == employee.Job).Job);
-            ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", db.Employees.FirstOrDefault(x => x.Periodid == employee.Periodid));
+            ViewBag.Cityid = new SelectList(db.Cities, "id", "Name", employee.CityID);
+
+            ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name", employee.Centerid);
+            ViewBag.Jobs = TosendJobs;
+            ViewBag.SelectedJob = employee.Job;
+            ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", employee.Periodid);
             return View(employee);
         }
 

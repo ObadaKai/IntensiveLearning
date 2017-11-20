@@ -27,6 +27,7 @@
     <Property Name="BudgetLineItem" Type="nvarchar(max)" />
     <Property Name="NumberOfUnits" Type="int" />
     <Property Name="PerUnitCost" Type="float" />
+    <Property Name="Simbol" Type="nvarchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="Centers">
     <Key>
@@ -240,6 +241,7 @@
     <Property Name="Time" Type="time" Precision="7" />
     <Property Name="CenterID" Type="int" />
     <Property Name="SubBndid" Type="int" />
+    <Property Name="BuyingSign" Type="bit" />
   </EntityType>
   <EntityType Name="PaymentsRecord">
     <Key>
@@ -370,7 +372,7 @@
     <Property Name="Date" Type="date" />
     <Property Name="PayymentApprove" Type="bit" />
     <Property Name="BuyingApprove" Type="bit" />
-    <Property Name="proof" Type="nvarchar(max)" />
+    <Property Name="proof" Type="int" />
     <Property Name="ProofAcceptance" Type="bit" />
     <Property Name="Paymentid" Type="int" />
     <Property Name="CreatedBy" Type="int" />
@@ -913,6 +915,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SubBnd_Prooves">
+    <End Role="Prooves" Type="Self.Prooves" Multiplicity="0..1" />
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prooves">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="proof" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="TaalimModelStoreContainer">
     <EntitySet Name="Bnd" EntityType="Self.Bnd" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Centers" EntityType="Self.Centers" Schema="dbo" store:Type="Tables" />
@@ -1111,6 +1125,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_SubBnd_PaymentsRecord" Association="Self.FK_SubBnd_PaymentsRecord">
       <End Role="PaymentsRecord" EntitySet="PaymentsRecord" />
+      <End Role="SubBnd" EntitySet="SubBnd" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_Prooves" Association="Self.FK_SubBnd_Prooves">
+      <End Role="Prooves" EntitySet="Prooves" />
       <End Role="SubBnd" EntitySet="SubBnd" />
     </AssociationSet>
   </EntityContainer>

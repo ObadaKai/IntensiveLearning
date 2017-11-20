@@ -101,7 +101,8 @@
                             {
                                 if ((bool)Session["SeeAll"] == true)
                                 {
-
+                                    @Html.ActionLink("طلبات الدفع", "Index", "Orders")
+                                    @Html.ActionLink("لائحة البنود", "Index", "Bnds")
                                     @Html.ActionLink("موظفين", "Index", "Employees")
                                     @Html.ActionLink("انواع الموظفين", "Index", "EmployeeTypes")
                                     @Html.ActionLink("مراكز", "Index", "Centers")
@@ -125,6 +126,8 @@
                             {
                                 if ((bool)Session["SeeAllButFinance"] == true)
                                 {
+                                    @Html.ActionLink("طلبات الدفع", "Index", "Orders")
+                                    @Html.ActionLink("لائحة البنود", "Index", "Bnds")
                                     @Html.ActionLink("موظفين", "Index", "Employees")
                                     @Html.ActionLink("انواع الموظفين", "Index", "EmployeeTypes")
                                     @Html.ActionLink("مراكز", "Index", "Centers")
@@ -146,7 +149,8 @@
                             {
 
                                 if ((bool)Session["SeeAccToCity"] == true)
-                                {                                  
+                                {
+                                    @Html.ActionLink("طلبات الدفع", "Index", "Orders")
                                     @Html.ActionLink("موظفين", "Index", "Employees")
                                     @Html.ActionLink("امتحانات", "Index", "Examinations")
                                     @Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")
@@ -168,6 +172,7 @@
                             {
                                 if ((bool)Session["SeeAccToCenter"] == true)
                                 {
+                                    @Html.ActionLink("طلبات الدفع", "Index", "Orders")
                                     @Html.ActionLink("موظفين", "Index", "Employees")
                                     @Html.ActionLink("طلاب", "Index", "Students")
                                     @Html.ActionLink("الحضور", "Index", "Presences")

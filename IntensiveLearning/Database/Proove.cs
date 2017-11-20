@@ -14,6 +14,12 @@ namespace IntensiveLearning.Database
     
     public partial class Proove
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Proove()
+        {
+            this.SubBnds = new HashSet<SubBnd>();
+        }
+    
         public int id { get; set; }
         public Nullable<int> StudentID { get; set; }
         public Nullable<int> CenterID { get; set; }
@@ -29,5 +35,7 @@ namespace IntensiveLearning.Database
         public virtual Examination Examination { get; set; }
         public virtual Order Order { get; set; }
         public virtual Student Student { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubBnd> SubBnds { get; set; }
     }
 }
