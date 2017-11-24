@@ -31,7 +31,6 @@
         };
 
 
-
         $scope.StudentCreate = function () {
 
 
@@ -42,11 +41,11 @@
                 "SDate": $scope.SDate,
                 "Regimentid": $scope.Regimentid, "Stageid": $scope.Stageid,
                 "Centerid": $scope.Centerid, "Sex": $scope.Sex, "FathersName": $scope.FathersName, "OldSchool": $scope.OldSchool,
-                "Mothersname": $scope.Mothersname, "StudentState": $scope.StudentState,
+                "Mothersname": $scope.Mothersname, "StudentState": $scope.StudentState
             };
 
 
-            formData.append("student", angular.toJson(Student))
+            formData.append("student", angular.toJson(Student));
 
             $http.post("/Students/Create", formData, {
                 withCredentials: true,
@@ -97,7 +96,7 @@
                     }, 3000);
                 }
 
-            },function errorCallback(response) {
+            }, function errorCallback(response) {
                 Student = {};
                 $scope.Success = false;
                 $scope.Warning = true;
@@ -141,12 +140,12 @@
                 'ExamTypeid': $scope.ExamTypeid,
                 'Mark': $scope.Mark, 'Date': $scope.Date
             };
-            formData.append("Exam", angular.toJson(Exam))
-                $http.post("/Examinations/Create", formData, {
-                    withCredentials: true,
-                    headers: { 'Content-Type': undefined },
-                    transformRequest: angular.identity
-                }).then(function successCallback(response) {
+            formData.append("Exam", angular.toJson(Exam));
+            $http.post("/Examinations/Create", formData, {
+                withCredentials: true,
+                headers: { 'Content-Type': undefined },
+                transformRequest: angular.identity
+            }).then(function successCallback(response) {
 
                 if (response.data) {
                     Exam = {};
@@ -180,16 +179,16 @@
                         $scope.Warning = false;
                     }, 3000);
                 }
-                    }, function errorCallback(response) {
-                        $scope.Success = false;
-                        $scope.Warning = true;
+            }, function errorCallback(response) {
+                $scope.Success = false;
+                $scope.Warning = true;
 
-                        formData.delete('Exam');
-                        $("#imgInp").val(null);
-                        $timeout(function () {
-                            $scope.Warning = false;
-                        }, 3000);
-                    });
+                formData.delete('Exam');
+                $("#imgInp").val(null);
+                $timeout(function () {
+                    $scope.Warning = false;
+                }, 3000);
+            });
         };
         $scope.ChangeDate = function () {
             var date = { 'Fielpate': $scope.Date, 'Subjectid': $scope.Subjectid };
@@ -205,36 +204,33 @@
     }]);
 
 
-    myApp.controller('SearchCtrl', ['$http', '$scope', '$filter', function ($http, $scope) {
-        $scope.showButtons = false;
-        $scope.ExamSearchBox = function () {
-            if ($scope.ExamSearchBoxData || $scope.ExamSearchBoxDate || $scope.ExamSearchBoxNumber) {
-                var ToSenh2ext = { 'SearchBoxData': $scope.ExamSearchBoxData, 'SearchBoxDate': $scope.ExamSearchBoxDate, 'SearchBoxNumber': $scope.ExamSearchBoxNumber };
-                var myEl = angular.element(document.querySelector('.razorRow'));
-                myEl.empty();
-                $http({ method: 'POST', url: '/Json/SearchExams', data: ToSenh2ext }).then(function successCallback(response) {
-                    $scope.ExamRazorForm = true;
-                    $scope.ExamAngularForm = true;
-                    $scope.Exams = response.data;
-                    angular.forEach($scope.Exams, function (value, key) {
-                        value.Date = new Date(parseInt(value.Date.substr(6)));
-                    });
-                });
-            }
-            else {
-                $scope.ExamRazorForm = false;
-                $scope.ExamAngularForm = false;
-            }
-        };
+
+
+    myApp.controller('StudentsCtrl', ['$http', '$scope', function ($http, $scope) {
+
+        $http({ method: 'GET', url: '/Json/SearchStudents' }).then(function successCallback(response) {
+            $scope.Students = response.data;
+            angular.forEach($scope.Students, function (value, key) {
+                if (value.BDate) {
+                    value.BDate = new Date(parseInt(value.BDate.substr(6)));
+                }
+                if (value.EDate) {
+                    value.EDate = new Date(parseInt(value.EDate.substr(6)));
+                }
+                if (value.SDate) {
+                    value.SDate = new Date(parseInt(value.SDate.substr(6)));
+                }
+            });
+            $('#LoadingScreen').hide();
+        });
 
         $scope.StudentSearchBox = function () {
             if ($scope.StudentSearchBoxData || $scope.StudentSearchBoxDate) {
                 var ToSenh2ext = { 'SearchBoxData': $scope.StudentSearchBoxData, 'SearchBoxDate': $scope.StudentSearchBoxDate };
+                $('#LoadingScreen').show();
                 $http({ method: 'POST', url: '/Json/SearchStudents', data: ToSenh2ext }).then(function successCallback(response) {
-                    $scope.StudentRazorForm = true;
-                    $scope.StudentAngularForm = true;
-                    $scope.Exams = response.data;
-                    angular.forEach($scope.Exams, function (value, key) {
+                    $scope.Students = response.data;
+                    angular.forEach($scope.Students, function (value, key) {
                         if (value.BDate) {
                             value.BDate = new Date(parseInt(value.BDate.substr(6)));
                         }
@@ -245,21 +241,46 @@
                             value.SDate = new Date(parseInt(value.SDate.substr(6)));
                         }
                     });
+                    $('#LoadingScreen').hide();
                 });
             }
             else {
-                $scope.StudentRazorForm = false;
-                $scope.StudentAngularForm = false;
+                $http({ method: 'GET', url: '/Json/SearchStudents' }).then(function successCallback(response) {
+                    $scope.Students = response.data;
+                    angular.forEach($scope.Students, function (value, key) {
+                        if (value.BDate) {
+                            value.BDate = new Date(parseInt(value.BDate.substr(6)));
+                        }
+                        if (value.EDate) {
+                            value.EDate = new Date(parseInt(value.EDate.substr(6)));
+                        }
+                        if (value.SDate) {
+                            value.SDate = new Date(parseInt(value.SDate.substr(6)));
+                        }
+                    });
+                    $('#LoadingScreen').hide();
+                });
             }
 
         };
 
+
+    }]);
+
+
+    myApp.controller('PresencesCtrl', ['$http', '$scope', function ($http, $scope) {
+
+        $http({ method: 'GET', url: '/Json/Presences' }).then(function successCallback(response) {
+            $scope.Exams = response.data;
+            angular.forEach($scope.Exams, function (value, key) {
+                value.Date = new Date(parseInt(value.Date.substr(6)));
+            });
+        });
         $scope.PresenceSearchBox = function () {
+
             if ($scope.PresenceSearchBoxData || $scope.PresenceSearchBoxDate) {
                 var ToSenh2ext = { 'SearchBoxData': $scope.PresenceSearchBoxData, 'SearchBoxDate': $scope.PresenceSearchBoxDate };
-                $http({ method: 'POST', url: '/Json/SearchPresence', data: ToSenh2ext }).then(function successCallback(response) {
-                    $scope.PresenceRazorForm = true;
-                    $scope.PresenceAngularForm = true;
+                $http({ method: 'POST', url: '/Json/Presences', data: ToSenh2ext }).then(function successCallback(response) {
                     $scope.Exams = response.data;
                     angular.forEach($scope.Exams, function (value, key) {
                         value.Date = new Date(parseInt(value.Date.substr(6)));
@@ -267,19 +288,43 @@
                 });
             }
             else {
-                $scope.PresenceRazorForm = false;
-                $scope.PresenceAngularForm = false;
+                $http({ method: 'GET', url: '/Json/Presences' }).then(function successCallback(response) {
+                    $scope.Exams = response.data;
+                    angular.forEach($scope.Exams, function (value, key) {
+                        value.Date = new Date(parseInt(value.Date.substr(6)));
+                    });
+                });
             }
+
         };
 
+    }]);
 
+
+    myApp.controller('EmployeesCtrl', ['$http', '$scope', function ($http, $scope) {
+
+        $http({ method: 'GET', url: '/Json/Employees' }).then(function successCallback(response) {
+            $scope.Exams = response.data;
+            angular.forEach($scope.Exams, function (value, key) {
+                if (value.EmployeeBDate) {
+                    value.EmployeeBDate = new Date(parseInt(value.EmployeeBDate.substr(6)));
+                }
+                if (value.EmployeeSDate) {
+                    value.EmployeeSDate = new Date(parseInt(value.EmployeeSDate.substr(6)));
+                }
+                if (value.EmployeeEDate) {
+                    value.EmployeeEDate = new Date(parseInt(value.EmployeeEDate.substr(6)));
+                }
+            });
+            $('#LoadingScreen').hide();
+
+        });
 
         $scope.EmployeeSearchBox = function () {
             if ($scope.EmployeeSearchBoxData || $scope.EmployeeSearchBoxDate) {
                 var ToSenh2ext = { 'SearchBoxData': $scope.EmployeeSearchBoxData, 'SearchBoxDate': $scope.EmployeeSearchBoxDate };
-                $http({ method: 'POST', url: '/Json/SearchEmployees', data: ToSenh2ext }).then(function successCallback(response) {
-                    $scope.EmployeeRazorForm = true;
-                    $scope.EmployeeAngularForm = true;
+                $('#LoadingScreen').show();
+                $http({ method: 'POST', url: '/Json/Employees', data: ToSenh2ext }).then(function successCallback(response) {
                     $scope.Exams = response.data;
                     angular.forEach($scope.Exams, function (value, key) {
                         if (value.EmployeeBDate) {
@@ -293,16 +338,125 @@
                         }
 
                     });
+                    $('#LoadingScreen').hide();
                 });
             }
             else {
-                $scope.EmployeeRazorForm = false;
-                $scope.EmployeeAngularForm = false;
-            }
+                $http({ method: 'GET', url: '/Json/Employees' }).then(function successCallback(response) {
+                    $scope.Exams = response.data;
+                    angular.forEach($scope.Exams, function (value, key) {
+                        if (value.EmployeeBDate) {
+                            value.EmployeeBDate = new Date(parseInt(value.EmployeeBDate.substr(6)));
+                        }
+                        if (value.EmployeeSDate) {
+                            value.EmployeeSDate = new Date(parseInt(value.EmployeeSDate.substr(6)));
+                        }
+                        if (value.EmployeeEDate) {
+                            value.EmployeeEDate = new Date(parseInt(value.EmployeeEDate.substr(6)));
+                        }
+
+                    });
+                    $('#LoadingScreen').hide();
+                });            }
 
         };
 
 
+    }]);
+
+
+
+
+
+
+    myApp.controller('ExamsCtrl', ['$http', '$scope', '$filter', function ($http, $scope) {
+        $http({ method: 'GET', url: '/Json/Employees' }).then(function successCallback(response) {
+            $scope.Exams = response.data;
+            angular.forEach($scope.Exams, function (value, key) {
+                value.Date = new Date(parseInt(value.Date.substr(6)));
+            });
+            $('#LoadingScreen').hide();
+        });
+
+        $scope.ExamSearchBox = function () {
+            if ($scope.ExamSearchBoxData || $scope.ExamSearchBoxDate || $scope.ExamSearchBoxNumber) {
+                var ToSenh2ext = { 'SearchBoxData': $scope.ExamSearchBoxData, 'SearchBoxDate': $scope.ExamSearchBoxDate, 'SearchBoxNumber': $scope.ExamSearchBoxNumber };
+                $('#LoadingScreen').show();
+                var myEl = angular.element(document.querySelector('.razorRow'));
+                myEl.empty();
+                $http({ method: 'POST', url: '/Json/SearchExams', data: ToSenh2ext }).then(function successCallback(response) {
+                    $scope.Exams = response.data;
+                    angular.forEach($scope.Exams, function (value, key) {
+                        value.Date = new Date(parseInt(value.Date.substr(6)));
+                    });
+                    $('#LoadingScreen').hide();
+                });
+            }
+            else {
+                $http({ method: 'GET', url: '/Json/Employees' }).then(function successCallback(response) {
+                    $scope.Exams = response.data;
+                    angular.forEach($scope.Exams, function (value, key) {
+                        value.Date = new Date(parseInt(value.Date.substr(6)));
+                    });
+                    $('#LoadingScreen').hide();
+                });
+            }
+        };
+    }]);
+
+    myApp.controller('OrdersCtrl', ['$http', '$scope', '$window', function ($http, $scope, $window) {
+        formData = new FormData();
+        $http.get("/Orders/GetOrders")
+            .then(function (response) {
+                $scope.Orders = response.data[0];
+                $scope.empid = response.data[1];
+                $scope.Bnds = response.data[2];
+                $scope.Payments = response.data[3];
+                $scope.Orders.Date = new Date($scope.Orders.Date);
+
+                angular.forEach($scope.Orders, function (value, key) {
+                    if (value.Date) {
+                        value.Date = new Date(parseInt(value.Date.substr(6)));
+                    }
+                    if (value.PaymentApprovalDate) {
+                        value.PaymentApprovalDate = new Date(parseInt(value.PaymentApprovalDate.substr(6)));
+                    }
+                    if (value.BuyingApprovalDate) {
+                        value.BuyingApprovalDate = new Date(parseInt(value.BuyingApprovalDate.substr(6)));
+                    }
+                    if (value.ProofAcceptanceDate) {
+                        value.ProofAcceptanceDate = new Date(parseInt(value.ProofAcceptanceDate.substr(6)));
+                    }
+
+
+                });
+            });
+        $scope.BndChange = function (id, Bnd) {
+            $http({ method: 'POST', url: '/Orders/AssignBnd', data: { Bndid: Bnd, id: id } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#' + id).hide();
+                }
+            });
+
+        };
+        $scope.LoadFileData = function (files, id) {
+
+            for (var file in files) {
+                formData.append("file", files[file]);
+            }
+            var Order = id;
+            formData.append("Order", angular.toJson(Order));
+
+            $http.post("/Orders/SaveProof", formData, {
+                withCredentials: true,
+                headers: { 'Content-Type': undefined },
+                transformRequest: angular.identity
+            }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#' + id).hide();
+                }
+            });
+        };
 
 
 
@@ -310,21 +464,23 @@
 
     }]);
 
-    myApp.controller('OrdersCtrl', ['$http', '$scope', '$filter', function ($http, $scope) {
-        $http.get("/Orders/GetOrders")
-            .then(function (response) {
-                $scope.Orders = response.data[0];
-                $scope.empid = response.data[1];
-                
-                $scope.Orders.Date = new Date($scope.Orders.Date);
 
-                angular.forEach($scope.Orders, function (value, key) {
+    myApp.controller('SubBndsCtrl', ['$http', '$scope', '$filter', function ($http, $scope) {
+        $http.get("/SubBnds/GetSubBnds")
+            .then(function (response) {
+                $scope.SubBnds = response.data[0];
+                $scope.empid = response.data[1];
+                $scope.Bnd = response.data[2];
+                $scope.Centers = response.data[3];
+
+                angular.forEach($scope.SubBnds, function (value, key) {
                     if (value.Date) {
                         value.Date = new Date(parseInt(value.Date.substr(6)));
                     }
 
 
                 });
+
             });
 
 

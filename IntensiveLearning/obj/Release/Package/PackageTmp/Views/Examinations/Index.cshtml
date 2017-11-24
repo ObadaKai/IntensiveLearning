@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "لائحة الامتحانات";
 }
-<div ng-controller="SearchCtrl">
+<div ng-controller="ExamsCtrl">
     <h2>لائحة الامتحانات</h2>
     @if (Session["AddExam"] != null)
     {
@@ -27,197 +27,7 @@
         </div>
     </div>
     <div id="table_wrapper">
-
-        <table class="table table-striped" ng-hide="ExamRazorForm">
-            <thead>
-                <tr class="bg-primary">
-                    <th></th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Student.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Student.Surname)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Student.Center.Name)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.Desc)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Date)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Student.Stage.StageName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Study_subject.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ExamType.Type)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.Mark)
-                    </th>
-                    <th>التوقيع</th>
-
-                    <th>الاثبات</th>
-
-
-
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null)
-                {
-                    foreach (var item in Model)
-                    {
-                        <tr>
-                            <td @if (item.Approval == null) { @: style="background-color:gray"
-                                                                                                                                                                                            } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:forestgreen"
-                                                                                                                                                                                                } else { @: style="background-color:red"
-                                                                                                                                                                                                } }></td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Student.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Student.Surname)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Student.Center.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Desc)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Date)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Student.Stage.StageName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Study_subject.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ExamType.Type)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Mark)
-                            </td>
-                            <td>
-                                @if (Session["SeeAccToCenter"] != null)
-                                {
-                                    if ((bool)Session["SeeAccToCenter"] == true)
-                                    {
-                                        if (item.Approval == null)
-                                        {
-                                            <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = true })" style="color:forestgreen">قبول</a>
-                                            <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = false })" style="color:darkred">رفض</a>
-                                        }
-                                        else if (item.Approval != null)
-                                        {
-                                            if (item.Approval == true)
-                                            {
-                                                <p style="color:forestgreen">مقبول</p>
-
-                                            }
-                                            else
-                                            {
-                                                <p style="color:darkred">مرفوض</p>
-
-                                            }
-                                        }
-                                    }
-                                    else if (item.Approval == null)
-                                    {
-                                        <p style="color:gray">بالانتظار</p>
-                                    }
-                                    else if (item.Approval != null)
-                                    {
-                                        if (item.Approval == true)
-                                        {
-                                            <p style="color:forestgreen">مقبول</p>
-
-                                        }
-                                        else
-                                        {
-                                            <p style="color:darkred">مرفوض</p>
-
-                                        }
-                                    }
-
-
-                                }
-                                else if (item.Approval == null)
-                                {
-                                    <p style="color:gray">بالانتظار</p>
-                                }
-                                else if (item.Approval != null)
-                                {
-                                    if (item.Approval == true)
-                                    {
-                                        <p style="color:forestgreen">مقبول</p>
-
-                                    }
-                                    else
-                                    {
-                                        <p style="color:darkred">مرفوض</p>
-
-                                    }
-                                }
-                            </td>
-                            <td>
-                                @if (item.Proof != null)
-                                {
-                                    <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof} )" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-                                }
-                            </td>
-
-
-
-
-                            <td>
-                                @if (Session["AddExam"] != null)
-                                {
-                                    if ((bool)Session["AddExam"] == true)
-                                    {
-                                        <div style="width:130px;">
-                                            <a href="/Examinations/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                            <a href="/Examinations/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                            <a href="/Examinations/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                        </div>
-                                    }
-                                }
-                                else
-                                {
-                                    <a href="/Examinations/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                }
-                            </td>
-                            @*<td>
-                                    @if (Session["ApproveExam"]!= null)
-                                    {
-                                        if ((bool)Session["ApproveExam"] == true)
-                                        {
-
-
-                                        }
-                                    }
-                                </td>*@
-
-
-
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
-    <button id="btnExport" class="btn btn-warning" ng-hide="ExamRazorForm">xls تصدير إلى</button>
-    <div id="table_wrapper2">
-        <table class="table table-striped" ng-cloak ng-show="ExamAngularForm">
+        <table class="table table-striped">
             <thead>
                 <tr class="bg-primary">
                     <th></th>
@@ -342,7 +152,7 @@
 
 
 
-    <button id="btnExport2" class="btn btn-warning" ng-cloak ng-show="ExamAngularForm">xls تصدير إلى</button>
+    <button id="btnExport" class="btn btn-warning" >xls تصدير إلى</button>
 </div>
 @if (ViewBag.StateMessage != null)
 {
@@ -351,3 +161,196 @@
         @ViewBag.StateMessage
     </div>
 }
+
+<div class="LoadingScreen" id="LoadingScreen">
+    <div class="LoadingBackground"></div>
+    <div class="LoadingIcon">
+        <div class="lds-css ng-scope">
+            <div class="lds-spinner" style="100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<div id="table_wrapper">
+
+        <table class="table table-striped" ng-hide="ExamRazorForm">
+            <thead>
+                <tr class="bg-primary">
+                    <th></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Student.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Student.Surname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Student.Center.Name)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Desc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Student.Stage.StageName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Study_subject.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ExamType.Type)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mark)
+                    </th>
+                    <th>التوقيع</th>
+
+                    <th>الاثبات</th>
+
+
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td @if (item.Approval == null) { @: style="background-color:gray"
+                                                                                                                                                                                            } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:#5cb85c"
+                                                                                                                                                                                                } else { @: style="background-color:#d9534f"
+                                                                                                                                                                                                } }></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Student.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Student.Surname)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Student.Center.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Desc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Student.Stage.StageName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Study_subject.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExamType.Type)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Mark)
+                            </td>
+                            <td>
+                                @if (Session["SeeAccToCenter"] != null)
+                                {
+                                    if ((bool)Session["SeeAccToCenter"] == true)
+                                    {
+                                        if (item.Approval == null)
+                                        {
+                                            <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = true })" style="color:#5cb85c">قبول</a>
+                                            <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = false })" style="color:#d9534f">رفض</a>
+                                        }
+                                        else if (item.Approval != null)
+                                        {
+                                            if (item.Approval == true)
+                                            {
+                                                <p style="color:forestgreen">مقبول</p>
+
+                                            }
+                                            else
+                                            {
+                                                <p style="color:darkred">مرفوض</p>
+
+                                            }
+                                        }
+                                    }
+                                    else if (item.Approval == null)
+                                    {
+                                        <p style="color:gray">بالانتظار</p>
+                                    }
+                                    else if (item.Approval != null)
+                                    {
+                                        if (item.Approval == true)
+                                        {
+                                            <p style="color:forestgreen">مقبول</p>
+
+                                        }
+                                        else
+                                        {
+                                            <p style="color:darkred">مرفوض</p>
+
+                                        }
+                                    }
+
+
+                                }
+                                else if (item.Approval == null)
+                                {
+                                    <p style="color:gray">بالانتظار</p>
+                                }
+                                else if (item.Approval != null)
+                                {
+                                    if (item.Approval == true)
+                                    {
+                                        <p style="color:forestgreen">مقبول</p>
+
+                                    }
+                                    else
+                                    {
+                                        <p style="color:darkred">مرفوض</p>
+
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @if (item.Proof != null)
+                                {
+                                    <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof} )" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                }
+                            </td>
+
+
+
+
+                            <td>
+                                @if (Session["AddExam"] != null)
+                                {
+                                    if ((bool)Session["AddExam"] == true)
+                                    {
+                                        <div style="width:130px;">
+                                            <a href="/Examinations/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                            <a href="/Examinations/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                            <a href="/Examinations/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <a href="/Examinations/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                }
+                            </td>
+
+
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <button id="btnExport" class="btn btn-warning" ng-hide="ExamRazorForm">xls تصدير إلى</button>*@

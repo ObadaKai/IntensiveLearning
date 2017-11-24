@@ -1,0 +1,461 @@
+﻿@model IntensiveLearning.Database.Order
+
+@{
+    ViewBag.Title = "معلومات";
+}
+<div class="WhiteBlur">
+    <h2>معلومات</h2>
+
+    <div class="InfoContainer">
+        <h4>طلب</h4>
+        <hr />
+
+        <div class="col-sm-6 pull-right">
+            @if (Model.Employee != null)
+            {
+
+                if (Model.Employee.name != null)
+                {
+
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Employee.name)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.Employee.name)
+                    </p>
+                }
+
+                if (Model.Employee.surname != null)
+                {
+
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Employee.surname)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.Employee.surname)
+                    </p>
+                }
+            }
+
+            @if (Model.Subject != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.Subject)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Subject)
+                </p>
+            }
+            @if (Model.Quantity != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Quantity)
+                </p>
+            }
+            @if (Model.PeacePrice != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.PeacePrice)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.PeacePrice)
+                </p>
+            }
+            @if (Model.State != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.State)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.State)
+                </p>
+            }
+            @if (Model.FirstLevelSign != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.FirstLevelSign)
+                </h4>
+                <p>
+                    @if (Model.FirstLevelSign == true)
+                    {
+                        <span class="glyphicon glyphicon-ok"></span>
+                    }
+                    else
+                    {
+                        <span class="glyphicon glyphicon-remove"></span>
+
+                    }
+                </p>
+                if (Model.FirstLevelSign == true && Model.Paymentid == null)
+                {
+                    if (ViewBag.type.CoManager == true && ViewBag.type.SeeAll == true && ViewBag.type.Finance != true)
+                    {
+                        using (Html.BeginForm("RefuseOrder", "Orders"))
+                        {
+                            <a onclick="RefuseOrderFirstLevel()" id="RefuseOrderFirstLevel"><span class="glyphicon glyphicon-remove"></span></a>
+                            <div id="RefuseOrderFirstLevelCancelation" style="display:none;padding:0" class="col-sm-12">
+                                <input type="hidden" name="id" value="@Model.id" />
+                                <input type="text" class="col-sm-9" style="line-height:27px;" name="comment" id="comment" />
+                                <input type="submit" class="col-sm-3 btn btn-success" value="ارسال" />
+                            </div>
+                        }
+                    }
+                }
+
+                if (Model.FirstLevelSign == false && Model.Paymentid == null)
+                {
+                    if (ViewBag.type.CoManager == true && ViewBag.type.SeeAll == true && ViewBag.type.Finance != true)
+                    {
+                        <a ng-href="@Url.Action("ConfirmOrder","Orders",new {id= Model.id })"><span class="glyphicon glyphicon-ok"></span></a>
+                    }
+                }
+            }
+
+
+
+            @if (Model.SecondLevelSign != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.SecondLevelSign)
+                </h4>
+
+                <p>
+                    @if (Model.SecondLevelSign == true)
+                    {
+                        <span class="glyphicon glyphicon-ok"></span>
+                    }
+                    else
+                    {
+                        <span class="glyphicon glyphicon-remove"></span>
+
+                    }
+                </p>
+                if (Model.SecondLevelSign == true && Model.Paymentid == null)
+                {
+                    if (ViewBag.type.CoManager == true && ViewBag.type.SeeAll == true && ViewBag.type.Finance == true)
+                    {
+                        using (Html.BeginForm("RefuseOrder", "Orders"))
+                        {
+                            <a onclick="RefuseOrderSecondLevel()" id="RefuseOrderSecondLevel"><span class="glyphicon glyphicon-remove"></span></a>
+                            <div id="RefuseOrderSecondLevelCancelation" style="display:none;padding:0" class="col-sm-12">
+                                <input type="hidden" name="id" value="@Model.id" />
+                                <input type="text" class="col-sm-9" style="line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
+                                <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
+                            </div>
+                        }
+                    }
+                }
+                if (Model.SecondLevelSign == false && Model.Paymentid == null)
+                {
+                    if (ViewBag.type.CoManager == true && ViewBag.type.SeeAll == true && ViewBag.type.Finance == true)
+                    {
+                        <a ng-href="@Url.Action("ConfirmOrder","Orders",new {id= Model.id })"><span class="glyphicon glyphicon-ok"></span></a>
+                    }
+                }
+            }
+            @if (Model.ThirdLevelSign != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.ThirdLevelSign)
+                </h4>
+                <p>
+                    @if (Model.ThirdLevelSign == true)
+                    {
+                        <span class="glyphicon glyphicon-ok"></span>
+                    }
+                    else
+                    {
+                        <span class="glyphicon glyphicon-remove"></span>
+
+                    }
+
+                </p>
+                if (Model.ThirdLevelSign == true && Model.Paymentid == null)
+                {
+                    if (ViewBag.type.Manager == true && ViewBag.type.Finance == true)
+                    {
+                        using (Html.BeginForm("RefuseOrder", "Orders"))
+                        {
+                            <a onclick="RefuseOrderThirdLevel()" id="RefuseOrderThirdLevel"><span class="glyphicon glyphicon-remove"></span></a>
+                            <div id="RefuseOrderThirdLevelCancelation" style="display:none;padding:0;width:200px;" class="col-sm-12">
+                                <input type="hidden" name="id" value="@Model.id" />
+                                <input type="text" class="col-sm-9" style="line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
+                                <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
+                            </div>
+                        }
+                    }
+                }
+                if (Model.ThirdLevelSign == false && Model.Paymentid == null)
+                {
+                    if (ViewBag.type.Manager == true && ViewBag.type.Finance == true)
+                    {
+                        <a ng-href="@Url.Action("ConfirmOrder","Orders",new {id= Model.id })"><span class="glyphicon glyphicon-ok"></span></a>
+                    }
+                }
+            }
+
+            @if (Model.PaymentOrderDate != null && ViewBag.type.CoManager == true && ViewBag.type.Finance == true)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.PaymentOrderDate)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.PaymentOrderDate)
+                </p>
+            }
+            @if (Model.PaymentApprove != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.PaymentApprove)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.PaymentApprove)
+                </p>
+                if (Model.PaymentApprove == true && Model.BuyingApprove != true)
+                {
+                    using (Html.BeginForm("PaymentRefuse", "Orders"))
+                    {
+                        <a onclick="PaymentRefuse()" id="PaymentRefuse"><span class="glyphicon glyphicon-remove"></span></a>
+                        <div id="PaymentCancelation" style="display:none;padding:0" class="col-sm-12">
+                            <input type="hidden" name="id" value="@Model.id" />
+                            <input type="text" class="col-sm-9" style="padding-right:0;padding-left:0;line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
+                            <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
+                        </div>
+                    }
+                }
+            }
+            @if (Model.BuyingApprove != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.BuyingApprove)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.BuyingApprove)
+                </p>
+
+                if (Model.BuyingApprove == true && Model.proof != null && ViewBag.type.CoManager == true && ViewBag.type.Finance == true)
+                {
+                    using (Html.BeginForm("BuyingRefuse", "Orders"))
+                    {
+                        <a onclick="BuyingRefuse()" id="BuyingRefuse"><span class="glyphicon glyphicon-remove"></span></a>
+                        <div id="BuyingCancelation" style="display:none;padding:0" class="col-sm-12">
+                            <input type="hidden" name="id" value="@Model.id" />
+                            <input type="text" class="col-sm-9" style="padding-right:0;padding-left:0;line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
+                            <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
+                        </div>
+                    }
+                }
+            }
+
+            @if (Model.proof != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.proof)
+                </h4>
+
+                <p>
+                    <a href="@Url.Action("DownloadProof", "Json", new { id = Model.proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+
+                </p>
+            }
+            @if (Model.ProofAcceptance != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.ProofAcceptance)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.ProofAcceptance)
+                </p>
+
+                if (Model.ProofAcceptance == true && ViewBag.type.CoManager == true && ViewBag.type.Finance == true)
+                {
+                    using (Html.BeginForm("ProofRefuse", "Orders"))
+                    {
+                        <a onclick="ProofRefuse()" id="ProofRefuse"><span class="glyphicon glyphicon-remove"></span></a>
+                        <div id="ProofCancelation" style="display:none;padding:0" class="col-sm-12">
+                            <input type="hidden" name="id" value="@Model.id" />
+                            <input type="text" class="col-sm-9" style="padding-right:0;padding-left:0;line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
+                            <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
+                        </div>
+                    }
+                }
+            }
+
+        </div>
+        <div class="col-sm-6 pull-left">
+            @if (Model.Date != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.Date)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Date)
+                </p>
+            }
+            @if (Model.Time != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.Time)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Time)
+                </p>
+            }
+
+            @if (Model.PaymentApprovalDate != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.PaymentApprovalDate)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.PaymentApprovalDate)
+                </p>
+            }
+            @if (Model.BuyingApprovalDate != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.BuyingApprovalDate)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.BuyingApprovalDate)
+                </p>
+            }
+            @if (Model.ProofAcceptanceDate != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.ProofAcceptanceDate)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.ProofAcceptanceDate)
+                </p>
+            }
+            @if (Model.Necessity != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.Necessity)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Necessity)
+                </p>
+            }
+            @if (Model.OrderType != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.OrderType)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.OrderType)
+                </p>
+            }
+            @if (Model.CanclationReason != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.CanclationReason)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.CanclationReason)
+                </p>
+            }
+            @if (Model.SumPrice != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.SumPrice)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.SumPrice)
+                </p>
+            }
+            @if (Model.QuantityChanged != null)
+            {
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.QuantityChanged)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.QuantityChanged)
+                </p>
+            }
+            @if (Model.Bnd != null)
+            {
+
+
+                if (Model.Bnd.Name != null)
+                {
+
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Bnd.Name)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.Bnd.Name)
+                    </p>
+                }
+            }
+            @if (Model.Center != null)
+            {
+
+                if (Model.Center.Name != null)
+                {
+
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Center.Name)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.Center.Name)
+                    </p>
+                }
+            }
+
+
+            @if (Model.Paymentid != null)
+            {
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Paymentid)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Paymentid)
+                </p>
+            }
+
+        </div>
+    </div>
+    <p>
+        @if (Session["ID"] != null)
+        {
+            var empid = Convert.ToInt32(Session["ID"]);
+
+            if (Model.Employeeid == empid)
+            {
+                @Html.ActionLink("تعديل", "Edit", new { id = Model.id }) @:|
+                @Html.ActionLink("حذف", "Delete", new { id = Model.id }) @:|
+        }
+        }
+        @Html.ActionLink("العودة إلى اللائحة", "Index")
+    </p>
+</div>

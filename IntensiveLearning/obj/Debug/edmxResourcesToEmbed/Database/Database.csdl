@@ -5,7 +5,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="TotalNum" Type="Double" />
     <Property Name="AfterReductionNum" Type="Double" />
     <Property Name="Month1Share" Type="Double" />
@@ -36,16 +36,16 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Place" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Place" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="HolesN" Type="Int32" />
     <Property Name="Cityid" Type="Int32" />
-    <Property Name="FoundationType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FoundationType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Periodid" Type="Int32" />
-    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Owner" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Owner" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Month10" Type="Boolean" />
     <Property Name="Month11" Type="Boolean" />
     <Property Name="Month12" Type="Boolean" />
@@ -60,10 +60,10 @@
     <Property Name="Month9" Type="Boolean" />
     <Property Name="TargetedMen" Type="Int32" />
     <Property Name="TargetedWomen" Type="Int32" />
-    <Property Name="CenterType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CenterType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="MonthlyPayment" Type="Int32" />
     <Property Name="QuarterPayment" Type="Int32" />
-    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ProjectID" Type="Int32" />
     <Property Name="Approval" Type="Boolean" />
     <Property Name="ApprovedBy" Type="Int32" />
@@ -72,12 +72,15 @@
     <Property Name="AddingDate" Type="DateTime" Precision="0" />
     <Property Name="AddingTime" Type="Time" Precision="7" />
     <Property Name="SpentBudget" Type="Double" />
+    <NavigationProperty Name="Centers1" Relationship="Self.FK_Centers_Centers" FromRole="Centers" ToRole="Centers1" />
+    <NavigationProperty Name="Center1" Relationship="Self.FK_Centers_Centers" FromRole="Centers1" ToRole="Centers" />
     <NavigationProperty Name="City" Relationship="Self.FK_Centers_Cities" FromRole="Centers" ToRole="Cities" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Centers_Employees" FromRole="Centers" ToRole="Employees" />
     <NavigationProperty Name="Employee1" Relationship="Self.FK_Centers_Employees1" FromRole="Centers" ToRole="Employees" />
     <NavigationProperty Name="Period" Relationship="Self.FK_Centers_Periods" FromRole="Centers" ToRole="Periods" />
     <NavigationProperty Name="Project" Relationship="Self.FK_Centers_Project" FromRole="Centers" ToRole="Project" />
     <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Centers" FromRole="Centers" ToRole="Employees" />
+    <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Centers" FromRole="Centers" ToRole="Lessons" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Centers" FromRole="Centers" ToRole="Order" />
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Centers" FromRole="Centers" ToRole="Prooves" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Centers" FromRole="Centers" ToRole="Students" />
@@ -88,8 +91,8 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="CountryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CountryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ProjectID" Type="Int32" />
     <Property Name="AddingDate" Type="DateTime" Precision="0" />
     <Property Name="AddingTime" Type="Time" Precision="7" />
@@ -103,7 +106,7 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="Employeeid" Type="Int32" />
-    <Property Name="Concern1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Concern1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="date" Type="DateTime" Precision="0" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Concerns_Employees" FromRole="Concerns" ToRole="Employees" />
   </EntityType>
@@ -112,8 +115,8 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="Report" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Observation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Report" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Observation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Managerid" Type="Int32" />
     <Property Name="date" Type="DateTime" Precision="0" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_DailyActivity_Employees" FromRole="DailyActivity" ToRole="Employees" />
@@ -123,32 +126,35 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="BDate" Type="DateTime" Precision="0" />
-    <Property Name="Certificate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="CType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Certificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Centerid" Type="Int32" />
     <Property Name="Periodid" Type="Int32" />
     <Property Name="SDate" Type="DateTime" Precision="0" />
     <Property Name="EDate" Type="DateTime" Precision="0" />
     <Property Name="Job" Type="Int32" />
-    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Salary" Type="Double" />
     <Property Name="CityID" Type="Int32" />
-    <Property Name="FathersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Sex" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FathersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Sex" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Approval" Type="Boolean" />
-    <Property Name="ApprovedBy" Type="Int32" />
     <Property Name="AddedBy" Type="Int32" />
+    <Property Name="ApprovedBy" Type="Int32" />
     <Property Name="AddingDate" Type="DateTime" Precision="0" />
     <Property Name="AddingTime" Type="Time" Precision="7" />
-    <Property Name="InsideOrOutside" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="OldJob" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ExpYears" Type="Int32" />
+    <Property Name="OldJob" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InsideOrOutside" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="telephoneNumber" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Centers" Relationship="Self.FK_Centers_Employees" FromRole="Employees" ToRole="Centers" />
     <NavigationProperty Name="Centers1" Relationship="Self.FK_Centers_Employees1" FromRole="Employees" ToRole="Centers" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Employees_Centers" FromRole="Employees" ToRole="Centers" />
@@ -164,6 +170,8 @@
     <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_Employees" FromRole="Employees" ToRole="Examination" />
     <NavigationProperty Name="Examinations1" Relationship="Self.FK_Examination_Employees1" FromRole="Employees" ToRole="Examination" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Employees" FromRole="Employees" ToRole="Order" />
+    <NavigationProperty Name="Presences" Relationship="Self.FK_Presence_Employees" FromRole="Employees" ToRole="Presence" />
+    <NavigationProperty Name="Presences1" Relationship="Self.FK_Presence_Employees1" FromRole="Employees" ToRole="Presence" />
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Employees" FromRole="Employees" ToRole="Prooves" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Employees" FromRole="Employees" ToRole="Students" />
     <NavigationProperty Name="Students1" Relationship="Self.FK_Students_Employees1" FromRole="Employees" ToRole="Students" />
@@ -174,7 +182,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Manager" Type="Boolean" />
     <Property Name="CoManager" Type="Boolean" />
     <Property Name="SchoolManager" Type="Boolean" />
@@ -210,12 +218,12 @@
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="ExamTypeid" Type="Int32" />
     <Property Name="Mark" Type="Double" />
-    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Subjectid" Type="Int32" />
     <Property Name="Studentid" Type="Int32" />
     <Property Name="Stageid" Type="Int32" />
     <Property Name="Date" Type="DateTime" Precision="0" />
-    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Approval" Type="Boolean" />
     <Property Name="ApprovedBy" Type="Int32" />
     <Property Name="AddedBy" Type="Int32" />
@@ -234,7 +242,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_ExamType" FromRole="ExamType" ToRole="Examination" />
   </EntityType>
   <EntityType Name="Lesson">
@@ -242,18 +250,20 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Lesson1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Lesson2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Lesson3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Lesson4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Lesson5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Lesson6" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Lesson7" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Day" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Lesson1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Lesson2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Lesson3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Lesson4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Lesson5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Lesson6" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Lesson7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Regimentid" Type="Int32" />
     <Property Name="Stageid" Type="Int32" />
     <Property Name="Periodid" Type="Int32" />
+    <Property Name="Centerid" Type="Int32" />
+    <NavigationProperty Name="Center" Relationship="Self.FK_Lessons_Centers" FromRole="Lessons" ToRole="Centers" />
     <NavigationProperty Name="Period" Relationship="Self.FK_Lessons_Periods" FromRole="Lessons" ToRole="Periods" />
     <NavigationProperty Name="Regiment" Relationship="Self.FK_Lessons_Regiments2" FromRole="Lessons" ToRole="Regiments" />
     <NavigationProperty Name="Stage" Relationship="Self.FK_Lessons_Stages" FromRole="Lessons" ToRole="Stages" />
@@ -263,13 +273,13 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Date" Type="DateTime" Precision="0" />
     <Property Name="PhoneNumber" Type="Int32" />
-    <Property Name="FathersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Certificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="CType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FathersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Certificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -279,7 +289,7 @@
     <Property Name="Employeeid" Type="Int32" />
     <Property Name="Bndid" Type="Int32" />
     <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Quantity" Type="Double" />
+    <Property Name="Quantity" Type="Int32" />
     <Property Name="PeacePrice" Type="Double" />
     <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="FirstLevelSign" Type="Boolean" />
@@ -289,29 +299,33 @@
     <Property Name="Time" Type="Time" Precision="7" />
     <Property Name="CenterID" Type="Int32" />
     <Property Name="SubBndid" Type="Int32" />
-    <Property Name="BuyingSign" Type="Boolean" />
+    <Property Name="PaymentApprove" Type="Boolean" />
+    <Property Name="BuyingApprove" Type="Boolean" />
+    <Property Name="proof" Type="Int32" />
+    <Property Name="ProofAcceptance" Type="Boolean" />
+    <Property Name="PaymentApprovalDate" Type="DateTime" Precision="0" />
+    <Property Name="BuyingApprovalDate" Type="DateTime" Precision="0" />
+    <Property Name="ProofAcceptanceDate" Type="DateTime" Precision="0" />
+    <Property Name="Paymentid" Type="Int32" />
+    <Property Name="Necessity" Type="Int16" />
+    <Property Name="OrderType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CanclationReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SumPrice" Type="Double" />
+    <Property Name="QuantityChanged" Type="Boolean" />
+    <Property Name="PaymentOrderDate" Type="DateTime" Precision="0" />
     <NavigationProperty Name="Bnd" Relationship="Self.FK_Order_Bnd" FromRole="Order" ToRole="Bnd" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Order_Centers" FromRole="Order" ToRole="Centers" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Order_Employees" FromRole="Order" ToRole="Employees" />
     <NavigationProperty Name="SubBnd" Relationship="Self.FK_Order_SubBnd" FromRole="Order" ToRole="SubBnd" />
-    <NavigationProperty Name="PaymentsRecords" Relationship="Self.FK_PaymentsRecord_Order" FromRole="Order" ToRole="PaymentsRecord" />
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Order" FromRole="Order" ToRole="Prooves" />
-  </EntityType>
-  <EntityType Name="PaymentsRecord">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="Orderid" Type="Int32" />
-    <NavigationProperty Name="Order" Relationship="Self.FK_PaymentsRecord_Order" FromRole="PaymentsRecord" ToRole="Order" />
-    <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_PaymentsRecord" FromRole="PaymentsRecord" ToRole="SubBnd" />
+    <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Order" FromRole="Order" ToRole="SubBnd" />
   </EntityType>
   <EntityType Name="Period">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="StartingTime" Type="Time" Precision="7" />
     <Property Name="EndTime" Type="Time" Precision="7" />
     <NavigationProperty Name="Centers" Relationship="Self.FK_Centers_Periods" FromRole="Periods" ToRole="Centers" />
@@ -325,7 +339,7 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="Date" Type="DateTime" Precision="0" />
-    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Studentid" Type="Int32" />
     <Property Name="Lesson1" Type="Boolean" />
     <Property Name="Lesson2" Type="Boolean" />
@@ -339,6 +353,8 @@
     <Property Name="AddedBy" Type="Int32" />
     <Property Name="AddingDate" Type="DateTime" Precision="0" />
     <Property Name="AddingTime" Type="Time" Precision="7" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Presence_Employees" FromRole="Presence" ToRole="Employees" />
+    <NavigationProperty Name="Employee1" Relationship="Self.FK_Presence_Employees1" FromRole="Presence" ToRole="Employees" />
     <NavigationProperty Name="Student" Relationship="Self.FK_Presence_Students" FromRole="Presence" ToRole="Students" />
   </EntityType>
   <EntityType Name="Project">
@@ -346,7 +362,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="StartDate" Type="DateTime" Precision="0" />
     <Property Name="EndDate" Type="DateTime" Precision="0" />
     <NavigationProperty Name="Centers" Relationship="Self.FK_Centers_Project" FromRole="Project" ToRole="Centers" />
@@ -361,8 +377,8 @@
     <Property Name="CenterID" Type="Int32" />
     <Property Name="OrderID" Type="Int32" />
     <Property Name="ExaminationID" Type="Int32" />
-    <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="EmployeeID" Type="Int32" />
     <Property Name="ZipFilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Prooves_Centers" FromRole="Prooves" ToRole="Centers" />
@@ -370,14 +386,13 @@
     <NavigationProperty Name="Examination" Relationship="Self.FK_Prooves_Examination" FromRole="Prooves" ToRole="Examination" />
     <NavigationProperty Name="Order" Relationship="Self.FK_Prooves_Order" FromRole="Prooves" ToRole="Order" />
     <NavigationProperty Name="Student" Relationship="Self.FK_Prooves_Students" FromRole="Prooves" ToRole="Students" />
-    <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Prooves" FromRole="Prooves" ToRole="SubBnd" />
   </EntityType>
   <EntityType Name="Regiment">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Periodid" Type="Int32" />
     <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Regiments2" FromRole="Regiments" ToRole="Lessons" />
     <NavigationProperty Name="Period" Relationship="Self.FK_Regiments_Periods" FromRole="Regiments" ToRole="Periods" />
@@ -388,7 +403,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="StageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="StageName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_Stages" FromRole="Stages" ToRole="Examination" />
     <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Stages" FromRole="Stages" ToRole="Lessons" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Stages" FromRole="Stages" ToRole="Students" />
@@ -399,28 +414,28 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="BDate" Type="DateTime" Precision="0" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Certificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Certificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Mark" Type="Double" />
-    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="Centerid" Type="Int32" />
     <Property Name="Stageid" Type="Int32" />
     <Property Name="Regimentid" Type="Int32" />
     <Property Name="SDate" Type="DateTime" Precision="0" />
     <Property Name="EDate" Type="DateTime" Precision="0" />
     <Property Name="StudentNumber" Type="Int32" />
-    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="FathersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FathersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Name="Approval" Type="Boolean" />
     <Property Name="ApprovedBy" Type="Int32" />
     <Property Name="AddedBy" Type="Int32" />
     <Property Name="AddingDate" Type="DateTime" Precision="0" />
     <Property Name="AddingTime" Type="Time" Precision="7" />
-    <Property Name="Mothersname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="OldSchool" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="StudentState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mothersname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Students_Centers" FromRole="Students" ToRole="Centers" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Students_Employees" FromRole="Students" ToRole="Employees" />
     <NavigationProperty Name="Employee1" Relationship="Self.FK_Students_Employees1" FromRole="Students" ToRole="Employees" />
@@ -435,12 +450,18 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="FullMark" Type="Double" />
     <Property Name="LeastMark" Type="Double" />
-    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_Study_subject" FromRole="Study_subject" ToRole="Examination" />
+  </EntityType>
+  <EntityType Name="PaymentsRecord">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="SubBnd">
     <Key>
@@ -448,34 +469,19 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="BndId" Type="Int32" />
-    <Property Name="CenterId" Type="Int32" />
+    <Property Name="CenterID" Type="Int32" />
     <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="PeacePrice" Type="Double" />
     <Property Name="Quantity" Type="Int32" />
     <Property Name="SumPrice" Type="Double" />
     <Property Name="Date" Type="DateTime" Precision="0" />
-    <Property Name="PayymentApprove" Type="Boolean" />
-    <Property Name="BuyingApprove" Type="Boolean" />
-    <Property Name="proof" Type="Int32" />
-    <Property Name="ProofAcceptance" Type="Boolean" />
-    <Property Name="Paymentid" Type="Int32" />
     <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="Orderid" Type="Int32" />
     <NavigationProperty Name="Bnd" Relationship="Self.FK_SubBnd_Bnd" FromRole="SubBnd" ToRole="Bnd" />
     <NavigationProperty Name="Center" Relationship="Self.FK_SubBnd_Centers" FromRole="SubBnd" ToRole="Centers" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_SubBnd_Employees" FromRole="SubBnd" ToRole="Employees" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Order_SubBnd" FromRole="SubBnd" ToRole="Order" />
-    <NavigationProperty Name="PaymentsRecord" Relationship="Self.FK_SubBnd_PaymentsRecord" FromRole="SubBnd" ToRole="PaymentsRecord" />
-    <NavigationProperty Name="Proove" Relationship="Self.FK_SubBnd_Prooves" FromRole="SubBnd" ToRole="Prooves" />
-  </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_SubBnd_Order" FromRole="SubBnd" ToRole="Order" />
   </EntityType>
   <Association Name="FK_Order_Bnd">
     <End Role="Bnd" Type="Self.Bnd" Multiplicity="0..1" />
@@ -498,6 +504,18 @@
       </Principal>
       <Dependent Role="SubBnd">
         <PropertyRef Name="BndId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Centers_Centers">
+    <End Role="Centers" Type="Self.Center" Multiplicity="0..1" />
+    <End Role="Centers1" Type="Self.Center" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Centers1">
+        <PropertyRef Name="DependedOn" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -573,6 +591,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Lessons_Centers">
+    <End Role="Centers" Type="Self.Center" Multiplicity="0..1" />
+    <End Role="Lessons" Type="Self.Lesson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Lessons">
+        <PropertyRef Name="Centerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Order_Centers">
     <End Role="Centers" Type="Self.Center" Multiplicity="0..1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -617,7 +647,7 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="SubBnd">
-        <PropertyRef Name="CenterId" />
+        <PropertyRef Name="CenterID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -750,6 +780,30 @@
       </Principal>
       <Dependent Role="Order">
         <PropertyRef Name="Employeeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Presence_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Presence" Type="Self.Presence" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Presence">
+        <PropertyRef Name="ApprovedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Presence_Employees1">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Presence" Type="Self.Presence" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Presence">
+        <PropertyRef Name="AddedBy" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -909,18 +963,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PaymentsRecord_Order">
-    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
-    <End Role="PaymentsRecord" Type="Self.PaymentsRecord" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Order">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="PaymentsRecord">
-        <PropertyRef Name="Orderid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Prooves_Order">
     <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
     <End Role="Prooves" Type="Self.Proove" Multiplicity="*" />
@@ -933,15 +975,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubBnd_PaymentsRecord">
-    <End Role="PaymentsRecord" Type="Self.PaymentsRecord" Multiplicity="0..1" />
+  <Association Name="FK_SubBnd_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
     <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="PaymentsRecord">
+      <Principal Role="Order">
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="SubBnd">
-        <PropertyRef Name="Paymentid" />
+        <PropertyRef Name="Orderid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -978,18 +1020,6 @@
       </Principal>
       <Dependent Role="Prooves">
         <PropertyRef Name="StudentID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SubBnd_Prooves">
-    <End Role="Prooves" Type="Self.Proove" Multiplicity="0..1" />
-    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Prooves">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="SubBnd">
-        <PropertyRef Name="proof" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1030,7 +1060,6 @@
     <EntitySet Name="Lessons" EntityType="Self.Lesson" />
     <EntitySet Name="NonUserAddRequests" EntityType="Self.NonUserAddRequest" />
     <EntitySet Name="Orders" EntityType="Self.Order" />
-    <EntitySet Name="PaymentsRecords" EntityType="Self.PaymentsRecord" />
     <EntitySet Name="Periods" EntityType="Self.Period" />
     <EntitySet Name="Presences" EntityType="Self.Presence" />
     <EntitySet Name="Projects" EntityType="Self.Project" />
@@ -1039,8 +1068,8 @@
     <EntitySet Name="Stages" EntityType="Self.Stage" />
     <EntitySet Name="Students" EntityType="Self.Student" />
     <EntitySet Name="Study_subject" EntityType="Self.Study_subject" />
+    <EntitySet Name="PaymentsRecords" EntityType="Self.PaymentsRecord" />
     <EntitySet Name="SubBnds" EntityType="Self.SubBnd" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <AssociationSet Name="FK_Order_Bnd" Association="Self.FK_Order_Bnd">
       <End Role="Bnd" EntitySet="Bnds" />
       <End Role="Order" EntitySet="Orders" />
@@ -1048,6 +1077,10 @@
     <AssociationSet Name="FK_SubBnd_Bnd" Association="Self.FK_SubBnd_Bnd">
       <End Role="Bnd" EntitySet="Bnds" />
       <End Role="SubBnd" EntitySet="SubBnds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Centers_Centers" Association="Self.FK_Centers_Centers">
+      <End Role="Centers" EntitySet="Centers" />
+      <End Role="Centers1" EntitySet="Centers" />
     </AssociationSet>
     <AssociationSet Name="FK_Centers_Cities" Association="Self.FK_Centers_Cities">
       <End Role="Cities" EntitySet="Cities" />
@@ -1072,6 +1105,10 @@
     <AssociationSet Name="FK_Employees_Centers" Association="Self.FK_Employees_Centers">
       <End Role="Centers" EntitySet="Centers" />
       <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lessons_Centers" Association="Self.FK_Lessons_Centers">
+      <End Role="Centers" EntitySet="Centers" />
+      <End Role="Lessons" EntitySet="Lessons" />
     </AssociationSet>
     <AssociationSet Name="FK_Order_Centers" Association="Self.FK_Order_Centers">
       <End Role="Centers" EntitySet="Centers" />
@@ -1133,6 +1170,14 @@
       <End Role="Employees" EntitySet="Employees" />
       <End Role="Order" EntitySet="Orders" />
     </AssociationSet>
+    <AssociationSet Name="FK_Presence_Employees" Association="Self.FK_Presence_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Presence" EntitySet="Presences" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Presence_Employees1" Association="Self.FK_Presence_Employees1">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Presence" EntitySet="Presences" />
+    </AssociationSet>
     <AssociationSet Name="FK_Prooves_Employees" Association="Self.FK_Prooves_Employees">
       <End Role="Employees" EntitySet="Employees" />
       <End Role="Prooves" EntitySet="Prooves" />
@@ -1185,16 +1230,12 @@
       <End Role="SubBnd" EntitySet="SubBnds" />
       <End Role="Order" EntitySet="Orders" />
     </AssociationSet>
-    <AssociationSet Name="FK_PaymentsRecord_Order" Association="Self.FK_PaymentsRecord_Order">
-      <End Role="Order" EntitySet="Orders" />
-      <End Role="PaymentsRecord" EntitySet="PaymentsRecords" />
-    </AssociationSet>
     <AssociationSet Name="FK_Prooves_Order" Association="Self.FK_Prooves_Order">
       <End Role="Order" EntitySet="Orders" />
       <End Role="Prooves" EntitySet="Prooves" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubBnd_PaymentsRecord" Association="Self.FK_SubBnd_PaymentsRecord">
-      <End Role="PaymentsRecord" EntitySet="PaymentsRecords" />
+    <AssociationSet Name="FK_SubBnd_Order" Association="Self.FK_SubBnd_Order">
+      <End Role="Order" EntitySet="Orders" />
       <End Role="SubBnd" EntitySet="SubBnds" />
     </AssociationSet>
     <AssociationSet Name="FK_Regiments_Periods" Association="Self.FK_Regiments_Periods">
@@ -1208,10 +1249,6 @@
     <AssociationSet Name="FK_Prooves_Students" Association="Self.FK_Prooves_Students">
       <End Role="Students" EntitySet="Students" />
       <End Role="Prooves" EntitySet="Prooves" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SubBnd_Prooves" Association="Self.FK_SubBnd_Prooves">
-      <End Role="Prooves" EntitySet="Prooves" />
-      <End Role="SubBnd" EntitySet="SubBnds" />
     </AssociationSet>
     <AssociationSet Name="FK_Students_Regiments" Association="Self.FK_Students_Regiments">
       <End Role="Regiments" EntitySet="Regiments" />

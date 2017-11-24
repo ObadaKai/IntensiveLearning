@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "لائحة الحضور والغياب";
 }
-<div ng-controller="SearchCtrl">
+<div ng-controller="PresencesCtrl">
 
     <h2>لائحة الحضور والغياب</h2>
 
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div id="table_wrapper">
+    @*<div id="table_wrapper">
         <table class="table table-striped" ng-hide="PresenceRazorForm">
             <thead>
                 <tr class="bg-primary">
@@ -308,9 +308,9 @@
         </table>
     </div>
 
-    <button id="btnExport" class="btn btn-warning" ng-hide="PresenceRazorForm">xls تصدير إلى</button>
-    <div id="table_wrapper2">
-        <table class="table table-striped" ng-cloak ng-show="PresenceAngularForm">
+    <button id="btnExport" class="btn btn-warning" ng-hide="PresenceRazorForm">xls تصدير إلى</button>*@
+    <div id="table_wrapper">
+        <table class="table table-striped">
             <thead>
                 <tr class="bg-primary">
                     <th>
@@ -351,15 +351,7 @@
                         @Html.DisplayNameFor(model => model.Lesson7)
                     </th>
                     <th>التوقيع</th>
-
-
-
-
-
                     <th></th>
-
-
-
                 </tr>
             </thead>
             <tbody>
@@ -436,7 +428,7 @@
             </tbody>
         </table>
     </div>
-    <button id="btnExport2" class="btn btn-warning" ng-cloak ng-show="PresenceAngularForm">xls تصدير إلى</button>
+    <button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>
 </div>
 @if (ViewBag.StateMessage != null)
 {
@@ -445,3 +437,11 @@
         @ViewBag.StateMessage
     </div>
 }
+<div class="LoadingScreen" id="LoadingScreen">
+    <div class="LoadingBackground"></div>
+    <div class="LoadingIcon">
+        <div class="lds-css ng-scope">
+            <div class="lds-spinner" style="100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>

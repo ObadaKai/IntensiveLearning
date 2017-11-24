@@ -31,32 +31,7 @@ namespace IntensiveLearning.Controllers
                 {
                     ViewBag.StateMessage = TempData["Message"];
                 }
-                if (type.SeeAll == true || type.SeeAllButFinance == true)
-                {
-
-                    var students = db.Students.Include(s => s.Center).Include(s => s.Regiment).Include(s => s.Stage);
-                    return View(students.ToList());
-                }
-                if (type.SeeAccToCity == true)
-                {
-                    var empid = Convert.ToInt32(Session["ID"]);
-                    var emp = db.Employees.Find(empid);
-                    var students = db.Students.Where(x => x.Center.Cityid == emp.CityID).Include(s => s.Center).Include(s => s.Regiment).Include(s => s.Stage);
-                    return View(students.ToList());
-                }
-                if (type.SeeAccToCenter == true)
-                {
-                    var empid = Convert.ToInt32(Session["ID"]);
-                    var emp = db.Employees.Find(empid);
-                    var students = db.Students.Where(x => x.Centerid == emp.Centerid).Include(s => s.Center).Include(s => s.Regiment).Include(s => s.Stage); return View(students.ToList());
-                }
-                if (type.SeeTeachers == true)
-                {
-                    var empid = Convert.ToInt32(Session["ID"]);
-                    var emp = db.Employees.Find(empid);
-                    var students = db.Students.Where(x => x.Centerid == emp.Centerid).Include(s => s.Center).Include(s => s.Regiment).Include(s => s.Stage); return View(students.ToList());
-                }
-                return RedirectToAction("Default", "Home");
+                return View();
             }
             return RedirectToAction("Index", "Home");
 

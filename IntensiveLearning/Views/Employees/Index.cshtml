@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "لائحة موظفين";
 }
-<div ng-controller="SearchCtrl">
+<div ng-controller="EmployeesCtrl">
 
     <h2>لائحة الموظفين</h2>
     @if (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddManagers"] != null || Session["AddCOManagers"] != null)
@@ -39,158 +39,177 @@
         </div>
     </div>
 
-    <div id="table_wrapper">
+    @*<div id="table_wrapper">
 
-        <table class="table table-striped" ng-hide="EmployeeRazorForm">
-            <thead>
-                <tr class="bg-primary">
-                    <th></th>
+            <table class="table table-striped" ng-hide="EmployeeRazorForm">
+                <thead>
+                    <tr class="bg-primary">
+                        <th></th>
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.surname)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Certificate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CType)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.OldJob)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ExpYears)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.InsideOrOutside)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.State)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.SDate)
-                    </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.surname)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Certificate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OldJob)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExpYears)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.InsideOrOutside)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.State)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SDate)
+                        </th>
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.EDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Center.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.City.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EmployeeType.Type)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Period.Name)
-                    </th>
-                    @if (Session["SeeAll"] != null)
-                    {
-                        if ((bool)Session["SeeAll"] == true)
+                        <th>
+                            @Html.DisplayNameFor(model => model.EDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Center.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.City.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmployeeType.Type)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Period.Name)
+                        </th>
+                        @if (Session["SeeAll"] != null)
                         {
-                            <th>
-                                @Html.DisplayNameFor(model => model.Salary)
-                            </th>
+                            if ((bool)Session["SeeAll"] == true)
+                            {
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Salary)
+                                </th>
+                            }
                         }
-                    }
-                    <th>التوقيع</th>
-                    <th>الاثبات</th>
-                    <th></th>
+                        <th>التوقيع</th>
+                        <th>الاثبات</th>
+                        <th></th>
 
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null)
-                {
-                    foreach (var item in Model)
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
                     {
-                        <tr>
-                            <td @if (item.Approval == null) { @: style="background-color:gray"
-                                 } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:#5cb85c"
-                                  } else { @: style="background-color:#d9534f"
-                                  } }></td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.surname)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.BDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Certificate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CType)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.OldJob)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ExpYears)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.InsideOrOutside)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.State)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Center.Name)
-                            </td>
-                            <td>
-                                @if (item.CityID != null)
-                                {
-                                    @Html.DisplayFor(modelItem => item.City.Name)
-                                }
-                                else if (item.Center != null)
-                                {
-                                    if (item.Center.Cityid != null)
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td @if (item.Approval == null) { @: style="background-color:gray"
+                                     } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:#5cb85c"
+                                      } else { @: style="background-color:#d9534f"
+                                      } }></td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.surname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Certificate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OldJob)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ExpYears)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InsideOrOutside)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.State)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Center.Name)
+                                </td>
+                                <td>
+                                    @if (item.CityID != null)
                                     {
-                                        @Html.DisplayFor(modelItem => item.Center.City.Name)
+                                        @Html.DisplayFor(modelItem => item.City.Name)
+                                    }
+                                    else if (item.Center != null)
+                                    {
+                                        if (item.Center.Cityid != null)
+                                        {
+                                            @Html.DisplayFor(modelItem => item.Center.City.Name)
 
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmployeeType.Type)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Period.Name)
+                                </td>
+                                @if (Session["SeeAll"] != null)
+                                {
+                                    if ((bool)Session["SeeAll"] == true)
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Salary)
+                                        </td>
                                     }
                                 }
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EmployeeType.Type)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Period.Name)
-                            </td>
-                            @if (Session["SeeAll"] != null)
-                            {
-                                if ((bool)Session["SeeAll"] == true)
-                                {
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Salary)
-                                    </td>
-                                }
-                            }
-                            <td>
-                                @if (Session["HighAcceptance"] != null)
-                                {
-                                    if ((bool)Session["HighAcceptance"] == true)
+                                <td>
+                                    @if (Session["HighAcceptance"] != null)
                                     {
-                                        if (item.Approval == null)
+                                        if ((bool)Session["HighAcceptance"] == true)
                                         {
-                                            <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = true })" style="color:forestgreen">قبول</a>
-                                            <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = false })" style="color:darkred">رفض</a>
+                                            if (item.Approval == null)
+                                            {
+                                                <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = true })" style="color:forestgreen">قبول</a>
+                                                <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = false })" style="color:darkred">رفض</a>
+                                            }
+                                            else if (item.Approval != null)
+                                            {
+                                                if (item.Approval == true)
+                                                {
+                                                    <p style="color:forestgreen">مقبول</p>
+
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:darkred">مرفوض</p>
+
+                                                }
+                                            }
+
+                                        }
+                                        else if (item.Approval == null)
+                                        {
+                                            <p style="color:gray">بالانتظار</p>
                                         }
                                         else if (item.Approval != null)
                                         {
@@ -224,173 +243,143 @@
 
                                         }
                                     }
-
-                                }
-                                else if (item.Approval == null)
-                                {
-                                    <p style="color:gray">بالانتظار</p>
-                                }
-                                else if (item.Approval != null)
-                                {
-                                    if (item.Approval == true)
+                                </td>
+                                <td>
+                                    @if (item.EmployeeType.Manager == true)
                                     {
-                                        <p style="color:forestgreen">مقبول</p>
-
-                                    }
-                                    else
-                                    {
-                                        <p style="color:darkred">مرفوض</p>
-
-                                    }
-                                }
-                            </td>
-                            <td>
-                                @if (item.EmployeeType.Manager == true)
-                                {
-                                    if (Session["AddManagers"] != null)
-                                    {
-                                        /**/
-                                        if ((bool)Session["AddManagers"] == true)
+                                        if (Session["AddManagers"] != null)
                                         {
-                                            var ImageName = item.Proof;
+                                            /**/
+                                            if ((bool)Session["AddManagers"] == true)
+                                            {
+                                                var ImageName = item.Proof;
+                                                if (item.Proof != null)
+                                                {
+                                                    <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                    @if (item.EmployeeType.CoManager == true)
+                                    {
+                                        if (Session["AddCoManagers"] != null)
+                                        {
+                                            /**/
+                                            if ((bool)Session["AddCoManagers"] == true)
+                                            {
+                                                var ImageName = item.Proof;
+                                                if (item.Proof != null)
+                                                {
+                                                    <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                                }
+
+                                            }
+                                        }
+                                    }
+
+                                    @if (item.EmployeeType.SchoolManager == true)
+                                    {
+                                        if (Session["AddSchoolManagers"] != null)
+                                        {
+                                            /**/
+                                            if ((bool)Session["AddSchoolManagers"] == true)
+                                            {
+                                                var ImageName = item.Proof;
+                                                if (item.Proof != null)
+                                                {
+                                                    <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                                }
+
+                                            }
+                                        }
+                                    }
+
+                                    @if (item.EmployeeType.NormalEmployee == true)
+                                    {
+                                        if (Session["AddSchoolEmployees"] != null)
+                                        {
+                                            /**/
+                                            if ((bool)Session["AddSchoolEmployees"] == true)
+                                            {
+                                                var ImageName = item.Proof;
+                                                if (item.Proof != null)
+                                                {
+                                                    <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                    @if (item.EmployeeType.NormalEmployee != true && item.EmployeeType.SchoolManager != true && item.EmployeeType.CoManager != true && item.EmployeeType.Manager != true)
+                                    {
+                                        if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
+                                        {
                                             if (item.Proof != null)
                                             {
                                                 <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-
-                                                @*@Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = item.Proof }, new { @class = "btn btn-warning" })*@
                                             }
-
                                         }
                                     }
-                                }
-                                @if (item.EmployeeType.CoManager == true)
-                                {
-                                    if (Session["AddCoManagers"] != null)
+                                </td>
+
+
+
+
+
+
+
+
+
+                                <td>
+                                    @if (item.EmployeeType.Manager == true)
                                     {
-                                        /**/
-                                        if ((bool)Session["AddCoManagers"] == true)
+                                        if (Session["AddManagers"] != null)
                                         {
-                                            var ImageName = item.Proof;
-                                            if (item.Proof != null)
+                                            /**/
+                                            if ((bool)Session["AddManagers"] == true)
                                             {
-                                                <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
 
-                                                @*@Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = item.Proof }, new { @class = "btn btn-warning" })*@
+                                                <div style="width:130px;">
+                                                    <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                    <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                    <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                </div>
                                             }
-
-                                        }
-                                    }
-                                }
-
-                                @if (item.EmployeeType.SchoolManager == true)
-                                {
-                                    if (Session["AddSchoolManagers"] != null)
-                                    {
-                                        /**/
-                                        if ((bool)Session["AddSchoolManagers"] == true)
-                                        {
-                                            var ImageName = item.Proof;
-                                            if (item.Proof != null)
+                                            else
                                             {
-                                                <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
 
-                                                @*@Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = item.Proof }, new { @class = "btn btn-warning" })*@
+
                                             }
 
-                                        }
-                                    }
-                                }
 
-                                @if (item.EmployeeType.NormalEmployee == true)
-                                {
-                                    if (Session["AddSchoolEmployees"] != null)
-                                    {
-                                        /**/
-                                        if ((bool)Session["AddSchoolEmployees"] == true)
-                                        {
-                                            var ImageName = item.Proof;
-                                            if (item.Proof != null)
-                                            {
-                                                <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-
-                                                @*@Html.ActionLink("تحميل", "DownloadProof", "Json", new { ImageName = item.Proof }, new { @class = "btn btn-warning" })*@
-                                            }
-
-                                        }
-                                    }
-                                }
-                                @if (item.EmployeeType.NormalEmployee != true && item.EmployeeType.SchoolManager != true && item.EmployeeType.CoManager != true && item.EmployeeType.Manager != true)
-                                {
-                                    if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
-                                    {
-                                        if (item.Proof != null)
-                                        {
-                                            <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-                                        }
-                                    }
-                                }
-                            </td>
-
-
-
-
-
-
-
-
-
-                            <td>
-                                @if (item.EmployeeType.Manager == true)
-                                {
-                                    if (Session["AddManagers"] != null)
-                                    {
-                                        /**/
-                                        if ((bool)Session["AddManagers"] == true)
-                                        {
-
-                                            <div style="width:130px;">
-                                                <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                @*@Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-                                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
-                                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })*@
-                                            </div>
                                         }
                                         else
                                         {
-
-                                            @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
-
                                         }
-
-
                                     }
-                                    else
+                                    @if (item.EmployeeType.CoManager == true)
                                     {
-
-                                        @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
-
-                                    }
-                                }
-                                @if (item.EmployeeType.CoManager == true)
-                                {
-                                    if (Session["AddCoManagers"] != null)
-                                    {
-                                        /**/
-                                        if ((bool)Session["AddCoManagers"] == true)
+                                        if (Session["AddCoManagers"] != null)
                                         {
+                                            /**/
+                                            if ((bool)Session["AddCoManagers"] == true)
+                                            {
 
-                                            <div style="width:130px;">
-                                                <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                @*@Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-                                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
-                                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })*@
-                                            </div>
+                                                <div style="width:130px;">
+                                                    <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                    <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                    <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                </div>
+                                            }
+                                            else
+                                            {
+
+
+                                            }
                                         }
-                                        @*else if (item.EmployeeType.SeeAccToCity == true)
+                                        else if (item.EmployeeType.SeeAccToCity == true)
                                         {
                                             if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] == null)
                                             {
@@ -417,147 +406,99 @@
                                                 }
 
                                             }
-                                        }*@
+                                        }
                                         else
                                         {
 
-                                            @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
 
                                         }
                                     }
-                                    else if (item.EmployeeType.SeeAccToCity == true)
+
+
+                                    @if (item.EmployeeType.SchoolManager == true)
                                     {
-                                        if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] == null)
+                                        if (Session["AddSchoolManagers"] != null)
                                         {
+                                            /**/
                                             if ((bool)Session["AddSchoolManagers"] == true)
                                             {
+
                                                 <div style="width:130px;">
-
-
                                                     <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                                     <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                                                     <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
                                                 </div>
                                             }
-                                        }
-                                        else if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] != null)
-                                        {
-                                            if ((bool)Session["AddSchoolManagers"] == true && (bool)Session["SeeAccToCity"] == false)
+
+                                            else
                                             {
+
+                                            }
+
+                                        }
+                                        else
+                                        {
+
+
+                                        }
+                                    }
+
+                                    @if (item.EmployeeType.NormalEmployee == true)
+                                    {
+                                        if (Session["AddSchoolEmployees"] != null)
+                                        {
+                                            /**/
+                                            if ((bool)Session["AddSchoolEmployees"] == true)
+                                            {
+
                                                 <div style="width:130px;">
                                                     <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                                     <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                                                     <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
                                                 </div>
                                             }
-
-                                        }
-                                    }
-                                    else
-                                    {
-
-                                        @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
-
-                                    }
-                                }
+                                            else
+                                            {
 
 
-                                @if (item.EmployeeType.SchoolManager == true)
-                                {
-                                    if (Session["AddSchoolManagers"] != null)
-                                    {
-                                        /**/
-                                        if ((bool)Session["AddSchoolManagers"] == true)
-                                        {
+                                            }
 
-                                            <div style="width:130px;">
-                                                <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                @*@Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-                                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
-                                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })*@
-                                            </div>
-                                        }
 
-                                        else
-                                        {
-
-                                            @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
-
-                                        }
-
-                                    }
-                                    else
-                                    {
-
-                                        @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
-
-                                    }
-                                }
-
-                                @if (item.EmployeeType.NormalEmployee == true)
-                                {
-                                    if (Session["AddSchoolEmployees"] != null)
-                                    {
-                                        /**/
-                                        if ((bool)Session["AddSchoolEmployees"] == true)
-                                        {
-
-                                            <div style="width:130px;">
-                                                <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                @*@Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-                                                    @Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })
-                                                    @Html.ActionLink("تعديل", "Edit", new { id = item.id }, new { @class = "btn btn-success" })*@
-                                            </div>
                                         }
                                         else
                                         {
 
-                                            @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
 
                                         }
-
-
                                     }
-                                    else
+                                    else if (item.EmployeeType.NormalEmployee != true && item.EmployeeType.SchoolManager != true && item.EmployeeType.CoManager != true && item.EmployeeType.Manager != true)
                                     {
-
-                                        @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
+                                        if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
+                                        {
+                                            <div style="width:130px;">
+                                                <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                        }
 
                                     }
-                                }
-                                else if (item.EmployeeType.NormalEmployee != true && item.EmployeeType.SchoolManager != true && item.EmployeeType.CoManager != true && item.EmployeeType.Manager != true)
-                                {
-                                    if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
-                                    {
-                                        <div style="width:130px;">
-                                            <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                            <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                            <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                    }
-                                    @*@Html.ActionLink("معلومات", "Details", new { id = item.id }, new { @class = "btn btn-info", @style = "margin:0 4px 0 4px " })*@
-
-                                }
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        }
                     }
-                }
-            </tbody>
-        </table>
-    </div>
+                </tbody>
+            </table>
+        </div>
 
 
-    <button id="btnExport" class="btn btn-warning" ng-hide="EmployeeRazorForm">xls تصدير إلى</button>
+        <button id="btnExport" class="btn btn-warning" ng-hide="EmployeeRazorForm">xls تصدير إلى</button>*@
 
-    <div id="table_wrapper2">
-        <table class="table table-striped" ng-cloak ng-show="EmployeeAngularForm">
+    <div id="table_wrapper">
+        <table class="table table-striped">
             <thead>
                 <tr class="bg-primary">
                     <th></th>
@@ -923,14 +864,20 @@
             </tbody>
         </table>
     </div>
-    <button id="btnExport2" class="btn btn-warning" ng-cloak ng-show="EmployeeAngularForm">xls تصدير ل</button>
+    <button id="btnExport" class="btn btn-warning">xls تصدير ل</button>
 </div>
-
-
-@if (ViewBag.StateMessage != null)
-            {
-    <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        @ViewBag.StateMessage
+<div class="LoadingScreen" id="LoadingScreen" ng-hide="HideLoadingScreen">
+    <div class="LoadingBackground"></div>
+    <div class="LoadingIcon">
+        <div class="lds-css ng-scope">
+            <div class="lds-spinner" style="100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
     </div>
-}
+</div>
+    @if (ViewBag.StateMessage != null)
+            {
+        <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            @ViewBag.StateMessage
+        </div>
+    }

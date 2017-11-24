@@ -26,7 +26,34 @@
 
 
                         <div>
-                            @Html.DropDownList("Job", null, htmlAttributes: new { @class = "form-control" })
+                            <select name="Job" id="Job" class="form-control">
+                                @foreach (var item in ViewBag.Jobs)
+                                {
+                                    int x;
+                                    if (item.SeeAccToCity == true)
+                                    {
+                                        x = 1;
+
+                                    }
+                                    else if (item.SeeAll == true || item.SeeAllButFinance == true || item.Manager == true)
+                                    {
+                                        x = 0;
+                                    }
+                                    else
+                                    {
+                                        x = 2;
+                                    }
+                                    if (item.id == ViewBag.SelectedJob)
+                                    {
+                                        <option value="@item.id" data-value="@x" selected>@item.Type</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.id" data-value="@x">@item.Type</option>
+
+                                    }
+                                }
+                            </select>
                             @Html.ValidationMessageFor(model => model.Job, "", new { @class = "text-danger" })
                         </div>
 
@@ -34,7 +61,7 @@
                     </div>
 
                     <div class="form-group" id="EmpCenter" @if (Model.Centerid == null) { @: style="display:none"
-                          }>
+                                                                                                                                                                                                                                  }>
                         @Html.LabelFor(model => model.Centerid, "المركز", htmlAttributes: new { @class = "control-label " })
                         @Html.DropDownList("Centerid", null, "", htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Centerid, "", new { @class = "text-danger" })
@@ -42,7 +69,7 @@
 
                     </div>
                     <div class="form-group" id="EmpCity" @if (Model.CityID == null) { @: style="display:none"
-                          }>
+                                                                                                                                                                                                                                  }>
                         @Html.LabelFor(model => model.CityID, "المدينة", htmlAttributes: new { @class = "control-label " })
                         @Html.DropDownList("CityID", null, "", htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
@@ -78,7 +105,7 @@
 
                         <div>
                             @if (Model.EDate != null)
-                {
+                            {
                                 @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.EDate.Value.ToString("yyyy-MM-dd") } })
 
                             }
@@ -107,14 +134,29 @@
 
 
                     </div>
-
                     <div class="form-group">
                         @Html.LabelFor(model => model.InsideOrOutside, htmlAttributes: new { @class = "control-label " })
-                        <select name="InsideOrOutside" id="InsideOrOutside">
-                            <option @if (Model.InsideOrOutside == "داخل") {@:selected
-                                    }>داخل</option>
-                            <option @if (Model.InsideOrOutside == "خارج") {@:selected
-                                    }>خارج</option>
+                        <select name="InsideOrOutside" id="InsideOrOutside" class="form-control">
+                            <option></option>
+
+                            @if (Model.InsideOrOutside == "داخل")
+                            {
+                                <option selected>داخل</option>
+                            }
+                            else
+                            {
+                                <option>داخل</option>
+                            }
+
+
+                            @if (Model.InsideOrOutside == "خارج")
+                            {
+                                <option selected>خارج</option>
+                            }
+                            else
+                            {
+                                <option>خارج</option>
+                            }
                         </select>
                         @Html.ValidationMessageFor(model => model.InsideOrOutside, "", new { @class = "text-danger" })
                     </div>
@@ -122,18 +164,35 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label " })
                         <div class="col-sm-12" style="margin-top:3px;">
-                            <div class="col-sm-8"></div>
-                            <div class="col-sm-2">
-                                <input type="radio" name="Sex" value="ذكر" style="color:white;display:inline-block;"
-                                       @if (Model.Sex == "ذكر") { @: checked
-                                                                                                                                                                                                                                                                                                                                                                } /><label style="display:inline-block;">ذكر</label>
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-3">
+                                @if (Model.Sex == "ذكر")
+                                {
+                                    <input type="radio" name="Sex" value="ذكر" style="color:white;display:inline-block;" checked />
+                                    <label style="display:inline-block;">ذكر</label>
 
+                                }
+                                else
+                                {
+                                    <input type="radio" name="Sex" value="ذكر" style="color:white;display:inline-block;" />
+                                    <label style="display:inline-block;">ذكر</label>
+
+                                }
                             </div>
 
-                            <div class="col-sm-2">
-                                <input type="radio" name="Sex" value="أنثى" style="color:white;display:inline-block;"
-                                       @if (Model.Sex == "انثى") { @: checked
-                                                                                                                                                                                                                                                                                                                                                                } /><label style="display:inline-block;">أنثى</label>
+                            <div class="col-sm-3">
+                                @if (Model.Sex == "انثى")
+                                {
+                                    <input type="radio" name="Sex" value="انثى" style="color:white;display:inline-block;" checked />
+                                    <label style="display:inline-block;">أنثى</label>
+
+                                }
+                                else
+                                {
+                                    <input type="radio" name="Sex" value="انثى" style="color:white;display:inline-block;" />
+                                    <label style="display:inline-block;">أنثى</label>
+
+                                }
                             </div>
 
                         </div>
@@ -253,7 +312,7 @@
 
                             <div>
                                 <select name="CType" id="CType" class="form-control">
-                                    @if (Model.State == "ابتدائي")
+                                    @if (Model.CType == "ابتدائي")
                                     {
                                         <option selected="selected">ابتدائي</option>
                                     }
@@ -262,7 +321,7 @@
                                         <option>ابتدائي</option>
 
                                     }
-                                    @if (Model.State == "اعدادي")
+                                    @if (Model.CType == "اعدادي")
                                     {
                                         <option selected="selected">اعدادي</option>
                                     }
@@ -271,7 +330,7 @@
                                         <option>اعدادي</option>
 
                                     }
-                                    @if (Model.State == "ثانوي")
+                                    @if (Model.CType == "ثانوي")
                                     {
                                         <option selected="selected">ثانوي</option>
                                     }
@@ -281,7 +340,7 @@
 
 
                                     }
-                                    @if (Model.State == "جامعي 4 سنوات")
+                                    @if (Model.CType == "جامعي 4 سنوات")
                                     {
                                         <option selected="selected">جامعي 4 سنوات</option>
                                     }
@@ -290,7 +349,7 @@
                                         <option>جامعي 4 سنوات</option>
 
                                     }
-                                    @if (Model.State == "جامعي 5 سنوات")
+                                    @if (Model.CType == "جامعي 5 سنوات")
                                     {
                                         <option selected="selected">جامعي 5 سنوات</option>
                                     }
@@ -299,7 +358,7 @@
                                         <option>جامعي 5 سنوات</option>
 
                                     }
-                                    @if (Model.State == "جامعي 6 سنوات")
+                                    @if (Model.CType == "جامعي 6 سنوات")
                                     {
                                         <option selected="selected">جامعي 6 سنوات</option>
                                     }
@@ -308,7 +367,7 @@
                                         <option>جامعي 6 سنوات</option>
 
                                     }
-                                    @if (Model.State == "ماجستير")
+                                    @if (Model.CType == "ماجستير")
                                     {
                                         <option selected="selected">ماجستير</option>
                                     }
@@ -317,7 +376,7 @@
                                         <option>ماجستير</option>
 
                                     }
-                                    @if (Model.State == "دكتوراة")
+                                    @if (Model.CType == "دكتوراة")
                                     {
                                         <option selected="selected">دكتوراة</option>
                                     }
@@ -362,7 +421,7 @@
                 </div>
 
 
-                        <input type="submit" value="حفظ" class="btn btn-primary" />
+                <input type="submit" value="حفظ" class="btn btn-primary" />
                 <div class="form-group">
                     <div class="alert alert-warning">
                         "عند أي تعديل تعود كلمة المرور إلى "123
@@ -458,7 +517,7 @@
 
                     <div>
                         <select name="CType" id="CType" class="form-control">
-                            @if (Model.State == "ابتدائي")
+                            @if (Model.CType == "ابتدائي")
                             {
                                 <option selected="selected">ابتدائي</option>
                             }
@@ -467,7 +526,7 @@
                                 <option>ابتدائي</option>
 
                             }
-                            @if (Model.State == "اعدادي")
+                            @if (Model.CType == "اعدادي")
                             {
                                 <option selected="selected">اعدادي</option>
                             }
@@ -476,7 +535,7 @@
                                 <option>اعدادي</option>
 
                             }
-                            @if (Model.State == "ثانوي")
+                            @if (Model.CType == "ثانوي")
                             {
                                 <option selected="selected">ثانوي</option>
                             }
@@ -486,7 +545,7 @@
 
 
                             }
-                            @if (Model.State == "جامعي 4 سنوات")
+                            @if (Model.CType == "جامعي 4 سنوات")
                             {
                                 <option selected="selected">جامعي 4 سنوات</option>
                             }
@@ -495,7 +554,7 @@
                                 <option>جامعي 4 سنوات</option>
 
                             }
-                            @if (Model.State == "جامعي 5 سنوات")
+                            @if (Model.CType == "جامعي 5 سنوات")
                             {
                                 <option selected="selected">جامعي 5 سنوات</option>
                             }
@@ -504,7 +563,7 @@
                                 <option>جامعي 5 سنوات</option>
 
                             }
-                            @if (Model.State == "جامعي 6 سنوات")
+                            @if (Model.CType == "جامعي 6 سنوات")
                             {
                                 <option selected="selected">جامعي 6 سنوات</option>
                             }
@@ -513,7 +572,7 @@
                                 <option>جامعي 6 سنوات</option>
 
                             }
-                            @if (Model.State == "ماجستير")
+                            @if (Model.CType == "ماجستير")
                             {
                                 <option selected="selected">ماجستير</option>
                             }
@@ -522,7 +581,7 @@
                                 <option>ماجستير</option>
 
                             }
-                            @if (Model.State == "دكتوراة")
+                            @if (Model.CType == "دكتوراة")
                             {
                                 <option selected="selected">دكتوراة</option>
                             }
@@ -547,16 +606,29 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.InsideOrOutside, htmlAttributes: new { @class = "control-label " })
-                    <select name="InsideOrOutside" id="InsideOrOutside">
-                        <option @if (Model.InsideOrOutside == "داخل") { @: selected
-                                                                    }>
-                            داخل
-                        </option>
-                        <option @if (Model.InsideOrOutside == "خارج") { @: selected
-                                                                    }>
-                            خارج
-                        </option>
+                    <select name="InsideOrOutside" id="InsideOrOutside" class="form-control">
+                        <option></option>
+
+                        @if (Model.InsideOrOutside == "داخل")
+                        {
+                            <option selected>داخل</option>
+                        }
+                        else
+                        {
+                            <option>داخل</option>
+                        }
+
+
+                        @if (Model.InsideOrOutside == "خارج")
+                        {
+                            <option selected>خارج</option>
+                        }
+                        else
+                        {
+                            <option>خارج</option>
+                        }
                     </select>
+
                     @Html.ValidationMessageFor(model => model.InsideOrOutside, "", new { @class = "text-danger" })
                 </div>
 
@@ -580,15 +652,47 @@
                     @Html.LabelFor(model => model.Job, "المهمة", htmlAttributes: new { @class = "control-label" })
 
 
-                    <div>
-                        @Html.DropDownList("Job", null, htmlAttributes: new { @class = "form-control" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Job, "المهمة", htmlAttributes: new { @class = "control-label" })
+
+
+
+                        <select name="Job" id="Job" class="form-control">
+                            @foreach (var item in ViewBag.Jobs)
+                            {
+                                int x;
+                                if (item.SeeAccToCity == true)
+                                {
+                                    x = 1;
+
+                                }
+                                else if (item.SeeAll == true || item.SeeAllButFinance == true || item.Manager == true)
+                                {
+                                    x = 0;
+                                }
+                                else
+                                {
+                                    x = 2;
+                                }
+
+                                if (item.id == ViewBag.SelectedJob)
+                                {
+                                    <option value="@item.id" data-value="@x" selected>@item.Type</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.id" data-value="@x">@item.Type</option>
+
+                                }
+                            }
+                        </select>
                         @Html.ValidationMessageFor(model => model.Job, "", new { @class = "text-danger" })
                     </div>
 
 
                 </div>
                 <div class="form-group" id="EmpCenter" @if (Model.Centerid == null) { @: style="display:none"
-                                           }>
+                                                                                                                                                                                                                           }>
                     @Html.LabelFor(model => model.Centerid, "المركز", htmlAttributes: new { @class = "control-label " })
                     @Html.DropDownList("Centerid", null, "", htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Centerid, "", new { @class = "text-danger" })
@@ -596,7 +700,7 @@
 
                 </div>
                 <div class="form-group" id="EmpCity" @if (Model.CityID == null) { @: style="display:none"
-                                           }>
+                                                                                                                                                                                                                           }>
                     @Html.LabelFor(model => model.CityID, "المدينة", htmlAttributes: new { @class = "control-label " })
                     @Html.DropDownList("CityID", null, "", htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
@@ -660,19 +764,38 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label " })
                     <div class="col-sm-12" style="margin-top:3px;">
-                        <div class="col-sm-8"></div>
-                        <div class="col-sm-2">
-                            <input type="radio" name="Sex" value="ذكر" style="color:white;display:inline-block;"
-                                   @if (Model.Sex == "ذكر") { @: checked
-                                                                                                                                                                                                                                                                                                                                                                                                      } /><label style="display:inline-block;">ذكر</label>
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-3">
+                            @if (Model.Sex == "ذكر")
+                            {
+                                <input type="radio" name="Sex" value="ذكر" style="color:white;display:inline-block;" checked />
+                                    <label style="display:inline-block;">ذكر</label>
 
+                            }
+                            else
+                            {
+                                <input type="radio" name="Sex" value="ذكر" style="color:white;display:inline-block;" />
+                                    <label style="display:inline-block;">ذكر</label>
+
+                            }
                         </div>
 
-                        <div class="col-sm-2">
-                            <input type="radio" name="Sex" value="أنثى" style="color:white;display:inline-block;"
-                                   @if (Model.Sex == "انثى") { @: checked
-                                                                                                                                                                                                                                                                                                                                                                                                      } /><label style="display:inline-block;">أنثى</label>
+                        <div class="col-sm-3">
+                            @if (Model.Sex == "انثى")
+                            {
+                                <input type="radio" name="Sex" value="انثى" style="color:white;display:inline-block;" checked />
+                                    <label style="display:inline-block;">أنثى</label>
+
+                            }
+                            else
+                            {
+                                <input type="radio" name="Sex" value="انثى" style="color:white;display:inline-block;" />
+                                    <label style="display:inline-block;">أنثى</label>
+
+                            }
                         </div>
+
+
 
                     </div>
                     @*<select name="Sex" id="Sex" class="form-control">
@@ -687,7 +810,7 @@
                     </div>
                 </div>
 
-                        <input type="submit" value="حفظ" class="btn btn-primary" />
+                <input type="submit" value="حفظ" class="btn btn-primary" />
                 <div class="alert alert-warning">
                     "عند أي تعديل تعود كلمة المرور إلى "123
                 </div>

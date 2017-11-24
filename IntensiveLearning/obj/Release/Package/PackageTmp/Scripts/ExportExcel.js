@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+
+    $('[data-toggle="tooltip"]').tooltip();
     $("#btnExport").click(function (e) {
         e.preventDefault();
 
@@ -26,30 +28,71 @@
 
     });
 
-        $("#ToFadeMessage").hide(3000);
+    $("#ToFadeMessage").hide(3000);
 
-        if ($('#desktopTest').is(':hidden')) {
-            toggleLeftMenu();
-            document.getElementById("TemplateForm").style.marginRight = document.getElementById("leftMenu").clientWidth + 28 + "px";
-            document.getElementById("TemplateForm").style.marginLeft = "auto";
-        } else {
-            document.getElementById("TemplateForm").style.marginRight = "auto";
-            document.getElementById("TemplateForm").style.marginLeft = "auto";
-            
+    if ($('#desktopTest').is(':hidden')) {
+        toggleLeftMenu();
+        document.getElementById("TemplateForm").style.marginRight = document.getElementById("leftMenu").clientWidth + 28 + "px";
+        document.getElementById("TemplateForm").style.marginLeft = "auto";
+    } else {
+        document.getElementById("TemplateForm").style.marginRight = "auto";
+        document.getElementById("TemplateForm").style.marginLeft = "auto";
 
-        }
+
+    }
+    $('#DependedOn').val("")
+
+    if ($('#CenterType').val() == "فرعي") {
+        $('#CenterDependency').css('display', 'block');
+        $('#CenterCity').css('display', 'none');
+        $('#Cityid').val("")
+    }
+    else {
+        $('#CenterDependency').css('display', 'none');
+        $('#CenterCity').css('display', 'block');
         $('#DependedOn').val("")
+    }
 
-        if ($('#CenterType').val() == "فرعي") {
-            $('#CenterDependency').css('display', 'block');
-            $('#CenterCity').css('display', 'none');
-            $('#Cityid').val("")
-        }
-        else {
-            $('#CenterDependency').css('display', 'none');
-            $('#CenterCity').css('display', 'block');
-            $('#DependedOn').val("")
-        }
+
+
+    if ($('#Job').find(":selected").data("value") == 1) {
+        $("#EmpCity").css('display', 'block');
+        $("#EmpCenter").css('display', 'none');
+    }
+    else if ($('#Job').find(":selected").data("value") == 2) {
+        $("#EmpCity").css('display', 'none');
+        $("#EmpCenter").css('display', 'block');
+    }
+    else {
+        $("#EmpCity").css('display', 'none');
+        $("#EmpCenter").css('display', 'none');
+    }
+
+
+
+
+    if ($('#SmallJob').find(":selected").data("value") == 1) {
+        $("#SmallEmpCity").css('display', 'block');
+        $("#SmallEmpCenter").css('display', 'none');
+    }
+    else if ($('Small#Job').find(":selected").data("value") == 2) {
+        $("#SmallEmpCity").css('display', 'none');
+        $("#SmallEmpCenter").css('display', 'block');
+    }
+    else {
+        $("#SmallEmpCity").css('display', 'none');
+        $("#SmallEmpCenter").css('display', 'none');
+    }
+
+
+    if ($("#OrderManyTypes option:selected").text() == "اخرى") {
+        $("#OrderType").show();
+        $("#OrderType").val("");
+    }
+    else {
+        $("#OrderType").hide();
+        $("#OrderType").val("مشتريات");
+    }
 
 });
 var open = false;
@@ -108,11 +151,11 @@ $("#CenterType").on("change", function () {
 
 
 $("#Job").on("change", function () {
-    if (this.value == 8) {
+    if ($(this).find(":selected").data("value") == 1) {
         $("#EmpCity").css('display', 'block');
         $("#EmpCenter").css('display', 'none');
     }
-    else if (this.value > 8) {
+    else if ($(this).find(":selected").data("value") == 2) {
         $("#EmpCity").css('display', 'none');
         $("#EmpCenter").css('display', 'block');
     }
@@ -123,6 +166,41 @@ $("#Job").on("change", function () {
 
 
 });
+
+
+$("#SmallJob").on("change", function () {
+    if ($(this).find(":selected").data("value") == 1) {
+        $("#SmallEmpCity").css('display', 'block');
+        $("#SmallEmpCenter").css('display', 'none');
+    }
+    else if ($(this).find(":selected").data("value") == 2) {
+        $("#SmallEmpCity").css('display', 'none');
+        $("#SmallEmpCenter").css('display', 'block');
+    }
+    else {
+        $("#SmallEmpCity").css('display', 'none');
+        $("#SmallEmpCenter").css('display', 'none');
+    }
+
+
+});
+
+$("#OrderManyTypes").on("change", function () {
+    if ($("#OrderManyTypes option:selected" ).text() == "اخرى") {
+        $("#OrderType").show();
+        $("#OrderType").val("");
+
+    }
+    else {
+        $("#OrderType").hide();
+        $("#OrderType").val("مشتريات");
+
+    }
+
+});
+
+
+
 var toggleimport = false;
 $('#btnImport').on("click", function () {
     toggleimport ? toggleimport = false : toggleimport = true;
@@ -134,6 +212,9 @@ $('#btnImport').on("click", function () {
 function GoToDefault() {
     window.location.href = "/Home/Default";
 }
+
+
+
 
 var uploadField = document.getElementById("file");
 
@@ -159,3 +240,42 @@ uploadFieldHuge.onchange = function () {
         this.value = "";
     };
 };
+
+
+function PaymentsOpen(){
+    $('#ChooseOldPayment').hide();
+    $('#PaymentSubmitBtn').show();
+    $('#PaymentData').show();
+    
+};
+
+
+function PaymentRefuse() {
+    $('#PaymentRefuse').hide();
+    $('#PaymentCancelation').show();
+}
+
+function BuyingRefuse() {
+    $('#BuyingRefuse').hide();
+    $('#BuyingCancelation').show();
+}
+
+function ProofRefuse() {
+    $('#ProofRefuse').hide();
+    $('#ProofCancelation').show();
+}
+
+function RefuseOrderFirstLevel() {
+    $('#RefuseOrderFirstLevel').hide();
+    $('#RefuseOrderFirstLevelCancelation').show();
+}
+
+function RefuseOrderSecondLevel() {
+    $('#RefuseOrderSecondLevel').hide();
+    $('#RefuseOrderSecondLevelCancelation').show();
+}
+
+function RefuseOrderThirdLevel() {
+    $('#RefuseOrderThirdLevel').hide();
+    $('#RefuseOrderThirdLevelCancelation').show();
+}

@@ -3,60 +3,90 @@
 @{
     ViewBag.Title = "انشاء";
 }
+<div class="WhiteBlur">
+    <h2>انشاء</h2>
 
-<h2>انشاء</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <h4 style="display:inline-block">طلب</h4>
+            <div style="float:left" ng-if="Quantity!=null && PeacePrice!=null">
+                <h4><b>{{Quantity * PeacePrice | currency}}</b>:المجموع</h4>
+            </div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-horizontal">
-        <h4>طلب</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-labeم" })
+                <div class="">
+                    @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Desc, htmlAttributes: new { @class = "control-labeم" })
-            <div class="">
-                @Html.EditorFor(model => model.Desc, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Desc, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @ng_model = "Quantity" } })
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PeacePrice, htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.EditorFor(model => model.PeacePrice, new { htmlAttributes = new { @class = "form-control", @ng_model = "PeacePrice" } })
+                    @Html.ValidationMessageFor(model => model.PeacePrice, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Necessity, htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    <select name="Necessity" id="Necessity" class="form-control">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.PeacePrice, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.OrderType, htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    <select name="OrderManyTypes" id="OrderManyTypes"  class="form-control">
+                        <option>مشتريات</option>
+                        <option>اخرى</option>
+                    </select>
+                    @Html.EditorFor(model => model.OrderType, new { htmlAttributes = new { @class = "form-control",@style="display:none;" } })
+                    @Html.ValidationMessageFor(model => model.OrderType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            @if (ViewBag.type.SeeAccToCenter != true && ViewBag.type.SeeTeachers != true)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CenterID, "المركز", htmlAttributes: new { @class = "control-label " })
+                    @Html.DropDownList("CenterID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CenterID, "", new { @class = "text-danger" })
+                </div>
+            }
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
             </div>
         </div>
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label" })
-            <div class="">
-                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PeacePrice, htmlAttributes: new { @class = "control-label" })
-            <div class="">
-                @Html.EditorFor(model => model.PeacePrice, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PeacePrice, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div>
-                <input id="file" type="file" aria-label="Add photos to your post" class="upload" name="file" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
-                <p class="text-danger">@ViewBag.error</p>
-
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+    <div>
+        @Html.ActionLink("العودة إلى اللائحة", "Index")
     </div>
-}
-
-<div>
-    @Html.ActionLink("العودة إلى اللائحة", "Index")
 </div>

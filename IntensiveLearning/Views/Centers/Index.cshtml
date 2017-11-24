@@ -33,6 +33,12 @@
                     @Html.DisplayNameFor(model => model.Desc)
                 </th>
                 <th rowspan="2">
+                    فرعي أم رئيسي
+                </th>
+                <th rowspan="2">
+                    المركز الرئيسي
+                </th>
+                <th rowspan="2">
                     @Html.DisplayNameFor(model => model.FoundationType)
                 </th>
                 <th rowspan="2">
@@ -149,6 +155,15 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CenterType)
+                        </td>
+                        <td>
+                            @if (item.Center1 != null)
+                            {
+                                @Html.DisplayFor(modelItem => item.Center1.Name)
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FoundationType)

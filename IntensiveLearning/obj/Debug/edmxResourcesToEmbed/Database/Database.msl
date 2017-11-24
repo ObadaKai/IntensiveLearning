@@ -130,13 +130,16 @@
           <ScalarProperty Name="FathersName" ColumnName="FathersName" />
           <ScalarProperty Name="Sex" ColumnName="Sex" />
           <ScalarProperty Name="Approval" ColumnName="Approval" />
-          <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
           <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
           <ScalarProperty Name="AddingDate" ColumnName="AddingDate" />
           <ScalarProperty Name="AddingTime" ColumnName="AddingTime" />
-          <ScalarProperty Name="InsideOrOutside" ColumnName="InsideOrOutside" />
-          <ScalarProperty Name="OldJob" ColumnName="OldJob" />
           <ScalarProperty Name="ExpYears" ColumnName="ExpYears" />
+          <ScalarProperty Name="OldJob" ColumnName="OldJob" />
+          <ScalarProperty Name="InsideOrOutside" ColumnName="InsideOrOutside" />
+          <ScalarProperty Name="telephoneNumber" ColumnName="telephoneNumber" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -218,6 +221,7 @@
           <ScalarProperty Name="Regimentid" ColumnName="Regimentid" />
           <ScalarProperty Name="Stageid" ColumnName="Stageid" />
           <ScalarProperty Name="Periodid" ColumnName="Periodid" />
+          <ScalarProperty Name="Centerid" ColumnName="Centerid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -252,15 +256,20 @@
           <ScalarProperty Name="Time" ColumnName="Time" />
           <ScalarProperty Name="CenterID" ColumnName="CenterID" />
           <ScalarProperty Name="SubBndid" ColumnName="SubBndid" />
-          <ScalarProperty Name="BuyingSign" ColumnName="BuyingSign" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="PaymentsRecords">
-      <EntityTypeMapping TypeName="TaalimModel.PaymentsRecord">
-        <MappingFragment StoreEntitySet="PaymentsRecord">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="Orderid" ColumnName="Orderid" />
+          <ScalarProperty Name="PaymentApprove" ColumnName="PaymentApprove" />
+          <ScalarProperty Name="BuyingApprove" ColumnName="BuyingApprove" />
+          <ScalarProperty Name="proof" ColumnName="proof" />
+          <ScalarProperty Name="ProofAcceptance" ColumnName="ProofAcceptance" />
+          <ScalarProperty Name="PaymentApprovalDate" ColumnName="PaymentApprovalDate" />
+          <ScalarProperty Name="BuyingApprovalDate" ColumnName="BuyingApprovalDate" />
+          <ScalarProperty Name="ProofAcceptanceDate" ColumnName="ProofAcceptanceDate" />
+          <ScalarProperty Name="Paymentid" ColumnName="Paymentid" />
+          <ScalarProperty Name="Necessity" ColumnName="Necessity" />
+          <ScalarProperty Name="OrderType" ColumnName="OrderType" />
+          <ScalarProperty Name="CanclationReason" ColumnName="CanclationReason" />
+          <ScalarProperty Name="SumPrice" ColumnName="SumPrice" />
+          <ScalarProperty Name="QuantityChanged" ColumnName="QuantityChanged" />
+          <ScalarProperty Name="PaymentOrderDate" ColumnName="PaymentOrderDate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -362,9 +371,9 @@
           <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
           <ScalarProperty Name="AddingDate" ColumnName="AddingDate" />
           <ScalarProperty Name="AddingTime" ColumnName="AddingTime" />
-          <ScalarProperty Name="Mothersname" ColumnName="Mothersname" />
           <ScalarProperty Name="OldSchool" ColumnName="OldSchool" />
           <ScalarProperty Name="StudentState" ColumnName="StudentState" />
+          <ScalarProperty Name="Mothersname" ColumnName="Mothersname" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -380,34 +389,26 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="PaymentsRecords">
+      <EntityTypeMapping TypeName="TaalimModel.PaymentsRecord">
+        <MappingFragment StoreEntitySet="PaymentsRecord">
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="SubBnds">
       <EntityTypeMapping TypeName="TaalimModel.SubBnd">
         <MappingFragment StoreEntitySet="SubBnd">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="BndId" ColumnName="BndId" />
-          <ScalarProperty Name="CenterId" ColumnName="CenterId" />
+          <ScalarProperty Name="CenterID" ColumnName="CenterID" />
           <ScalarProperty Name="Subject" ColumnName="Subject" />
           <ScalarProperty Name="PeacePrice" ColumnName="PeacePrice" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="SumPrice" ColumnName="SumPrice" />
           <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="PayymentApprove" ColumnName="PayymentApprove" />
-          <ScalarProperty Name="BuyingApprove" ColumnName="BuyingApprove" />
-          <ScalarProperty Name="proof" ColumnName="proof" />
-          <ScalarProperty Name="ProofAcceptance" ColumnName="ProofAcceptance" />
-          <ScalarProperty Name="Paymentid" ColumnName="Paymentid" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="TaalimModel.sysdiagram">
-        <MappingFragment StoreEntitySet="sysdiagrams">
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="Orderid" ColumnName="Orderid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

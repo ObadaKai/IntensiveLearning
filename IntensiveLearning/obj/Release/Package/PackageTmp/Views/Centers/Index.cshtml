@@ -11,7 +11,9 @@
     {
         using (Html.BeginForm("Create", "Centers", FormMethod.Get))
         {
-            <button type="submit" class="btn btn-warning">انشاء جديد</button>
+            <div style="margin-bottom:15px;">
+                <button type="submit" class="btn btn-warning">انشاء جديد</button>
+            </div>
         }
     }
 }
@@ -29,6 +31,12 @@
                 </th>
                 <th rowspan="2">
                     @Html.DisplayNameFor(model => model.Desc)
+                </th>
+                <th rowspan="2">
+                    فرعي أم رئيسي
+                </th>
+                <th rowspan="2">
+                    المركز الرئيسي
                 </th>
                 <th rowspan="2">
                     @Html.DisplayNameFor(model => model.FoundationType)
@@ -59,7 +67,13 @@
                 </th>
                 <th rowspan="2">التوقيع</th>
                 <th rowspan="2">الاثبات</th>
-
+                @if (Session["SeeAll"]!=null)
+                {
+                    if ((bool)Session["SeeAll"] == true)
+                    {
+                        <th rowspan="2">الميزانية</th>
+                    }
+                }
 
 
 
@@ -127,9 +141,9 @@
                 foreach (var item in Model)
                 {
                     <tr>
-                        <td @if (item.Approval == null) { @: style="background-color:gray"
-                                                        } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:forestgreen"
-                                                            } else { @: style="background-color:red"
+                        <td  @if (item.Approval == null) { @:style="background-color:gray"
+                                                        } else if (item.Approval != null) { if (item.Approval == true) { @:style="background-color:#5cb85c"
+                                                            } else { @:style="background-color:#d9534f"
                                                             } }></td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
@@ -141,6 +155,15 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CenterType)
+                        </td>
+                        <td>
+                            @if (item.Center1 != null)
+                            {
+                                @Html.DisplayFor(modelItem => item.Center1.Name)
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FoundationType)
@@ -465,7 +488,13 @@
                         </td>
 
 
-
+                        @if (Session["SeeAll"] != null)
+                        {
+                            if ((bool)Session["SeeAll"] == true)
+                            {
+                                <td>@Html.DisplayFor(modelItem => item.SpentBudget)</td>
+                            }
+                        }
                         <td>
                             @if (Session["AddCitesAndCenters"] != null)
                             {

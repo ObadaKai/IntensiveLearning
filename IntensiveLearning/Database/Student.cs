@@ -11,7 +11,9 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Student
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,32 +23,79 @@ namespace IntensiveLearning.Database
             this.Presences = new HashSet<Presence>();
             this.Prooves = new HashSet<Proove>();
         }
-    
+
         public int id { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÊÇÑíÎ ÇáæáÇÏÉ")]
+        [DisplayName("ÊÇÑíÎ ÇáæáÇÏÉ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+
         public Nullable<System.DateTime> BDate { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇÓã ÇáØÇáÈ")]
+        [DisplayName("ÇÓã ÇáØÇáÈ")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ßäíÉ ÇáØÇáÈ")]
+        [DisplayName("ßäíÉ ÇáØÇáÈ")]
         public string Surname { get; set; }
+
+
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÔåÇÏÉ")]
+        [DisplayName("ÇáÔåÇÏÉ")]
         public string Certificate { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÚáÇãÉ")]
+        [DisplayName("ÇáÚáÇãÉ")]
         public Nullable<double> Mark { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÍÇáÉ")]
+
+        [DisplayName("ÇáÍÇáÉ")]
         public string State { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáãÑßÒ")]
+
         public Nullable<int> Centerid { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáãÑÍáÉ")]
+
         public Nullable<int> Stageid { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÔÚÈÉ")]
+
         public Nullable<int> Regimentid { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÊÇÑíÎ ÇáÈÏÁ")]
+        [DisplayName("ÊÇÑíÎ ÇáÈÏÁ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+
         public Nullable<System.DateTime> SDate { get; set; }
+
+        [DisplayName("ÊÇÑíÎ ÇáÇäÊåÇÁ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+
         public Nullable<System.DateTime> EDate { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÑŞã ÇáØÇáÈ")]
+
+        [DisplayName("ÑŞã ÇáØÇáÈ")]
         public Nullable<int> StudentNumber { get; set; }
+        [DisplayName("ÇáÇËÈÇÊ")]
         public string Proof { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇÓã ÇáÃÈ")]
+
+        [DisplayName("ÇÓã ÇáÃÈ")]
         public string FathersName { get; set; }
+        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÌäÓ")]
+
+        [DisplayName("ÇáÌäÓ")]
         public string Sex { get; set; }
         public Nullable<bool> Approval { get; set; }
         public Nullable<int> ApprovedBy { get; set; }
         public Nullable<int> AddedBy { get; set; }
         public Nullable<System.DateTime> AddingDate { get; set; }
         public Nullable<System.TimeSpan> AddingTime { get; set; }
-        public string Mothersname { get; set; }
+        [DisplayName("ÇáãÏÑÓÉ ÇáÊí ßÇä íÏÑÓ ÈåÇ")]
+
         public string OldSchool { get; set; }
+        [DisplayName("ÍÇáÉ ÇáØÇáÈ")]
+
         public string StudentState { get; set; }
-    
+        [DisplayName("ÇÓã ÇáÃã")]
+
+        public string Mothersname { get; set; }
+
         public virtual Center Center { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual Employee Employee1 { get; set; }

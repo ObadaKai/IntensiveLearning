@@ -6,9 +6,30 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="TotalNum" Type="Int32" />
-    <Property Name="AfterReductionNum" Type="Int32" />
+    <Property Name="TotalNum" Type="Double" />
+    <Property Name="AfterReductionNum" Type="Double" />
+    <Property Name="Month1Share" Type="Double" />
+    <Property Name="Month2Share" Type="Double" />
+    <Property Name="Month3Share" Type="Double" />
+    <Property Name="Month4Share" Type="Double" />
+    <Property Name="Month5Share" Type="Double" />
+    <Property Name="Month6Share" Type="Double" />
+    <Property Name="Month7Share" Type="Double" />
+    <Property Name="Month8Share" Type="Double" />
+    <Property Name="Month9Share" Type="Double" />
+    <Property Name="Month10Share" Type="Double" />
+    <Property Name="Month11Share" Type="Double" />
+    <Property Name="Month12Share" Type="Double" />
+    <Property Name="Month13Share" Type="Double" />
+    <Property Name="Unit" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PeriodOnMonth" Type="Double" />
+    <Property Name="PercentOfCostChargedtoProject" Type="Double" />
+    <Property Name="BudgetLineItem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NumberOfUnits" Type="Int32" />
+    <Property Name="PerUnitCost" Type="Double" />
+    <Property Name="Simbol" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Bnd" FromRole="Bnd" ToRole="Order" />
+    <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Bnd" FromRole="Bnd" ToRole="SubBnd" />
   </EntityType>
   <EntityType Name="Center">
     <Key>
@@ -50,6 +71,7 @@
     <Property Name="DependedOn" Type="Int32" />
     <Property Name="AddingDate" Type="DateTime" Precision="0" />
     <Property Name="AddingTime" Type="Time" Precision="7" />
+    <Property Name="SpentBudget" Type="Double" />
     <NavigationProperty Name="Centers1" Relationship="Self.FK_Centers_Centers" FromRole="Centers" ToRole="Centers1" />
     <NavigationProperty Name="Center1" Relationship="Self.FK_Centers_Centers" FromRole="Centers1" ToRole="Centers" />
     <NavigationProperty Name="City" Relationship="Self.FK_Centers_Cities" FromRole="Centers" ToRole="Cities" />
@@ -58,9 +80,11 @@
     <NavigationProperty Name="Period" Relationship="Self.FK_Centers_Periods" FromRole="Centers" ToRole="Periods" />
     <NavigationProperty Name="Project" Relationship="Self.FK_Centers_Project" FromRole="Centers" ToRole="Project" />
     <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Centers" FromRole="Centers" ToRole="Employees" />
+    <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Centers" FromRole="Centers" ToRole="Lessons" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Centers" FromRole="Centers" ToRole="Order" />
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Centers" FromRole="Centers" ToRole="Prooves" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Centers" FromRole="Centers" ToRole="Students" />
+    <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Centers" FromRole="Centers" ToRole="SubBnd" />
   </EntityType>
   <EntityType Name="City">
     <Key>
@@ -125,6 +149,9 @@
     <Property Name="ApprovedBy" Type="Int32" />
     <Property Name="AddingDate" Type="DateTime" Precision="0" />
     <Property Name="AddingTime" Type="Time" Precision="7" />
+    <Property Name="ExpYears" Type="Int32" />
+    <Property Name="OldJob" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InsideOrOutside" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Centers" Relationship="Self.FK_Centers_Employees" FromRole="Employees" ToRole="Centers" />
     <NavigationProperty Name="Centers1" Relationship="Self.FK_Centers_Employees1" FromRole="Employees" ToRole="Centers" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Employees_Centers" FromRole="Employees" ToRole="Centers" />
@@ -145,9 +172,7 @@
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Employees" FromRole="Employees" ToRole="Prooves" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Employees" FromRole="Employees" ToRole="Students" />
     <NavigationProperty Name="Students1" Relationship="Self.FK_Students_Employees1" FromRole="Employees" ToRole="Students" />
-    <Property Name="ExpYears" Type="Int32" />
-    <Property Name="OldJob" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="InsideOrOutside" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Employees" FromRole="Employees" ToRole="SubBnd" />
   </EntityType>
   <EntityType Name="EmployeeType">
     <Key>
@@ -232,11 +257,13 @@
     <Property Name="Lesson6" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Lesson7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Regimentid" Type="Int32" />
-    <NavigationProperty Name="Regiment" Relationship="Self.FK_Lessons_Regiments2" FromRole="Lessons" ToRole="Regiments" />
     <Property Name="Stageid" Type="Int32" />
     <Property Name="Periodid" Type="Int32" />
-    <NavigationProperty Name="Period" Relationship="TaalimModel.FK_Lessons_Periods" FromRole="Lesson" ToRole="Period" />
-    <NavigationProperty Name="Stage" Relationship="TaalimModel.FK_Lessons_Stages" FromRole="Lesson" ToRole="Stage" />
+    <Property Name="Centerid" Type="Int32" />
+    <NavigationProperty Name="Center" Relationship="Self.FK_Lessons_Centers" FromRole="Lessons" ToRole="Centers" />
+    <NavigationProperty Name="Period" Relationship="Self.FK_Lessons_Periods" FromRole="Lessons" ToRole="Periods" />
+    <NavigationProperty Name="Regiment" Relationship="Self.FK_Lessons_Regiments2" FromRole="Lessons" ToRole="Regiments" />
+    <NavigationProperty Name="Stage" Relationship="Self.FK_Lessons_Stages" FromRole="Lessons" ToRole="Stages" />
   </EntityType>
   <EntityType Name="NonUserAddRequest">
     <Key>
@@ -258,30 +285,37 @@
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="Employeeid" Type="Int32" />
     <Property Name="Bndid" Type="Int32" />
-    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Quantity" Type="Double" />
+    <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Int32" />
     <Property Name="PeacePrice" Type="Double" />
     <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="FirstLevelSign" Type="Boolean" />
     <Property Name="SecondLevelSign" Type="Boolean" />
     <Property Name="ThirdLevelSign" Type="Boolean" />
-    <Property Name="FourthLevelSign" Type="Boolean" />
-    <Property Name="FifthLevelSign" Type="Boolean" />
-    <Property Name="SixthLevelSign" Type="Boolean" />
-    <Property Name="SeventhLevelSign" Type="Boolean" />
-    <Property Name="EightithLevelSign" Type="Boolean" />
-    <Property Name="Proof" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="SendingLevelSign" Type="Boolean" />
-    <Property Name="RecievingLevelSign" Type="Boolean" />
-    <Property Name="AfterRecieveFirstLevelSign" Type="Boolean" />
-    <Property Name="AfterRecieveSecondLevelSign" Type="Boolean" />
     <Property Name="Date" Type="DateTime" Precision="0" />
     <Property Name="Time" Type="Time" Precision="7" />
     <Property Name="CenterID" Type="Int32" />
+    <Property Name="SubBndid" Type="Int32" />
+    <Property Name="PaymentApprove" Type="Boolean" />
+    <Property Name="BuyingApprove" Type="Boolean" />
+    <Property Name="proof" Type="Int32" />
+    <Property Name="ProofAcceptance" Type="Boolean" />
+    <Property Name="PaymentApprovalDate" Type="DateTime" Precision="0" />
+    <Property Name="BuyingApprovalDate" Type="DateTime" Precision="0" />
+    <Property Name="ProofAcceptanceDate" Type="DateTime" Precision="0" />
+    <Property Name="Paymentid" Type="Int32" />
+    <Property Name="Necessity" Type="Int16" />
+    <Property Name="OrderType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CanclationReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SumPrice" Type="Double" />
+    <Property Name="QuantityChanged" Type="Boolean" />
+    <Property Name="PaymentOrderDate" Type="DateTime" Precision="0" />
     <NavigationProperty Name="Bnd" Relationship="Self.FK_Order_Bnd" FromRole="Order" ToRole="Bnd" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Order_Centers" FromRole="Order" ToRole="Centers" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Order_Employees" FromRole="Order" ToRole="Employees" />
+    <NavigationProperty Name="SubBnd" Relationship="Self.FK_Order_SubBnd" FromRole="Order" ToRole="SubBnd" />
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Order" FromRole="Order" ToRole="Prooves" />
+    <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Order" FromRole="Order" ToRole="SubBnd" />
   </EntityType>
   <EntityType Name="Period">
     <Key>
@@ -293,8 +327,8 @@
     <Property Name="EndTime" Type="Time" Precision="7" />
     <NavigationProperty Name="Centers" Relationship="Self.FK_Centers_Periods" FromRole="Periods" ToRole="Centers" />
     <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Periods" FromRole="Periods" ToRole="Employees" />
-    <NavigationProperty Name="Lessons" Relationship="TaalimModel.FK_Lessons_Periods" FromRole="Period" ToRole="Lesson" />
-    <NavigationProperty Name="Regiments" Relationship="TaalimModel.FK_Regiments_Periods" FromRole="Period" ToRole="Regiment" />
+    <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Periods" FromRole="Periods" ToRole="Lessons" />
+    <NavigationProperty Name="Regiments" Relationship="Self.FK_Regiments_Periods" FromRole="Periods" ToRole="Regiments" />
   </EntityType>
   <EntityType Name="Presence">
     <Key>
@@ -343,6 +377,7 @@
     <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="EmployeeID" Type="Int32" />
+    <Property Name="ZipFilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Prooves_Centers" FromRole="Prooves" ToRole="Centers" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Prooves_Employees" FromRole="Prooves" ToRole="Employees" />
     <NavigationProperty Name="Examination" Relationship="Self.FK_Prooves_Examination" FromRole="Prooves" ToRole="Examination" />
@@ -355,10 +390,10 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Regiments2" FromRole="Regiments" ToRole="Lessons" />
-    <NavigationProperty Name="Students" Relationship="Self.FK_Students_Regiments" FromRole="Regiments" ToRole="Students" />
     <Property Name="Periodid" Type="Int32" />
-    <NavigationProperty Name="Period" Relationship="TaalimModel.FK_Regiments_Periods" FromRole="Regiment" ToRole="Period" />
+    <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Regiments2" FromRole="Regiments" ToRole="Lessons" />
+    <NavigationProperty Name="Period" Relationship="Self.FK_Regiments_Periods" FromRole="Regiments" ToRole="Periods" />
+    <NavigationProperty Name="Students" Relationship="Self.FK_Students_Regiments" FromRole="Regiments" ToRole="Students" />
   </EntityType>
   <EntityType Name="Stage">
     <Key>
@@ -367,8 +402,8 @@
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="StageName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_Stages" FromRole="Stages" ToRole="Examination" />
+    <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Stages" FromRole="Stages" ToRole="Lessons" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Stages" FromRole="Stages" ToRole="Students" />
-    <NavigationProperty Name="Lessons" Relationship="TaalimModel.FK_Lessons_Stages" FromRole="Stage" ToRole="Lesson" />
   </EntityType>
   <EntityType Name="Student">
     <Key>
@@ -395,6 +430,9 @@
     <Property Name="AddedBy" Type="Int32" />
     <Property Name="AddingDate" Type="DateTime" Precision="0" />
     <Property Name="AddingTime" Type="Time" Precision="7" />
+    <Property Name="OldSchool" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StudentState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mothersname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Students_Centers" FromRole="Students" ToRole="Centers" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Students_Employees" FromRole="Students" ToRole="Employees" />
     <NavigationProperty Name="Employee1" Relationship="Self.FK_Students_Employees1" FromRole="Students" ToRole="Employees" />
@@ -403,9 +441,6 @@
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Students" FromRole="Students" ToRole="Prooves" />
     <NavigationProperty Name="Regiment" Relationship="Self.FK_Students_Regiments" FromRole="Students" ToRole="Regiments" />
     <NavigationProperty Name="Stage" Relationship="Self.FK_Students_Stages" FromRole="Students" ToRole="Stages" />
-    <Property Name="OldSchool" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="StudentState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Mothersname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Study_subject">
     <Key>
@@ -419,6 +454,32 @@
     <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_Study_subject" FromRole="Study_subject" ToRole="Examination" />
   </EntityType>
+  <EntityType Name="PaymentsRecord">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubBnd">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="BndId" Type="Int32" />
+    <Property Name="CenterID" Type="Int32" />
+    <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PeacePrice" Type="Double" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="SumPrice" Type="Double" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="Orderid" Type="Int32" />
+    <NavigationProperty Name="Bnd" Relationship="Self.FK_SubBnd_Bnd" FromRole="SubBnd" ToRole="Bnd" />
+    <NavigationProperty Name="Center" Relationship="Self.FK_SubBnd_Centers" FromRole="SubBnd" ToRole="Centers" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_SubBnd_Employees" FromRole="SubBnd" ToRole="Employees" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_SubBnd" FromRole="SubBnd" ToRole="Order" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_SubBnd_Order" FromRole="SubBnd" ToRole="Order" />
+  </EntityType>
   <Association Name="FK_Order_Bnd">
     <End Role="Bnd" Type="Self.Bnd" Multiplicity="0..1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -428,6 +489,18 @@
       </Principal>
       <Dependent Role="Order">
         <PropertyRef Name="Bndid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubBnd_Bnd">
+    <End Role="Bnd" Type="Self.Bnd" Multiplicity="0..1" />
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bnd">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="BndId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -515,6 +588,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Lessons_Centers">
+    <End Role="Centers" Type="Self.Center" Multiplicity="0..1" />
+    <End Role="Lessons" Type="Self.Lesson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Lessons">
+        <PropertyRef Name="Centerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Order_Centers">
     <End Role="Centers" Type="Self.Center" Multiplicity="0..1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -548,6 +633,18 @@
       </Principal>
       <Dependent Role="Students">
         <PropertyRef Name="Centerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubBnd_Centers">
+    <End Role="Centers" Type="Self.Center" Multiplicity="0..1" />
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="CenterID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -743,6 +840,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SubBnd_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Examination_ExamType">
     <End Role="ExamType" Type="Self.ExamType" Multiplicity="0..1" />
     <End Role="Examination" Type="Self.Examination" Multiplicity="*" />
@@ -803,6 +912,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Lessons_Periods">
+    <End Role="Periods" Type="Self.Period" Multiplicity="0..1" />
+    <End Role="Lessons" Type="Self.Lesson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Periods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Lessons">
+        <PropertyRef Name="Periodid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Lessons_Regiments2">
     <End Role="Regiments" Type="Self.Regiment" Multiplicity="0..1" />
     <End Role="Lessons" Type="Self.Lesson" Multiplicity="*" />
@@ -815,6 +936,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Lessons_Stages">
+    <End Role="Stages" Type="Self.Stage" Multiplicity="0..1" />
+    <End Role="Lessons" Type="Self.Lesson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stages">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Lessons">
+        <PropertyRef Name="Stageid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_SubBnd">
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubBnd">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="SubBndid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Prooves_Order">
     <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
     <End Role="Prooves" Type="Self.Proove" Multiplicity="*" />
@@ -824,6 +969,30 @@
       </Principal>
       <Dependent Role="Prooves">
         <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubBnd_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="Orderid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Regiments_Periods">
+    <End Role="Periods" Type="Self.Period" Multiplicity="0..1" />
+    <End Role="Regiments" Type="Self.Regiment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Periods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Regiments">
+        <PropertyRef Name="Periodid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -896,9 +1065,15 @@
     <EntitySet Name="Stages" EntityType="Self.Stage" />
     <EntitySet Name="Students" EntityType="Self.Student" />
     <EntitySet Name="Study_subject" EntityType="Self.Study_subject" />
+    <EntitySet Name="PaymentsRecords" EntityType="Self.PaymentsRecord" />
+    <EntitySet Name="SubBnds" EntityType="Self.SubBnd" />
     <AssociationSet Name="FK_Order_Bnd" Association="Self.FK_Order_Bnd">
       <End Role="Bnd" EntitySet="Bnds" />
       <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_Bnd" Association="Self.FK_SubBnd_Bnd">
+      <End Role="Bnd" EntitySet="Bnds" />
+      <End Role="SubBnd" EntitySet="SubBnds" />
     </AssociationSet>
     <AssociationSet Name="FK_Centers_Centers" Association="Self.FK_Centers_Centers">
       <End Role="Centers" EntitySet="Centers" />
@@ -928,6 +1103,10 @@
       <End Role="Centers" EntitySet="Centers" />
       <End Role="Employees" EntitySet="Employees" />
     </AssociationSet>
+    <AssociationSet Name="FK_Lessons_Centers" Association="Self.FK_Lessons_Centers">
+      <End Role="Centers" EntitySet="Centers" />
+      <End Role="Lessons" EntitySet="Lessons" />
+    </AssociationSet>
     <AssociationSet Name="FK_Order_Centers" Association="Self.FK_Order_Centers">
       <End Role="Centers" EntitySet="Centers" />
       <End Role="Order" EntitySet="Orders" />
@@ -939,6 +1118,10 @@
     <AssociationSet Name="FK_Students_Centers" Association="Self.FK_Students_Centers">
       <End Role="Centers" EntitySet="Centers" />
       <End Role="Students" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_Centers" Association="Self.FK_SubBnd_Centers">
+      <End Role="Centers" EntitySet="Centers" />
+      <End Role="SubBnd" EntitySet="SubBnds" />
     </AssociationSet>
     <AssociationSet Name="FK_Cities_Project" Association="Self.FK_Cities_Project">
       <End Role="Project" EntitySet="Projects" />
@@ -1004,6 +1187,10 @@
       <End Role="Employees" EntitySet="Employees" />
       <End Role="Students" EntitySet="Students" />
     </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_Employees" Association="Self.FK_SubBnd_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="SubBnd" EntitySet="SubBnds" />
+    </AssociationSet>
     <AssociationSet Name="FK_Examination_ExamType" Association="Self.FK_Examination_ExamType">
       <End Role="ExamType" EntitySet="ExamTypes" />
       <End Role="Examination" EntitySet="Examinations" />
@@ -1024,13 +1211,33 @@
       <End Role="Examination" EntitySet="Examinations" />
       <End Role="Prooves" EntitySet="Prooves" />
     </AssociationSet>
+    <AssociationSet Name="FK_Lessons_Periods" Association="Self.FK_Lessons_Periods">
+      <End Role="Periods" EntitySet="Periods" />
+      <End Role="Lessons" EntitySet="Lessons" />
+    </AssociationSet>
     <AssociationSet Name="FK_Lessons_Regiments2" Association="Self.FK_Lessons_Regiments2">
       <End Role="Regiments" EntitySet="Regiments" />
       <End Role="Lessons" EntitySet="Lessons" />
     </AssociationSet>
+    <AssociationSet Name="FK_Lessons_Stages" Association="Self.FK_Lessons_Stages">
+      <End Role="Stages" EntitySet="Stages" />
+      <End Role="Lessons" EntitySet="Lessons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_SubBnd" Association="Self.FK_Order_SubBnd">
+      <End Role="SubBnd" EntitySet="SubBnds" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
     <AssociationSet Name="FK_Prooves_Order" Association="Self.FK_Prooves_Order">
       <End Role="Order" EntitySet="Orders" />
       <End Role="Prooves" EntitySet="Prooves" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_Order" Association="Self.FK_SubBnd_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="SubBnd" EntitySet="SubBnds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Regiments_Periods" Association="Self.FK_Regiments_Periods">
+      <End Role="Periods" EntitySet="Periods" />
+      <End Role="Regiments" EntitySet="Regiments" />
     </AssociationSet>
     <AssociationSet Name="FK_Presence_Students" Association="Self.FK_Presence_Students">
       <End Role="Students" EntitySet="Students" />
@@ -1048,53 +1255,5 @@
       <End Role="Stages" EntitySet="Stages" />
       <End Role="Students" EntitySet="Students" />
     </AssociationSet>
-    <AssociationSet Name="FK_Lessons_Periods" Association="TaalimModel.FK_Lessons_Periods">
-      <End Role="Period" EntitySet="Periods" />
-      <End Role="Lesson" EntitySet="Lessons" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Lessons_Stages" Association="TaalimModel.FK_Lessons_Stages">
-      <End Role="Stage" EntitySet="Stages" />
-      <End Role="Lesson" EntitySet="Lessons" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Regiments_Periods" Association="TaalimModel.FK_Regiments_Periods">
-      <End Role="Period" EntitySet="Periods" />
-      <End Role="Regiment" EntitySet="Regiments" />
-    </AssociationSet>
   </EntityContainer>
-  <Association Name="FK_Lessons_Periods">
-    <End Type="TaalimModel.Period" Role="Period" Multiplicity="0..1" />
-    <End Type="TaalimModel.Lesson" Role="Lesson" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Period">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Lesson">
-        <PropertyRef Name="Periodid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Lessons_Stages">
-    <End Type="TaalimModel.Stage" Role="Stage" Multiplicity="0..1" />
-    <End Type="TaalimModel.Lesson" Role="Lesson" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Stage">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Lesson">
-        <PropertyRef Name="Stageid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Regiments_Periods">
-    <End Type="TaalimModel.Period" Role="Period" Multiplicity="0..1" />
-    <End Type="TaalimModel.Regiment" Role="Regiment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Period">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Regiment">
-        <PropertyRef Name="Periodid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>

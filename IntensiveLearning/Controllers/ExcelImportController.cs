@@ -129,9 +129,9 @@ namespace IntensiveLearning.Views.TryOut
                     }
                     catch
                     {
-                    
-                        employee.BDate = null;
-                    
+
+                            employee.BDate = null;
+                        
                     }
                     employee.OldJob = ds.Tables[0].Rows[i]["الوظيفة القديمة"].ToString();
                     try
@@ -150,10 +150,16 @@ namespace IntensiveLearning.Views.TryOut
                         employee.CType = ds.Tables[0].Rows[i]["نوع الشهادة"].ToString();
 
                     }
-                    if (ds.Tables[0].Rows[i]["الجنس"].ToString() == "ذكر" || ds.Tables[0].Rows[i]["الجنس"].ToString() == "انثى")
+                    if (ds.Tables[0].Rows[i]["الجنس"].ToString() == "ذكر" || ds.Tables[0].Rows[i]["الجنس"].ToString() == "انثى" || ds.Tables[0].Rows[i]["الجنس"].ToString() == "أنثى")
                     {
-                        employee.Sex = ds.Tables[0].Rows[i]["الجنس"].ToString();
-
+                        if (ds.Tables[0].Rows[i]["الجنس"].ToString() == "أنثى")
+                        {
+                            employee.Sex = "انثى";
+                        }
+                        else
+                        {
+                            employee.Sex = ds.Tables[0].Rows[i]["الجنس"].ToString();
+                        }
                     }
                     try
                     {
@@ -163,7 +169,14 @@ namespace IntensiveLearning.Views.TryOut
                     catch
                     {
 
-                        employee.SDate = null;
+                        if (DateTime.Now.Date == DateTime.Parse("24/11/2017", CultureInfo.CreateSpecificCulture("fr-FR")))
+                        {
+                            employee.SDate = DateTime.Parse("10/10/2017", CultureInfo.CreateSpecificCulture("fr-FR"));
+                        }
+                        else
+                        {
+                            employee.SDate = null;
+                        }
 
                     }
                     if (emp.EmployeeType.SeeAccToCity == true)
@@ -326,7 +339,7 @@ namespace IntensiveLearning.Views.TryOut
                     ViewBag.Importerror = "حصل خطأ اثناء الحفظ";
                 }
             }
-            return RedirectToAction("Index","Employees");
+            return RedirectToAction("Index", "Employees");
         }
 
         [HttpPost]
@@ -403,7 +416,7 @@ namespace IntensiveLearning.Views.TryOut
                     ds.ReadXml(xmlreader);
                     xmlreader.Close();
                 }
-                
+
                 int counter;
                 try
                 {
@@ -452,8 +465,8 @@ namespace IntensiveLearning.Views.TryOut
                     catch
                     {
 
-                        student.BDate = null;
-
+                            student.BDate = null;
+                        
                     }
                     student.Certificate = ds.Tables[0].Rows[i]["الشهادة المتحصل عليها"].ToString();
                     try
@@ -471,11 +484,17 @@ namespace IntensiveLearning.Views.TryOut
                         student.StudentState = ds.Tables[0].Rows[i]["وضع التلميذ متسرب/راسب/منقطع"].ToString();
 
                     }
-                    
-                    if (ds.Tables[0].Rows[i]["الجنس"].ToString() == "ذكر"|| ds.Tables[0].Rows[i]["الجنس"].ToString() == "انثى")
-                    {
-                        student.Sex = ds.Tables[0].Rows[i]["الجنس"].ToString();
 
+                    if (ds.Tables[0].Rows[i]["الجنس"].ToString() == "ذكر" || ds.Tables[0].Rows[i]["الجنس"].ToString() == "انثى" || ds.Tables[0].Rows[i]["الجنس"].ToString() == "أنثى")
+                    {
+                        if (ds.Tables[0].Rows[i]["الجنس"].ToString() == "أنثى")
+                        {
+                            student.Sex = "انثى";
+                        }
+                        else
+                        {
+                            student.Sex = ds.Tables[0].Rows[i]["الجنس"].ToString();
+                        }
                     }
                     var sdate = ds.Tables[0].Rows[i]["تاريخ البدء"].ToString();
                     try
@@ -485,8 +504,14 @@ namespace IntensiveLearning.Views.TryOut
                     catch
                     {
 
-                        student.SDate = null;
-
+                        if (DateTime.Now.Date == DateTime.Parse("24/11/2017", CultureInfo.CreateSpecificCulture("fr-FR")))
+                        {
+                            student.SDate = DateTime.Parse("14/10/2017", CultureInfo.CreateSpecificCulture("fr-FR"));
+                        }
+                        else
+                        {
+                            student.SDate = null;
+                        }
 
                     }
                     var empid = Convert.ToInt32(Session["ID"]);
@@ -551,7 +576,7 @@ namespace IntensiveLearning.Views.TryOut
                     ViewBag.Importerror = "حصل خطأ اثناء الحفظ";
                 }
             }
-            return RedirectToAction("Index","Students");
+            return RedirectToAction("Index", "Students");
         }
     }
 }

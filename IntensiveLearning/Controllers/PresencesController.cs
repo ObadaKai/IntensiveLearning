@@ -19,17 +19,11 @@ namespace IntensiveLearning.Controllers
         {
             if (Session["ID"] != null)
             {
-                var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-                if (type.SeeAccToCenter == true || type.SeeAccToCity == true || type.SeeAll == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
-                {
-                    var presences = db.Presences.Include(p => p.Student);
                     if (TempData["Message"] != null)
                     {
                         ViewBag.StateMessage = TempData["Message"];
                     }
-                    return View(presences.ToList());
-                }
-                return RedirectToAction("Default", "Home");
+                    return View();
             }
             return RedirectToAction("Index", "Home");
 

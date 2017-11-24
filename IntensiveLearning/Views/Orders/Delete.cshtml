@@ -1,0 +1,327 @@
+﻿@model IntensiveLearning.Database.Order
+
+@{
+    ViewBag.Title = "حذف";
+}
+
+<div class="WhiteBlur">
+    <h2>حذف</h2>
+
+    <div class="InfoContainer">
+        <h4>طلب</h4>
+        <hr />
+        <div class="col-sm-6 pull-right">
+            @if (Model.Employee != null)
+            {
+
+                if (Model.Employee.name != null)
+                {
+
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Employee.name)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.Employee.name)
+                    </p>
+                }
+
+                if (Model.Employee.surname != null)
+                {
+
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Employee.surname)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.Employee.surname)
+                    </p>
+                }
+            }
+
+            @if (Model.Subject != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.Subject)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Subject)
+                </p>
+            }
+            @if (Model.Quantity != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Quantity)
+                </p>
+            }
+            @if (Model.PeacePrice != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.PeacePrice)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.PeacePrice)
+                </p>
+            }
+            @if (Model.State != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.State)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.State)
+                </p>
+            }
+            @if (Model.FirstLevelSign != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.FirstLevelSign)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.FirstLevelSign)
+                </p>
+            }
+            @if (Model.SecondLevelSign != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.SecondLevelSign)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.SecondLevelSign)
+                </p>
+            }
+            @if (Model.ThirdLevelSign != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.ThirdLevelSign)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.ThirdLevelSign)
+                </p>
+            }
+
+            @if (Model.BuyingSign != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.BuyingSign)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.BuyingSign)
+                </p>
+            }
+            @if (Model.PaymentApprove != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.PaymentApprove)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.PaymentApprove)
+                </p>
+            }
+            @if (Model.BuyingApprove != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.BuyingApprove)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.BuyingApprove)
+                </p>
+            }
+
+            @if (Model.proof != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.proof)
+                </h4>
+
+                <p>
+                    <a href="@Url.Action("DownloadProof", "Json", new { id = Model.proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+
+                </p>
+            }
+            @if (Model.ProofAcceptance != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.ProofAcceptance)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.ProofAcceptance)
+                </p>
+            }
+
+        </div>
+        <div class="col-sm-6 pull-left">
+            @if (Model.Date != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.Date)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Date)
+                </p>
+            }
+            @if (Model.Time != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.Time)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Time)
+                </p>
+            }
+
+            @if (Model.PaymentApprovalDate != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.PaymentApprovalDate)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.PaymentApprovalDate)
+                </p>
+            }
+            @if (Model.BuyingApprovalDate != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.BuyingApprovalDate)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.BuyingApprovalDate)
+                </p>
+            }
+            @if (Model.ProofAcceptanceDate != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.ProofAcceptanceDate)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.ProofAcceptanceDate)
+                </p>
+            }
+            @if (Model.Necessity != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.Necessity)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Necessity)
+                </p>
+            }
+            @if (Model.OrderType != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.OrderType)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.OrderType)
+                </p>
+            }
+            @if (Model.CanclationReason != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.CanclationReason)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.CanclationReason)
+                </p>
+            }
+            @if (Model.SumPrice != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.SumPrice)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.SumPrice)
+                </p>
+            }
+            @if (Model.QuantityChanged != null)
+            {
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.QuantityChanged)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.QuantityChanged)
+                </p>
+            }
+            @if (Model.Bnd != null)
+            {
+
+
+                if (Model.Bnd.Name != null)
+                {
+
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Bnd.Name)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.Bnd.Name)
+                    </p>
+                }
+            }
+            @if (Model.Center != null)
+            {
+
+                if (Model.Center.Name != null)
+                {
+
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Center.Name)
+                    </h4>
+
+                    <p>
+                        @Html.DisplayFor(model => model.Center.Name)
+                    </p>
+                }
+            }
+
+
+            @if (Model.Paymentid != null)
+            {
+
+                <h4>
+                    @Html.DisplayNameFor(model => model.Paymentid)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.Paymentid)
+                </p>
+            }
+
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-default" /> |
+            @Html.ActionLink("العودة إلى اللائحة", "Index")
+        </div>
+    }
+</div>

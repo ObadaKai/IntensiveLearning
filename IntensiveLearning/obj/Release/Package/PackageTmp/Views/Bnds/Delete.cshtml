@@ -1,0 +1,160 @@
+﻿@model IntensiveLearning.Database.Bnd
+
+@{
+    ViewBag.Title = "Delete";
+}
+<div class="WhiteBlur">
+    <h2>Delete</h2>
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Bnd</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Simbol)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Simbol)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BudgetLineItem)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BudgetLineItem)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalNum)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TotalNum)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AfterReductionNum)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AfterReductionNum)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Month1Share)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Month1Share)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Month2Share)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Month2Share)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Month3Share)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Month3Share)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Month4Share)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Month4Share)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Month5Share)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Month5Share)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Month6Share)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Month6Share)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Month7Share)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Month7Share)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Month8Share)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Month8Share)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Month9Share)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Month9Share)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Month10Share)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Month10Share)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Month11Share)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Month11Share)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Month12Share)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Month12Share)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</div>

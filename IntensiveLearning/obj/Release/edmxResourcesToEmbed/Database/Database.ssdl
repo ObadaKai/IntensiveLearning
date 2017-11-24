@@ -6,8 +6,28 @@
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" />
-    <Property Name="TotalNum" Type="int" />
-    <Property Name="AfterReductionNum" Type="int" />
+    <Property Name="TotalNum" Type="float" />
+    <Property Name="AfterReductionNum" Type="float" />
+    <Property Name="Month1Share" Type="float" />
+    <Property Name="Month2Share" Type="float" />
+    <Property Name="Month3Share" Type="float" />
+    <Property Name="Month4Share" Type="float" />
+    <Property Name="Month5Share" Type="float" />
+    <Property Name="Month6Share" Type="float" />
+    <Property Name="Month7Share" Type="float" />
+    <Property Name="Month8Share" Type="float" />
+    <Property Name="Month9Share" Type="float" />
+    <Property Name="Month10Share" Type="float" />
+    <Property Name="Month11Share" Type="float" />
+    <Property Name="Month12Share" Type="float" />
+    <Property Name="Month13Share" Type="float" />
+    <Property Name="Unit" Type="nvarchar(max)" />
+    <Property Name="PeriodOnMonth" Type="float" />
+    <Property Name="PercentOfCostChargedtoProject" Type="float" />
+    <Property Name="BudgetLineItem" Type="nvarchar(max)" />
+    <Property Name="NumberOfUnits" Type="int" />
+    <Property Name="PerUnitCost" Type="float" />
+    <Property Name="Simbol" Type="nvarchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="Centers">
     <Key>
@@ -49,6 +69,7 @@
     <Property Name="DependedOn" Type="int" />
     <Property Name="AddingDate" Type="date" />
     <Property Name="AddingTime" Type="time" Precision="7" />
+    <Property Name="SpentBudget" Type="float" />
   </EntityType>
   <EntityType Name="Cities">
     <Key>
@@ -188,6 +209,7 @@
     <Property Name="Regimentid" Type="int" />
     <Property Name="Stageid" Type="int" />
     <Property Name="Periodid" Type="int" />
+    <Property Name="Centerid" Type="int" />
   </EntityType>
   <EntityType Name="NonUserAddRequest">
     <Key>
@@ -209,26 +231,31 @@
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="Employeeid" Type="int" />
     <Property Name="Bndid" Type="int" />
-    <Property Name="Desc" Type="nvarchar(max)" />
-    <Property Name="Quantity" Type="float" />
+    <Property Name="Subject" Type="nvarchar(max)" />
+    <Property Name="Quantity" Type="int" />
     <Property Name="PeacePrice" Type="float" />
     <Property Name="State" Type="nvarchar(max)" />
     <Property Name="FirstLevelSign" Type="bit" />
     <Property Name="SecondLevelSign" Type="bit" />
     <Property Name="ThirdLevelSign" Type="bit" />
-    <Property Name="FourthLevelSign" Type="bit" />
-    <Property Name="FifthLevelSign" Type="bit" />
-    <Property Name="SixthLevelSign" Type="bit" />
-    <Property Name="SeventhLevelSign" Type="bit" />
-    <Property Name="EightithLevelSign" Type="bit" />
-    <Property Name="Proof" Type="nvarchar(max)" />
-    <Property Name="SendingLevelSign" Type="bit" />
-    <Property Name="RecievingLevelSign" Type="bit" />
-    <Property Name="AfterRecieveFirstLevelSign" Type="bit" />
-    <Property Name="AfterRecieveSecondLevelSign" Type="bit" />
     <Property Name="Date" Type="date" />
     <Property Name="Time" Type="time" Precision="7" />
     <Property Name="CenterID" Type="int" />
+    <Property Name="SubBndid" Type="int" />
+    <Property Name="PaymentApprove" Type="bit" />
+    <Property Name="BuyingApprove" Type="bit" />
+    <Property Name="proof" Type="int" />
+    <Property Name="ProofAcceptance" Type="bit" />
+    <Property Name="PaymentApprovalDate" Type="date" />
+    <Property Name="BuyingApprovalDate" Type="date" />
+    <Property Name="ProofAcceptanceDate" Type="date" />
+    <Property Name="Paymentid" Type="int" />
+    <Property Name="Necessity" Type="smallint" />
+    <Property Name="OrderType" Type="nvarchar(max)" />
+    <Property Name="CanclationReason" Type="nvarchar(max)" />
+    <Property Name="SumPrice" Type="float" />
+    <Property Name="QuantityChanged" Type="bit" />
+    <Property Name="PaymentOrderDate" Type="date" />
   </EntityType>
   <EntityType Name="Periods">
     <Key>
@@ -281,6 +308,7 @@
     <Property Name="Path" Type="nvarchar(max)" />
     <Property Name="Type" Type="nvarchar(max)" />
     <Property Name="EmployeeID" Type="int" />
+    <Property Name="ZipFilePath" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Regiments">
     <Key>
@@ -336,6 +364,27 @@
     <Property Name="FullMark" Type="float" />
     <Property Name="LeastMark" Type="float" />
     <Property Name="State" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="PaymentsRecord">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubBnd">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="BndId" Type="int" />
+    <Property Name="CenterID" Type="int" />
+    <Property Name="Subject" Type="nvarchar(max)" />
+    <Property Name="PeacePrice" Type="float" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="SumPrice" Type="float" />
+    <Property Name="Date" Type="date" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="Orderid" Type="int" />
   </EntityType>
   <Association Name="FK_Centers_Centers">
     <End Role="Centers" Type="Self.Centers" Multiplicity="0..1" />
@@ -589,6 +638,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Lessons_Centers">
+    <End Role="Centers" Type="Self.Centers" Multiplicity="0..1" />
+    <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Lessons">
+        <PropertyRef Name="Centerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Lessons_Periods">
     <End Role="Periods" Type="Self.Periods" Multiplicity="0..1" />
     <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
@@ -658,6 +719,18 @@
       </Principal>
       <Dependent Role="Order">
         <PropertyRef Name="Employeeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_SubBnd">
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubBnd">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="SubBndid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -829,6 +902,54 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SubBnd_Bnd">
+    <End Role="Bnd" Type="Self.Bnd" Multiplicity="0..1" />
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bnd">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="BndId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubBnd_Centers">
+    <End Role="Centers" Type="Self.Centers" Multiplicity="0..1" />
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="CenterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubBnd_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubBnd_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubBnd">
+        <PropertyRef Name="Orderid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="TaalimModelStoreContainer">
     <EntitySet Name="Bnd" EntityType="Self.Bnd" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Centers" EntityType="Self.Centers" Schema="dbo" store:Type="Tables" />
@@ -850,6 +971,8 @@
     <EntitySet Name="Stages" EntityType="Self.Stages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Study_subject" EntityType="Self.Study_subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentsRecord" EntityType="Self.PaymentsRecord" Schema="midad" store:Type="Tables" />
+    <EntitySet Name="SubBnd" EntityType="Self.SubBnd" Schema="midad" store:Type="Tables" />
     <AssociationSet Name="FK_Centers_Centers" Association="Self.FK_Centers_Centers">
       <End Role="Centers" EntitySet="Centers" />
       <End Role="Centers1" EntitySet="Centers" />
@@ -934,6 +1057,10 @@
       <End Role="Study_subject" EntitySet="Study_subject" />
       <End Role="Examination" EntitySet="Examination" />
     </AssociationSet>
+    <AssociationSet Name="FK_Lessons_Centers" Association="Self.FK_Lessons_Centers">
+      <End Role="Centers" EntitySet="Centers" />
+      <End Role="Lessons" EntitySet="Lessons" />
+    </AssociationSet>
     <AssociationSet Name="FK_Lessons_Periods" Association="Self.FK_Lessons_Periods">
       <End Role="Periods" EntitySet="Periods" />
       <End Role="Lessons" EntitySet="Lessons" />
@@ -956,6 +1083,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Order_Employees" Association="Self.FK_Order_Employees">
       <End Role="Employees" EntitySet="Employees" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_SubBnd" Association="Self.FK_Order_SubBnd">
+      <End Role="SubBnd" EntitySet="SubBnd" />
       <End Role="Order" EntitySet="Order" />
     </AssociationSet>
     <AssociationSet Name="FK_Presence_Employees" Association="Self.FK_Presence_Employees">
@@ -1013,6 +1144,22 @@
     <AssociationSet Name="FK_Students_Stages" Association="Self.FK_Students_Stages">
       <End Role="Stages" EntitySet="Stages" />
       <End Role="Students" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_Bnd" Association="Self.FK_SubBnd_Bnd">
+      <End Role="Bnd" EntitySet="Bnd" />
+      <End Role="SubBnd" EntitySet="SubBnd" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_Centers" Association="Self.FK_SubBnd_Centers">
+      <End Role="Centers" EntitySet="Centers" />
+      <End Role="SubBnd" EntitySet="SubBnd" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_Employees" Association="Self.FK_SubBnd_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="SubBnd" EntitySet="SubBnd" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubBnd_Order" Association="Self.FK_SubBnd_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="SubBnd" EntitySet="SubBnd" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

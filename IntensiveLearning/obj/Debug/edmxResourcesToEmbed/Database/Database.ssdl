@@ -5,7 +5,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="Name" Type="varchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="TotalNum" Type="float" />
     <Property Name="AfterReductionNum" Type="float" />
     <Property Name="Month1Share" Type="float" />
@@ -34,16 +34,16 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="Name" Type="varchar(max)" />
-    <Property Name="Place" Type="varchar(max)" />
-    <Property Name="Desc" Type="varchar(max)" />
-    <Property Name="State" Type="varchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Place" Type="nvarchar(max)" />
+    <Property Name="Desc" Type="nvarchar(max)" />
+    <Property Name="State" Type="nvarchar(max)" />
     <Property Name="HolesN" Type="int" />
     <Property Name="Cityid" Type="int" />
-    <Property Name="FoundationType" Type="varchar(max)" />
+    <Property Name="FoundationType" Type="nvarchar(max)" />
     <Property Name="Periodid" Type="int" />
-    <Property Name="Notes" Type="varchar(max)" />
-    <Property Name="Owner" Type="varchar(max)" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="Owner" Type="nvarchar(max)" />
     <Property Name="Month10" Type="bit" />
     <Property Name="Month11" Type="bit" />
     <Property Name="Month12" Type="bit" />
@@ -58,10 +58,10 @@
     <Property Name="Month9" Type="bit" />
     <Property Name="TargetedMen" Type="int" />
     <Property Name="TargetedWomen" Type="int" />
-    <Property Name="CenterType" Type="varchar(max)" />
+    <Property Name="CenterType" Type="nvarchar(max)" />
     <Property Name="MonthlyPayment" Type="int" />
     <Property Name="QuarterPayment" Type="int" />
-    <Property Name="Proof" Type="varchar(max)" />
+    <Property Name="Proof" Type="nvarchar(max)" />
     <Property Name="ProjectID" Type="int" />
     <Property Name="Approval" Type="bit" />
     <Property Name="ApprovedBy" Type="int" />
@@ -76,8 +76,8 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="Name" Type="varchar(max)" />
-    <Property Name="CountryName" Type="varchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="CountryName" Type="nvarchar(max)" />
     <Property Name="ProjectID" Type="int" />
     <Property Name="AddingDate" Type="date" />
     <Property Name="AddingTime" Type="time" Precision="7" />
@@ -88,7 +88,7 @@
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="Employeeid" Type="int" />
-    <Property Name="Concern" Type="varchar(max)" />
+    <Property Name="Concern" Type="nvarchar(max)" />
     <Property Name="date" Type="date" />
   </EntityType>
   <EntityType Name="DailyActivity">
@@ -96,8 +96,8 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="Report" Type="varchar(max)" />
-    <Property Name="Observation" Type="varchar(max)" />
+    <Property Name="Report" Type="nvarchar(max)" />
+    <Property Name="Observation" Type="nvarchar(max)" />
     <Property Name="Managerid" Type="int" />
     <Property Name="date" Type="date" />
   </EntityType>
@@ -106,39 +106,42 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="name" Type="varchar" MaxLength="50" />
-    <Property Name="surname" Type="varchar" MaxLength="50" />
+    <Property Name="name" Type="nvarchar(max)" />
+    <Property Name="surname" Type="nvarchar(max)" />
     <Property Name="BDate" Type="date" />
-    <Property Name="Certificate" Type="varchar" MaxLength="50" />
-    <Property Name="CType" Type="varchar" MaxLength="50" />
-    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="Certificate" Type="nvarchar(max)" />
+    <Property Name="CType" Type="nvarchar(max)" />
+    <Property Name="State" Type="nvarchar(max)" />
     <Property Name="Centerid" Type="int" />
     <Property Name="Periodid" Type="int" />
     <Property Name="SDate" Type="date" />
     <Property Name="EDate" Type="date" />
     <Property Name="Job" Type="int" />
-    <Property Name="Username" Type="varchar" MaxLength="50" />
-    <Property Name="Password" Type="varchar(max)" />
-    <Property Name="Proof" Type="varchar(max)" />
+    <Property Name="Username" Type="nvarchar(max)" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="Proof" Type="nvarchar(max)" />
     <Property Name="Salary" Type="float" />
     <Property Name="CityID" Type="int" />
-    <Property Name="FathersName" Type="varchar(max)" />
-    <Property Name="Sex" Type="varchar(max)" />
+    <Property Name="FathersName" Type="nvarchar(max)" />
+    <Property Name="Sex" Type="nvarchar(max)" />
     <Property Name="Approval" Type="bit" />
-    <Property Name="ApprovedBy" Type="int" />
     <Property Name="AddedBy" Type="int" />
+    <Property Name="ApprovedBy" Type="int" />
     <Property Name="AddingDate" Type="date" />
     <Property Name="AddingTime" Type="time" Precision="7" />
-    <Property Name="InsideOrOutside" Type="nvarchar" MaxLength="50" />
-    <Property Name="OldJob" Type="nvarchar(max)" />
     <Property Name="ExpYears" Type="int" />
+    <Property Name="OldJob" Type="nvarchar(max)" />
+    <Property Name="InsideOrOutside" Type="nvarchar" MaxLength="10" />
+    <Property Name="telephoneNumber" Type="int" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="EmployeeType">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Type" Type="nvarchar(max)" />
     <Property Name="Manager" Type="bit" />
     <Property Name="CoManager" Type="bit" />
     <Property Name="SchoolManager" Type="bit" />
@@ -173,12 +176,12 @@
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="ExamTypeid" Type="int" />
     <Property Name="Mark" Type="float" />
-    <Property Name="Desc" Type="varchar(max)" />
+    <Property Name="Desc" Type="nvarchar(max)" />
     <Property Name="Subjectid" Type="int" />
     <Property Name="Studentid" Type="int" />
     <Property Name="Stageid" Type="int" />
     <Property Name="Date" Type="date" />
-    <Property Name="Proof" Type="varchar(max)" />
+    <Property Name="Proof" Type="nvarchar(max)" />
     <Property Name="Approval" Type="bit" />
     <Property Name="ApprovedBy" Type="int" />
     <Property Name="AddedBy" Type="int" />
@@ -190,38 +193,39 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Type" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Lessons">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="Day" Type="varchar" MaxLength="50" />
-    <Property Name="State" Type="varchar" MaxLength="50" />
-    <Property Name="Lesson1" Type="varchar" MaxLength="50" />
-    <Property Name="Lesson2" Type="varchar" MaxLength="50" />
-    <Property Name="Lesson3" Type="varchar" MaxLength="50" />
-    <Property Name="Lesson4" Type="varchar" MaxLength="50" />
-    <Property Name="Lesson5" Type="varchar" MaxLength="50" />
-    <Property Name="Lesson6" Type="varchar" MaxLength="50" />
-    <Property Name="Lesson7" Type="varchar" MaxLength="50" />
+    <Property Name="Day" Type="nvarchar(max)" />
+    <Property Name="State" Type="nvarchar(max)" />
+    <Property Name="Lesson1" Type="nvarchar(max)" />
+    <Property Name="Lesson2" Type="nvarchar(max)" />
+    <Property Name="Lesson3" Type="nvarchar(max)" />
+    <Property Name="Lesson4" Type="nvarchar(max)" />
+    <Property Name="Lesson5" Type="nvarchar(max)" />
+    <Property Name="Lesson6" Type="nvarchar(max)" />
+    <Property Name="Lesson7" Type="nvarchar(max)" />
     <Property Name="Regimentid" Type="int" />
     <Property Name="Stageid" Type="int" />
     <Property Name="Periodid" Type="int" />
+    <Property Name="Centerid" Type="int" />
   </EntityType>
   <EntityType Name="NonUserAddRequest">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="Name" Type="varchar(max)" />
-    <Property Name="Surname" Type="varchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Surname" Type="nvarchar(max)" />
     <Property Name="Date" Type="date" />
     <Property Name="PhoneNumber" Type="int" />
-    <Property Name="FathersName" Type="varchar(max)" />
-    <Property Name="Certificate" Type="varchar(max)" />
-    <Property Name="CType" Type="varchar(max)" />
+    <Property Name="FathersName" Type="nvarchar(max)" />
+    <Property Name="Certificate" Type="nvarchar(max)" />
+    <Property Name="CType" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -231,7 +235,7 @@
     <Property Name="Employeeid" Type="int" />
     <Property Name="Bndid" Type="int" />
     <Property Name="Subject" Type="nvarchar(max)" />
-    <Property Name="Quantity" Type="float" />
+    <Property Name="Quantity" Type="int" />
     <Property Name="PeacePrice" Type="float" />
     <Property Name="State" Type="nvarchar(max)" />
     <Property Name="FirstLevelSign" Type="bit" />
@@ -241,21 +245,27 @@
     <Property Name="Time" Type="time" Precision="7" />
     <Property Name="CenterID" Type="int" />
     <Property Name="SubBndid" Type="int" />
-    <Property Name="BuyingSign" Type="bit" />
-  </EntityType>
-  <EntityType Name="PaymentsRecord">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="Orderid" Type="int" />
+    <Property Name="PaymentApprove" Type="bit" />
+    <Property Name="BuyingApprove" Type="bit" />
+    <Property Name="proof" Type="int" />
+    <Property Name="ProofAcceptance" Type="bit" />
+    <Property Name="PaymentApprovalDate" Type="date" />
+    <Property Name="BuyingApprovalDate" Type="date" />
+    <Property Name="ProofAcceptanceDate" Type="date" />
+    <Property Name="Paymentid" Type="int" />
+    <Property Name="Necessity" Type="smallint" />
+    <Property Name="OrderType" Type="nvarchar(max)" />
+    <Property Name="CanclationReason" Type="nvarchar(max)" />
+    <Property Name="SumPrice" Type="float" />
+    <Property Name="QuantityChanged" Type="bit" />
+    <Property Name="PaymentOrderDate" Type="date" />
   </EntityType>
   <EntityType Name="Periods">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="Name" Type="varchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="StartingTime" Type="time" Precision="7" />
     <Property Name="EndTime" Type="time" Precision="7" />
   </EntityType>
@@ -265,7 +275,7 @@
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="Date" Type="date" />
-    <Property Name="Desc" Type="varchar(max)" />
+    <Property Name="Desc" Type="nvarchar(max)" />
     <Property Name="Studentid" Type="int" />
     <Property Name="Lesson1" Type="bit" />
     <Property Name="Lesson2" Type="bit" />
@@ -285,7 +295,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="ProjectName" Type="varchar(max)" />
+    <Property Name="ProjectName" Type="nvarchar(max)" />
     <Property Name="StartDate" Type="date" />
     <Property Name="EndDate" Type="date" />
   </EntityType>
@@ -298,8 +308,8 @@
     <Property Name="CenterID" Type="int" />
     <Property Name="OrderID" Type="int" />
     <Property Name="ExaminationID" Type="int" />
-    <Property Name="Path" Type="varchar(max)" />
-    <Property Name="Type" Type="varchar(max)" />
+    <Property Name="Path" Type="nvarchar(max)" />
+    <Property Name="Type" Type="nvarchar(max)" />
     <Property Name="EmployeeID" Type="int" />
     <Property Name="ZipFilePath" Type="nvarchar(max)" />
   </EntityType>
@@ -308,7 +318,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="Name" Type="varchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="Periodid" Type="int" />
   </EntityType>
   <EntityType Name="Stages">
@@ -316,7 +326,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="StageName" Type="varchar" MaxLength="50" />
+    <Property Name="StageName" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Students">
     <Key>
@@ -324,39 +334,45 @@
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="BDate" Type="date" />
-    <Property Name="Name" Type="varchar(max)" />
-    <Property Name="Surname" Type="varchar(max)" />
-    <Property Name="Certificate" Type="varchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Surname" Type="nvarchar(max)" />
+    <Property Name="Certificate" Type="nvarchar(max)" />
     <Property Name="Mark" Type="float" />
-    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="20" />
     <Property Name="Centerid" Type="int" />
     <Property Name="Stageid" Type="int" />
     <Property Name="Regimentid" Type="int" />
     <Property Name="SDate" Type="date" />
     <Property Name="EDate" Type="date" />
     <Property Name="StudentNumber" Type="int" />
-    <Property Name="Proof" Type="varchar(max)" />
-    <Property Name="FathersName" Type="varchar(max)" />
-    <Property Name="Sex" Type="varchar" MaxLength="50" />
+    <Property Name="Proof" Type="nvarchar(max)" />
+    <Property Name="FathersName" Type="nvarchar(max)" />
+    <Property Name="Sex" Type="nvarchar" MaxLength="10" />
     <Property Name="Approval" Type="bit" />
     <Property Name="ApprovedBy" Type="int" />
     <Property Name="AddedBy" Type="int" />
     <Property Name="AddingDate" Type="date" />
     <Property Name="AddingTime" Type="time" Precision="7" />
-    <Property Name="Mothersname" Type="nvarchar(max)" />
     <Property Name="OldSchool" Type="nvarchar(max)" />
     <Property Name="StudentState" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mothersname" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Study_subject">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="50" />
-    <Property Name="Desc" Type="varchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Desc" Type="nvarchar(max)" />
     <Property Name="FullMark" Type="float" />
     <Property Name="LeastMark" Type="float" />
-    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="PaymentsRecord">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="SubBnd">
     <Key>
@@ -364,29 +380,27 @@
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="BndId" Type="int" />
-    <Property Name="CenterId" Type="int" />
+    <Property Name="CenterID" Type="int" />
     <Property Name="Subject" Type="nvarchar(max)" />
     <Property Name="PeacePrice" Type="float" />
     <Property Name="Quantity" Type="int" />
     <Property Name="SumPrice" Type="float" />
     <Property Name="Date" Type="date" />
-    <Property Name="PayymentApprove" Type="bit" />
-    <Property Name="BuyingApprove" Type="bit" />
-    <Property Name="proof" Type="int" />
-    <Property Name="ProofAcceptance" Type="bit" />
-    <Property Name="Paymentid" Type="int" />
     <Property Name="CreatedBy" Type="int" />
+    <Property Name="Orderid" Type="int" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
+  <Association Name="FK_Centers_Centers">
+    <End Role="Centers" Type="Self.Centers" Multiplicity="0..1" />
+    <End Role="Centers1" Type="Self.Centers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Centers1">
+        <PropertyRef Name="DependedOn" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Centers_Cities">
     <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
     <End Role="Centers" Type="Self.Centers" Multiplicity="*" />
@@ -627,6 +641,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Lessons_Centers">
+    <End Role="Centers" Type="Self.Centers" Multiplicity="0..1" />
+    <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Lessons">
+        <PropertyRef Name="Centerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Lessons_Periods">
     <End Role="Periods" Type="Self.Periods" Multiplicity="0..1" />
     <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
@@ -711,15 +737,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PaymentsRecord_Order">
-    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
-    <End Role="PaymentsRecord" Type="Self.PaymentsRecord" Multiplicity="*" />
+  <Association Name="FK_Presence_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Presence" Type="Self.Presence" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Order">
+      <Principal Role="Employees">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="PaymentsRecord">
-        <PropertyRef Name="Orderid" />
+      <Dependent Role="Presence">
+        <PropertyRef Name="ApprovedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Presence_Employees1">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Presence" Type="Self.Presence" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Presence">
+        <PropertyRef Name="AddedBy" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -887,7 +925,7 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="SubBnd">
-        <PropertyRef Name="CenterId" />
+        <PropertyRef Name="CenterID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -903,27 +941,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SubBnd_PaymentsRecord">
-    <End Role="PaymentsRecord" Type="Self.PaymentsRecord" Multiplicity="0..1" />
+  <Association Name="FK_SubBnd_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
     <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="PaymentsRecord">
+      <Principal Role="Order">
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="SubBnd">
-        <PropertyRef Name="Paymentid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SubBnd_Prooves">
-    <End Role="Prooves" Type="Self.Prooves" Multiplicity="0..1" />
-    <End Role="SubBnd" Type="Self.SubBnd" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Prooves">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="SubBnd">
-        <PropertyRef Name="proof" />
+        <PropertyRef Name="Orderid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -940,7 +966,6 @@
     <EntitySet Name="Lessons" EntityType="Self.Lessons" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NonUserAddRequest" EntityType="Self.NonUserAddRequest" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="PaymentsRecord" EntityType="Self.PaymentsRecord" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Periods" EntityType="Self.Periods" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Presence" EntityType="Self.Presence" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
@@ -949,8 +974,12 @@
     <EntitySet Name="Stages" EntityType="Self.Stages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Study_subject" EntityType="Self.Study_subject" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="SubBnd" EntityType="Self.SubBnd" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentsRecord" EntityType="Self.PaymentsRecord" Schema="midad" store:Type="Tables" />
+    <EntitySet Name="SubBnd" EntityType="Self.SubBnd" Schema="midad" store:Type="Tables" />
+    <AssociationSet Name="FK_Centers_Centers" Association="Self.FK_Centers_Centers">
+      <End Role="Centers" EntitySet="Centers" />
+      <End Role="Centers1" EntitySet="Centers" />
+    </AssociationSet>
     <AssociationSet Name="FK_Centers_Cities" Association="Self.FK_Centers_Cities">
       <End Role="Cities" EntitySet="Cities" />
       <End Role="Centers" EntitySet="Centers" />
@@ -1031,6 +1060,10 @@
       <End Role="Study_subject" EntitySet="Study_subject" />
       <End Role="Examination" EntitySet="Examination" />
     </AssociationSet>
+    <AssociationSet Name="FK_Lessons_Centers" Association="Self.FK_Lessons_Centers">
+      <End Role="Centers" EntitySet="Centers" />
+      <End Role="Lessons" EntitySet="Lessons" />
+    </AssociationSet>
     <AssociationSet Name="FK_Lessons_Periods" Association="Self.FK_Lessons_Periods">
       <End Role="Periods" EntitySet="Periods" />
       <End Role="Lessons" EntitySet="Lessons" />
@@ -1059,9 +1092,13 @@
       <End Role="SubBnd" EntitySet="SubBnd" />
       <End Role="Order" EntitySet="Order" />
     </AssociationSet>
-    <AssociationSet Name="FK_PaymentsRecord_Order" Association="Self.FK_PaymentsRecord_Order">
-      <End Role="Order" EntitySet="Order" />
-      <End Role="PaymentsRecord" EntitySet="PaymentsRecord" />
+    <AssociationSet Name="FK_Presence_Employees" Association="Self.FK_Presence_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Presence" EntitySet="Presence" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Presence_Employees1" Association="Self.FK_Presence_Employees1">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Presence" EntitySet="Presence" />
     </AssociationSet>
     <AssociationSet Name="FK_Presence_Students" Association="Self.FK_Presence_Students">
       <End Role="Students" EntitySet="Students" />
@@ -1123,12 +1160,8 @@
       <End Role="Employees" EntitySet="Employees" />
       <End Role="SubBnd" EntitySet="SubBnd" />
     </AssociationSet>
-    <AssociationSet Name="FK_SubBnd_PaymentsRecord" Association="Self.FK_SubBnd_PaymentsRecord">
-      <End Role="PaymentsRecord" EntitySet="PaymentsRecord" />
-      <End Role="SubBnd" EntitySet="SubBnd" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SubBnd_Prooves" Association="Self.FK_SubBnd_Prooves">
-      <End Role="Prooves" EntitySet="Prooves" />
+    <AssociationSet Name="FK_SubBnd_Order" Association="Self.FK_SubBnd_Order">
+      <End Role="Order" EntitySet="Order" />
       <End Role="SubBnd" EntitySet="SubBnd" />
     </AssociationSet>
   </EntityContainer>

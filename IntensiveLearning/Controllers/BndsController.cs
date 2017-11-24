@@ -95,6 +95,7 @@ namespace IntensiveLearning.Controllers
             if (type.Finance == true)
             {
                 bnd.TotalNum = bnd.NumberOfUnits * bnd.PerUnitCost * bnd.PeriodOnMonth;
+                bnd.AfterReductionNum = bnd.TotalNum;
                 double MonthsNum = (double)(bnd.Month10Share + bnd.Month11Share + bnd.Month12Share + bnd.Month13Share + bnd.Month1Share + bnd.Month2Share + bnd.Month3Share + bnd.Month4Share + bnd.Month5Share + bnd.Month6Share + bnd.Month7Share + bnd.Month8Share + bnd.Month9Share);
                 if (MonthsNum != bnd.TotalNum)
                 {

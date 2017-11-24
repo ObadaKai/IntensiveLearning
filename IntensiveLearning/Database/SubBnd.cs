@@ -11,7 +11,9 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class SubBnd
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,25 +24,32 @@ namespace IntensiveLearning.Database
     
         public int id { get; set; }
         public Nullable<int> BndId { get; set; }
-        public Nullable<int> CenterId { get; set; }
+        public Nullable<int> CenterID { get; set; }
+        [DisplayName("«·„«œ…")]
+
         public string Subject { get; set; }
+        [DisplayName("”⁄— «·ﬁÿ⁄…")]
+
         public Nullable<double> PeacePrice { get; set; }
+        [DisplayName("⁄œœ «·ﬁÿ⁄")]
+
         public Nullable<int> Quantity { get; set; }
+        [DisplayName("«·„Ã„Ê⁄")]
+
         public Nullable<double> SumPrice { get; set; }
+        [DisplayName("«· «—ÌŒ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+
         public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<bool> PayymentApprove { get; set; }
-        public Nullable<bool> BuyingApprove { get; set; }
-        public Nullable<int> proof { get; set; }
-        public Nullable<bool> ProofAcceptance { get; set; }
-        public Nullable<int> Paymentid { get; set; }
+
         public Nullable<int> CreatedBy { get; set; }
+        public Nullable<int> Orderid { get; set; }
     
         public virtual Bnd Bnd { get; set; }
         public virtual Center Center { get; set; }
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
-        public virtual PaymentsRecord PaymentsRecord { get; set; }
-        public virtual Proove Proove { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

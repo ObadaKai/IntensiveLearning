@@ -24,7 +24,6 @@ namespace IntensiveLearning.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Index(string Username, string Password)
         {
             if (ModelState.IsValid)

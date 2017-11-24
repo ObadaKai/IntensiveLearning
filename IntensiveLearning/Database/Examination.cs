@@ -11,7 +11,9 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Examination
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,14 +21,21 @@ namespace IntensiveLearning.Database
         {
             this.Prooves = new HashSet<Proove>();
         }
-    
+
         public int id { get; set; }
         public Nullable<int> ExamTypeid { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·⁄·«„…")]
+        [DisplayName("«·⁄·«„…")]
         public Nullable<double> Mark { get; set; }
+        [DisplayName("«·‘—Õ")]
         public string Desc { get; set; }
         public Nullable<int> Subjectid { get; set; }
         public Nullable<int> Studentid { get; set; }
         public Nullable<int> Stageid { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «· «—ÌŒ")]
+        [DisplayName("«· «—ÌŒ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+
         public Nullable<System.DateTime> Date { get; set; }
         public string Proof { get; set; }
         public Nullable<bool> Approval { get; set; }
@@ -34,7 +43,7 @@ namespace IntensiveLearning.Database
         public Nullable<int> AddedBy { get; set; }
         public Nullable<System.DateTime> AddingDate { get; set; }
         public Nullable<System.TimeSpan> AddingTime { get; set; }
-    
+
         public virtual Employee Employee { get; set; }
         public virtual Employee Employee1 { get; set; }
         public virtual ExamType ExamType { get; set; }

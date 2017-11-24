@@ -22,35 +22,13 @@ namespace IntensiveLearning.Controllers
         {
             if (Session["ID"] != null)
             {
-                var typeName = (string)Session["Type"];
-                var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-                int od = Convert.ToInt32(Session["ID"]);
-                Employee emp = db.Employees.Find(od);
-                var examinations = db.Examinations.ToList();
-                if (type.SeeAll == true || type.SeeAccToCity == true || type.SeeAccToCenter == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
+                if (TempData["Message"] != null)
                 {
-                    if (type.SeeAccToCenter == true || type.SeeTeachers == true)
-                    {
-                         examinations = db.Examinations.Where(x=>x.Student.Centerid == emp.Centerid).Include(e => e.Stage).Include(e => e.Student).Include(e => e.Study_subject).Include(e => e.ExamType).ToList();
-
-                    }
-                    else if (type.SeeAccToCity==true)
-                    {
-                         examinations = db.Examinations.Where(x => x.Student.Center.Cityid == emp.CityID).Include(e => e.Stage).Include(e => e.Student).Include(e => e.Study_subject).Include(e => e.ExamType).ToList();
-
-                    }
-                    else
-                    {
-                         examinations = db.Examinations.Include(e => e.Stage).Include(e => e.Student).Include(e => e.Study_subject).Include(e => e.ExamType).ToList();
-
-                    }
-                    if (TempData["Message"] != null)
-                    {
-                        ViewBag.StateMessage = TempData["Message"];
-                    }
-                    return View(examinations);
+                    ViewBag.StateMessage = TempData["Message"];
                 }
-                return RedirectToAction("Default", "Home");
+
+                return View();
+
             }
             return RedirectToAction("Index", "Home");
         }

@@ -11,7 +11,9 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,39 +28,79 @@ namespace IntensiveLearning.Database
             this.Examinations = new HashSet<Examination>();
             this.Examinations1 = new HashSet<Examination>();
             this.Orders = new HashSet<Order>();
+            this.Presences = new HashSet<Presence>();
+            this.Presences1 = new HashSet<Presence>();
             this.Prooves = new HashSet<Proove>();
             this.Students = new HashSet<Student>();
             this.Students1 = new HashSet<Student>();
             this.SubBnds = new HashSet<SubBnd>();
         }
-    
         public int id { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·«”„")]
+        [DisplayName("«”„ «·„ÊŸ›")]
         public string name { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·ﬂ‰Ì…")]
+        [DisplayName("ﬂ‰Ì… «·„ÊŸ›")]
         public string surname { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«·  «—ÌŒ «·Ê·«œ…")]
+        [DisplayName(" «—ÌŒ «·Ê·«œ…")]
         public Nullable<System.DateTime> BDate { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·‘Â«œ…")]
+        [DisplayName("«·‘Â«œ…")]
         public string Certificate { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· ‰Ê⁄ «·‘Â«œ…")]
+        [DisplayName("›∆… «·‘Â«œ…")]
         public string CType { get; set; }
+        [DisplayName("«·Õ«·…")]
         public string State { get; set; }
         public Nullable<int> Centerid { get; set; }
         public Nullable<int> Periodid { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«·  «—ÌŒ «·»œ¡")]
+        [DisplayName(" «—ÌŒ «·»œ¡")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+
         public Nullable<System.DateTime> SDate { get; set; }
+        [DisplayName(" «—ÌŒ «·«‰ Â«¡")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> EDate { get; set; }
         public Nullable<int> Job { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·„” Œœ„")]
+        [DisplayName("«”„ «·„” Œœ„")]
+
         public string Username { get; set; }
+        [DisplayName("ﬂ·„… «·„—Ê—")]
+
         public string Password { get; set; }
         public string Proof { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·—« »")]
+        [DisplayName("«·—« »")]
         public Nullable<double> Salary { get; set; }
         public Nullable<int> CityID { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·√»")]
+        [DisplayName("«”„ «·√»")]
         public string FathersName { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·Ã‰”")]
+        [DisplayName("«·Ã‰”")]
         public string Sex { get; set; }
         public Nullable<bool> Approval { get; set; }
-        public Nullable<int> ApprovedBy { get; set; }
         public Nullable<int> AddedBy { get; set; }
+        public Nullable<int> ApprovedBy { get; set; }
         public Nullable<System.DateTime> AddingDate { get; set; }
         public Nullable<System.TimeSpan> AddingTime { get; set; }
-        public string InsideOrOutside { get; set; }
-        public string OldJob { get; set; }
+        [DisplayName("⁄œœ ”‰Ê«  «·Œ»—…")]
         public Nullable<int> ExpYears { get; set; }
+        [DisplayName("«·ÊŸÌ›… «·ﬁœÌ„…")]
+        public string OldJob { get; set; }
+        [DisplayName("œ«Œ· √Ê Œ«—Ã «·„·«ﬂ")]
+        public string InsideOrOutside { get; set; }
+        [DisplayName("—ﬁ„ «·Â« ›")]
+        public Nullable<int> telephoneNumber { get; set; }
+        [DisplayName("«·⁄‰Ê«‰")]
+        public string Address { get; set; }
+        [DisplayName("«·«Ì„Ì·")]
+        public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Center> Centers { get; set; }
@@ -84,6 +126,10 @@ namespace IntensiveLearning.Database
         public virtual ICollection<Examination> Examinations1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Presence> Presences { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Presence> Presences1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Proove> Prooves { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
