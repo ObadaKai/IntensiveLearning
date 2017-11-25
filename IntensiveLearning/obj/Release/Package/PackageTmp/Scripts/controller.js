@@ -275,16 +275,20 @@
             angular.forEach($scope.Exams, function (value, key) {
                 value.Date = new Date(parseInt(value.Date.substr(6)));
             });
+            $('#LoadingScreen').hide();
         });
         $scope.PresenceSearchBox = function () {
 
             if ($scope.PresenceSearchBoxData || $scope.PresenceSearchBoxDate) {
+
                 var ToSenh2ext = { 'SearchBoxData': $scope.PresenceSearchBoxData, 'SearchBoxDate': $scope.PresenceSearchBoxDate };
+                $('#LoadingScreen').show();
                 $http({ method: 'POST', url: '/Json/Presences', data: ToSenh2ext }).then(function successCallback(response) {
                     $scope.Exams = response.data;
                     angular.forEach($scope.Exams, function (value, key) {
                         value.Date = new Date(parseInt(value.Date.substr(6)));
                     });
+                    $('#LoadingScreen').hide();
                 });
             }
             else {
@@ -293,6 +297,7 @@
                     angular.forEach($scope.Exams, function (value, key) {
                         value.Date = new Date(parseInt(value.Date.substr(6)));
                     });
+                    $('#LoadingScreen').hide();
                 });
             }
 
@@ -370,7 +375,7 @@
 
 
     myApp.controller('ExamsCtrl', ['$http', '$scope', '$filter', function ($http, $scope) {
-        $http({ method: 'GET', url: '/Json/Employees' }).then(function successCallback(response) {
+        $http({ method: 'GET', url: '/Json/Exams' }).then(function successCallback(response) {
             $scope.Exams = response.data;
             angular.forEach($scope.Exams, function (value, key) {
                 value.Date = new Date(parseInt(value.Date.substr(6)));
@@ -384,7 +389,7 @@
                 $('#LoadingScreen').show();
                 var myEl = angular.element(document.querySelector('.razorRow'));
                 myEl.empty();
-                $http({ method: 'POST', url: '/Json/SearchExams', data: ToSenh2ext }).then(function successCallback(response) {
+                $http({ method: 'POST', url: '/Json/Exams', data: ToSenh2ext }).then(function successCallback(response) {
                     $scope.Exams = response.data;
                     angular.forEach($scope.Exams, function (value, key) {
                         value.Date = new Date(parseInt(value.Date.substr(6)));

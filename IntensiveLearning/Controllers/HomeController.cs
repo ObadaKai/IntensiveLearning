@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using IntensiveLearning.Database;
 using IntensiveLearning.Models;
+using System.IO;
+using System.IO.Compression;
 
 namespace IntensiveLearning.Controllers
 {
@@ -18,7 +20,7 @@ namespace IntensiveLearning.Controllers
         {
             if (Session["ID"] != null)
             {
-                return RedirectToAction("Default","Home");
+                return RedirectToAction("Default", "Home");
             }
             return View();
         }
@@ -65,7 +67,7 @@ namespace IntensiveLearning.Controllers
                         Session["SeeAccToCity"] = employee.EmployeeType.SeeAccToCity;
                         Session["SeeAllButFinance"] = employee.EmployeeType.SeeAllButFinance;
                         Session["SeeTeachers"] = employee.EmployeeType.SeeTeachers;
-                        if (employee.Center!=null)
+                        if (employee.Center != null)
                         {
                             Session["Markaz"] = employee.Center.Name;
                         }
@@ -75,11 +77,11 @@ namespace IntensiveLearning.Controllers
                         {
                             return RedirectToAction("Create", "DailyReport");
                         }
-                        else 
+                        else
                         {
                             return RedirectToAction("Index", "Employees");
                         }
-                      
+
                     }
 
                 }
@@ -216,5 +218,170 @@ namespace IntensiveLearning.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", "Employees");
         }
+
+
+        public ActionResult EditOwnUser(int? id)
+        {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var empid = Convert.ToInt32(Session["ID"]);
+            if (id == empid)
+            {
+                var employee = db.Employees.Find(id);
+                return View(employee);
+
+            }
+            return RedirectToAction("Default", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult EditOwnUser(Employee employee, IEnumerable<HttpPostedFileBase> file)
+        {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+
+            var empid = Convert.ToInt32(Session["ID"]);
+
+            if (empid == employee.id)
+            {
+                if (ModelState.IsValid)
+                {
+                    int prooveid;
+                    try
+                    {
+                        prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+                    }
+                    catch (Exception)
+                    {
+                        prooveid = 1;
+                    }
+                    try
+                    {
+
+                        if (file.Count() > 1 || file.Count() > 0 && file.FirstOrDefault() != null)
+                        {
+                            var oldImages = db.Prooves.Where(x => x.EmployeeID == employee.id).ToList();
+
+                            foreach (var image in oldImages)
+                            {
+
+                                db.Prooves.Remove(image);
+                            }
+
+                            if ((Directory.Exists(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id)))
+                            {
+                                try
+                                {
+                                    Directory.Delete(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id, true);
+                                }
+                                catch (IOException)
+                                {
+                                    Directory.Delete(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id, true);
+                                }
+                                catch (UnauthorizedAccessException)
+                                {
+                                    Directory.Delete(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id, true);
+                                }
+                            }
+
+                            if (!Directory.Exists(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id))
+                            {
+                                Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id);
+                            }
+
+
+
+                            foreach (var item in file)
+                            {
+                                if (item.ContentLength > 0)
+                                {
+                                    var fileName = Path.GetFileName(item.FileName);
+                                    if (!Directory.Exists(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id))
+                                    {
+                                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees") + "\\" + employee.id);
+                                    }
+                                    var path = Path.Combine(Server.MapPath("~/App_Data/Employees/" + employee.id), fileName);
+                                    item.SaveAs(path);
+                                    Proove proove = new Proove();
+                                    proove.Path = path;
+                                    proove.id = prooveid;
+                                    proove.EmployeeID = employee.id;
+                                    db.Prooves.Add(proove);
+                                    prooveid++;
+
+                                }
+                                else
+                                {
+
+                                }
+                            }
+
+                            try
+                            {
+                                var startPath = Server.MapPath("~/App_Data/Employees" + "\\" + employee.id);
+
+                                if (!Directory.Exists(Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder")))
+                                {
+                                    Directory.CreateDirectory(Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder"));
+                                }
+                                var zipPath = Server.MapPath("~/App_Data/Employees" + "\\" + "ZipFolder") + "\\" + employee.id + ".zip";
+
+                                if (System.IO.File.Exists(zipPath))
+                                {
+                                    System.IO.File.Delete(zipPath);
+                                }
+                                try
+                                {
+                                    ZipFile.CreateFromDirectory(startPath, zipPath);
+                                }
+                                catch { }
+                                employee.Proof = zipPath;
+                            }
+                            catch { }
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                    if (employee.EDate != null)
+                    {
+                        if (employee.EDate < DateTime.Now.Date)
+                        {
+                            employee.State = "خارج الخدمة";
+                        }
+                        else
+                        {
+                            employee.State = "متوفر";
+
+                        }
+                    }
+                    employee.Password = Helper.ComputeHash("123", "SHA512", null);
+                    db.Entry(employee).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    TempData["Message"] = "تم التعديل بنجاح";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(employee);
+
+                }
+            }
+            return RedirectToAction("Default", "Home");
+        }
+
+
     }
 }

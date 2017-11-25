@@ -96,7 +96,7 @@ namespace IntensiveLearning.Database
         [DisplayName("œ«Œ· √Ê Œ«—Ã «·„·«ﬂ")]
         public string InsideOrOutside { get; set; }
         [DisplayName("—ﬁ„ «·Â« ›")]
-        public Nullable<int> telephoneNumber { get; set; }
+        public Nullable<long> telephoneNumber { get; set; }
         [DisplayName("«·⁄‰Ê«‰")]
         public string Address { get; set; }
         [DisplayName("«·«Ì„Ì·")]

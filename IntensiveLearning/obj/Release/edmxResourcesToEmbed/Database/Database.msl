@@ -137,6 +137,9 @@
           <ScalarProperty Name="ExpYears" ColumnName="ExpYears" />
           <ScalarProperty Name="OldJob" ColumnName="OldJob" />
           <ScalarProperty Name="InsideOrOutside" ColumnName="InsideOrOutside" />
+          <ScalarProperty Name="telephoneNumber" ColumnName="telephoneNumber" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

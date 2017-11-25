@@ -152,6 +152,9 @@
     <Property Name="ExpYears" Type="Int32" />
     <Property Name="OldJob" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="InsideOrOutside" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="telephoneNumber" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Centers" Relationship="Self.FK_Centers_Employees" FromRole="Employees" ToRole="Centers" />
     <NavigationProperty Name="Centers1" Relationship="Self.FK_Centers_Employees1" FromRole="Employees" ToRole="Centers" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Employees_Centers" FromRole="Employees" ToRole="Centers" />

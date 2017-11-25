@@ -7,200 +7,204 @@
 
     <h2>تعديل</h2>
 
-    <div class="visible-lg visible-md visible-sm">
-        @using (Html.BeginForm("Edit", "Employees", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.AntiForgeryToken()
+    @using (Html.BeginForm("Edit", "Employees", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                <h4>موظف</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.id)
-                @Html.HiddenFor(model => model.Proof)
-                @Html.HiddenFor(model => model.State)
-                <div class="col-sm-6 hidden-xs">
-
+        <div class="form-horizontal">
+            <h4>موظف</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
+            @Html.HiddenFor(model => model.Proof)
+            @Html.HiddenFor(model => model.State)
+            <div class="InfoContainer">
+                <div class="col-sm-6 pull-right PaddingRightPart col-xs-12">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Job, "المهمة", htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label" })
 
 
                         <div>
-                            <select name="Job" id="Job" class="form-control">
-                                @foreach (var item in ViewBag.Jobs)
+                            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.surname, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            @Html.EditorFor(model => model.surname, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.surname, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FathersName, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            @Html.EditorFor(model => model.FathersName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FathersName, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BDate, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            @if (Model.BDate != null)
+                {
+                                @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.BDate.Value.ToString("yyyy-MM-dd") } })
+
+                            }
+                            else
+                            {
+                                @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            }
+                            @Html.ValidationMessageFor(model => model.BDate, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Certificate, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            @Html.EditorFor(model => model.Certificate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Certificate, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CType, htmlAttributes: new { @class = "control-label" })
+
+
+                        <div>
+                            <select name="CType" id="CType" class="form-control">
+                                @if (Model.CType == "ابتدائي")
                                 {
-                                    int x;
-                                    if (item.SeeAccToCity == true)
-                                    {
-                                        x = 1;
-
-                                    }
-                                    else if (item.SeeAll == true || item.SeeAllButFinance == true || item.Manager == true)
-                                    {
-                                        x = 0;
-                                    }
-                                    else
-                                    {
-                                        x = 2;
-                                    }
-                                    if (item.id == ViewBag.SelectedJob)
-                                    {
-                                        <option value="@item.id" data-value="@x" selected>@item.Type</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.id" data-value="@x">@item.Type</option>
-
-                                    }
+                                    <option selected="selected">ابتدائي</option>
                                 }
+                                else
+                                {
+                                    <option>ابتدائي</option>
+
+                                }
+                                @if (Model.CType == "اعدادي")
+                                {
+                                    <option selected="selected">اعدادي</option>
+                                }
+                                else
+                                {
+                                    <option>اعدادي</option>
+
+                                }
+                                @if (Model.CType == "ثانوي")
+                                {
+                                    <option selected="selected">ثانوي</option>
+                                }
+                                else
+                                {
+                                    <option>ثانوي</option>
+
+
+                                }
+                                @if (Model.CType == "جامعي 4 سنوات")
+                                {
+                                    <option selected="selected">جامعي 4 سنوات</option>
+                                }
+                                else
+                                {
+                                    <option>جامعي 4 سنوات</option>
+
+                                }
+                                @if (Model.CType == "جامعي 5 سنوات")
+                                {
+                                    <option selected="selected">جامعي 5 سنوات</option>
+                                }
+                                else
+                                {
+                                    <option>جامعي 5 سنوات</option>
+
+                                }
+                                @if (Model.CType == "جامعي 6 سنوات")
+                                {
+                                    <option selected="selected">جامعي 6 سنوات</option>
+                                }
+                                else
+                                {
+                                    <option>جامعي 6 سنوات</option>
+
+                                }
+                                @if (Model.CType == "ماجستير")
+                                {
+                                    <option selected="selected">ماجستير</option>
+                                }
+                                else
+                                {
+                                    <option>ماجستير</option>
+
+                                }
+                                @if (Model.CType == "دكتوراة")
+                                {
+                                    <option selected="selected">دكتوراة</option>
+                                }
+                                else
+                                {
+                                    <option>دكتوراة</option>
+
+                                }
+
                             </select>
-                            @Html.ValidationMessageFor(model => model.Job, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.CType, "", new { @class = "text-danger" })
                         </div>
 
 
                     </div>
-
-                    <div class="form-group" id="EmpCenter" @if (Model.Centerid == null) { @: style="display:none"
-                                                                                                                                                                                                                                  }>
-                        @Html.LabelFor(model => model.Centerid, "المركز", htmlAttributes: new { @class = "control-label " })
-                        @Html.DropDownList("Centerid", null, "", htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Centerid, "", new { @class = "text-danger" })
-
-
-                    </div>
-                    <div class="form-group" id="EmpCity" @if (Model.CityID == null) { @: style="display:none"
-                                                                                                                                                                                                                                  }>
-                        @Html.LabelFor(model => model.CityID, "المدينة", htmlAttributes: new { @class = "control-label " })
-                        @Html.DropDownList("CityID", null, "", htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.OldJob, htmlAttributes: new { @class = "control-label " })
+                        @Html.EditorFor(model => model.OldJob, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.OldJob, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Periodid, "الفترة", htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label" })
 
 
                         <div>
-                            @Html.DropDownList("Periodid", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Periodid, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
                         </div>
 
-
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.SDate, htmlAttributes: new { @class = "control-label" })
-
-
-                        <div>
-                            @Html.EditorFor(model => model.SDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.SDate.Value.ToString("yyyy-MM-dd") } })
-                            @Html.ValidationMessageFor(model => model.SDate, "", new { @class = "text-danger" })
-                        </div>
-
-
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.EDate, htmlAttributes: new { @class = "control-label" })
-
-
-                        <div>
-                            @if (Model.EDate != null)
-                            {
-                                @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.EDate.Value.ToString("yyyy-MM-dd") } })
-
-                            }
-                            else
-                            {
-                                @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                            }
-                            @Html.ValidationMessageFor(model => model.EDate, "", new { @class = "text-danger" })
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label " })
-                        <div>
-                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-                        </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(model => model.ExpYears, htmlAttributes: new { @class = "control-label " })
-                        @Html.EditorFor(model => model.ExpYears, new { htmlAttributes = new { @class = "form-control", @type = "Number" } })
-                        @Html.ValidationMessageFor(model => model.ExpYears, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.telephoneNumber, htmlAttributes: new { @class = "control-label " })
+                        @Html.EditorFor(model => model.telephoneNumber, new { htmlAttributes = new { @class = "form-control", @type = "tel" } })
+                        @Html.ValidationMessageFor(model => model.telephoneNumber, "", new { @class = "text-danger" })
 
 
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(model => model.InsideOrOutside, htmlAttributes: new { @class = "control-label " })
-                        <select name="InsideOrOutside" id="InsideOrOutside" class="form-control">
-                            <option></option>
-
-                            @if (Model.InsideOrOutside == "داخل")
-                            {
-                                <option selected>داخل</option>
-                            }
-                            else
-                            {
-                                <option>داخل</option>
-                            }
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label " })
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
 
 
-                            @if (Model.InsideOrOutside == "خارج")
-                            {
-                                <option selected>خارج</option>
-                            }
-                            else
-                            {
-                                <option>خارج</option>
-                            }
-                        </select>
-                        @Html.ValidationMessageFor(model => model.InsideOrOutside, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label " })
-                        <div class="col-sm-12" style="margin-top:3px;">
-                            <div class="col-sm-6"></div>
-                            <div class="col-sm-3">
-                                @if (Model.Sex == "ذكر")
-                                {
-                                    <input type="radio" name="Sex" value="ذكر" style="color:white;display:inline-block;" checked />
-                                    <label style="display:inline-block;">ذكر</label>
-
-                                }
-                                else
-                                {
-                                    <input type="radio" name="Sex" value="ذكر" style="color:white;display:inline-block;" />
-                                    <label style="display:inline-block;">ذكر</label>
-
-                                }
-                            </div>
-
-                            <div class="col-sm-3">
-                                @if (Model.Sex == "انثى")
-                                {
-                                    <input type="radio" name="Sex" value="انثى" style="color:white;display:inline-block;" checked />
-                                    <label style="display:inline-block;">أنثى</label>
-
-                                }
-                                else
-                                {
-                                    <input type="radio" name="Sex" value="انثى" style="color:white;display:inline-block;" />
-                                    <label style="display:inline-block;">أنثى</label>
-
-                                }
-                            </div>
-
-                        </div>
-                        @*<select name="Sex" id="Sex" class="form-control">
-                                <option>ذكر</option>
-                                <option>انثى</option>
-                            </select>*@
-                    </div>
 
                 </div>
 
@@ -236,596 +240,221 @@
                     </div>*@
 
 
-                <div class="col-sm-6 hidden-xs">
-                    <div style="padding-left:10px;">
+                <div class="col-sm-6 pull-left PaddingLeftPart col-xs-12">
+                    <div>
+                        
+
                         <div class="form-group">
-                            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label" })
+                            @Html.LabelFor(model => model.Job, "المهمة", htmlAttributes: new { @class = "control-label" })
 
 
                             <div>
-                                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-                            </div>
-
-
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.surname, htmlAttributes: new { @class = "control-label" })
-
-
-                            <div>
-                                @Html.EditorFor(model => model.surname, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.surname, "", new { @class = "text-danger" })
-                            </div>
-
-
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.FathersName, htmlAttributes: new { @class = "control-label" })
-
-
-                            <div>
-                                @Html.EditorFor(model => model.FathersName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.FathersName, "", new { @class = "text-danger" })
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.BDate, htmlAttributes: new { @class = "control-label" })
-
-
-                            <div>
-                                @if (Model.BDate != null)
-                {
-                                    @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.BDate.Value.ToString("yyyy-MM-dd") } })
-
-                                }
-                                else
-                                {
-                                    @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                                }
-                                @Html.ValidationMessageFor(model => model.BDate, "", new { @class = "text-danger" })
-                            </div>
-
-
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Certificate, htmlAttributes: new { @class = "control-label" })
-
-
-                            <div>
-                                @Html.EditorFor(model => model.Certificate, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Certificate, "", new { @class = "text-danger" })
-                            </div>
-
-
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.CType, htmlAttributes: new { @class = "control-label" })
-
-
-                            <div>
-                                <select name="CType" id="CType" class="form-control">
-                                    @if (Model.CType == "ابتدائي")
+                                <select name="Job" id="Job" class="form-control">
+                                    @foreach (var item in ViewBag.Jobs)
                                     {
-                                        <option selected="selected">ابتدائي</option>
-                                    }
-                                    else
-                                    {
-                                        <option>ابتدائي</option>
+                                        int x;
+                                        if (item.SeeAccToCity == true)
+                                        {
+                                            x = 1;
 
-                                    }
-                                    @if (Model.CType == "اعدادي")
-                                    {
-                                        <option selected="selected">اعدادي</option>
-                                    }
-                                    else
-                                    {
-                                        <option>اعدادي</option>
+                                        }
+                                        else if (item.SeeAll == true || item.SeeAllButFinance == true || item.Manager == true)
+                                        {
+                                            x = 0;
+                                        }
+                                        else
+                                        {
+                                            x = 2;
+                                        }
+                                        if (item.id == ViewBag.SelectedJob)
+                                        {
+                                            <option value="@item.id" data-value="@x" selected>@item.Type</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.id" data-value="@x">@item.Type</option>
 
+                                        }
                                     }
-                                    @if (Model.CType == "ثانوي")
-                                    {
-                                        <option selected="selected">ثانوي</option>
-                                    }
-                                    else
-                                    {
-                                        <option>ثانوي</option>
-
-
-                                    }
-                                    @if (Model.CType == "جامعي 4 سنوات")
-                                    {
-                                        <option selected="selected">جامعي 4 سنوات</option>
-                                    }
-                                    else
-                                    {
-                                        <option>جامعي 4 سنوات</option>
-
-                                    }
-                                    @if (Model.CType == "جامعي 5 سنوات")
-                                    {
-                                        <option selected="selected">جامعي 5 سنوات</option>
-                                    }
-                                    else
-                                    {
-                                        <option>جامعي 5 سنوات</option>
-
-                                    }
-                                    @if (Model.CType == "جامعي 6 سنوات")
-                                    {
-                                        <option selected="selected">جامعي 6 سنوات</option>
-                                    }
-                                    else
-                                    {
-                                        <option>جامعي 6 سنوات</option>
-
-                                    }
-                                    @if (Model.CType == "ماجستير")
-                                    {
-                                        <option selected="selected">ماجستير</option>
-                                    }
-                                    else
-                                    {
-                                        <option>ماجستير</option>
-
-                                    }
-                                    @if (Model.CType == "دكتوراة")
-                                    {
-                                        <option selected="selected">دكتوراة</option>
-                                    }
-                                    else
-                                    {
-                                        <option>دكتوراة</option>
-
-                                    }
-
                                 </select>
-                                @Html.ValidationMessageFor(model => model.CType, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Job, "", new { @class = "text-danger" })
                             </div>
 
 
                         </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.OldJob, htmlAttributes: new { @class = "control-label " })
-                            @Html.EditorFor(model => model.OldJob, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.OldJob, "", new { @class = "text-danger" })
+
+                        <div class="form-group" id="EmpCenter" @if (Model.Centerid == null) { @: style="display:none"
+                                                                                                                                                                                                                                                                                        }>
+                            @Html.LabelFor(model => model.Centerid, "المركز", htmlAttributes: new { @class = "control-label " })
+                            @Html.DropDownList("Centerid", null, "", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Centerid, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="form-group" id="EmpCity" @if (Model.CityID == null) { @: style="display:none"
+                                                                                                                                                                                                                                                                                        }>
+                            @Html.LabelFor(model => model.CityID, "المدينة", htmlAttributes: new { @class = "control-label " })
+                            @Html.DropDownList("CityID", null, "", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label" })
+                            @Html.LabelFor(model => model.Periodid, "الفترة", htmlAttributes: new { @class = "control-label" })
 
 
                             <div>
-                                @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                                @Html.DropDownList("Periodid", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Periodid, "", new { @class = "text-danger" })
                             </div>
+
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SDate, htmlAttributes: new { @class = "control-label" })
+
+
+                            <div>
+                                @Html.EditorFor(model => model.SDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.SDate.Value.ToString("yyyy-MM-dd") } })
+                                @Html.ValidationMessageFor(model => model.SDate, "", new { @class = "text-danger" })
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EDate, htmlAttributes: new { @class = "control-label" })
+
+
+                            <div>
+                                @if (Model.EDate != null)
+                                {
+                                    @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.EDate.Value.ToString("yyyy-MM-dd") } })
+
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                                }
+                                @Html.ValidationMessageFor(model => model.EDate, "", new { @class = "text-danger" })
+                            </div>
+
 
                         </div>
 
 
                         <div class="form-group">
-                            <label class="control-label ">الاثبات</label>
+                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label " })
                             <div>
-                                <input id="file" type="file" aria-label="Add photos to your post" class="upload" name="file" multiple onchange="angular.element(this).scope().LoadFileData(this.files)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ExpYears, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.ExpYears, new { htmlAttributes = new { @class = "form-control", @type = "Number" } })
+                            @Html.ValidationMessageFor(model => model.ExpYears, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.InsideOrOutside, htmlAttributes: new { @class = "control-label " })
+                            <select name="InsideOrOutside" id="InsideOrOutside" class="form-control">
+                                <option></option>
+
+                                @if (Model.InsideOrOutside == "داخل")
+                                {
+                                    <option selected>داخل</option>
+                                }
+                                else
+                                {
+                                    <option>داخل</option>
+                                }
+
+
+                                @if (Model.InsideOrOutside == "خارج")
+                                {
+                                    <option selected>خارج</option>
+                                }
+                                else
+                                {
+                                    <option>خارج</option>
+                                }
+                            </select>
+                            @Html.ValidationMessageFor(model => model.InsideOrOutside, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @type = "Email" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label " })
+                            <div class="col-sm-12" style="margin-top:3px;">
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-3">
+                                    @if (Model.Sex == "ذكر")
+                                    {
+                                        <input type="radio" name="Sex" value="ذكر" style="color:white;display:inline-block;" checked />
+                                        <label style="display:inline-block;">ذكر</label>
+
+                                    }
+                                    else
+                                    {
+                                        <input type="radio" name="Sex" value="ذكر" style="color:white;display:inline-block;" />
+                                        <label style="display:inline-block;">ذكر</label>
+
+                                    }
+                                </div>
+
+                                <div class="col-sm-3">
+                                    @if (Model.Sex == "انثى")
+                                    {
+                                        <input type="radio" name="Sex" value="انثى" style="color:white;display:inline-block;" checked />
+                                        <label style="display:inline-block;">أنثى</label>
+
+                                    }
+                                    else
+                                    {
+                                        <input type="radio" name="Sex" value="انثى" style="color:white;display:inline-block;" />
+                                        <label style="display:inline-block;">أنثى</label>
+
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                <label class="control-label ">الاثبات</label>
+                                <div>
+                                    <input id="file" type="file" aria-label="Add photos to your post" class="upload" name="file" multiple onchange="angular.element(this).scope().LoadFileData(this.files)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                                </div>
+                            </div>
+                            @*<select name="Sex" id="Sex" class="form-control">
+                <option>ذكر</option>
+                <option>انثى</option>
+            </select>*@
+                        
+
 
                     </div>
                 </div>
 
-
-                <input type="submit" value="حفظ" class="btn btn-primary" />
-                <div class="form-group">
-                    <div class="alert alert-warning">
-                        "عند أي تعديل تعود كلمة المرور إلى "123
-                    </div>
-                </div>
             </div>
-        }
-    </div>
-    <div class="visible-xs">
-        @using (Html.BeginForm("Edit", "Employees", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="form-horizontal">
-                <h4>موظف</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.id)
-                @Html.HiddenFor(model => model.Proof)
-                @Html.HiddenFor(model => model.State)
-                <div class="form-group">
-                    @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label" })
-
-
-                    <div>
-                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-                    </div>
-
-
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.surname, htmlAttributes: new { @class = "control-label" })
-
-
-                    <div>
-                        @Html.EditorFor(model => model.surname, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.surname, "", new { @class = "text-danger" })
-                    </div>
-
-
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FathersName, htmlAttributes: new { @class = "control-label" })
-
-
-                    <div>
-                        @Html.EditorFor(model => model.FathersName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.FathersName, "", new { @class = "text-danger" })
-                    </div>
-
-
-                </div>
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.BDate, htmlAttributes: new { @class = "control-label" })
-
-
-                    <div>
-                        @if (Model.BDate != null)
-                        {
-                            @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.BDate.Value.ToString("yyyy-MM-dd") } })
-
-                        }
-                        else
-                        {
-                            @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                        }
-                        @Html.ValidationMessageFor(model => model.BDate, "", new { @class = "text-danger" })
-                        @Html.ValidationMessageFor(model => model.BDate, "", new { @class = "text-danger" })
-                    </div>
-
-
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Certificate, htmlAttributes: new { @class = "control-label" })
-
-
-                    <div>
-                        @Html.EditorFor(model => model.Certificate, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Certificate, "", new { @class = "text-danger" })
-                    </div>
-
-
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CType, htmlAttributes: new { @class = "control-label" })
-
-
-                    <div>
-                        <select name="CType" id="CType" class="form-control">
-                            @if (Model.CType == "ابتدائي")
-                            {
-                                <option selected="selected">ابتدائي</option>
-                            }
-                            else
-                            {
-                                <option>ابتدائي</option>
-
-                            }
-                            @if (Model.CType == "اعدادي")
-                            {
-                                <option selected="selected">اعدادي</option>
-                            }
-                            else
-                            {
-                                <option>اعدادي</option>
-
-                            }
-                            @if (Model.CType == "ثانوي")
-                            {
-                                <option selected="selected">ثانوي</option>
-                            }
-                            else
-                            {
-                                <option>ثانوي</option>
-
-
-                            }
-                            @if (Model.CType == "جامعي 4 سنوات")
-                            {
-                                <option selected="selected">جامعي 4 سنوات</option>
-                            }
-                            else
-                            {
-                                <option>جامعي 4 سنوات</option>
-
-                            }
-                            @if (Model.CType == "جامعي 5 سنوات")
-                            {
-                                <option selected="selected">جامعي 5 سنوات</option>
-                            }
-                            else
-                            {
-                                <option>جامعي 5 سنوات</option>
-
-                            }
-                            @if (Model.CType == "جامعي 6 سنوات")
-                            {
-                                <option selected="selected">جامعي 6 سنوات</option>
-                            }
-                            else
-                            {
-                                <option>جامعي 6 سنوات</option>
-
-                            }
-                            @if (Model.CType == "ماجستير")
-                            {
-                                <option selected="selected">ماجستير</option>
-                            }
-                            else
-                            {
-                                <option>ماجستير</option>
-
-                            }
-                            @if (Model.CType == "دكتوراة")
-                            {
-                                <option selected="selected">دكتوراة</option>
-                            }
-                            else
-                            {
-                                <option>دكتوراة</option>
-
-                            }
-
-                        </select>
-                        @Html.ValidationMessageFor(model => model.CType, "", new { @class = "text-danger" })
-                    </div>
-
-
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ExpYears, htmlAttributes: new { @class = "control-label " })
-                    @Html.EditorFor(model => model.ExpYears, new { htmlAttributes = new { @class = "form-control", @type = "Number" } })
-                    @Html.ValidationMessageFor(model => model.ExpYears, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.InsideOrOutside, htmlAttributes: new { @class = "control-label " })
-                    <select name="InsideOrOutside" id="InsideOrOutside" class="form-control">
-                        <option></option>
-
-                        @if (Model.InsideOrOutside == "داخل")
-                        {
-                            <option selected>داخل</option>
-                        }
-                        else
-                        {
-                            <option>داخل</option>
-                        }
-
-
-                        @if (Model.InsideOrOutside == "خارج")
-                        {
-                            <option selected>خارج</option>
-                        }
-                        else
-                        {
-                            <option>خارج</option>
-                        }
-                    </select>
-
-                    @Html.ValidationMessageFor(model => model.InsideOrOutside, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.OldJob, htmlAttributes: new { @class = "control-label " })
-                    @Html.EditorFor(model => model.OldJob, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.OldJob, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label" })
-
-
-                    <div>
-                        @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Job, "المهمة", htmlAttributes: new { @class = "control-label" })
-
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Job, "المهمة", htmlAttributes: new { @class = "control-label" })
-
-
-
-                        <select name="Job" id="Job" class="form-control">
-                            @foreach (var item in ViewBag.Jobs)
-                            {
-                                int x;
-                                if (item.SeeAccToCity == true)
-                                {
-                                    x = 1;
-
-                                }
-                                else if (item.SeeAll == true || item.SeeAllButFinance == true || item.Manager == true)
-                                {
-                                    x = 0;
-                                }
-                                else
-                                {
-                                    x = 2;
-                                }
-
-                                if (item.id == ViewBag.SelectedJob)
-                                {
-                                    <option value="@item.id" data-value="@x" selected>@item.Type</option>
-                                }
-                                else
-                                {
-                                    <option value="@item.id" data-value="@x">@item.Type</option>
-
-                                }
-                            }
-                        </select>
-                        @Html.ValidationMessageFor(model => model.Job, "", new { @class = "text-danger" })
-                    </div>
-
-
-                </div>
-                <div class="form-group" id="EmpCenter" @if (Model.Centerid == null) { @: style="display:none"
-                                                                                                                                                                                                                           }>
-                    @Html.LabelFor(model => model.Centerid, "المركز", htmlAttributes: new { @class = "control-label " })
-                    @Html.DropDownList("Centerid", null, "", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Centerid, "", new { @class = "text-danger" })
-
-
-                </div>
-                <div class="form-group" id="EmpCity" @if (Model.CityID == null) { @: style="display:none"
-                                                                                                                                                                                                                           }>
-                    @Html.LabelFor(model => model.CityID, "المدينة", htmlAttributes: new { @class = "control-label " })
-                    @Html.DropDownList("CityID", null, "", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Periodid, "الفترة", htmlAttributes: new { @class = "control-label" })
-
-
-                    <div>
-                        @Html.DropDownList("Periodid", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Periodid, "", new { @class = "text-danger" })
-                    </div>
-
-
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SDate, htmlAttributes: new { @class = "control-label" })
-
-
-                    <div>
-                        @Html.EditorFor(model => model.SDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.SDate.Value.ToString("yyyy-MM-dd") } })
-                        @Html.ValidationMessageFor(model => model.SDate, "", new { @class = "text-danger" })
-                    </div>
-
-
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EDate, htmlAttributes: new { @class = "control-label" })
-
-
-                    <div>
-                        @if (Model.EDate != null)
-                        {
-                            @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.EDate.Value.ToString("yyyy-MM-dd") } })
-
-                        }
-                        else
-                        {
-                            @Html.EditorFor(model => model.EDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                        }
-                        @Html.ValidationMessageFor(model => model.EDate, "", new { @class = "text-danger" })
-                    </div>
-
-
-                </div>
-
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label " })
-                    <div>
-                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label " })
-                    <div class="col-sm-12" style="margin-top:3px;">
-                        <div class="col-sm-6"></div>
-                        <div class="col-sm-3">
-                            @if (Model.Sex == "ذكر")
-                            {
-                                <input type="radio" name="Sex" value="ذكر" style="color:white;display:inline-block;" checked />
-                                    <label style="display:inline-block;">ذكر</label>
-
-                            }
-                            else
-                            {
-                                <input type="radio" name="Sex" value="ذكر" style="color:white;display:inline-block;" />
-                                    <label style="display:inline-block;">ذكر</label>
-
-                            }
-                        </div>
-
-                        <div class="col-sm-3">
-                            @if (Model.Sex == "انثى")
-                            {
-                                <input type="radio" name="Sex" value="انثى" style="color:white;display:inline-block;" checked />
-                                    <label style="display:inline-block;">أنثى</label>
-
-                            }
-                            else
-                            {
-                                <input type="radio" name="Sex" value="انثى" style="color:white;display:inline-block;" />
-                                    <label style="display:inline-block;">أنثى</label>
-
-                            }
-                        </div>
-
-
-
-                    </div>
-                    @*<select name="Sex" id="Sex" class="form-control">
-                            <option>ذكر</option>
-                            <option>انثى</option>
-                        </select>*@
-                </div>
-                <div class="form-group">
-                    <label class="control-label ">الاثبات</label>
-                    <div>
-                        <input id="file" type="file" aria-label="Add photos to your post" class="upload" name="file" multiple onchange="angular.element(this).scope().LoadFileData(this.files)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
-                    </div>
-                </div>
-
-                <input type="submit" value="حفظ" class="btn btn-primary" />
+            <input type="submit" value="حفظ" class="btn btn-primary" />
+            <div class="form-group">
                 <div class="alert alert-warning">
                     "عند أي تعديل تعود كلمة المرور إلى "123
                 </div>
             </div>
+        </div>
+    }
+</div>
 
-
-
-
-
-        }
-    </div>
-
-    <div>
-        @Html.ActionLink("العودة إلى اللائحة", "Index")
-    </div>
+<div>
+    @Html.ActionLink("العودة إلى اللائحة", "Index")
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

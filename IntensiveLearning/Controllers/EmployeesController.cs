@@ -1123,17 +1123,11 @@ namespace IntensiveLearning.Controllers
 
                     }
                 }
-                if (employee.InsideOrOutside != null)
-                {
-                    employee.InsideOrOutside.Trim();
-                }
                 employee.Password = Helper.ComputeHash("123", "SHA512", null);
                 if (proceed)
                 {
-
                     db.Entry(employee).State = EntityState.Modified;
                     db.SaveChanges();
-
                     TempData["Message"] = "تم التعديل بنجاح";
                     return RedirectToAction("Index");
                 }

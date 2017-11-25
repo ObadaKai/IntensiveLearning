@@ -132,6 +132,9 @@
     <Property Name="ExpYears" Type="int" />
     <Property Name="OldJob" Type="nvarchar(max)" />
     <Property Name="InsideOrOutside" Type="nvarchar" MaxLength="10" />
+    <Property Name="telephoneNumber" Type="int" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="EmployeeType">
     <Key>

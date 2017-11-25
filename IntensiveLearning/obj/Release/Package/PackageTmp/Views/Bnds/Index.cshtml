@@ -30,8 +30,18 @@
                 <th>
                     @Html.DisplayNameFor(model => model.AfterReductionNum)
                 </th>
+
                 <th>
                     @Html.DisplayNameFor(model => model.Month13Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month10Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month11Share)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month12Share)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Month1Share)
@@ -60,15 +70,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Month9Share)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Month10Share)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Month11Share)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Month12Share)
-                </th>
+                
                 <th>
                     المحتوى
                 </th>
@@ -94,6 +96,15 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Month13Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month10Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month11Share)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month12Share)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Month1Share)
@@ -122,15 +133,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Month9Share)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Month10Share)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Month11Share)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Month12Share)
-                    </td>
+
                     <td>
                         <a href="/SubBnds/Index/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-info-sign"></span></a>
                     </td>
