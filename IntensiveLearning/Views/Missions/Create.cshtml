@@ -1,0 +1,52 @@
+﻿@model IntensiveLearning.Models.MissionsModel
+
+@{
+    ViewBag.Title = "انشاء";
+}
+<div class="WhiteBlur">
+    <h2>انشاء</h2>
+    <div class="InfoContainer">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>مهمة</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.mission.MissionText, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextAreaFor(model => model.mission.MissionText, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.mission.MissionText, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ManagerId, "مدير المهمة", htmlAttributes: new { @class = "control-label " })
+                    <select name="ManagerId" id="ManagerId" class="form-control">
+                        @foreach (var item in ViewBag.ManagerId.Items)
+                        {
+                            <option value="@item.id">@item.name @item.surname</option>
+                        }
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label>الموسؤلين عن المهمة</label>
+                    <select multiple name="PeopleInCharge" id="PeopleInCharge" class="form-control" style="height:200px !important;">
+                        @foreach (var item in ViewBag.PeopleInCharge.Items)
+                        {
+                            <option value="@item.id">@item.name @item.surname</option>
+                        }
+                    </select>
+                    <label class="text-danger">@ViewBag.PeopleInChargeError</label>
+                </div>
+                <input type="submit" value="انشاء" class="btn btn-warning" />
+            </div>
+        }
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

@@ -1,0 +1,182 @@
+﻿@model IntensiveLearning.Models.MissionResposesModel
+
+@{
+    ViewBag.Title = "حذف";
+}
+
+<div class="WhiteBlur">
+    <h2>حذف</h2>
+
+    <div>
+        <h4>مهمة</h4>
+        <hr />
+        <h4>
+            @Html.DisplayNameFor(model => model.mission.MissionText)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.mission.MissionText)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.mission.Closed)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.mission.Closed)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.mission.Checked)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.mission.Checked)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.mission.DateOfEntry)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.mission.DateOfEntry)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.mission.TimeOfEntry)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.mission.TimeOfEntry)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.mission.DateOfFinish)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.mission.DateOfFinish)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.mission.TimeOfFinish)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.mission.TimeOfFinish)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.mission.DateOfLastModification)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.mission.DateOfLastModification)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.mission.NumberOfModifications)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.mission.NumberOfModifications)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.mission.TimeOfLastModification)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.mission.TimeOfLastModification)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.mission.Employee.name)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.mission.Employee.name)
+        </p>
+
+        <h4>
+            @Html.DisplayNameFor(model => model.mission.Employee1.name)
+        </h4>
+
+        <p>
+            @Html.DisplayFor(model => model.mission.Employee1.name)
+        </p>
+
+    </div>
+    <hr />
+    <div>
+        @{var responses = @Model.missionResponses.Where(x => x.MissionID == Model.mission.id).ToList(); }
+        <div>
+            @{int hr = 0, numberofComments = 0;
+            }
+            @foreach (var response in responses)
+            {
+                try
+                {
+                    int numofsubco = 0;
+                    if (response.NestedID == null)
+                    {
+                        <h4>@response.Employee.name @response.Employee.surname</h4>
+
+
+
+                                <h4 style="color:#2e2b2b">@response.Response&emsp;</h4>
+
+                        hr++;
+                        numberofComments++;
+                        numofsubco++;
+                    }
+                    foreach (var subresponse in responses)
+                    {
+                        if (response.MissionID == Model.mission.id)
+                        {
+
+
+                            if (subresponse.NestedID == response.id)
+                            {
+
+                                <div>
+                                    <h5 style="color:black;">@response.Employee.name @response.Employee.surname&emsp;&emsp;</h5>
+
+                                    <h5>@subresponse.Response&emsp;&emsp;</h5>
+                                </div>
+                                numofsubco++;
+
+
+                            }
+                        }
+
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                }
+                while (hr > 0)
+                {
+                    <hr />
+                    hr--;
+                }
+            }
+            @if (numberofComments == 0)
+            {
+                <h4 style="color:black">!لا يوجد تعليقات </h4>
+            }
+        </div>
+
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

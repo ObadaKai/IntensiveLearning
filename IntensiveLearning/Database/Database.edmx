@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TaalimModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TaalimModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bnd">
           <Key>
             <PropertyRef Name="id" />
@@ -75,6 +75,7 @@
           <Property Name="AddingDate" Type="date" />
           <Property Name="AddingTime" Type="time" Precision="7" />
           <Property Name="SpentBudget" Type="float" />
+          <Property Name="PCenterID" Type="int" />
         </EntityType>
         <EntityType Name="Cities">
           <Key>
@@ -372,6 +373,46 @@
           <Property Name="FullMark" Type="float" />
           <Property Name="LeastMark" Type="float" />
           <Property Name="State" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Mission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="MissionText" Type="nvarchar(max)" />
+          <Property Name="Closed" Type="bit" />
+          <Property Name="Checked" Type="bit" />
+          <Property Name="DateOfEntry" Type="date" />
+          <Property Name="TimeOfEntry" Type="time" Precision="7" />
+          <Property Name="DateOfFinish" Type="date" />
+          <Property Name="TimeOfFinish" Type="time" Precision="7" />
+          <Property Name="PersonChecked" Type="int" />
+          <Property Name="DateOfLastModification" Type="date" />
+          <Property Name="NumberOfModifications" Type="int" />
+          <Property Name="TimeOfLastModification" Type="time" Precision="7" />
+          <Property Name="Manager" Type="int" />
+          <Property Name="PersonEntered" Type="int" />
+          <Property Name="DateOfChecking" Type="date" />
+          <Property Name="TimeOFChecking" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="MissionPersonInCharge">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="MissionId" Type="int" />
+          <Property Name="EmployeeID" Type="int" />
+        </EntityType>
+        <EntityType Name="MissionResponse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="MissionID" Type="int" />
+          <Property Name="NestedID" Type="int" />
+          <Property Name="Response" Type="nvarchar(max)" />
+          <Property Name="WriterID" Type="int" />
+          <Property Name="type" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PaymentsRecord">
           <Key>
@@ -694,6 +735,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Mission_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Mission" Type="Self.Mission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Mission">
+              <PropertyRef Name="Manager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mission_Employees1">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Mission" Type="Self.Mission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Mission">
+              <PropertyRef Name="PersonChecked" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mission_Employees2">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Mission" Type="Self.Mission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Mission">
+              <PropertyRef Name="PersonEntered" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MissionPersonInCharge_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="MissionPersonInCharge" Type="Self.MissionPersonInCharge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MissionPersonInCharge">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MissionPersonInCharge_Mission">
+          <End Role="Mission" Type="Self.Mission" Multiplicity="0..1" />
+          <End Role="MissionPersonInCharge" Type="Self.MissionPersonInCharge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mission">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MissionPersonInCharge">
+              <PropertyRef Name="MissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MissionResponse_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="MissionResponse" Type="Self.MissionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MissionResponse">
+              <PropertyRef Name="WriterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MissionResponse_Mission">
+          <End Role="Mission" Type="Self.Mission" Multiplicity="0..1" />
+          <End Role="MissionResponse" Type="Self.MissionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mission">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MissionResponse">
+              <PropertyRef Name="MissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MissionResponse_MissionResponse">
+          <End Role="MissionResponse" Type="Self.MissionResponse" Multiplicity="0..1" />
+          <End Role="MissionResponse1" Type="Self.MissionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MissionResponse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MissionResponse1">
+              <PropertyRef Name="NestedID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_Bnd">
           <End Role="Bnd" Type="Self.Bnd" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -979,6 +1116,9 @@
           <EntitySet Name="Stages" EntityType="Self.Stages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Study_subject" EntityType="Self.Study_subject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mission" EntityType="Self.Mission" Schema="midad" store:Type="Tables" />
+          <EntitySet Name="MissionPersonInCharge" EntityType="Self.MissionPersonInCharge" Schema="midad" store:Type="Tables" />
+          <EntitySet Name="MissionResponse" EntityType="Self.MissionResponse" Schema="midad" store:Type="Tables" />
           <EntitySet Name="PaymentsRecord" EntityType="Self.PaymentsRecord" Schema="midad" store:Type="Tables" />
           <EntitySet Name="SubBnd" EntityType="Self.SubBnd" Schema="midad" store:Type="Tables" />
           <AssociationSet Name="FK_Centers_Centers" Association="Self.FK_Centers_Centers">
@@ -1081,6 +1221,38 @@
             <End Role="Stages" EntitySet="Stages" />
             <End Role="Lessons" EntitySet="Lessons" />
           </AssociationSet>
+          <AssociationSet Name="FK_Mission_Employees" Association="Self.FK_Mission_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Mission" EntitySet="Mission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mission_Employees1" Association="Self.FK_Mission_Employees1">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Mission" EntitySet="Mission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mission_Employees2" Association="Self.FK_Mission_Employees2">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Mission" EntitySet="Mission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MissionPersonInCharge_Employees" Association="Self.FK_MissionPersonInCharge_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="MissionPersonInCharge" EntitySet="MissionPersonInCharge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MissionPersonInCharge_Mission" Association="Self.FK_MissionPersonInCharge_Mission">
+            <End Role="Mission" EntitySet="Mission" />
+            <End Role="MissionPersonInCharge" EntitySet="MissionPersonInCharge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MissionResponse_Employees" Association="Self.FK_MissionResponse_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="MissionResponse" EntitySet="MissionResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MissionResponse_Mission" Association="Self.FK_MissionResponse_Mission">
+            <End Role="Mission" EntitySet="Mission" />
+            <End Role="MissionResponse" EntitySet="MissionResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MissionResponse_MissionResponse" Association="Self.FK_MissionResponse_MissionResponse">
+            <End Role="MissionResponse" EntitySet="MissionResponse" />
+            <End Role="MissionResponse1" EntitySet="MissionResponse" />
+          </AssociationSet>
           <AssociationSet Name="FK_Order_Bnd" Association="Self.FK_Order_Bnd">
             <End Role="Bnd" EntitySet="Bnd" />
             <End Role="Order" EntitySet="Order" />
@@ -1170,8 +1342,7 @@
             <End Role="SubBnd" EntitySet="SubBnd" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TaalimModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1247,6 +1418,7 @@
           <Property Name="AddingDate" Type="DateTime" Precision="0" />
           <Property Name="AddingTime" Type="Time" Precision="7" />
           <Property Name="SpentBudget" Type="Double" />
+          <Property Name="PCenterID" Type="Int32" />
           <NavigationProperty Name="Centers1" Relationship="Self.FK_Centers_Centers" FromRole="Centers" ToRole="Centers1" />
           <NavigationProperty Name="Center1" Relationship="Self.FK_Centers_Centers" FromRole="Centers1" ToRole="Centers" />
           <NavigationProperty Name="City" Relationship="Self.FK_Centers_Cities" FromRole="Centers" ToRole="Cities" />
@@ -1344,6 +1516,10 @@
           <NavigationProperty Name="Period" Relationship="Self.FK_Employees_Periods" FromRole="Employees" ToRole="Periods" />
           <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_Employees" FromRole="Employees" ToRole="Examination" />
           <NavigationProperty Name="Examinations1" Relationship="Self.FK_Examination_Employees1" FromRole="Employees" ToRole="Examination" />
+          <NavigationProperty Name="Missions" Relationship="Self.FK_Mission_Employees" FromRole="Employees" ToRole="Mission" />
+          <NavigationProperty Name="Missions1" Relationship="Self.FK_Mission_Employees1" FromRole="Employees" ToRole="Mission" />
+          <NavigationProperty Name="MissionPersonInCharges" Relationship="Self.FK_MissionPersonInCharge_Employees" FromRole="Employees" ToRole="MissionPersonInCharge" />
+          <NavigationProperty Name="MissionResponses" Relationship="Self.FK_MissionResponse_Employees" FromRole="Employees" ToRole="MissionResponse" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Employees" FromRole="Employees" ToRole="Order" />
           <NavigationProperty Name="Presences" Relationship="Self.FK_Presence_Employees" FromRole="Employees" ToRole="Presence" />
           <NavigationProperty Name="Presences1" Relationship="Self.FK_Presence_Employees1" FromRole="Employees" ToRole="Presence" />
@@ -1351,6 +1527,7 @@
           <NavigationProperty Name="Students" Relationship="Self.FK_Students_Employees" FromRole="Employees" ToRole="Students" />
           <NavigationProperty Name="Students1" Relationship="Self.FK_Students_Employees1" FromRole="Employees" ToRole="Students" />
           <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Employees" FromRole="Employees" ToRole="SubBnd" />
+          <NavigationProperty Name="Missions2" Relationship="TaalimModel.FK_Mission_Employees2" FromRole="Employee" ToRole="Mission" />
         </EntityType>
         <EntityType Name="EmployeeType">
           <Key>
@@ -1631,6 +1808,57 @@
           <Property Name="LeastMark" Type="Double" />
           <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_Study_subject" FromRole="Study_subject" ToRole="Examination" />
+        </EntityType>
+        <EntityType Name="Mission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="MissionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Closed" Type="Boolean" />
+          <Property Name="Checked" Type="Boolean" />
+          <Property Name="DateOfEntry" Type="DateTime" Precision="0" />
+          <Property Name="TimeOfEntry" Type="Time" Precision="7" />
+          <Property Name="DateOfFinish" Type="DateTime" Precision="0" />
+          <Property Name="TimeOfFinish" Type="Time" Precision="7" />
+          <Property Name="PersonChecked" Type="Int32" />
+          <Property Name="DateOfLastModification" Type="DateTime" Precision="0" />
+          <Property Name="NumberOfModifications" Type="Int32" />
+          <Property Name="TimeOfLastModification" Type="Time" Precision="7" />
+          <Property Name="Manager" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Mission_Employees" FromRole="Mission" ToRole="Employees" />
+          <NavigationProperty Name="Employee1" Relationship="Self.FK_Mission_Employees1" FromRole="Mission" ToRole="Employees" />
+          <NavigationProperty Name="MissionPersonInCharges" Relationship="Self.FK_MissionPersonInCharge_Mission" FromRole="Mission" ToRole="MissionPersonInCharge" />
+          <NavigationProperty Name="MissionResponses" Relationship="Self.FK_MissionResponse_Mission" FromRole="Mission" ToRole="MissionResponse" />
+          <Property Name="PersonEntered" Type="Int32" />
+          <Property Name="DateOfChecking" Type="DateTime" Precision="0" />
+          <Property Name="TimeOFChecking" Type="Time" Precision="7" />
+          <NavigationProperty Name="Employee2" Relationship="TaalimModel.FK_Mission_Employees2" FromRole="Mission" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="MissionPersonInCharge">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="MissionId" Type="Int32" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_MissionPersonInCharge_Employees" FromRole="MissionPersonInCharge" ToRole="Employees" />
+          <NavigationProperty Name="Mission" Relationship="Self.FK_MissionPersonInCharge_Mission" FromRole="MissionPersonInCharge" ToRole="Mission" />
+        </EntityType>
+        <EntityType Name="MissionResponse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="MissionID" Type="Int32" />
+          <Property Name="NestedID" Type="Int32" />
+          <Property Name="Response" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WriterID" Type="Int32" />
+          <Property Name="type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_MissionResponse_Employees" FromRole="MissionResponse" ToRole="Employees" />
+          <NavigationProperty Name="Mission" Relationship="Self.FK_MissionResponse_Mission" FromRole="MissionResponse" ToRole="Mission" />
+          <NavigationProperty Name="MissionResponse1" Relationship="Self.FK_MissionResponse_MissionResponse" FromRole="MissionResponse" ToRole="MissionResponse1" />
+          <NavigationProperty Name="MissionResponse2" Relationship="Self.FK_MissionResponse_MissionResponse" FromRole="MissionResponse1" ToRole="MissionResponse" />
         </EntityType>
         <EntityType Name="PaymentsRecord">
           <Key>
@@ -1946,6 +2174,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Mission_Employees">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Mission" Type="Self.Mission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Mission">
+              <PropertyRef Name="Manager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mission_Employees1">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Mission" Type="Self.Mission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Mission">
+              <PropertyRef Name="PersonChecked" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MissionPersonInCharge_Employees">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="MissionPersonInCharge" Type="Self.MissionPersonInCharge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MissionPersonInCharge">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MissionResponse_Employees">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="MissionResponse" Type="Self.MissionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MissionResponse">
+              <PropertyRef Name="WriterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_Employees">
           <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -2222,6 +2498,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MissionPersonInCharge_Mission">
+          <End Role="Mission" Type="Self.Mission" Multiplicity="0..1" />
+          <End Role="MissionPersonInCharge" Type="Self.MissionPersonInCharge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mission">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MissionPersonInCharge">
+              <PropertyRef Name="MissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MissionResponse_Mission">
+          <End Role="Mission" Type="Self.Mission" Multiplicity="0..1" />
+          <End Role="MissionResponse" Type="Self.MissionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mission">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MissionResponse">
+              <PropertyRef Name="MissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MissionResponse_MissionResponse">
+          <End Role="MissionResponse" Type="Self.MissionResponse" Multiplicity="0..1" />
+          <End Role="MissionResponse1" Type="Self.MissionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MissionResponse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MissionResponse1">
+              <PropertyRef Name="NestedID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TaalimEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Bnds" EntityType="Self.Bnd" />
           <EntitySet Name="Centers" EntityType="Self.Center" />
@@ -2243,6 +2555,9 @@
           <EntitySet Name="Stages" EntityType="Self.Stage" />
           <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="Study_subject" EntityType="Self.Study_subject" />
+          <EntitySet Name="Missions" EntityType="Self.Mission" />
+          <EntitySet Name="MissionPersonInCharges" EntityType="Self.MissionPersonInCharge" />
+          <EntitySet Name="MissionResponses" EntityType="Self.MissionResponse" />
           <EntitySet Name="PaymentsRecords" EntityType="Self.PaymentsRecord" />
           <EntitySet Name="SubBnds" EntityType="Self.SubBnd" />
           <AssociationSet Name="FK_Order_Bnd" Association="Self.FK_Order_Bnd">
@@ -2341,6 +2656,22 @@
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Examination" EntitySet="Examinations" />
           </AssociationSet>
+          <AssociationSet Name="FK_Mission_Employees" Association="Self.FK_Mission_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Mission" EntitySet="Missions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mission_Employees1" Association="Self.FK_Mission_Employees1">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Mission" EntitySet="Missions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MissionPersonInCharge_Employees" Association="Self.FK_MissionPersonInCharge_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="MissionPersonInCharge" EntitySet="MissionPersonInCharges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MissionResponse_Employees" Association="Self.FK_MissionResponse_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="MissionResponse" EntitySet="MissionResponses" />
+          </AssociationSet>
           <AssociationSet Name="FK_Order_Employees" Association="Self.FK_Order_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Order" EntitySet="Orders" />
@@ -2433,7 +2764,35 @@
             <End Role="Stages" EntitySet="Stages" />
             <End Role="Students" EntitySet="Students" />
           </AssociationSet>
+          <AssociationSet Name="FK_MissionPersonInCharge_Mission" Association="Self.FK_MissionPersonInCharge_Mission">
+            <End Role="Mission" EntitySet="Missions" />
+            <End Role="MissionPersonInCharge" EntitySet="MissionPersonInCharges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MissionResponse_Mission" Association="Self.FK_MissionResponse_Mission">
+            <End Role="Mission" EntitySet="Missions" />
+            <End Role="MissionResponse" EntitySet="MissionResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MissionResponse_MissionResponse" Association="Self.FK_MissionResponse_MissionResponse">
+            <End Role="MissionResponse" EntitySet="MissionResponses" />
+            <End Role="MissionResponse1" EntitySet="MissionResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mission_Employees2" Association="TaalimModel.FK_Mission_Employees2">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Mission" EntitySet="Missions" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Mission_Employees2">
+          <End Type="TaalimModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="TaalimModel.Mission" Role="Mission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Mission">
+              <PropertyRef Name="PersonEntered" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2510,6 +2869,7 @@
                 <ScalarProperty Name="AddingDate" ColumnName="AddingDate" />
                 <ScalarProperty Name="AddingTime" ColumnName="AddingTime" />
                 <ScalarProperty Name="SpentBudget" ColumnName="SpentBudget" />
+                <ScalarProperty Name="PCenterID" ColumnName="PCenterID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2825,6 +3185,49 @@
                 <ScalarProperty Name="FullMark" ColumnName="FullMark" />
                 <ScalarProperty Name="LeastMark" ColumnName="LeastMark" />
                 <ScalarProperty Name="State" ColumnName="State" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Missions">
+            <EntityTypeMapping TypeName="TaalimModel.Mission">
+              <MappingFragment StoreEntitySet="Mission">
+                <ScalarProperty Name="TimeOFChecking" ColumnName="TimeOFChecking" />
+                <ScalarProperty Name="DateOfChecking" ColumnName="DateOfChecking" />
+                <ScalarProperty Name="PersonEntered" ColumnName="PersonEntered" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MissionText" ColumnName="MissionText" />
+                <ScalarProperty Name="Closed" ColumnName="Closed" />
+                <ScalarProperty Name="Checked" ColumnName="Checked" />
+                <ScalarProperty Name="DateOfEntry" ColumnName="DateOfEntry" />
+                <ScalarProperty Name="TimeOfEntry" ColumnName="TimeOfEntry" />
+                <ScalarProperty Name="DateOfFinish" ColumnName="DateOfFinish" />
+                <ScalarProperty Name="TimeOfFinish" ColumnName="TimeOfFinish" />
+                <ScalarProperty Name="PersonChecked" ColumnName="PersonChecked" />
+                <ScalarProperty Name="DateOfLastModification" ColumnName="DateOfLastModification" />
+                <ScalarProperty Name="NumberOfModifications" ColumnName="NumberOfModifications" />
+                <ScalarProperty Name="TimeOfLastModification" ColumnName="TimeOfLastModification" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MissionPersonInCharges">
+            <EntityTypeMapping TypeName="TaalimModel.MissionPersonInCharge">
+              <MappingFragment StoreEntitySet="MissionPersonInCharge">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MissionId" ColumnName="MissionId" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MissionResponses">
+            <EntityTypeMapping TypeName="TaalimModel.MissionResponse">
+              <MappingFragment StoreEntitySet="MissionResponse">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MissionID" ColumnName="MissionID" />
+                <ScalarProperty Name="NestedID" ColumnName="NestedID" />
+                <ScalarProperty Name="Response" ColumnName="Response" />
+                <ScalarProperty Name="WriterID" ColumnName="WriterID" />
+                <ScalarProperty Name="type" ColumnName="type" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

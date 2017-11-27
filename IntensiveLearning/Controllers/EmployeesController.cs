@@ -17,7 +17,6 @@ namespace IntensiveLearning.Controllers
     public class EmployeesController : Controller
     {
         private TaalimEntities db = new TaalimEntities();
-
         // GET: Employees
         public ActionResult Index()
         {

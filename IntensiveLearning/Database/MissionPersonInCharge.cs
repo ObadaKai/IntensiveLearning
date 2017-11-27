@@ -12,13 +12,13 @@ namespace IntensiveLearning.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Concern
+    public partial class MissionPersonInCharge
     {
         public int id { get; set; }
-        public Nullable<int> Employeeid { get; set; }
-        public string Concern1 { get; set; }
-        public Nullable<System.DateTime> date { get; set; }
+        public Nullable<int> MissionId { get; set; }
+        public Nullable<int> EmployeeID { get; set; }
     
         public virtual Employee Employee { get; set; }
+        public virtual Mission Mission { get; set; }
     }
 }

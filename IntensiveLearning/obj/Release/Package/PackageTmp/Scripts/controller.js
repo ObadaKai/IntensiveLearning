@@ -225,9 +225,9 @@
         });
 
         $scope.StudentSearchBox = function () {
+            $('#LoadingScreen').show();
             if ($scope.StudentSearchBoxData || $scope.StudentSearchBoxDate) {
                 var ToSenh2ext = { 'SearchBoxData': $scope.StudentSearchBoxData, 'SearchBoxDate': $scope.StudentSearchBoxDate };
-                $('#LoadingScreen').show();
                 $http({ method: 'POST', url: '/Json/SearchStudents', data: ToSenh2ext }).then(function successCallback(response) {
                     $scope.Students = response.data;
                     angular.forEach($scope.Students, function (value, key) {
@@ -278,11 +278,10 @@
             $('#LoadingScreen').hide();
         });
         $scope.PresenceSearchBox = function () {
-
+            $('#LoadingScreen').show();
             if ($scope.PresenceSearchBoxData || $scope.PresenceSearchBoxDate) {
 
                 var ToSenh2ext = { 'SearchBoxData': $scope.PresenceSearchBoxData, 'SearchBoxDate': $scope.PresenceSearchBoxDate };
-                $('#LoadingScreen').show();
                 $http({ method: 'POST', url: '/Json/Presences', data: ToSenh2ext }).then(function successCallback(response) {
                     $scope.Exams = response.data;
                     angular.forEach($scope.Exams, function (value, key) {
@@ -326,9 +325,9 @@
         });
 
         $scope.EmployeeSearchBox = function () {
+            $('#LoadingScreen').show();
             if ($scope.EmployeeSearchBoxData || $scope.EmployeeSearchBoxDate) {
                 var ToSenh2ext = { 'SearchBoxData': $scope.EmployeeSearchBoxData, 'SearchBoxDate': $scope.EmployeeSearchBoxDate };
-                $('#LoadingScreen').show();
                 $http({ method: 'POST', url: '/Json/Employees', data: ToSenh2ext }).then(function successCallback(response) {
                     $scope.Exams = response.data;
                     angular.forEach($scope.Exams, function (value, key) {
@@ -384,9 +383,9 @@
         });
 
         $scope.ExamSearchBox = function () {
+            $('#LoadingScreen').show();
             if ($scope.ExamSearchBoxData || $scope.ExamSearchBoxDate || $scope.ExamSearchBoxNumber) {
                 var ToSenh2ext = { 'SearchBoxData': $scope.ExamSearchBoxData, 'SearchBoxDate': $scope.ExamSearchBoxDate, 'SearchBoxNumber': $scope.ExamSearchBoxNumber };
-                $('#LoadingScreen').show();
                 var myEl = angular.element(document.querySelector('.razorRow'));
                 myEl.empty();
                 $http({ method: 'POST', url: '/Json/Exams', data: ToSenh2ext }).then(function successCallback(response) {

@@ -12,18 +12,25 @@ namespace IntensiveLearning.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class ExamType
+    public partial class MissionResponse
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ExamType()
+        public MissionResponse()
         {
-            this.Examinations = new HashSet<Examination>();
+            this.MissionResponse1 = new HashSet<MissionResponse>();
         }
     
         public int id { get; set; }
-        public string Type { get; set; }
+        public Nullable<int> MissionID { get; set; }
+        public Nullable<int> NestedID { get; set; }
+        public string Response { get; set; }
+        public Nullable<int> WriterID { get; set; }
+        public string type { get; set; }
     
+        public virtual Employee Employee { get; set; }
+        public virtual Mission Mission { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Examination> Examinations { get; set; }
+        public virtual ICollection<MissionResponse> MissionResponse1 { get; set; }
+        public virtual MissionResponse MissionResponse2 { get; set; }
     }
 }

@@ -11,9 +11,7 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class SubBnd
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,23 +23,11 @@ namespace IntensiveLearning.Database
         public int id { get; set; }
         public Nullable<int> BndId { get; set; }
         public Nullable<int> CenterID { get; set; }
-        [DisplayName("ÇáãÇÏÉ")]
-
         public string Subject { get; set; }
-        [DisplayName("ÓÚÑ ÇáŞØÚÉ")]
-
         public Nullable<double> PeacePrice { get; set; }
-        [DisplayName("ÚÏÏ ÇáŞØÚ")]
-
         public Nullable<int> Quantity { get; set; }
-        [DisplayName("ÇáãÌãæÚ")]
-
         public Nullable<double> SumPrice { get; set; }
-        [DisplayName("ÇáÊÇÑíÎ")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-
         public Nullable<System.DateTime> Date { get; set; }
-
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> Orderid { get; set; }
     

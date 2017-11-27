@@ -25,12 +25,6 @@
                     @Html.DisplayNameFor(model => model.Project.ProjectName)
                 </th>
                 <th></th>
-
-
-
-
-
-
             </tr>
         </thead>
         <tbody>
@@ -47,9 +41,6 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Project.ProjectName)
                     </td>
-
-
-
                     <td>
                         @if (Session["AddCitesAndCenters"] != null)
                         {
@@ -92,9 +83,6 @@
                             <a href="/Cities/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                         }
                     </td>
-
-
-
                 </tr>
 
             }

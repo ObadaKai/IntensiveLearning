@@ -11,35 +11,18 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Lesson
     {
         public int id { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá Çáíæã")]
-        [DisplayName("Çáíæã")]
         public string Day { get; set; }
-        [DisplayName("ÇáÍÇáÉ")]
         public string State { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÏÑÓ ")]
-        [DisplayName("ÇáÏÑÓ 1")]
         public string Lesson1 { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÏÑÓ ")]
-        [DisplayName("ÇáÏÑÓ 2")]
         public string Lesson2 { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÏÑÓ ")]
-        [DisplayName("ÇáÏÑÓ 3")]
         public string Lesson3 { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÏÑÓ ")]
-        [DisplayName("ÇáÏÑÓ 4")]
         public string Lesson4 { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÏÑÓ ")]
-        [DisplayName("ÇáÏÑÓ 5")]
         public string Lesson5 { get; set; }
-        [DisplayName("ÇáÏÑÓ 6")]
         public string Lesson6 { get; set; }
-        [DisplayName("ÇáÏÑÓ 7")]
         public string Lesson7 { get; set; }
         public Nullable<int> Regimentid { get; set; }
         public Nullable<int> Stageid { get; set; }

@@ -94,6 +94,9 @@ body {
 .WhiteBlur hr {
     border-top: 1px solid #a55c52;
 }
+.WhiteBlur div hr {
+    border-top: 1px solid #a55c52;
+}
 
 .WhiteBlur h4, .WhiteBlur label {
     color: #a55c52;
@@ -167,6 +170,7 @@ a {
     a:hover, a:focus {
         color: #eea236;
         cursor:pointer;
+        text-decoration:none;
     }
 
 th {
@@ -288,12 +292,9 @@ textarea {
     color: white;
     font-size: 18px;
     line-height: 90.7px;
+    /*padding:10px 20px !important;*/
 }
 
-    .NavBar-Type:hover {
-        color: #ec971f;
-        text-decoration: none;
-    }
 
 .SideBar {
     height: 100%;
@@ -493,11 +494,12 @@ thead .bg-primary {
 
         .HomePageNavBar .open .dropdown-menu > li > a {
             color: white;
+            padding: 10px 20px !important;
         }
 
             .HomePageNavBar .open .dropdown-menu > li > a:hover, .HomePageNavBar .open .dropdown-menu > li > a:focus {
                 color: #eea236;
-                background-color: rgba(37, 8, 4,0.3);
+                background:none;
             }
 
 .navbar-fixed-top {
@@ -545,14 +547,8 @@ thead .bg-primary {
 }
 .LoadingIcon {
     position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
     z-index: 2;
-    margin: auto;
-    width: fit-content;
-    height: fit-content;
+
 }
 
 @keyframes lds-spinner {
@@ -576,7 +572,12 @@ thead .bg-primary {
 }
 
 .lds-spinner {
-    position: relative;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
 }
 
     .lds-spinner div {

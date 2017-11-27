@@ -15,10 +15,10 @@ namespace IntensiveLearning.Controllers
     public class JsonController : Controller
     {
         private TaalimEntities db = new TaalimEntities();
-       
-        
-        
-        
+
+
+
+
         // GET: Json
         public JsonResult FetchStudentsOfDate()
         {
@@ -56,9 +56,260 @@ namespace IntensiveLearning.Controllers
         }
 
 
+        public ActionResult Missions()
+        {
+            var empid = Convert.ToInt32(Session["ID"]);
+            var emp = db.Employees.Find(empid);
+            var toChangeMissions = new List<Mission>();
+            var toChangeResponses = new List<MissionResponse>();
+            var tosendList = new List<object>();
+            if (emp.EmployeeType.Manager != true && emp.EmployeeType.CoManager != true)
+            {
+                var PIC = db.MissionPersonInCharges.Where(x => x.EmployeeID == empid).ToList();
+
+                foreach (var item in PIC)
+                {
+                    Mission ms = db.Missions.Where(x => x.id == item.MissionId).Where(x => x.Closed != true).FirstOrDefault();
+                    if (ms != null)
+                    {
+                        toChangeMissions.Add(ms);
+                    }
+
+                }
+                var Missions = db.Missions.Where(x => x.Manager == empid).Where(x => x.Closed != true).ToList();
+                var MissionsWithEntries = db.Missions.Where(x => x.PersonEntered == empid).Where(x => x.Closed != true).ToList();
+                toChangeMissions = toChangeMissions.Union(Missions).ToList();
+                toChangeMissions = toChangeMissions.Union(MissionsWithEntries).ToList();
+                toChangeResponses = db.MissionResponses.ToList();
+            }
+            else
+            {
+                toChangeMissions = db.Missions.Where(x => x.Closed != true).ToList();
+                toChangeResponses = db.MissionResponses.ToList();
+            }
+
+            foreach (var item in toChangeMissions)
+            {
+                if (item.Employee == null) item.Employee = new Employee();
+                if (item.Employee1 == null) item.Employee1 = new Employee();
+                if (item.MissionResponses.Count == 0) item.MissionResponses = new List<MissionResponse>();
+                if (item.MissionPersonInCharges.Count == 0) item.MissionPersonInCharges = new List<MissionPersonInCharge>();
+
+            }
+            if (true)
+            {
+
+            }
 
 
+            var ToSendMissions = toChangeMissions.Select(c => new
+            {
+                ID = c.id,
+                Checked = c.Checked,
+                Closed = c.Closed,
+                MissionText = c.MissionText,
+                DateOfEntry = c.DateOfEntry,
+                DateOfFinish = c.DateOfFinish,
+                DateOfLastModification = c.DateOfLastModification,
+                TimeOfEntry = c.TimeOfEntry,
+                TimeOfFinish = c.TimeOfFinish,
+                TimeOfLastModification = c.TimeOfLastModification,
+                ManagerName = c.Employee.name,
+                ManagerSurname = c.Employee.surname,
+                ManagerID = c.Manager,
+                PersonEntered = c.PersonEntered,
+                NumberOfModifications = c.NumberOfModifications,
+                PersonCheckedName = c.Employee1.name,
+                PersonCheckedSurname = c.Employee1.surname,
+                Comments = c.MissionResponses.Select(x => new
+                {
+                    EmployeeName = x.Employee.name,
+                    EmployeeSurname = x.Employee.surname,
+                    MissionID = x.MissionID,
+                    Response = x.Response,
+                    NestedID = x.NestedID
+                }),
+                PeopleInCharge = c.MissionPersonInCharges.Select(x => new
+                {
+                    EmployeeID = x.EmployeeID,
+                    EmployeeName = x.Employee.name,
+                    EmployeeSurname = x.Employee.surname
+                }),
+            }).ToList();
 
+            var toSendResponses = toChangeResponses.Select(c => new
+            {
+                ID = c.id,
+                MissionID = c.MissionID,
+                Response = c.Response,
+                NestedID = c.NestedID,
+                type = c.type,
+                EmployeeName = c.Employee.name,
+                EmployeeSurname = c.Employee.surname,
+            }).ToList();
+            tosendList.Add(ToSendMissions);
+            tosendList.Add(toSendResponses);
+            tosendList.Add(empid);
+            return Json(tosendList, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult MissionsShowHistory()
+        {
+            var empid = Convert.ToInt32(Session["ID"]);
+            var emp = db.Employees.Find(empid);
+            var toChangeMissions = new List<Mission>();
+            var toChangeResponses = new List<MissionResponse>();
+            var tosendList = new List<object>();
+            if (emp.EmployeeType.Manager != true && emp.EmployeeType.CoManager != true)
+            {
+                var PIC = db.MissionPersonInCharges.Where(x => x.EmployeeID == empid).ToList();
+
+                foreach (var item in PIC)
+                {
+                    Mission ms = db.Missions.Where(x => x.id == item.MissionId).Where(x => x.Closed == true).FirstOrDefault();
+                    if (ms != null)
+                    {
+                        toChangeMissions.Add(ms);
+                    }
+
+                }
+                var Missions = db.Missions.Where(x => x.Manager == empid).Where(x => x.Closed == true).ToList();
+                var MissionsWithEntries = db.Missions.Where(x => x.PersonEntered == empid).Where(x => x.Closed == true).ToList();
+                toChangeMissions = toChangeMissions.Union(Missions).ToList();
+                toChangeMissions = toChangeMissions.Union(MissionsWithEntries).ToList();
+                toChangeResponses = db.MissionResponses.ToList();
+            }
+            else
+            {
+                toChangeMissions = db.Missions.Where(x => x.Closed == true).ToList();
+                toChangeResponses = db.MissionResponses.ToList();
+            }
+
+            foreach (var item in toChangeMissions)
+            {
+                if (item.Employee == null) item.Employee = new Employee();
+                if (item.Employee1 == null) item.Employee1 = new Employee();
+                if (item.MissionResponses.Count == 0) item.MissionResponses = new List<MissionResponse>();
+                if (item.MissionPersonInCharges.Count == 0) item.MissionPersonInCharges = new List<MissionPersonInCharge>();
+
+            }
+            if (true)
+            {
+
+            }
+
+
+            var ToSendMissions = toChangeMissions.Select(c => new
+            {
+                ID = c.id,
+                Checked = c.Checked,
+                Closed = c.Closed,
+                MissionText = c.MissionText,
+                DateOfEntry = c.DateOfEntry,
+                DateOfFinish = c.DateOfFinish,
+                DateOfLastModification = c.DateOfLastModification,
+                TimeOfEntry = c.TimeOfEntry,
+                TimeOfFinish = c.TimeOfFinish,
+                PersonEntered = c.PersonEntered,
+                TimeOfLastModification = c.TimeOfLastModification,
+                ManagerName = c.Employee.name,
+                ManagerSurname = c.Employee.surname,
+                ManagerID = c.Manager,
+                NumberOfModifications = c.NumberOfModifications,
+                PersonCheckedName = c.Employee1.name,
+                PersonCheckedSurname = c.Employee1.surname,
+                Comments = c.MissionResponses.Select(x => new
+                {
+                    EmployeeName = x.Employee.name,
+                    EmployeeSurname = x.Employee.surname,
+                    MissionID = x.MissionID,
+                    Response = x.Response,
+                    NestedID = x.NestedID
+                }),
+                PeopleInCharge = c.MissionPersonInCharges.Select(x => new
+                {
+                    EmployeeID = x.EmployeeID,
+                    EmployeeName = x.Employee.name,
+                    EmployeeSurname = x.Employee.surname
+                }),
+            }).ToList();
+
+            var toSendResponses = toChangeResponses.Select(c => new
+            {
+                ID = c.id,
+                MissionID = c.MissionID,
+                Response = c.Response,
+                NestedID = c.NestedID,
+                type = c.type,
+                EmployeeName = c.Employee.name,
+                EmployeeSurname = c.Employee.surname,
+            }).ToList();
+            tosendList.Add(ToSendMissions);
+            tosendList.Add(toSendResponses);
+            tosendList.Add(empid);
+            return Json(tosendList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AddComment(string comment, string MissionID, string nested, string ResponseID)
+        {
+
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            MissionResponse response = new MissionResponse();
+            try
+            {
+                response.id = db.MissionResponses.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+            }
+            catch (Exception)
+            {
+                response.id = 1;
+            }
+            response.MissionID = Convert.ToInt32(MissionID);
+            response.Response = comment;
+            response.WriterID = Convert.ToInt32(Session["ID"]);
+            if (nested == "Yes")
+            {
+                response.NestedID = Convert.ToInt32(ResponseID);
+            }
+
+            db.MissionResponses.Add(response);
+            db.SaveChanges();
+
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        public JsonResult CheckMission(string id)
+        {
+            var mID = Convert.ToInt32(id);
+            var empid = Convert.ToInt32(Session["ID"]);
+            if (db.MissionPersonInCharges.Where(x => x.MissionId == mID && x.EmployeeID == empid).Count() > 0)
+            {
+                Mission mission = db.Missions.Find(mID);
+                mission.Checked = true;
+                mission.DateOfChecking = DateTime.Now.Date;
+                mission.TimeOFChecking = DateTime.Now.TimeOfDay;
+                mission.PersonChecked = Convert.ToInt32(Session["ID"]);
+                db.SaveChanges();
+                return Json(true);
+            }
+            return Json(false);
+        }
+
+        public ActionResult CloseMission(int id)
+        {
+            var empid = Convert.ToInt32(Session["ID"]);
+            Mission mission = db.Missions.Find(id);
+            if (empid == mission.Manager)
+            {
+                mission.Closed = true;
+                mission.DateOfFinish = DateTime.Now.Date;
+                mission.TimeOfFinish = DateTime.Now.TimeOfDay;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Missions");
+        }
         [HttpGet]
         public ActionResult Exams()
         {
@@ -226,16 +477,16 @@ namespace IntensiveLearning.Controllers
                 var employees = db.Employees.ToList();
                 if (type.AddNewEmployeeType == true)
                 {
-                     employees = db.Employees.Where(x => x.EmployeeType.Manager == true).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                    employees = db.Employees.Where(x => x.EmployeeType.Manager == true).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
                 }
                 else if (type.AddManagers == true)
                 {
-                     employees = db.Employees.Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                    employees = db.Employees.Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
                 }
                 else if (type.Manager == true)
                 {
 
-                     employees = db.Employees.Where(x => x.EmployeeType.CoManager == true || x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                    employees = db.Employees.Where(x => x.EmployeeType.CoManager == true || x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
 
                 }
                 else if (type.CoManager == true)
@@ -243,7 +494,7 @@ namespace IntensiveLearning.Controllers
                     if (type.SeeAccToCity == true)
                     {
 
-                         employees = db.Employees.Where(x => ((x.CityID == emp.CityID || x.Center.Cityid == emp.CityID) && (x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true)) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Center.Cityid == emp.CityID)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                        employees = db.Employees.Where(x => ((x.CityID == emp.CityID || x.Center.Cityid == emp.CityID) && (x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true)) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Center.Cityid == emp.CityID)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
                     }
                     else if (type.SeeAccToCenter == true)
                     {
@@ -251,7 +502,7 @@ namespace IntensiveLearning.Controllers
                     }
                     else
                     {
-                         employees = db.Employees.Where(x => x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true || x.CityID != null || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                        employees = db.Employees.Where(x => x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true || x.CityID != null || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
                     }
                 }
                 else if (type.SchoolManager == true)
@@ -259,20 +510,20 @@ namespace IntensiveLearning.Controllers
                     if (type.SeeAccToCity == true)
                     {
 
-                         employees = db.Employees.Where(x => ((x.CityID == emp.CityID || x.Center.Cityid == emp.CityID) && x.EmployeeType.NormalEmployee == true) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Center.Cityid == emp.CityID)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                        employees = db.Employees.Where(x => ((x.CityID == emp.CityID || x.Center.Cityid == emp.CityID) && x.EmployeeType.NormalEmployee == true) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Center.Cityid == emp.CityID)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
                     }
                     else if (type.SeeAccToCenter == true)
                     {
-                         employees = db.Employees.Where(x => ((x.Centerid == emp.Centerid) && x.EmployeeType.NormalEmployee == true) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Centerid == emp.Centerid)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                        employees = db.Employees.Where(x => ((x.Centerid == emp.Centerid) && x.EmployeeType.NormalEmployee == true) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Centerid == emp.Centerid)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
                     }
                     else
                     {
-                         employees = db.Employees.Where(x => x.EmployeeType.NormalEmployee == true || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                        employees = db.Employees.Where(x => x.EmployeeType.NormalEmployee == true || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
                     }
                 }
                 else if (type.SeeTeachers == true)
                 {
-                     employees = db.Employees.Where(x => (x.EmployeeType.SeeTeachers == true && x.Centerid == emp.Centerid) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                    employees = db.Employees.Where(x => (x.EmployeeType.SeeTeachers == true && x.Centerid == emp.Centerid) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
                 }
                 foreach (var Emp in employees)
                 {
@@ -761,7 +1012,7 @@ namespace IntensiveLearning.Controllers
                 StudentNumber = c.StudentNumber,
                 StudentState = c.StudentState,
                 OldSchool = c.OldSchool,
-            }).OrderBy(x=>x.StudentNumber);
+            }).OrderBy(x => x.StudentNumber);
             return Json(ToSendStudents, JsonRequestBehavior.AllowGet);
         }
 

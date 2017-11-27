@@ -11,9 +11,7 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Regiment
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,17 +20,15 @@ namespace IntensiveLearning.Database
             this.Lessons = new HashSet<Lesson>();
             this.Students = new HashSet<Student>();
         }
-
+    
         public int id { get; set; }
-        [Required]
-        [DisplayName("«”„ «·‘⁄»…")]
         public string Name { get; set; }
         public Nullable<int> Periodid { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lesson> Lessons { get; set; }
+        public virtual Period Period { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Students { get; set; }
-        public virtual Period Period { get; set; }
     }
 }

@@ -167,6 +167,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JsonController.cs" />
     <Compile Include="Controllers\LessonsController.cs" />
+    <Compile Include="Controllers\MissionsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PeriodsController.cs" />
     <Compile Include="Controllers\PresencesController.cs" />
@@ -222,6 +223,15 @@
     <Compile Include="Database\Lesson.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\Mission.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\MissionPersonInCharge.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\MissionResponse.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\NonUserAddRequest.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -266,6 +276,8 @@
     <Compile Include="Models\Date.cs" />
     <Compile Include="Models\ExamTextBoxes.cs" />
     <Compile Include="Models\Helper.cs" />
+    <Compile Include="Models\MissionResposesModel.cs" />
+    <Compile Include="Models\MissionsModel.cs" />
     <Compile Include="Models\StudentWithUpload.cs" />
     <Compile Include="Models\SubBndCenters.cs" />
     <Compile Include="Models\SubBndItems.cs" />
@@ -447,6 +459,11 @@
     <Content Include="Views\Orders\Details.cshtml" />
     <Content Include="Views\Orders\Delete.cshtml" />
     <Content Include="Views\Home\EditOwnUser.cshtml" />
+    <Content Include="Views\Missions\Create.cshtml" />
+    <Content Include="Views\Missions\Delete.cshtml" />
+    <Content Include="Views\Missions\Details.cshtml" />
+    <Content Include="Views\Missions\Edit.cshtml" />
+    <Content Include="Views\Missions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Centers\" />

@@ -45,6 +45,9 @@ namespace IntensiveLearning.Database
         public virtual DbSet<Stage> Stages { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Study_subject> Study_subject { get; set; }
+        public virtual DbSet<Mission> Missions { get; set; }
+        public virtual DbSet<MissionPersonInCharge> MissionPersonInCharges { get; set; }
+        public virtual DbSet<MissionResponse> MissionResponses { get; set; }
         public virtual DbSet<PaymentsRecord> PaymentsRecords { get; set; }
         public virtual DbSet<SubBnd> SubBnds { get; set; }
     }

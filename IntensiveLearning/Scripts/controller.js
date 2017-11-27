@@ -17,6 +17,7 @@
         };
     });
 
+
     myApp.controller('AddStudentCtrl', ['$http', '$scope', '$timeout', function ($http, $scope, $timeout) {
         $scope.ShowForm = true;
         var Student = {};
@@ -203,7 +204,100 @@
 
     }]);
 
+    myApp.controller('MissionsCtrl', ['$http', '$scope', function ($http, $scope) {
+        $scope.timeFunction = function (timeObj) {
+            if (timeObj != null) {
+                var min = timeObj.Minutes < 10 ? "0" + timeObj.Minutes : timeObj.Minutes;
+                var hour = timeObj.Hours < 10 ? "0" + timeObj.Hours : timeObj.Hours;
+                return hour + ':' + min;
+            }
+            return null;
+        };
 
+        $scope.CheckMission = function (id) {
+            var data = { id };
+            $http({ method: 'POST', url: '/Json/CheckMission', data }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $scope.MissionIsClosed = true;
+                }
+            });
+
+        };
+
+        $scope.CloseMission = function (id) {
+            var data = { id };
+            $http({ method: 'POST', url: '/Json/CloseMission', data }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $scope.MissionIsClosed = true;
+                }
+            });
+
+        };
+
+        $http({ method: 'GET', url: '/Json/Missions' }).then(function successCallback(response) {
+            $scope.Missions = response.data[0];
+            $scope.Responses = response.data[1];
+            $scope.empid = response.data[2];
+            angular.forEach($scope.Missions, function (value, key) {
+                if (value.DateOfEntry) {
+                    value.DateOfEntry = new Date(parseInt(value.DateOfEntry.substr(6)));
+                }
+                if (value.DateOfFinish) {
+                    value.DateOfFinish = new Date(parseInt(value.DateOfFinish.substr(6)));
+                }
+                if (value.DateOfLastModification) {
+                    value.DateOfLastModification = new Date(parseInt(value.DateOfLastModification.substr(6)));
+                }
+            });
+            $('#LoadingScreen').hide();
+
+        });
+
+            $scope.ShowHistory = function () {
+                $('#LoadingScreen').show();
+                $http({ method: 'GET', url: '/Json/MissionsShowHistory' }).then(function successCallback(response) {
+                    $scope.Missions = response.data[0];
+                    $scope.Responses = response.data[1];
+                    $scope.empid = response.data[2];
+                    angular.forEach($scope.Missions, function (value, key) {
+                        if (value.DateOfEntry) {
+                            value.DateOfEntry = new Date(parseInt(value.DateOfEntry.substr(6)));
+                        }
+                        if (value.DateOfFinish) {
+                            value.DateOfFinish = new Date(parseInt(value.DateOfFinish.substr(6)));
+                        }
+                        if (value.DateOfLastModification) {
+                            value.DateOfLastModification = new Date(parseInt(value.DateOfLastModification.substr(6)));
+                        }
+                    });
+                    $scope.OpenMisisons = true;
+                    $('#LoadingScreen').hide();
+                });
+        };
+
+            $scope.ShowNonDone = function () {
+                $('#LoadingScreen').show();
+                $http({ method: 'GET', url: '/Json/Missions' }).then(function successCallback(response) {
+                    $scope.Missions = response.data[0];
+                    $scope.Responses = response.data[1];
+                    $scope.empid = response.data[2];
+                    angular.forEach($scope.Missions, function (value, key) {
+                        if (value.DateOfEntry) {
+                            value.DateOfEntry = new Date(parseInt(value.DateOfEntry.substr(6)));
+                        }
+                        if (value.DateOfFinish) {
+                            value.DateOfFinish = new Date(parseInt(value.DateOfFinish.substr(6)));
+                        }
+                        if (value.DateOfLastModification) {
+                            value.DateOfLastModification = new Date(parseInt(value.DateOfLastModification.substr(6)));
+                        }
+                    });
+                    
+                    $scope.OpenMisisons = false;
+                    $('#LoadingScreen').hide();
+                });
+            };
+    }]);
 
 
     myApp.controller('StudentsCtrl', ['$http', '$scope', function ($http, $scope) {
