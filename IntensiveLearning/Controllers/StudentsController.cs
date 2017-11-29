@@ -118,8 +118,23 @@ namespace IntensiveLearning.Controllers
                 if (type.AddStudent == true)
                 {
                     var Sid = Convert.ToInt32(Session["ID"]);
-                    var emp = db.Employees.Where(x => x.id == Sid).FirstOrDefault().Centerid;
-                    ViewBag.Centerid = new SelectList(db.Centers.Where(x => x.id == emp), "id", "Name");
+                    var emp = db.Employees.Find(Sid);
+
+                    if (type.SeeAccToCity == true)
+                    {
+                        ViewBag.Centerid = new SelectList(db.Centers.Where(x => x.Cityid == emp.CityID), "id", "Name");
+
+                    }
+                    else if (type.SeeAccToCenter == true || type.SeeTeachers == true)
+                    {
+                        ViewBag.Centerid = new SelectList(db.Centers.Where(x => x.id == emp.Centerid), "id", "Name");
+
+                    }
+                    else
+                    {
+                        ViewBag.Centerid = new SelectList(db.Centers, "id", "Name");
+
+                    }
                     ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name");
                     ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName");
                     ViewBag.Certificate = new SelectList(db.Stages, "StageName", "StageName");
@@ -275,7 +290,7 @@ namespace IntensiveLearning.Controllers
                     {
                         ZipFile.CreateFromDirectory(startPath, zipPath);
                     }
-                    catch{ }
+                    catch { }
                     student.Proof = zipPath;
                 }
                 catch { }
@@ -296,7 +311,7 @@ namespace IntensiveLearning.Controllers
                     db.SaveChanges();
                     return Json(true);
                 }
-                catch 
+                catch
                 {
                     return Json(false);
                 }
@@ -326,8 +341,26 @@ namespace IntensiveLearning.Controllers
                         return HttpNotFound();
                     }
                     var Sid = Convert.ToInt32(Session["ID"]);
-                    var emp = db.Employees.Where(x => x.id == Sid).FirstOrDefault().Centerid;
-                    ViewBag.Centerid = new SelectList(db.Centers.Where(x => x.id == emp), "id", "Name");
+                    var emp = db.Employees.Find(Sid);
+
+                    if (type.SeeAccToCity == true)
+                    {
+                        ViewBag.Centerid = new SelectList(db.Centers.Where(x => x.Cityid == emp.CityID), "id", "Name");
+
+                    }
+                    else if (type.SeeAccToCenter == true || type.SeeTeachers == true)
+                    {
+                        ViewBag.Centerid = new SelectList(db.Centers.Where(x => x.id == emp.Centerid), "id", "Name");
+
+                    }
+                    else
+                    {
+                        ViewBag.Centerid = new SelectList(db.Centers, "id", "Name");
+
+                    }
+
+                    ViewBag.Certificate = new SelectList(db.Stages, "StageName", "StageName",student.Certificate);
+
                     ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name", student.Regimentid);
                     ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName", student.Stageid);
                     return View(student);
@@ -495,8 +528,25 @@ namespace IntensiveLearning.Controllers
             //}
 
             var Sid = Convert.ToInt32(Session["ID"]);
-            var emp = db.Employees.Where(x => x.id == Sid).FirstOrDefault().Centerid;
-            ViewBag.Centerid = new SelectList(db.Centers.Where(x => x.id == emp), "id", "Name");
+            var emp = db.Employees.Find(Sid);
+            var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            if (type.SeeAccToCity == true)
+            {
+                ViewBag.Centerid = new SelectList(db.Centers.Where(x => x.Cityid == emp.CityID), "id", "Name");
+
+            }
+            else if (type.SeeAccToCenter == true || type.SeeTeachers == true)
+            {
+                ViewBag.Centerid = new SelectList(db.Centers.Where(x => x.id == emp.Centerid), "id", "Name");
+
+            }
+            else
+            {
+                ViewBag.Centerid = new SelectList(db.Centers, "id", "Name");
+
+            }
+            ViewBag.Certificate = new SelectList(db.Stages, "StageName", "StageName", student.Certificate);
             ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name", student.Regimentid);
             ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName", student.Stageid);
             return View(student);

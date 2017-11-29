@@ -253,57 +253,108 @@
 
         });
 
-            $scope.ShowHistory = function () {
-                $('#LoadingScreen').show();
-                $http({ method: 'GET', url: '/Json/MissionsShowHistory' }).then(function successCallback(response) {
-                    $scope.Missions = response.data[0];
-                    $scope.Responses = response.data[1];
-                    $scope.empid = response.data[2];
-                    angular.forEach($scope.Missions, function (value, key) {
-                        if (value.DateOfEntry) {
-                            value.DateOfEntry = new Date(parseInt(value.DateOfEntry.substr(6)));
-                        }
-                        if (value.DateOfFinish) {
-                            value.DateOfFinish = new Date(parseInt(value.DateOfFinish.substr(6)));
-                        }
-                        if (value.DateOfLastModification) {
-                            value.DateOfLastModification = new Date(parseInt(value.DateOfLastModification.substr(6)));
-                        }
-                    });
-                    $scope.OpenMisisons = true;
-                    $('#LoadingScreen').hide();
+        $scope.ShowHistory = function () {
+            $('#LoadingScreen').show();
+            $http({ method: 'GET', url: '/Json/MissionsShowHistory' }).then(function successCallback(response) {
+                $scope.Missions = response.data[0];
+                $scope.Responses = response.data[1];
+                $scope.empid = response.data[2];
+                angular.forEach($scope.Missions, function (value, key) {
+                    if (value.DateOfEntry) {
+                        value.DateOfEntry = new Date(parseInt(value.DateOfEntry.substr(6)));
+                    }
+                    if (value.DateOfFinish) {
+                        value.DateOfFinish = new Date(parseInt(value.DateOfFinish.substr(6)));
+                    }
+                    if (value.DateOfLastModification) {
+                        value.DateOfLastModification = new Date(parseInt(value.DateOfLastModification.substr(6)));
+                    }
                 });
+                $scope.OpenMisisons = true;
+                $('#LoadingScreen').hide();
+            });
         };
 
-            $scope.ShowNonDone = function () {
-                $('#LoadingScreen').show();
-                $http({ method: 'GET', url: '/Json/Missions' }).then(function successCallback(response) {
-                    $scope.Missions = response.data[0];
-                    $scope.Responses = response.data[1];
-                    $scope.empid = response.data[2];
-                    angular.forEach($scope.Missions, function (value, key) {
-                        if (value.DateOfEntry) {
-                            value.DateOfEntry = new Date(parseInt(value.DateOfEntry.substr(6)));
-                        }
-                        if (value.DateOfFinish) {
-                            value.DateOfFinish = new Date(parseInt(value.DateOfFinish.substr(6)));
-                        }
-                        if (value.DateOfLastModification) {
-                            value.DateOfLastModification = new Date(parseInt(value.DateOfLastModification.substr(6)));
-                        }
-                    });
-                    
-                    $scope.OpenMisisons = false;
-                    $('#LoadingScreen').hide();
+        $scope.ShowNonDone = function () {
+            $('#LoadingScreen').show();
+            $http({ method: 'GET', url: '/Json/Missions' }).then(function successCallback(response) {
+                $scope.Missions = response.data[0];
+                $scope.Responses = response.data[1];
+                $scope.empid = response.data[2];
+                angular.forEach($scope.Missions, function (value, key) {
+                    if (value.DateOfEntry) {
+                        value.DateOfEntry = new Date(parseInt(value.DateOfEntry.substr(6)));
+                    }
+                    if (value.DateOfFinish) {
+                        value.DateOfFinish = new Date(parseInt(value.DateOfFinish.substr(6)));
+                    }
+                    if (value.DateOfLastModification) {
+                        value.DateOfLastModification = new Date(parseInt(value.DateOfLastModification.substr(6)));
+                    }
                 });
-            };
+
+                $scope.OpenMisisons = false;
+                $('#LoadingScreen').hide();
+            });
+        };
     }]);
 
 
     myApp.controller('StudentsCtrl', ['$http', '$scope', function ($http, $scope) {
+        $scope.StudentNumberCol = true;
+        $scope.SurnameCol = true;
+        $scope.NameCol = true;
+        $scope.FathersnameCol = true;
+        $scope.MothersnameCol = true;
+        $scope.BDateCol = true;
+        $scope.CertificateCol = true;
+        $scope.MarkCol = true;
+        $scope.OldSchoolCol = true;
+        $scope.StudentStateCol = true;
+        $scope.SexCol = true;
+        $scope.StateCol = true;
+        $scope.SDateCol = true;
+        $scope.EDateCol = true;
+        $scope.CenterCol = true;
+        $scope.RegimentCol = true;
+        $scope.PeriodCol = true;
+        $scope.StageCol = true;
+        $scope.SignsCol = true;
+        $scope.ProofCol = true;
+        $scope.InfoCol = true;
 
+        $scope.StudentNumberColCheckBox = true;
+        $scope.SurnameColCheckBox = true;
+        $scope.NameColCheckBox = true;
+        $scope.FathersnameColCheckBox = true;
+        $scope.MothersnameColCheckBox = true;
+        $scope.BDateColCheckBox = true;
+        $scope.CertificateColCheckBox = true;
+        $scope.MarkColCheckBox = true;
+        $scope.OldSchoolColCheckBox = true;
+        $scope.StudentStateColCheckBox = true;
+        $scope.SexColCheckBox = true;
+        $scope.StateColCheckBox = true;
+        $scope.SDateColCheckBox = true;
+        $scope.EDateColCheckBox = true;
+        $scope.CenterColCheckBox = true;
+        $scope.RegimentColCheckBox = true;
+        $scope.PeriodColCheckBox = true;
+        $scope.StageColCheckBox = true;
+        $scope.SignsColCheckBox = true;
+        $scope.ProofColCheckBox = true;
+        $scope.InfoColCheckBox = true;
+        $scope.SearchContainer = function () {
+            $('#SearchItemsBtn').toggle("fast");
+
+        };
         $http({ method: 'GET', url: '/Json/SearchStudents' }).then(function successCallback(response) {
-            $scope.Students = response.data;
+            $scope.Students = response.data[0];
+            $scope.Centers = response.data[1];
+            $scope.Cities = response.data[2];
+            $scope.Regiments = response.data[3];
+            $scope.Stages = response.data[4];
+            $scope.Periods = response.data[5];
             angular.forEach($scope.Students, function (value, key) {
                 if (value.BDate) {
                     value.BDate = new Date(parseInt(value.BDate.substr(6)));
@@ -318,12 +369,22 @@
             $('#LoadingScreen').hide();
         });
 
-        $scope.StudentSearchBox = function () {
+
+        $scope.StudentSearch = function () {
             $('#LoadingScreen').show();
-            if ($scope.StudentSearchBoxData || $scope.StudentSearchBoxDate) {
-                var ToSenh2ext = { 'SearchBoxData': $scope.StudentSearchBoxData, 'SearchBoxDate': $scope.StudentSearchBoxDate };
-                $http({ method: 'POST', url: '/Json/SearchStudents', data: ToSenh2ext }).then(function successCallback(response) {
+            if ($scope.StudentSearchBoxData || $scope.StudentSearchBoxDate || $scope.CitiesChange || $scope.CentersChange || $scope.RegimentsChange || $scope.PeriodsChange || $scope.StagesChange) {
+                var ToSendData = {
+                    'SearchBoxData': $scope.StudentSearchBoxData,
+                    'SearchBoxDate': $scope.StudentSearchBoxDate,
+                    'CitiesChange': $scope.CitiesChange,
+                    'CentersChange': $scope.CentersChange,
+                    'RegimentsChange': $scope.RegimentsChange,
+                    'PeriodsChange': $scope.PeriodsChange,
+                    'StagesChange': $scope.StagesChange
+                };
+                $http({ method: 'POST', url: '/Json/SearchStudents', data: ToSendData }).then(function successCallback(response) {
                     $scope.Students = response.data;
+
                     angular.forEach($scope.Students, function (value, key) {
                         if (value.BDate) {
                             value.BDate = new Date(parseInt(value.BDate.substr(6)));
@@ -340,7 +401,14 @@
             }
             else {
                 $http({ method: 'GET', url: '/Json/SearchStudents' }).then(function successCallback(response) {
-                    $scope.Students = response.data;
+                    $scope.Students = response.data[0];
+                    $scope.Centers = response.data[1];
+                    $scope.Cities = response.data[2];
+                    $scope.Regiments = response.data[3];
+                    $scope.Stages = response.data[4];
+                    $scope.Periods = response.data[5];
+
+
                     angular.forEach($scope.Students, function (value, key) {
                         if (value.BDate) {
                             value.BDate = new Date(parseInt(value.BDate.substr(6)));
@@ -400,9 +468,61 @@
 
 
     myApp.controller('EmployeesCtrl', ['$http', '$scope', function ($http, $scope) {
+        $scope.SearchContainer = function () {
+            $('#SearchItemsBtn').toggle("fast");
+
+        };
+        $scope.NameCol = true;
+        $scope.SurnameCol = true;
+        $scope.BDateCol = true;
+        $scope.CertificateCol = true;
+        $scope.CTypeCol = true;
+        $scope.OldJobCol = true;
+        $scope.ExpYearsCol = true;
+        $scope.InsideOrOutsideCol = true;
+        $scope.StateCol = true;
+        $scope.SDateCol = true;
+        $scope.EDateCol = true;
+        $scope.CenterCol = true;
+        $scope.CityCol = true;
+        $scope.EmployeeTypeCol = true;
+        $scope.PeriodCol = true;
+        $scope.SalaryCol = true;
+        $scope.SignsCol = true;
+        $scope.ProofCol = true;
+        $scope.InfoCol = true;
+
+        $scope.NameColCheckBox = true;
+        $scope.SurnameColCheckBox = true;
+        $scope.BDateColCheckBox = true;
+        $scope.CertificateColCheckBox = true;
+        $scope.CTypeColCheckBox = true;
+        $scope.OldJobColCheckBox = true;
+        $scope.ExpYearsColCheckBox = true;
+        $scope.InsideOrOutsideColCheckBox = true;
+        $scope.StateColCheckBox = true;
+        $scope.SDateColCheckBox = true;
+        $scope.EDateColCheckBox = true;
+        $scope.CenterColCheckBox = true;
+        $scope.CityColCheckBox = true;
+        $scope.EmployeeTypeColCheckBox = true;
+        $scope.PeriodColCheckBox = true;
+        $scope.SalaryColCheckBox = true;
+        $scope.SignsColCheckBox = true;
+        $scope.ProofColCheckBox = true;
+        $scope.InfoColCheckBox = true;
+
+
+
 
         $http({ method: 'GET', url: '/Json/Employees' }).then(function successCallback(response) {
-            $scope.Exams = response.data;
+            $scope.Exams = response.data[0];
+            $scope.Centers = response.data[1];
+            $scope.Cities = response.data[2];
+            $scope.Periods = response.data[3];
+            $scope.EmployeeTypes = response.data[4];
+
+
             angular.forEach($scope.Exams, function (value, key) {
                 if (value.EmployeeBDate) {
                     value.EmployeeBDate = new Date(parseInt(value.EmployeeBDate.substr(6)));
@@ -418,11 +538,18 @@
 
         });
 
-        $scope.EmployeeSearchBox = function () {
+        $scope.EmployeeSearch = function () {
             $('#LoadingScreen').show();
-            if ($scope.EmployeeSearchBoxData || $scope.EmployeeSearchBoxDate) {
-                var ToSenh2ext = { 'SearchBoxData': $scope.EmployeeSearchBoxData, 'SearchBoxDate': $scope.EmployeeSearchBoxDate };
-                $http({ method: 'POST', url: '/Json/Employees', data: ToSenh2ext }).then(function successCallback(response) {
+            if ($scope.EmployeeSearchBoxData || $scope.EmployeeSearchBoxDate || $scope.CitiesChange || $scope.CentersChange || $scope.PeriodsChange || $scope.EmployeeTypesChange) {
+                var ToSendData = {
+                    'SearchBoxData': $scope.EmployeeSearchBoxData,
+                    'SearchBoxDate': $scope.EmployeeSearchBoxDate,
+                    'CitiesChange': $scope.CitiesChange,
+                    'CentersChange': $scope.CentersChange,
+                    'PeriodsChange': $scope.PeriodsChange,
+                    'EmployeeTypesChange': $scope.EmployeeTypesChange
+                };
+                $http({ method: 'POST', url: '/Json/Employees', data: ToSendData }).then(function successCallback(response) {
                     $scope.Exams = response.data;
                     angular.forEach($scope.Exams, function (value, key) {
                         if (value.EmployeeBDate) {
@@ -441,7 +568,11 @@
             }
             else {
                 $http({ method: 'GET', url: '/Json/Employees' }).then(function successCallback(response) {
-                    $scope.Exams = response.data;
+                    $scope.Exams = response.data[0];
+                    $scope.Centers = response.data[1];
+                    $scope.Cities = response.data[2];
+                    $scope.Periods = response.data[3];
+                    $scope.EmployeeTypes = response.data[4];
                     angular.forEach($scope.Exams, function (value, key) {
                         if (value.EmployeeBDate) {
                             value.EmployeeBDate = new Date(parseInt(value.EmployeeBDate.substr(6)));
@@ -455,7 +586,8 @@
 
                     });
                     $('#LoadingScreen').hide();
-                });            }
+                });
+            }
 
         };
 

@@ -141,7 +141,7 @@
                         {{Order.SumPrice | currency}}
                     </td>
                     <td>
-                        {{Order.Date | date:'MM/dd/yyyy'}}
+                        {{Order.Date | date:'dd/MM/yyyy'}}
                     </td>
                     <td>
                         {{Order.Time.Hours}}:{{Order.Time.Minutes}}
@@ -356,7 +356,7 @@
                     </td>
                     <td>
                         <span ng-if="Order.PaymentApprove == true" style="color:#398439">
-                            {{Order.PaymentApprovalDate | date:'MM/dd/yyyy'}}
+                            {{Order.PaymentApprovalDate | date:'dd/MM/yyyy'}}
                         </span>
                         <div ng-if="Order.PaymentApprove == false">
 
@@ -388,7 +388,7 @@
                     </td>
                     <td>
                         <span ng-if="Order.BuyingApprove == true" style="color:#398439">
-                            {{Order.BuyingApprovalDate | date:'MM/dd/yyyy'}}
+                            {{Order.BuyingApprovalDate | date:'dd/MM/yyyy'}}
                         </span>
                         <div ng-if="Order.BuyingApprove == false">
 
@@ -415,7 +415,7 @@
                     </td>
                     <td>
                         <span ng-if="Order.ProofAcceptance == true" style="color:#398439">
-                            {{Order.ProofAcceptanceDate | date:'MM/dd/yyyy'}}
+                            {{Order.ProofAcceptanceDate | date:'dd/MM/yyyy'}}
                         </span>
                         <div ng-if="Order.ProofAcceptance == false">
                             <div class="tooltipBox">

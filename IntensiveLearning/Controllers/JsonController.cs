@@ -55,7 +55,7 @@ namespace IntensiveLearning.Controllers
             return Json(Students, JsonRequestBehavior.AllowGet);
         }
 
-
+        //Mission Part Goes 5 Methods
         public ActionResult Missions()
         {
             var empid = Convert.ToInt32(Session["ID"]);
@@ -310,6 +310,11 @@ namespace IntensiveLearning.Controllers
             }
             return RedirectToAction("Index", "Missions");
         }
+        //Mission Part finishes
+
+
+
+
         [HttpGet]
         public ActionResult Exams()
         {
@@ -468,63 +473,106 @@ namespace IntensiveLearning.Controllers
         [HttpGet]
         public ActionResult Employees()
         {
-            if (Session["ID"] != null)
+            if (Session["ID"] == null)
             {
-                var typeName = (string)Session["Type"];
-                var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-                var empid = Convert.ToInt32(Session["ID"]);
-                var emp = db.Employees.Find(empid); var Presences = db.Presences.ToList();
-                var employees = db.Employees.ToList();
-                if (type.AddNewEmployeeType == true)
-                {
-                    employees = db.Employees.Where(x => x.EmployeeType.Manager == true).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
-                }
-                else if (type.AddManagers == true)
-                {
-                    employees = db.Employees.Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
-                }
-                else if (type.Manager == true)
-                {
+                return null;
+            }
+            var empid = Convert.ToInt32(Session["ID"]);
+            var emp = db.Employees.Find(empid);
 
-                    employees = db.Employees.Where(x => x.EmployeeType.CoManager == true || x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
 
-                }
-                else if (type.CoManager == true)
-                {
-                    if (type.SeeAccToCity == true)
-                    {
+            var Cities = db.Cities.Select(x => new { id = x.id, Name = x.Name }).ToList();
 
-                        employees = db.Employees.Where(x => ((x.CityID == emp.CityID || x.Center.Cityid == emp.CityID) && (x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true)) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Center.Cityid == emp.CityID)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
-                    }
-                    else if (type.SeeAccToCenter == true)
-                    {
-                        employees = db.Employees.Where(x => (x.Centerid == emp.Centerid && (x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true)) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Centerid == emp.Centerid)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
-                    }
-                    else
-                    {
-                        employees = db.Employees.Where(x => x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true || x.CityID != null || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
-                    }
-                }
-                else if (type.SchoolManager == true)
-                {
-                    if (type.SeeAccToCity == true)
-                    {
+            var Centers = db.Centers.Select(x => new { id = x.id, Name = x.Name, Cityid = x.Cityid }).ToList();
 
-                        employees = db.Employees.Where(x => ((x.CityID == emp.CityID || x.Center.Cityid == emp.CityID) && x.EmployeeType.NormalEmployee == true) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Center.Cityid == emp.CityID)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
-                    }
-                    else if (type.SeeAccToCenter == true)
-                    {
-                        employees = db.Employees.Where(x => ((x.Centerid == emp.Centerid) && x.EmployeeType.NormalEmployee == true) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Centerid == emp.Centerid)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
-                    }
-                    else
-                    {
-                        employees = db.Employees.Where(x => x.EmployeeType.NormalEmployee == true || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
-                    }
-                }
-                else if (type.SeeTeachers == true)
+            var EmployeeTypes = db.EmployeeTypes.Select(x => new { id = x.id, Type = x.Type, x.SeeAccToCenter, x.SeeAccToCity, x.SeeAll, x.SeeAllButFinance, x.SeeTeachers, x.Manager, x.CoManager, x.SchoolManager, x.NormalEmployee }).ToList();
+
+            var Periods = db.Periods.Select(x => new { id = x.id, Name = x.Name }).ToList();
+
+            List<object> allSelections = new List<object>();
+
+            if (emp.EmployeeType.SeeAccToCenter == true || emp.EmployeeType.SeeTeachers == true)
+            {
+                Centers = null;
+                Cities = null;
+
+            }
+            else if (emp.EmployeeType.SeeAccToCity == true)
+            {
+                Centers = Centers.Where(x => x.Cityid == emp.CityID).ToList();
+                Cities = null;
+
+            }
+
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+            var employees = db.Employees.ToList();
+            if (type.AddNewEmployeeType == true)
+            {
+                EmployeeTypes = EmployeeTypes.Where(x => x.Manager == true).ToList();
+                employees = db.Employees.Where(x => x.EmployeeType.Manager == true).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+            }
+            else if (type.AddManagers == true)
+            {
+                employees = null;
+            }
+            else if (type.Manager == true)
+            {
+
+                employees = null;
+
+            }
+            else if (type.CoManager == true)
+            {
+                if (type.SeeAccToCity == true)
                 {
-                    employees = db.Employees.Where(x => (x.EmployeeType.SeeTeachers == true && x.Centerid == emp.Centerid) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                    EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true || x.SeeAccToCity == true).ToList();
+
+                    employees = null;
                 }
+                else if (type.SeeAccToCenter == true)
+                {
+                    EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true).ToList();
+
+                    employees = db.Employees.Where(x => (x.Centerid == emp.Centerid && (x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true)) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Centerid == emp.Centerid)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                }
+                else
+                {
+                    EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true || x.SeeAccToCity == true).ToList();
+
+                    employees = db.Employees.Where(x => x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true || x.CityID != null || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                }
+            }
+            else if (type.SchoolManager == true)
+            {
+                if (type.SeeAccToCity == true)
+                {
+                    EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true || x.SeeAccToCity == true).ToList();
+
+                    employees = null;
+                }
+                else if (type.SeeAccToCenter == true)
+                {
+                    EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true).ToList();
+
+                    employees = db.Employees.Where(x => ((x.Centerid == emp.Centerid) && x.EmployeeType.NormalEmployee == true) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Centerid == emp.Centerid)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                }
+                else
+                {
+                    EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true || x.SeeAccToCity == true).ToList();
+                    employees = db.Employees.Where(x => x.EmployeeType.NormalEmployee == true || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                }
+            }
+            else if (type.SeeTeachers == true)
+            {
+                EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true).ToList();
+
+                employees = db.Employees.Where(x => (x.EmployeeType.SeeTeachers == true && x.Centerid == emp.Centerid) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+            }
+            if (employees != null)
+            {
+
+
                 foreach (var Emp in employees)
                 {
                     if (Emp.Center == null)
@@ -585,10 +633,19 @@ namespace IntensiveLearning.Controllers
                     ExpYears = c.ExpYears,
                     InsideOrOutside = c.InsideOrOutside
                 }).ToList();
-                return Json(ToSendList, JsonRequestBehavior.AllowGet);
-            }
-            return RedirectToAction("Index", "Home");
 
+                allSelections.Add(ToSendList);
+            }
+            else
+            {
+                allSelections.Add(employees);
+            }
+            allSelections.Add(Centers);
+            allSelections.Add(Cities);
+            allSelections.Add(Periods);
+            allSelections.Add(EmployeeTypes);
+
+            return Json(allSelections, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -606,10 +663,49 @@ namespace IntensiveLearning.Controllers
             List<Employee> StringDate = new List<Employee>();
             List<Employee> Salaries = new List<Employee>();
             List<Employee> Expyears = new List<Employee>();
+            List<Employee> Cities = new List<Employee>();
+            List<Employee> Centers = new List<Employee>();
+            List<Employee> EmployeeTypes = new List<Employee>();
+            List<Employee> Periods = new List<Employee>();
+            if (textBox.CitiesChange != null)
+            {
+                if (textBox.CitiesChange == 0)
+                {
+                    Cities = db.Employees.Where(x => x.CityID == null && x.Centerid == null).ToList();
+                }
+                else
+                {
+                    Cities = db.Employees.Where(x => x.Center.Cityid == textBox.CitiesChange || x.CityID == textBox.CitiesChange).ToList();
+                }
+            }
+            if (textBox.CentersChange != null)
+            {
+                if (textBox.CentersChange == 0)
+                {
+                    Cities = db.Employees.Where(x => x.Centerid == null).ToList();
+                }
+                else
+                {
+                    Centers = db.Employees.Where(x => x.Centerid == textBox.CentersChange).ToList();
+                }
+            }
+            if (textBox.EmployeeTypesChange != null)
+            {
+                EmployeeTypes = db.Employees.Where(x => x.Job == textBox.EmployeeTypesChange).ToList();
+            }
+            if (textBox.PeriodsChange != null)
+            {
+                Periods = db.Employees.Where(x => x.Periodid == textBox.PeriodsChange).ToList();
+            }
+
             try
             {
-                var salary = Convert.ToDouble(textBox.SearchBoxData);
-                Salaries = db.Employees.Where(x => x.Salary == salary).ToList();
+                if (textBox.SearchBoxData != null)
+                {
+                    var salary = Convert.ToDouble(textBox.SearchBoxData);
+                    Salaries = db.Employees.Where(x => x.Salary == salary).ToList();
+
+                }
             }
             catch (Exception)
             {
@@ -618,8 +714,12 @@ namespace IntensiveLearning.Controllers
             }
             try
             {
-                var Expyear = Convert.ToDouble(textBox.SearchBoxData);
-                Expyears = db.Employees.Where(x => x.Salary == Expyear).ToList();
+                if (textBox.SearchBoxData != null)
+                {
+                    var Expyear = Convert.ToDouble(textBox.SearchBoxData);
+                    Expyears = db.Employees.Where(x => x.Salary == Expyear).ToList();
+
+                }
             }
             catch (Exception)
             {
@@ -628,9 +728,13 @@ namespace IntensiveLearning.Controllers
             }
             try
             {
-                var stringdate = DateTime.Parse(textBox.SearchBoxData);
-                StringDate = db.Employees.Where(x => x.BDate == stringdate || x.EDate == stringdate || x.SDate == stringdate).ToList();
+                if (textBox.SearchBoxData != null)
+                {
+                    var stringdate = DateTime.Parse(textBox.SearchBoxData);
+                    StringDate = db.Employees.Where(x => x.BDate == stringdate || x.EDate == stringdate || x.SDate == stringdate).ToList();
+                }
             }
+
             catch (Exception)
             {
 
@@ -659,6 +763,7 @@ namespace IntensiveLearning.Controllers
             {
 
             }
+
             var EmployeeStrings = db.Employees.Where(x => x.name.Contains(searchbox) || x.surname.Contains(searchbox) || x.Center.Name.Contains(searchbox) || x.City.Name.Contains(searchbox) || x.Center.City.Name.Contains(searchbox) || x.Certificate.Contains(searchbox) || x.CType.Contains(searchbox)
             || x.surname.Contains(searchbox) || x.State.Contains(searchbox) || x.EmployeeType.Type.Contains(searchbox) || x.Period.Name.Contains(searchbox) || x.InsideOrOutside.Contains(searchbox) || x.OldJob.Contains(searchbox)).ToList();
 
@@ -678,10 +783,9 @@ namespace IntensiveLearning.Controllers
 
                 }
 
-                else
+                else if (EmployeeEDate != null)
                 {
                     EmployeeStrings.AddRange(EmployeeEDate);
-
                 }
             }
             else
@@ -701,6 +805,53 @@ namespace IntensiveLearning.Controllers
 
 
             }
+
+            EmployeeStrings.RemoveAll(item => item == null);
+            EmployeeStrings.Distinct();
+
+            if (EmployeeStrings.Count() == 0)
+            {
+                if (Cities.Count() != 0)
+                {
+                    EmployeeStrings = Cities;
+                }
+                else if (Centers.Count() != 0)
+                {
+                    EmployeeStrings = Centers;
+                }
+
+                else if (Periods.Count() != 0)
+                {
+                    EmployeeStrings = Periods;
+                }
+                else if (EmployeeTypes.Count() != 0)
+                {
+                    EmployeeStrings = EmployeeTypes;
+                }
+
+            }
+
+            if (EmployeeStrings.Count() > 0)
+            {
+                if (textBox.CitiesChange != null)
+                {
+                    EmployeeStrings = EmployeeStrings.Intersect(Cities).ToList();
+                }
+                if (textBox.CentersChange != null)
+                {
+                    EmployeeStrings = EmployeeStrings.Intersect(Centers).ToList();
+                }
+
+                if (textBox.PeriodsChange != null)
+                {
+                    EmployeeStrings = EmployeeStrings.Intersect(Periods).ToList();
+                }
+                if (textBox.EmployeeTypesChange != null)
+                {
+                    EmployeeStrings = EmployeeStrings.Intersect(EmployeeTypes).ToList();
+                }
+            }
+
             EmployeeStrings.RemoveAll(item => item == null);
             EmployeeStrings.Distinct();
 
@@ -958,62 +1109,103 @@ namespace IntensiveLearning.Controllers
 
             var student = db.Students.ToList();
 
+            var Cities = db.Cities.Select(x => new { id = x.id, Name = x.Name }).ToList();
+
+            var Centers = db.Centers.Select(x => new { id = x.id, Name = x.Name, Cityid = x.Cityid }).ToList();
+
+            var Regiments = db.Regiments.Select(x => new { id = x.id, Name = x.Name }).ToList();
+
+            var Stages = db.Stages.Select(x => new { id = x.id, StageName = x.StageName }).ToList();
+
+            var Periods = db.Periods.Select(x => new { id = x.id, Name = x.Name }).ToList();
+
+            List<object> allSelections = new List<object>();
+
             if (emp.EmployeeType.SeeAccToCenter == true || emp.EmployeeType.SeeTeachers == true)
             {
                 student = student.Where(x => x.Centerid == emp.Centerid).ToList();
+                Centers = null;
+                Cities = null;
+
             }
             else if (emp.EmployeeType.SeeAccToCity == true)
             {
-                student = student.Where(x => x.Center.Cityid == emp.CityID).ToList();
+                student = null;
+                Centers = Centers.Where(x => x.Cityid == emp.CityID).ToList();
+                Cities = null;
 
             }
-            foreach (var item in student)
+            else
             {
-                if (item.Center == null)
-                {
-                    item.Center = new Center();
-                }
-                if (item.Center.City == null)
-                {
-                    item.Center.City = new City();
-                }
-                if (item.Regiment == null)
-                {
-                    item.Regiment = new Regiment();
-                }
-                if (item.Stage == null)
-                {
-                    item.Stage = new Stage();
-                }
-                if (item.Regiment.Period == null)
-                {
-                    item.Regiment.Period = new Period();
-                }
+                student = null;
             }
-            var ToSendStudents = student.Select(c => new
+
+
+
+            if (student != null)
             {
-                ID = c.id,
-                Mark = c.Mark,
-                StageName = c.Stage.StageName,
-                Name = c.Name,
-                Surname = c.Surname,
-                Regiment = c.Regiment.Name,
-                Center = c.Center.Name,
-                Certificate = c.Certificate,
-                BDate = c.BDate,
-                EDate = c.EDate,
-                SDate = c.SDate,
-                Period = c.Regiment.Period.Name,
-                Sex = c.Sex,
-                Proof = c.Proof,
-                City = c.Center.City.Name,
-                Fathersname = c.FathersName,
-                Mothersname = c.Mothersname,
-                StudentNumber = c.StudentNumber,
-                StudentState = c.StudentState,
-                OldSchool = c.OldSchool,
-            }).OrderBy(x => x.StudentNumber);
-            return Json(ToSendStudents, JsonRequestBehavior.AllowGet);
+
+
+                foreach (var item in student)
+                {
+                    if (item.Center == null)
+                    {
+                        item.Center = new Center();
+                    }
+                    if (item.Center.City == null)
+                    {
+                        item.Center.City = new City();
+                    }
+                    if (item.Regiment == null)
+                    {
+                        item.Regiment = new Regiment();
+                    }
+                    if (item.Stage == null)
+                    {
+                        item.Stage = new Stage();
+                    }
+                    if (item.Regiment.Period == null)
+                    {
+                        item.Regiment.Period = new Period();
+                    }
+                }
+                var ToSendStudents = student.Select(c => new
+                {
+                    ID = c.id,
+                    Mark = c.Mark,
+                    StageName = c.Stage.StageName,
+                    Name = c.Name,
+                    Surname = c.Surname,
+                    Regiment = c.Regiment.Name,
+                    Center = c.Center.Name,
+                    Certificate = c.Certificate,
+                    BDate = c.BDate,
+                    EDate = c.EDate,
+                    SDate = c.SDate,
+                    Period = c.Regiment.Period.Name,
+                    Sex = c.Sex,
+                    Proof = c.Proof,
+                    City = c.Center.City.Name,
+                    Fathersname = c.FathersName,
+                    Mothersname = c.Mothersname,
+                    StudentNumber = c.StudentNumber,
+                    StudentState = c.StudentState,
+                    OldSchool = c.OldSchool,
+                }).OrderBy(x => x.StudentNumber);
+                allSelections.Add(ToSendStudents);
+
+            }
+            else
+            {
+                allSelections.Add(student);
+            }
+            allSelections.Add(Centers);
+            allSelections.Add(Cities);
+            allSelections.Add(Regiments);
+            allSelections.Add(Stages);
+            allSelections.Add(Periods);
+
+            return Json(allSelections, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -1028,12 +1220,7 @@ namespace IntensiveLearning.Controllers
             var empid = Convert.ToInt32(Session["ID"]);
             var emp = db.Employees.Find(empid);
 
-            if (textBox.SearchBoxData == null && textBox.SearchBoxDate == null || textBox.SearchBoxData == "" && textBox.SearchBoxDate == null)
-            {
-                return RedirectToAction("SearchStudents");
 
-
-            }
             string searchbox = textBox.SearchBoxData;
             List<Student> examNum = new List<Student>();
             List<Student> StudentNumber = new List<Student>();
@@ -1041,6 +1228,41 @@ namespace IntensiveLearning.Controllers
             List<Student> SDate = new List<Student>();
             List<Student> EDate = new List<Student>();
             List<Student> DateTextBox = new List<Student>();
+
+
+            List<Student> Cities = new List<Student>();
+            List<Student> Centers = new List<Student>();
+            List<Student> Regiments = new List<Student>();
+            List<Student> Stages = new List<Student>();
+            List<Student> Periods = new List<Student>();
+            if (textBox.CitiesChange != null)
+            {
+                if (textBox.CitiesChange == 0)
+                {
+                    Cities = db.Students.ToList();
+                }
+                else
+                {
+                    Cities = db.Students.Where(x => x.Center.Cityid == textBox.CitiesChange).ToList();
+                }
+            }
+            if (textBox.CentersChange != null)
+            {
+                Centers = db.Students.Where(x => x.Centerid == textBox.CentersChange).ToList();
+            }
+            if (textBox.RegimentsChange != null)
+            {
+                Regiments = db.Students.Where(x => x.Regimentid == textBox.RegimentsChange).ToList();
+            }
+            if (textBox.StagesChange != null)
+            {
+                Stages = db.Students.Where(x => x.Stageid == textBox.StagesChange).ToList();
+            }
+            if (textBox.PeriodsChange != null)
+            {
+                Periods = db.Students.Where(x => x.Regiment.Periodid == textBox.PeriodsChange).ToList();
+            }
+
             try
             {
                 var num = Convert.ToInt32(searchbox);
@@ -1105,6 +1327,56 @@ namespace IntensiveLearning.Controllers
             Studentstrings.AddRange(EDate);
             Studentstrings.RemoveAll(item => item == null);
             Studentstrings.Distinct();
+
+            if (Studentstrings.Count() == 0)
+            {
+                if (Cities.Count() != 0)
+                {
+                    Studentstrings = Cities;
+                }
+                else if (Centers.Count() != 0)
+                {
+                    Studentstrings = Centers;
+                }
+                else if (Regiments.Count() != 0)
+                {
+                    Studentstrings = Regiments;
+                }
+                else if (Periods.Count() != 0)
+                {
+                    Studentstrings = Periods;
+                }
+                else if (Stages.Count() != 0)
+                {
+                    Studentstrings = Stages;
+                }
+
+            }
+
+            if (Studentstrings.Count() > 0)
+            {
+                if (textBox.CitiesChange != null)
+                {
+                    Studentstrings = Studentstrings.Intersect(Cities).ToList();
+                }
+                if (textBox.CentersChange != null)
+                {
+                    Studentstrings = Studentstrings.Intersect(Centers).ToList();
+                }
+                if (textBox.RegimentsChange != null)
+                {
+                    Studentstrings = Studentstrings.Intersect(Regiments).ToList();
+                }
+                if (textBox.PeriodsChange != null)
+                {
+                    Studentstrings = Studentstrings.Intersect(Periods).ToList();
+                }
+                if (textBox.StagesChange != null)
+                {
+                    Studentstrings = Studentstrings.Intersect(Stages).ToList();
+                }
+            }
+
             var typeName = (string)Session["Type"];
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
             try
@@ -1153,7 +1425,7 @@ namespace IntensiveLearning.Controllers
                 }
             }
 
-            var ToSendList = Studentstrings.Select(c => new
+            var ToSendStudents = Studentstrings.Select(c => new
             {
                 ID = c.id,
                 Mark = c.Mark,
@@ -1177,7 +1449,8 @@ namespace IntensiveLearning.Controllers
                 OldSchool = c.OldSchool,
             }).ToList();
 
-            return Json(ToSendList, JsonRequestBehavior.AllowGet);
+
+            return Json(ToSendStudents, JsonRequestBehavior.AllowGet);
         }
 
 

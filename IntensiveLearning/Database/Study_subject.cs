@@ -11,7 +11,9 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Study_subject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,14 +21,22 @@ namespace IntensiveLearning.Database
         {
             this.Examinations = new HashSet<Examination>();
         }
-    
+
         public int id { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·«”„ ")]
+        [DisplayName("«”„ «·„«œ…")]
         public string Name { get; set; }
+        [DisplayName("«·‘—Õ")]
         public string Desc { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·⁄·«„… «·ﬂ«„·… ")]
+        [DisplayName("«·⁄·«„… «·ﬂ«„·…")]
         public Nullable<double> FullMark { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· ⁄·«„… «·‰Ã«Õ ")]
+        [DisplayName("⁄·«„… «·‰Ã«Õ")]
         public Nullable<double> LeastMark { get; set; }
+        [DisplayName("«·Õ«·…")]
         public string State { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Examination> Examinations { get; set; }
     }

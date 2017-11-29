@@ -11,7 +11,8 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class MissionResponse
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,8 +24,10 @@ namespace IntensiveLearning.Database
         public int id { get; set; }
         public Nullable<int> MissionID { get; set; }
         public Nullable<int> NestedID { get; set; }
+        [DisplayName("«· ⁄·Ìﬁ")]
         public string Response { get; set; }
         public Nullable<int> WriterID { get; set; }
+        [DisplayName("‰Ê⁄ «· ⁄·Ìﬁ")]
         public string type { get; set; }
     
         public virtual Employee Employee { get; set; }

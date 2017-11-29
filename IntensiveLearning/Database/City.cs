@@ -11,7 +11,9 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class City
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,14 +22,23 @@ namespace IntensiveLearning.Database
             this.Centers = new HashSet<Center>();
             this.Employees = new HashSet<Employee>();
         }
-    
+
         public int id { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·„œÌ‰…")]
+        [DisplayName("«·„œÌ‰…")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·œÊ·…")]
+        [DisplayName("«·œÊ·…")]
         public string CountryName { get; set; }
         public Nullable<int> ProjectID { get; set; }
+        [DisplayName(" «—ÌŒ «·«÷«›…")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+
         public Nullable<System.DateTime> AddingDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
+        [DisplayName("“„‰ «·«÷«›…")]
         public Nullable<System.TimeSpan> AddingTime { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Center> Centers { get; set; }
         public virtual Project Project { get; set; }

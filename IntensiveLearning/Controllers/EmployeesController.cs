@@ -88,8 +88,6 @@ namespace IntensiveLearning.Controllers
                         return View(employee);
                     }
                 }
-
-
                 return RedirectToAction("Default", "Home");
             }
             return RedirectToAction("Index", "Home");

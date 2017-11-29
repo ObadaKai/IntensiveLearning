@@ -8,8 +8,8 @@
 
     <p>
         <a href="/Missions/Create" class="btn btn-warning">انشاء مهمة جديدة</a>
-        <a style="float:left" class="btn btn-warning" ng-click="ShowHistory()" ng-hide="OpenMisisons">المهمات المنجزة</a>
-        <a style="float:left" class="btn btn-warning" ng-click="ShowNonDone()" ng-show="OpenMisisons">المهمات الغير منجزة</a>
+        <a style="float:left" class="btn btn-warning" ng-click="ShowHistory()" ng-hide="OpenMisisons">المهمات المنتهية</a>
+        <a style="float:left" class="btn btn-warning" ng-click="ShowNonDone()" ng-show="OpenMisisons">المهمات الغير منتهية</a>
 
     </p>
     <div id="table_wrapper">
@@ -74,7 +74,7 @@
                         {{mission.MissionText}}
                     </td>
                     <td>
-                        {{mission.DateOfEntry | date:'MM/dd/yyyy'}}
+                        {{mission.DateOfEntry | date:'dd/MM/yyyy'}}
                     </td>
                     <td ng-bind='timeFunction(mission.TimeOfEntry)'></td>
                     <td>
@@ -93,16 +93,16 @@
                         {{mission.NumberOfModifications}}
                     </td>
                     <td>
-                        {{mission.DateOfLastModification | date:'MM/dd/yyyy'}}
+                        {{mission.DateOfLastModification | date:'dd/MM/yyyy'}}
                     </td>
                     <td ng-bind='timeFunction(mission.TimeOfLastModification)'></td>
                     <td>
-                        {{mission.DateOfFinish | date:'MM/dd/yyyy'}}
+                        {{mission.DateOfFinish | date:'dd/MM/yyyy'}}
                     </td>
                     <td ng-bind='timeFunction(mission.TimeOfFinish)'></td>
                     <td>
                         <span ng-repeat="PersonInCharge in mission.PeopleInCharge"><span ng-if="!mission.Checked && !mission.Closed && PersonInCharge.EmployeeID == empid"><a class="glyphicon glyphicon-ok" ng-click="CheckMission(mission.ID)" ng-hide="MissionIsClosed"></a></span></span>
-                        <span ng-show="MissionIsClosed">تم الانجاز</span>
+                        <span ng-show="MissionIsClosed && !mission.Checked">تم الانجاز</span>
 
                         <span ng-if="mission.Checked && !mission.Closed">تم الانجاز</span>
                         <span ng-if="mission.Closed">منتهية</span>

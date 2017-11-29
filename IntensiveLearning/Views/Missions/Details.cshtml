@@ -74,6 +74,87 @@
                 </p>
             }
 
+
+            @if (Model.mission.Employee != null)
+            {
+                <h4>
+                    اسم مدير المهمة وكنيته
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.Employee.name) @Html.DisplayFor(model => model.mission.Employee.surname)
+                </p>
+
+            }
+            @if (Model.mission.DateOfLastModification != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.DateOfLastModification)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.DateOfLastModification)
+                </p>
+            }
+
+
+            @if (Model.mission.TimeOfLastModification != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.TimeOfLastModification)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.TimeOfLastModification)
+                </p>
+            }
+        </div>
+        <div class="col-sm-6 pull-left col-xs-12">
+
+
+            @if (Model.mission.NumberOfModifications != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.NumberOfModifications)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.NumberOfModifications)
+                </p>
+            }
+            @if (Model.mission.Employee1 != null)
+            {
+                <h4>
+                    اسم منجز المهمة وكنيته
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.Employee1.name) @Html.DisplayFor(model => model.mission.Employee1.surname)
+                </p>
+            }
+            @if (Model.mission.DateOfChecking != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.DateOfChecking)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.DateOfChecking)
+                </p>
+            }
+
+
+            @if (Model.mission.TimeOFChecking != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.TimeOFChecking)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.TimeOFChecking)
+                </p>
+            }
+
             @if (Model.mission.DateOfFinish != null)
             {
                 <h4>
@@ -93,63 +174,6 @@
 
                 <p>
                     @Html.DisplayFor(model => model.mission.TimeOfFinish)
-                </p>
-            }
-            @if (Model.mission.Employee != null)
-            {
-                <h4>
-                    اسم مدير المهمة وكنيته
-                </h4>
-
-                <p>
-                    @Html.DisplayFor(model => model.mission.Employee.name) @Html.DisplayFor(model => model.mission.Employee.surname)
-                </p>
-
-            }
-        </div>
-        <div class="col-sm-6 pull-left col-xs-12">
-            @if (Model.mission.DateOfLastModification != null)
-            {
-                <h4>
-                    @Html.DisplayNameFor(model => model.mission.DateOfLastModification)
-                </h4>
-
-                <p>
-                    @Html.DisplayFor(model => model.mission.DateOfLastModification)
-                </p>
-            }
-
-            @if (Model.mission.NumberOfModifications != null)
-            {
-                <h4>
-                    @Html.DisplayNameFor(model => model.mission.NumberOfModifications)
-                </h4>
-
-                <p>
-                    @Html.DisplayFor(model => model.mission.NumberOfModifications)
-                </p>
-            }
-
-            @if (Model.mission.TimeOfLastModification != null)
-            {
-                <h4>
-                    @Html.DisplayNameFor(model => model.mission.TimeOfLastModification)
-                </h4>
-
-                <p>
-                    @Html.DisplayFor(model => model.mission.TimeOfLastModification)
-                </p>
-            }
-
-
-            @if (Model.mission.Employee1 != null)
-            {
-                <h4>
-                    اسم منجز المهمة وكنيته
-                </h4>
-
-                <p>
-                    @Html.DisplayFor(model => model.mission.Employee1.name) @Html.DisplayFor(model => model.mission.Employee1.surname)
                 </p>
             }
 
@@ -180,7 +204,7 @@
         </div>
         <hr style="display:inline-block; width:100%;" />
         <h1>التعليقات</h1>
-        <div style="display:inline-block;width:100%;padding-right:60px;">
+        <div class="MissionComments">
 
             @{var responses = @Model.missionResponses.Where(x => x.MissionID == Model.mission.id).ToList(); }
             @{var numberofComments = 0;
@@ -192,8 +216,10 @@
                     int numofsubco = 0;
                     if (response.NestedID == null)
                     {
-                        <h4>@response.Employee.name @response.Employee.surname</h4>
-                        <h4 style="color:#2e2b2b">@response.Response&emsp;</h4>
+                        <div style="margin-bottom:20px">
+                            <h4>@response.Employee.name @response.Employee.surname</h4>
+                            <h4 style="color:#2e2b2b">@response.Response&emsp;</h4>
+                        </div>
                         numberofComments++;
                         numofsubco++;
                     }
@@ -205,8 +231,8 @@
                             {
 
                                 <div style="margin-right:50px;">
-                                    <h5 style="color:#bb7c22">@subresponse.Employee.name @subresponse.Employee.surname</h5>
-                                    <h5>@subresponse.Response</h5>
+                                    <h4 style="color:#bb7c22">@subresponse.Employee.name @subresponse.Employee.surname</h4>
+                                    <h4 style="color:#2e2b2b">@subresponse.Response</h4>
                                 </div>
                                 numofsubco++;
 
