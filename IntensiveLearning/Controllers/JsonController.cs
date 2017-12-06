@@ -63,7 +63,7 @@ namespace IntensiveLearning.Controllers
             var toChangeMissions = new List<Mission>();
             var toChangeResponses = new List<MissionResponse>();
             var tosendList = new List<object>();
-            if (emp.EmployeeType.Manager != true && emp.EmployeeType.CoManager != true)
+            if (emp.EmployeeType.SeeAccToCenter == true || emp.EmployeeType.SeeAccToCity == true || emp.EmployeeType.SeeTeachers == true)
             {
                 var PIC = db.MissionPersonInCharges.Where(x => x.EmployeeID == empid).ToList();
 
@@ -159,7 +159,7 @@ namespace IntensiveLearning.Controllers
             var toChangeMissions = new List<Mission>();
             var toChangeResponses = new List<MissionResponse>();
             var tosendList = new List<object>();
-            if (emp.EmployeeType.Manager != true && emp.EmployeeType.CoManager != true)
+            if (emp.EmployeeType.SeeAccToCenter == true || emp.EmployeeType.SeeAccToCity == true || emp.EmployeeType.SeeTeachers == true)
             {
                 var PIC = db.MissionPersonInCharges.Where(x => x.EmployeeID == empid).ToList();
 
@@ -524,44 +524,18 @@ namespace IntensiveLearning.Controllers
             }
             else if (type.CoManager == true)
             {
-                if (type.SeeAccToCity == true)
-                {
+
                     EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true || x.SeeAccToCity == true).ToList();
 
                     employees = null;
-                }
-                else if (type.SeeAccToCenter == true)
-                {
-                    EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true).ToList();
-
-                    employees = db.Employees.Where(x => (x.Centerid == emp.Centerid && (x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true)) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Centerid == emp.Centerid)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
-                }
-                else
-                {
-                    EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true || x.SeeAccToCity == true).ToList();
-
-                    employees = db.Employees.Where(x => x.EmployeeType.SchoolManager == true || x.EmployeeType.NormalEmployee == true || x.CityID != null || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
-                }
+                
             }
             else if (type.SchoolManager == true)
             {
-                if (type.SeeAccToCity == true)
-                {
-                    EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true || x.SeeAccToCity == true).ToList();
 
-                    employees = null;
-                }
-                else if (type.SeeAccToCenter == true)
-                {
                     EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true).ToList();
 
                     employees = db.Employees.Where(x => ((x.Centerid == emp.Centerid) && x.EmployeeType.NormalEmployee == true) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Centerid == emp.Centerid)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
-                }
-                else
-                {
-                    EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true || x.SeeAccToCity == true).ToList();
-                    employees = db.Employees.Where(x => x.EmployeeType.NormalEmployee == true || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
-                }
             }
             else if (type.SeeTeachers == true)
             {
@@ -682,7 +656,7 @@ namespace IntensiveLearning.Controllers
             {
                 if (textBox.CentersChange == 0)
                 {
-                    Cities = db.Employees.Where(x => x.Centerid == null).ToList();
+                    Centers = db.Employees.Where(x => x.Centerid == null).ToList();
                 }
                 else
                 {

@@ -165,7 +165,16 @@ namespace IntensiveLearning.Controllers
             try
             {
                 student.StudentNumber = db.Students.OrderByDescending(x => x.StudentNumber).FirstOrDefault().StudentNumber + 1;
-
+                int yearnum = (int)student.StudentNumber / 100000;
+                var yearS = DateTime.Now;
+                string lastTwoDigitsOfYear = yearS.ToString("yy");
+                var ExactYear = Convert.ToInt16(lastTwoDigitsOfYear);
+                if (yearnum != ExactYear)
+                {
+                    var studentNumberString = ExactYear.ToString() + "00001";
+                    var studentNumber = Convert.ToInt32(studentNumberString);
+                    student.StudentNumber = studentNumber;
+                }
             }
             catch
             {
@@ -237,11 +246,8 @@ namespace IntensiveLearning.Controllers
                         Directory.CreateDirectory(Server.MapPath("~/App_Data/Students") + "\\" + student.id);
                     }
 
-                }
-                if (Request.Files.Count == 0)
-                {
-                    return Json(false);
-                }
+                
+
                 foreach (string file in Request.Files)
                 {
                     var fileContent = Request.Files[file];
@@ -271,6 +277,7 @@ namespace IntensiveLearning.Controllers
                     }
 
 
+                
                 }
                 try
                 {
@@ -296,6 +303,7 @@ namespace IntensiveLearning.Controllers
                 catch { }
 
                 ViewBag.Message = "Upload successful";
+            }
             }
             catch
             {

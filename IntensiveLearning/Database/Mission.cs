@@ -11,8 +11,7 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class Mission
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,57 +22,28 @@ namespace IntensiveLearning.Database
         }
     
         public int id { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· ‰’ «·„Â„…")]
-        [DisplayName("‰’ «·„Â„…")]
         public string MissionText { get; set; }
         public Nullable<bool> Closed { get; set; }
         public Nullable<bool> Checked { get; set; }
-        [DisplayName(" «—ÌŒ «·«œŒ«·")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-
         public Nullable<System.DateTime> DateOfEntry { get; set; }
-        [DisplayName("“„‰ «·«œŒ«·")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
-
-
         public Nullable<System.TimeSpan> TimeOfEntry { get; set; }
-
-        [DisplayName(" «—ÌŒ «·«‰ Â«¡")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DateOfFinish { get; set; }
-
-        [DisplayName("“„‰ «·«‰ Â«¡")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
         public Nullable<System.TimeSpan> TimeOfFinish { get; set; }
         public Nullable<int> PersonChecked { get; set; }
-        [DisplayName(" «—ÌŒ «· ⁄œÌ·")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-
         public Nullable<System.DateTime> DateOfLastModification { get; set; }
-        [DisplayName("⁄œœ «· ⁄œÌ·« ")]
-
         public Nullable<int> NumberOfModifications { get; set; }
-        [DisplayName("“„‰ «· ⁄œÌ·")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
-
         public Nullable<System.TimeSpan> TimeOfLastModification { get; set; }
         public Nullable<int> Manager { get; set; }
         public Nullable<int> PersonEntered { get; set; }
-        [DisplayName(" «—ÌŒ «·«‰Ã«“")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-
-
         public Nullable<System.DateTime> DateOfChecking { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
-        [DisplayName("“„‰ «·«‰Ã«“")]
         public Nullable<System.TimeSpan> TimeOFChecking { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual Employee Employee1 { get; set; }
+        public virtual Employee Employee2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MissionPersonInCharge> MissionPersonInCharges { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MissionResponse> MissionResponses { get; set; }
-        public virtual Employee Employee2 { get; set; }
     }
 }

@@ -1,0 +1,328 @@
+﻿@model IntensiveLearning.Models.MissionResposesModel
+
+@{
+    ViewBag.Title = "المعلومات";
+}
+<div class="WhiteBlur">
+    <h2>المعلومات</h2>
+
+    <div class="InfoContainer">
+        <h4>مهمة</h4>
+        <hr />
+        <div class="col-sm-6 pull-right col-xs-12">
+            @if (Model.mission.Employee2 != null)
+            {
+                <h4>
+                   اسم مدخل المهمة وكنيته
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.Employee2.name) @Html.DisplayFor(model => model.mission.Employee2.surname)
+                </p>
+
+
+            }
+
+            <h4>
+                @Html.DisplayNameFor(model => model.mission.MissionText)
+            </h4>
+
+            <p>
+                @Html.DisplayFor(model => model.mission.MissionText)
+            </p>
+
+            <h4>
+                حالة المهمة
+            </h4>
+            @if (Model.mission.Checked == true && Model.mission.Closed != true)
+            {
+                <p>
+                    منجزة
+                </p>            
+            }
+            else if (Model.mission.Closed == true)
+            {
+                <p>
+                    منتهية
+                </p>
+            }
+            else
+            {
+                <p>
+                    مفتوحة
+                </p>
+            }
+            @if (Model.mission.DateOfEntry != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.DateOfEntry)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.DateOfEntry)
+                </p>
+            }
+
+            @if (Model.mission.TimeOfEntry != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.TimeOfEntry)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.TimeOfEntry)
+                </p>
+            }
+
+
+            @if (Model.mission.Employee != null)
+            {
+                <h4>
+                    اسم مدير المهمة وكنيته
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.Employee.name) @Html.DisplayFor(model => model.mission.Employee.surname)
+                </p>
+
+            }
+            @if (Model.mission.DateOfLastModification != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.DateOfLastModification)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.DateOfLastModification)
+                </p>
+            }
+
+
+            @if (Model.mission.TimeOfLastModification != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.TimeOfLastModification)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.TimeOfLastModification)
+                </p>
+            }
+        </div>
+        <div class="col-sm-6 pull-left col-xs-12">
+
+
+            @if (Model.mission.NumberOfModifications != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.NumberOfModifications)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.NumberOfModifications)
+                </p>
+            }
+            @if (Model.mission.Employee1 != null)
+            {
+                <h4>
+                    اسم منجز المهمة وكنيته
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.Employee1.name) @Html.DisplayFor(model => model.mission.Employee1.surname)
+                </p>
+            }
+            @if (Model.mission.DateOfChecking != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.DateOfChecking)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.DateOfChecking)
+                </p>
+            }
+
+
+            @if (Model.mission.TimeOFChecking != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.TimeOFChecking)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.TimeOFChecking)
+                </p>
+            }
+
+            @if (Model.mission.DateOfFinish != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.DateOfFinish)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.DateOfFinish)
+                </p>
+            }
+
+            @if (Model.mission.TimeOfFinish != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.mission.TimeOfFinish)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.mission.TimeOfFinish)
+                </p>
+            }
+
+            @if (Model.mission.MissionPersonInCharges != null)
+            {
+                <h4>
+                    المسؤولين عن المهمة
+                </h4>
+                int i = 1;
+                foreach (var item in Model.mission.MissionPersonInCharges)
+                {
+                    if (Model.mission.MissionPersonInCharges.Count() == i)
+                    {
+                        <span>
+                            @item.Employee.name @item.Employee.surname
+                        </span>
+                    }
+                    else
+                    {
+                        <span>
+                            @item.Employee.name @item.Employee.surname,
+                        </span>
+                    }
+                    i++;
+                }
+            }
+
+        </div>
+        <hr style="display:inline-block; width:100%;" />
+        <h1>التعليقات</h1>
+        <div class="MissionComments">
+
+            @{var responses = @Model.missionResponses.Where(x => x.MissionID == Model.mission.id).ToList(); }
+            @{var numberofComments = 0;
+            }
+            @foreach (var response in responses)
+            {
+                try
+                {
+                    int numofsubco = 0;
+                    if (response.NestedID == null)
+                    {
+                        <div style="margin-bottom:20px">
+                            <h4>@response.Employee.name @response.Employee.surname</h4>
+                            <h4 style="color:#2e2b2b">@response.Response&emsp;</h4>
+                        </div>
+                        numberofComments++;
+                        numofsubco++;
+                    }
+                    foreach (var subresponse in responses)
+                    {
+                        if (response.MissionID == Model.mission.id)
+                        {
+                            if (subresponse.NestedID == response.id)
+                            {
+
+                                <div style="margin-right:50px;">
+                                    <h4 style="color:#bb7c22">@subresponse.Employee.name @subresponse.Employee.surname</h4>
+                                    <h4 style="color:#2e2b2b">@subresponse.Response</h4>
+                                </div>
+                                numofsubco++;
+
+
+                            }
+                        }
+
+                    }
+
+                    if (numofsubco > 0 )
+                    {
+                        if (Model.mission.Closed == null)
+                        {
+
+                        
+                        using (Html.BeginForm("AddComment", "Json"))
+                        {
+                            <div style="display:inline-block;width:100%;margin-top:20px;">
+                                <div class="col-sm-3"></div>
+                                <input type="text" name="comment" placeholder="اضافة تعليق جانبي" class="col-sm-7" style="
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 34px !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075); " dir="rtl" />
+                                <input type="submit" value="ارسال" name="Send" class="col-sm-2 btn btn-success">
+
+
+                            </div>
+
+                            @*<input type="text" name="comment" placeholder="Ap comment" style="width:70%;display:inline-block;" /><input type="submit" value="Send" name="Send" style="width:10%;display:inline-block">*@
+                            <input type="hidden" name="MissionID" value=@Model.mission.id />
+                            <input type="hidden" name="nested" value="Yes" />
+                            <input type="hidden" name="ResponseID" value=@response.id />
+                            }
+                        }
+                        <hr style="display:inline-block; width:100%;" />
+                        numofsubco = 0;
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+
+            }
+            @if (numberofComments == 0)
+            {
+                <h4 style="color:black">!لا يوجد تعليقات </h4>
+            }
+
+            @if (Model.mission.Closed == null)
+            {
+                using (Html.BeginForm("AddComment", "Json"))
+                {
+
+                    <div style="margin:20px 0;display:inline-block;width:100%;">
+                        <input type="text" name="comment" placeholder="اضافة تعليق" class="col-sm-10 " style="
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 34px !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075); " dir="rtl" />
+                        <input type="submit" value="ارسال" name="Send" class="col-sm-2 btn btn-warning">
+
+                        <input type="hidden" name="MissionID" value=@Model.mission.id />
+                        <input type="hidden" name="nested" value="No" />
+                        <input type="hidden" name="ResponseID" value="No" />
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+
+
+
+
+    <p>
+        @Html.ActionLink("تعديل", "Edit", new { id = Model.mission.id }) |
+        @Html.ActionLink("العودة إلى لائحة المهام", "Index")
+    </p>
+</div>

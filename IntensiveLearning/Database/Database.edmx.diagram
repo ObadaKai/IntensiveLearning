@@ -4,32 +4,32 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5ff3ef7c7e404ce89360e15615fa4820" Name="Diagram1">
-        <EntityTypeShape EntityType="TaalimModel.Bnd" Width="1.5" PointX="11.25" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Center" Width="1.5" PointX="3" PointY="21.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.City" Width="1.5" PointX="0.75" PointY="21.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Concern" Width="1.5" PointX="7.5" PointY="21.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.DailyActivity" Width="1.5" PointX="7.5" PointY="24.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Employee" Width="1.5" PointX="5.25" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.EmployeeType" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Examination" Width="1.5" PointX="10.5" PointY="24.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.ExamType" Width="1.5" PointX="8.25" PointY="19.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Lesson" Width="1.5" PointX="8.25" PointY="28" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.NonUserAddRequest" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Order" Width="1.5" PointX="13.5" PointY="22.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Period" Width="1.5" PointX="0.75" PointY="25.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Presence" Width="1.5" PointX="10.5" PointY="18.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Project" Width="1.5" PointX="1.5" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Proove" Width="1.5" PointX="15.75" PointY="27.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Regiment" Width="1.5" PointX="3" PointY="37.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Stage" Width="1.5" PointX="8.25" PointY="34.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Student" Width="1.5" PointX="10.5" PointY="30.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Study_subject" Width="1.5" PointX="8.25" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.Mission" Width="1.5" PointX="7.5" PointY="54.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.MissionPersonInCharge" Width="1.5" PointX="9.75" PointY="39" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.MissionResponse" Width="1.5" PointX="12.75" PointY="39.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.PaymentsRecord" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaalimModel.SubBnd" Width="1.5" PointX="15.75" PointY="22.75" IsExpanded="true" />
+      <Diagram DiagramId="7a72cb6069e0413d86af776e13d2f7c4" Name="Diagram1" ZoomLevel="47">
+        <EntityTypeShape EntityType="TaalimModel.Bnd" Width="1.5" PointX="11.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Center" Width="1.5" PointX="3" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.City" Width="1.5" PointX="0.75" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Concern" Width="1.5" PointX="7.5" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.DailyActivity" Width="1.5" PointX="7.5" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Employee" Width="1.5" PointX="5.25" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.EmployeeType" Width="1.5" PointX="3" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Examination" Width="1.5" PointX="10.5" PointY="27.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.ExamType" Width="1.5" PointX="8.25" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Lesson" Width="1.5" PointX="8.25" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.NonUserAddRequest" Width="1.5" PointX="8.25" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Order" Width="1.5" PointX="13.5" PointY="26.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Period" Width="1.5" PointX="0.75" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Presence" Width="1.5" PointX="10.5" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Project" Width="1.5" PointX="1.5" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Proove" Width="1.5" PointX="15.75" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Regiment" Width="1.5" PointX="3" PointY="41" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Stage" Width="1.5" PointX="8.25" PointY="45.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Student" Width="1.5" PointX="10.5" PointY="33.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Study_subject" Width="1.5" PointX="8.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.Mission" Width="1.5" PointX="7.5" PointY="58.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.MissionPersonInCharge" Width="1.5" PointX="9.75" PointY="43" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.MissionResponse" Width="1.5" PointX="12.75" PointY="43.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.PaymentsRecord" Width="1.5" PointX="6.375" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaalimModel.SubBnd" Width="1.5" PointX="15.75" PointY="26.375" IsExpanded="true" />
         <AssociationConnector Association="TaalimModel.FK_Order_Bnd" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_SubBnd_Bnd" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Centers_Centers" ManuallyRouted="false" />
@@ -40,12 +40,14 @@
         <AssociationConnector Association="TaalimModel.FK_Centers_Project" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Employees_Centers" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Lessons_Centers" ManuallyRouted="false" />
+        <AssociationConnector Association="TaalimModel.FK_NonUserAddRequest_Centers" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Order_Centers" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Prooves_Centers" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Students_Centers" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_SubBnd_Centers" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Cities_Project" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Employees_Cities" ManuallyRouted="false" />
+        <AssociationConnector Association="TaalimModel.FK_NonUserAddRequest_Cities" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Concerns_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_DailyActivity_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Employees_Employees" ManuallyRouted="false" />
@@ -56,6 +58,7 @@
         <AssociationConnector Association="TaalimModel.FK_Examination_Employees1" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Mission_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Mission_Employees1" ManuallyRouted="false" />
+        <AssociationConnector Association="TaalimModel.FK_Mission_Employees2" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_MissionPersonInCharge_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_MissionResponse_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_Order_Employees" ManuallyRouted="false" />
@@ -84,7 +87,8 @@
         <AssociationConnector Association="TaalimModel.FK_MissionPersonInCharge_Mission" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_MissionResponse_Mission" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_MissionResponse_MissionResponse" ManuallyRouted="false" />
-        <AssociationConnector Association="TaalimModel.FK_Mission_Employees2" />
+        <AssociationConnector Association="TaalimModel.FK_NonUserAddRequest_Periods" />
+        <AssociationConnector Association="TaalimModel.FK_NonUserAddRequest_Stages" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

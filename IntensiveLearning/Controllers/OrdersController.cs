@@ -159,11 +159,26 @@ namespace IntensiveLearning.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            var empid = Convert.ToInt16(Session["ID"]);
+            var emp = db.Employees.Find(empid);
             var typeName = (string)Session["Type"];
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
             if (type.AddBuyingRequest == true)
             {
-                ViewBag.CenterID = new SelectList(db.Centers, "id", "Name");
+                if (type.SeeAccToCity ==true)
+                {
+                    ViewBag.CenterID = new SelectList(db.Centers.Where(x=>x.Cityid == emp.CityID), "id", "Name");
+
+                }
+                else if (type.SeeAccToCenter == true || type.SeeTeachers ==  true)
+                {
+                    ViewBag.CenterID = new SelectList(db.Centers.Where(x => x.id == emp.Centerid), "id", "Name");
+
+                }
+                else
+                {
+                    ViewBag.CenterID = new SelectList(db.Centers, "id", "Name");
+                }
                 ViewBag.type = type;
                 return View();
             }
@@ -231,7 +246,20 @@ namespace IntensiveLearning.Controllers
                         return RedirectToAction("Index");
                     }
                 }
-                ViewBag.CenterID = new SelectList(db.Centers, "id", "Name");
+                if (type.SeeAccToCity == true)
+                {
+                    ViewBag.CenterID = new SelectList(db.Centers.Where(x => x.Cityid == emp.CityID), "id", "Name",order.CenterID);
+
+                }
+                else if (type.SeeAccToCenter == true || type.SeeTeachers == true)
+                {
+                    ViewBag.CenterID = new SelectList(db.Centers.Where(x => x.id == emp.Centerid), "id", "Name", order.CenterID);
+
+                }
+                else
+                {
+                    ViewBag.CenterID = new SelectList(db.Centers, "id", "Name", order.CenterID);
+                }
                 ViewBag.type = type;
                 ViewBag.error = "حصل خطأ أثناء عملية التخزين";
                 return View(order);
@@ -551,7 +579,22 @@ namespace IntensiveLearning.Controllers
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
             if (order.Paymentid == null)
             {
-                ViewBag.CenterID = new SelectList(db.Centers, "id", "Name",order.CenterID);
+                int empid = Convert.ToInt32(Session["ID"]);
+                Employee emp = db.Employees.Find(empid);
+                if (type.SeeAccToCity == true)
+                {
+                    ViewBag.CenterID = new SelectList(db.Centers.Where(x => x.Cityid == emp.CityID), "id", "Name", order.CenterID);
+
+                }
+                else if (type.SeeAccToCenter == true || type.SeeTeachers == true)
+                {
+                    ViewBag.CenterID = new SelectList(db.Centers.Where(x => x.id == emp.Centerid), "id", "Name", order.CenterID);
+
+                }
+                else
+                {
+                    ViewBag.CenterID = new SelectList(db.Centers, "id", "Name", order.CenterID);
+                }
                 ViewBag.type = type;
                 return View(order);
 
@@ -588,7 +631,23 @@ namespace IntensiveLearning.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CenterID = new SelectList(db.Centers, "id", "Name", order.CenterID);
+
+            int empid = Convert.ToInt32(Session["ID"]);
+            Employee emp = db.Employees.Find(empid);
+            if (type.SeeAccToCity == true)
+            {
+                ViewBag.CenterID = new SelectList(db.Centers.Where(x => x.Cityid == emp.CityID), "id", "Name", order.CenterID);
+
+            }
+            else if (type.SeeAccToCenter == true || type.SeeTeachers == true)
+            {
+                ViewBag.CenterID = new SelectList(db.Centers.Where(x => x.id == emp.Centerid), "id", "Name", order.CenterID);
+
+            }
+            else
+            {
+                ViewBag.CenterID = new SelectList(db.Centers, "id", "Name", order.CenterID);
+            }
             ViewBag.type = type;
             return View(order);
         }

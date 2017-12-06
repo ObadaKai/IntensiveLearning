@@ -37,7 +37,8 @@ namespace IntensiveLearning.Controllers
 
             var ToSendBnd = new
             {
-                Bndid = bnd.id,
+                BndActivity = bnd.BudgetLineItem,
+                Bndid = bnd.Simbol,
                 Bndname = bnd.Name,
                 BndTotalNum = bnd.TotalNum,
                 BndPaidAmount = sum,

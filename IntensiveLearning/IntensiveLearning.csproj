@@ -165,6 +165,7 @@
     <Compile Include="Controllers\ExaminationsController.cs" />
     <Compile Include="Controllers\ExamTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HomeScreenPageController.cs" />
     <Compile Include="Controllers\JsonController.cs" />
     <Compile Include="Controllers\LessonsController.cs" />
     <Compile Include="Controllers\MissionsController.cs" />
@@ -291,12 +292,21 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\bg.jpeg" />
-    <Content Include="Content\Images\Logo.png" />
-    <Content Include="Content\Images\MidadIco.ico" />
-    <Content Include="Content\Images\pexels-photo-247839.jpeg" />
-    <Content Include="Content\Images\Photo.jpg" />
-    <Content Include="Content\Images\لوغو مداد.png" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\ThemeContents\assets\css\font-awesome.min.css" />
+    <Content Include="Content\ThemeContents\assets\css\main.css" />
+    <Content Include="Content\ThemeContents\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\ThemeContents\assets\js\jquery.min.js" />
+    <Content Include="Content\ThemeContents\assets\js\jquery.scrollex.min.js" />
+    <Content Include="Content\ThemeContents\assets\js\jquery.scrolly.min.js" />
+    <Content Include="Content\ThemeContents\assets\js\main.js" />
+    <Content Include="Content\ThemeContents\assets\js\skel.min.js" />
+    <Content Include="Content\ThemeContents\assets\js\util.js" />
+    <Content Include="Content\ThemeContents\images\banner.jpg" />
+    <Content Include="Content\ThemeContents\images\pic01.jpg" />
+    <Content Include="Content\ThemeContents\images\pic02.jpg" />
+    <Content Include="Content\ThemeContents\images\pic03.jpg" />
+    <Content Include="Content\ThemeContents\images\pic04.jpg" />
+    <Content Include="Content\ThemeContents\images\pic05.jpg" />
     <Content Include="Database\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Database.edmx</DependentUpon>
@@ -308,6 +318,12 @@
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
+    <Content Include="Content\Images\Logo.png" />
+    <Content Include="Content\Images\MidadIco.ico" />
+    <Content Include="Content\Images\pexels-photo-247839.jpeg" />
+    <Content Include="Content\Images\Photo.jpg" />
+    <Content Include="Content\Images\لوغو مداد.png" />
+    <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\angular.min.js" />
@@ -322,6 +338,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\ThemeContents\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\ThemeContents\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\ThemeContents\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\ThemeContents\assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\ThemeContents\assets\fonts\FontAwesome.otf" />
     <EntityDeploy Include="Database\Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Database.Designer.cs</LastGenOutput>
@@ -464,6 +485,12 @@
     <Content Include="Views\Missions\Details.cshtml" />
     <Content Include="Views\Missions\Edit.cshtml" />
     <Content Include="Views\Missions\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutTheme.cshtml" />
+    <Content Include="Views\HomeScreenPage\Index.cshtml" />
+    <Content Include="Views\HomeScreenPage\AboutIntenlearn.cshtml" />
+    <Content Include="Views\HomeScreenPage\AboutMidad.cshtml" />
+    <Content Include="Views\HomeScreenPage\StudentInfo.cshtml" />
+    <Content Include="Views\HomeScreenPage\RegisterNewStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Centers\" />

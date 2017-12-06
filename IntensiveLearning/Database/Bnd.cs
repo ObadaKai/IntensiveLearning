@@ -11,9 +11,7 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Bnd
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,76 +20,33 @@ namespace IntensiveLearning.Database
             this.Orders = new HashSet<Order>();
             this.SubBnds = new HashSet<SubBnd>();
         }
-
+    
         public int id { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·»‰œ")]
-        [DisplayName("«”„ «·»‰œ")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·—ﬁ„ «·ﬂ·Ì")]
-        [DisplayName("«·—ﬁ„ «·ﬂ·Ì")]
         public Nullable<double> TotalNum { get; set; }
-        [DisplayName("«·—ﬁ„ »⁄œ «· Œ›Ì÷")]
         public Nullable<double> AfterReductionNum { get; set; }
-        [DisplayName("Õ’… «·‘Â— «·«Ê·")]
         public Nullable<double> Month1Share { get; set; }
-
-        [DisplayName("Õ’… «·‘Â— «·À«‰Ì")]
         public Nullable<double> Month2Share { get; set; }
-
-        [DisplayName("Õ’… «·‘Â— «·À«·À")]
         public Nullable<double> Month3Share { get; set; }
-
-        [DisplayName("Õ’… «·‘Â— «·—«»⁄")]
         public Nullable<double> Month4Share { get; set; }
-
-        [DisplayName("Õ’… «·‘Â— «·Œ«„”")]
         public Nullable<double> Month5Share { get; set; }
-
-        [DisplayName("Õ’… «·‘Â— «·”«œ”")]
         public Nullable<double> Month6Share { get; set; }
-
-        [DisplayName("Õ’… «·‘Â— «·”«»⁄")]
         public Nullable<double> Month7Share { get; set; }
-
-        [DisplayName("Õ’… «·‘Â— «·À«„‰")]
         public Nullable<double> Month8Share { get; set; }
-
-        [DisplayName("Õ’… «·‘Â— «· «”⁄")]
         public Nullable<double> Month9Share { get; set; }
-
-        [DisplayName("Õ’… «·‘Â— «·⁄«‘—")]
         public Nullable<double> Month10Share { get; set; }
-
-        [DisplayName("Õ’… «·‘Â— «·Õ«œÌ ⁄‘—")]
         public Nullable<double> Month11Share { get; set; }
-
-        [DisplayName("Õ’… «·‘Â— «·À«‰Ì ⁄‘—")]
         public Nullable<double> Month12Share { get; set; }
-
-        [DisplayName("Õ’… «·‘Â— «· «”⁄")]
         public Nullable<double> Month13Share { get; set; }
-        [DisplayName("«·ÊÕœ…")]
-
         public string Unit { get; set; }
-        [DisplayName("«·„œ… ⁄·Ï «·‘Â—")]
-
         public Nullable<double> PeriodOnMonth { get; set; }
-        [DisplayName("‰”»… «·ﬁÌ„… „‰”Ê»… ··„‘—Ê⁄")]
-
         public Nullable<double> PercentOfCostChargedtoProject { get; set; }
-        [DisplayName("⁄‰’— «·„Ì“«‰Ì…")]
-
         public string BudgetLineItem { get; set; }
-        [DisplayName("⁄œœ «·ÊÕœ« ")]
-
         public Nullable<int> NumberOfUnits { get; set; }
-        [DisplayName("”⁄— «·ÊÕœ… «·Ê«Õœ…")]
-
         public Nullable<double> PerUnitCost { get; set; }
-        [DisplayName("«·—„“")]
-
         public string Simbol { get; set; }
-
+        public string WhichTable { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

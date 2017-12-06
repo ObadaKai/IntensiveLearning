@@ -1,0 +1,143 @@
+﻿@model IEnumerable<IntensiveLearning.Database.Mission>
+
+@{
+    ViewBag.Title = "لائحة المهام";
+}
+<div ng-controller="MissionsCtrl">
+    <h2>لائحة المهام</h2>
+
+    <p>
+        <a href="/Missions/Create" class="btn btn-warning">انشاء مهمة جديدة</a>
+        <a style="float:left" class="btn btn-warning" ng-click="ShowHistory()" ng-hide="OpenMisisons">المهمات المنتهية</a>
+        <a style="float:left" class="btn btn-warning" ng-click="ShowNonDone()" ng-show="OpenMisisons">المهمات الغير منتهية</a>
+
+    </p>
+    <div id="table_wrapper">
+        <table class="table table-striped">
+            <thead>
+                <tr class="bg-primary">
+                    <th>
+                        اسم مدير المهمة
+                    </th>
+
+                    <th>
+                        كنية مدير المهمة
+                    </th>
+                    <th>
+                        المهمة
+                    </th>
+                    <th>
+                        تاريخ انشاء المهمة
+                    </th>
+                    <th>
+                        زمن انشاء المهمة
+                    </th>
+                    <th>
+                        اخر تعليق
+                    </th>
+
+                    <th>
+                        المسؤولين عن تنفيذ المهمة
+                    </th>
+                    <th>
+                        عدد التعديلات
+                    </th>
+                    <th>
+                        تاريخ اخر تعديل
+                    </th>
+                    <th>
+                        زمن اخر تعديل
+                    </th>
+                    <th>
+                        تاريخ الانتهاء
+                    </th>
+                    <th>
+                        زمن الانتهاء
+                    </th>
+                    <th>
+                        حالة المهمة
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr ng-repeat="mission in Missions">
+                    <td>
+                        {{mission.ManagerName}}
+                    </td>
+                    <td>
+                        {{mission.ManagerSurname}}
+                    </td>
+                    <td>
+                        {{mission.MissionText}}
+                    </td>
+                    <td>
+                        {{mission.DateOfEntry | date:'dd/MM/yyyy'}}
+                    </td>
+                    <td ng-bind='timeFunction(mission.TimeOfEntry)'></td>
+                    <td>
+                        <span ng-repeat="Comment in mission.Comments">
+                            <span ng-if="$last">
+                                {{Comment.Response}}
+                            </span>
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-repeat="PersonInCharge in mission.PeopleInCharge"><span ng-if="!$last">{{PersonInCharge.EmployeeName}} {{PersonInCharge.EmployeeSurname}}، </span></span>
+                        <span ng-repeat="PersonInCharge in mission.PeopleInCharge"><span ng-if="$last">{{PersonInCharge.EmployeeName}} {{PersonInCharge.EmployeeSurname}}</span></span>
+
+                    </td>
+                    <td>
+                        {{mission.NumberOfModifications}}
+                    </td>
+                    <td>
+                        {{mission.DateOfLastModification | date:'dd/MM/yyyy'}}
+                    </td>
+                    <td ng-bind='timeFunction(mission.TimeOfLastModification)'></td>
+                    <td>
+                        {{mission.DateOfFinish | date:'dd/MM/yyyy'}}
+                    </td>
+                    <td ng-bind='timeFunction(mission.TimeOfFinish)'></td>
+                    <td>
+                        <span ng-repeat="PersonInCharge in mission.PeopleInCharge"><span ng-if="!mission.Checked && !mission.Closed && PersonInCharge.EmployeeID == empid"><a class="glyphicon glyphicon-ok" ng-click="CheckMission(mission.ID)" ng-hide="MissionIsClosed"></a></span></span>
+                        <span ng-show="MissionIsClosed && !mission.Checked">تم الانجاز</span>
+
+                        <span ng-if="mission.Checked && !mission.Closed">تم الانجاز</span>
+                        <span ng-if="mission.Closed">منتهية</span>
+                    </td>
+                    <td>
+                        <a ng-if="!(mission.ManagerID == empid || mission.PersonEntered == empid )|| mission.Closed" href="/Missions/Details/{{mission.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+
+                        <div ng-if="(!mission.Checked) && (mission.ManagerID == empid || mission.PersonEntered == empid)" style="width:130px">
+                            <a href="/Missions/Delete/{{mission.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a href="/Missions/Details/{{mission.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                            <a href="/Missions/Edit/{{mission.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                        </div>
+
+                        <div ng-if="(mission.ManagerID == empid || mission.PersonEntered == empid) && mission.Checked && !mission.Closed"  style="width:180px">
+                            <a href="/Missions/Delete/{{mission.ID}}" class="btn btn-danger" title="حذف المهمة"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a href="/Missions/Details/{{mission.ID}}" class="btn btn-info" title="معلومات المهمة"><span class="glyphicon glyphicon-folder-open"></span></a>
+                            <a href="/Missions/Edit/{{mission.ID}}" class="btn btn-success" title="تعديل المهمة"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a href="/Json/CloseMission/{{mission.ID}}"  class="btn btn-warning" title="انهاء المهمة"><span class="glyphicon glyphicon-ok"></span></a>
+                        </div>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })*@
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>
+</div>
+
+<div class="LoadingScreen" id="LoadingScreen">
+    <div class="LoadingBackground"></div>
+    <div class="LoadingIcon">
+        <div class="lds-css ng-scope">
+            <div class="lds-spinner" style="100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>

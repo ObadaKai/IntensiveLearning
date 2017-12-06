@@ -1,0 +1,202 @@
+﻿@model IntensiveLearning.Database.NonUserAddRequest
+
+@{
+    ViewBag.Title = "تسجيل طالب جديد";
+    Layout = "~/Views/Shared/_LayoutTheme.cshtml";
+}
+<div class="NewStudent-Background">
+    <div class="NewStudent-BackgroundShadow">
+        <div class="AddNonStudentStudent">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4 class="NewStudentHeading">اضافة طالب جديد</h4>
+                    <hr style="margin-top:0" />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div style="display:inline-block;width:100%;">
+                        <div class="row" style="margin:0;padding:0 5px 0 5px;">
+                            <div class="col-sm-6 pull-right col-xs-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label " })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label " })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FathersName, htmlAttributes: new { @class = "control-label " })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.FathersName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.FathersName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MothersName, htmlAttributes: new { @class = "control-label " })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.MothersName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.MothersName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.BDate, htmlAttributes: new { @class = "control-label " })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.BDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                                        @Html.ValidationMessageFor(model => model.BDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CType, "المرحلة المحصلة", htmlAttributes: new { @class = "control-label " })
+                                    <div class="select-wrapper">
+                                        @Html.DropDownList("CType", null, "--- اختر اخر مرحلة لك ---", htmlAttributes: new { @class = "" })
+                                        @Html.ValidationMessageFor(model => model.CType, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label " })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.Mark, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-sm-6 pull-right col-xs-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.OldSchool, htmlAttributes: new { @class = "control-label " })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.OldSchool, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.OldSchool, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Cityid, "مدينتك", htmlAttributes: new { @class = "control-label " })
+                                    <div class="select-wrapper">
+                                        @Html.DropDownList("Cityid", null, "--- اختر مدينتك ---", htmlAttributes: new { @class = "" })
+                                        @Html.ValidationMessageFor(model => model.Cityid, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Centerid, "المركز المرجح لديك", htmlAttributes: new { @class = "control-label " })
+                                    <div class="select-wrapper">
+                                        @Html.DropDownList("Centerid", null, "--- اختر مركزك ---", htmlAttributes: new { @class = "" })
+                                        @Html.ValidationMessageFor(model => model.Centerid, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Stageid, "الصف المتقدم له", htmlAttributes: new { @class = "control-label " })
+                                    <div class="select-wrapper">
+                                        @Html.DropDownList("Stageid", null, "--- اختر صفك ---", htmlAttributes: new { @class = "" })
+                                        @Html.ValidationMessageFor(model => model.Stageid, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Periodid, "الفترة المرجحة", htmlAttributes: new { @class = "control-label " })
+                                    <div class="select-wrapper">
+                                        @Html.DropDownList("Periodid", null, "--- الفترة المرجحة ---", htmlAttributes: new { @class = "" })
+                                        @Html.ValidationMessageFor(model => model.Periodid, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label " })
+                                    <div class="">
+                                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @type = "Number" } })
+                                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label " })
+                                    <div class="col-sm-12" style="margin-top:3px;">
+                                        <div class="col-sm-6">
+                                            @if (Model != null)
+                                            {
+                                                if (Model.Sex == "ذكر")
+                                                {
+
+                                                    <input type="radio" id="SexMale" name="Sex" value="ذكر" style="color:white;display:inline-block;" checked />
+                                                    <label for="SexMale" style="display:inline-block;">ذكر</label>
+
+                                                }
+                                                else
+                                                {
+
+                                                    <input type="radio" id="SexMale" name="Sex" value="ذكر" style="color:white;display:inline-block;" />
+                                                    <label for="SexMale" style="display:inline-block;">ذكر</label>
+
+                                                }
+                                            }
+                                            else
+                                            {
+
+                                                <input type="radio" name="Sex" id="SexMale" value="ذكر" style="color:white;display:inline-block;" />
+                                                <label for="SexMale" style="display:inline-block;">ذكر</label>
+
+
+                                            }
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            @if (Model != null)
+                                            {
+                                                if (Model.Sex == "انثى")
+                                                {
+                                                    <input type="radio" id="SexFemale" name="Sex" value="انثى" style="color:white;display:inline-block;" checked />
+                                                    <label for="SexFemale" style="display:inline-block;">انثى</label>
+
+                                                }
+                                                else
+                                                {
+                                                    <input id="SexFemale" type="radio" name="Sex" value="انثى" style="color:white;display:inline-block;" />
+                                                    <label for="SexFemale" style="display:inline-block;">انثى</label>
+
+
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <input id="SexFemale" type="radio" name="Sex" value="انثى" style="color:white;display:inline-block;" />
+                                                <label for="SexFemale" style="display:inline-block;">انثى</label>
+
+
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="form-group" style="margin-top:1.5em;width:100%;padding:0 15px">
+                                <div>
+                                    <input type="submit" value="إضافة" class="button fit" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+</div>

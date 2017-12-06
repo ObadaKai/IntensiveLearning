@@ -28,6 +28,7 @@
     <Property Name="NumberOfUnits" Type="Int32" />
     <Property Name="PerUnitCost" Type="Double" />
     <Property Name="Simbol" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="WhichTable" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Bnd" FromRole="Bnd" ToRole="Order" />
     <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Bnd" FromRole="Bnd" ToRole="SubBnd" />
   </EntityType>
@@ -82,6 +83,7 @@
     <NavigationProperty Name="Project" Relationship="Self.FK_Centers_Project" FromRole="Centers" ToRole="Project" />
     <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Centers" FromRole="Centers" ToRole="Employees" />
     <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Centers" FromRole="Centers" ToRole="Lessons" />
+    <NavigationProperty Name="NonUserAddRequests" Relationship="Self.FK_NonUserAddRequest_Centers" FromRole="Centers" ToRole="NonUserAddRequest" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Centers" FromRole="Centers" ToRole="Order" />
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Centers" FromRole="Centers" ToRole="Prooves" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Centers" FromRole="Centers" ToRole="Students" />
@@ -100,6 +102,7 @@
     <NavigationProperty Name="Centers" Relationship="Self.FK_Centers_Cities" FromRole="Cities" ToRole="Centers" />
     <NavigationProperty Name="Project" Relationship="Self.FK_Cities_Project" FromRole="Cities" ToRole="Project" />
     <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Cities" FromRole="Cities" ToRole="Employees" />
+    <NavigationProperty Name="NonUserAddRequests" Relationship="Self.FK_NonUserAddRequest_Cities" FromRole="Cities" ToRole="NonUserAddRequest" />
   </EntityType>
   <EntityType Name="Concern">
     <Key>
@@ -156,6 +159,8 @@
     <Property Name="telephoneNumber" Type="Int64" />
     <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfLastEntry" Type="DateTime" Precision="0" />
+    <Property Name="TimeOfLastEntry" Type="Time" Precision="7" />
     <NavigationProperty Name="Centers" Relationship="Self.FK_Centers_Employees" FromRole="Employees" ToRole="Centers" />
     <NavigationProperty Name="Centers1" Relationship="Self.FK_Centers_Employees1" FromRole="Employees" ToRole="Centers" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Employees_Centers" FromRole="Employees" ToRole="Centers" />
@@ -172,6 +177,7 @@
     <NavigationProperty Name="Examinations1" Relationship="Self.FK_Examination_Employees1" FromRole="Employees" ToRole="Examination" />
     <NavigationProperty Name="Missions" Relationship="Self.FK_Mission_Employees" FromRole="Employees" ToRole="Mission" />
     <NavigationProperty Name="Missions1" Relationship="Self.FK_Mission_Employees1" FromRole="Employees" ToRole="Mission" />
+    <NavigationProperty Name="Missions2" Relationship="Self.FK_Mission_Employees2" FromRole="Employees" ToRole="Mission" />
     <NavigationProperty Name="MissionPersonInCharges" Relationship="Self.FK_MissionPersonInCharge_Employees" FromRole="Employees" ToRole="MissionPersonInCharge" />
     <NavigationProperty Name="MissionResponses" Relationship="Self.FK_MissionResponse_Employees" FromRole="Employees" ToRole="MissionResponse" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Employees" FromRole="Employees" ToRole="Order" />
@@ -181,7 +187,6 @@
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Employees" FromRole="Employees" ToRole="Students" />
     <NavigationProperty Name="Students1" Relationship="Self.FK_Students_Employees1" FromRole="Employees" ToRole="Students" />
     <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Employees" FromRole="Employees" ToRole="SubBnd" />
-    <NavigationProperty Name="Missions2" Relationship="TaalimModel.FK_Mission_Employees2" FromRole="Employee" ToRole="Mission" />
   </EntityType>
   <EntityType Name="EmployeeType">
     <Key>
@@ -281,11 +286,30 @@
     <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Date" Type="DateTime" Precision="0" />
-    <Property Name="PhoneNumber" Type="Int32" />
+    <Property Name="BDate" Type="DateTime" Precision="0" />
+    <Property Name="PhoneNumber" Type="Int64" />
     <Property Name="FathersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Certificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Mark" Type="Double" />
+    <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="MothersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Centerid" Type="Int32" />
+    <Property Name="OldSchool" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Cityid" Type="Int32" />
+    <Property Name="Approval" Type="Boolean" />
+    <Property Name="ApprovedBy" Type="Int32" />
+    <Property Name="AddedBy" Type="Int32" />
+    <Property Name="AddingDate" Type="DateTime" Precision="0" />
+    <Property Name="AddingTime" Type="Time" Precision="7" />
+    <Property Name="ApprovalDate" Type="DateTime" Precision="0" />
+    <Property Name="ApprovalTime" Type="Time" Precision="7" />
+    <NavigationProperty Name="Center" Relationship="Self.FK_NonUserAddRequest_Centers" FromRole="NonUserAddRequest" ToRole="Centers" />
+    <NavigationProperty Name="City" Relationship="Self.FK_NonUserAddRequest_Cities" FromRole="NonUserAddRequest" ToRole="Cities" />
+    <Property Name="Stageid" Type="Int32" />
+    <Property Name="Periodid" Type="Int32" />
+    <NavigationProperty Name="Period" Relationship="TaalimModel.FK_NonUserAddRequest_Periods" FromRole="NonUserAddRequest" ToRole="Period" />
+    <NavigationProperty Name="Stage" Relationship="TaalimModel.FK_NonUserAddRequest_Stages" FromRole="NonUserAddRequest" ToRole="Stage" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -338,6 +362,7 @@
     <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Periods" FromRole="Periods" ToRole="Employees" />
     <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Periods" FromRole="Periods" ToRole="Lessons" />
     <NavigationProperty Name="Regiments" Relationship="Self.FK_Regiments_Periods" FromRole="Periods" ToRole="Regiments" />
+    <NavigationProperty Name="NonUserAddRequests" Relationship="TaalimModel.FK_NonUserAddRequest_Periods" FromRole="Period" ToRole="NonUserAddRequest" />
   </EntityType>
   <EntityType Name="Presence">
     <Key>
@@ -413,6 +438,7 @@
     <NavigationProperty Name="Examinations" Relationship="Self.FK_Examination_Stages" FromRole="Stages" ToRole="Examination" />
     <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Stages" FromRole="Stages" ToRole="Lessons" />
     <NavigationProperty Name="Students" Relationship="Self.FK_Students_Stages" FromRole="Stages" ToRole="Students" />
+    <NavigationProperty Name="NonUserAddRequests" Relationship="TaalimModel.FK_NonUserAddRequest_Stages" FromRole="Stage" ToRole="NonUserAddRequest" />
   </EntityType>
   <EntityType Name="Student">
     <Key>
@@ -442,6 +468,9 @@
     <Property Name="OldSchool" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="StudentState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Mothersname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ApprovalDate" Type="DateTime" Precision="0" />
+    <Property Name="ApprovalTime" Type="Time" Precision="7" />
+    <Property Name="PhoneNumber" Type="Int64" />
     <NavigationProperty Name="Center" Relationship="Self.FK_Students_Centers" FromRole="Students" ToRole="Centers" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Students_Employees" FromRole="Students" ToRole="Employees" />
     <NavigationProperty Name="Employee1" Relationship="Self.FK_Students_Employees1" FromRole="Students" ToRole="Employees" />
@@ -480,14 +509,14 @@
     <Property Name="NumberOfModifications" Type="Int32" />
     <Property Name="TimeOfLastModification" Type="Time" Precision="7" />
     <Property Name="Manager" Type="Int32" />
-    <NavigationProperty Name="Employee" Relationship="Self.FK_Mission_Employees" FromRole="Mission" ToRole="Employees" />
-    <NavigationProperty Name="Employee1" Relationship="Self.FK_Mission_Employees1" FromRole="Mission" ToRole="Employees" />
-    <NavigationProperty Name="MissionPersonInCharges" Relationship="Self.FK_MissionPersonInCharge_Mission" FromRole="Mission" ToRole="MissionPersonInCharge" />
-    <NavigationProperty Name="MissionResponses" Relationship="Self.FK_MissionResponse_Mission" FromRole="Mission" ToRole="MissionResponse" />
     <Property Name="PersonEntered" Type="Int32" />
     <Property Name="DateOfChecking" Type="DateTime" Precision="0" />
     <Property Name="TimeOFChecking" Type="Time" Precision="7" />
-    <NavigationProperty Name="Employee2" Relationship="TaalimModel.FK_Mission_Employees2" FromRole="Mission" ToRole="Employee" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Mission_Employees" FromRole="Mission" ToRole="Employees" />
+    <NavigationProperty Name="Employee1" Relationship="Self.FK_Mission_Employees1" FromRole="Mission" ToRole="Employees" />
+    <NavigationProperty Name="Employee2" Relationship="Self.FK_Mission_Employees2" FromRole="Mission" ToRole="Employees" />
+    <NavigationProperty Name="MissionPersonInCharges" Relationship="Self.FK_MissionPersonInCharge_Mission" FromRole="Mission" ToRole="MissionPersonInCharge" />
+    <NavigationProperty Name="MissionResponses" Relationship="Self.FK_MissionResponse_Mission" FromRole="Mission" ToRole="MissionResponse" />
   </EntityType>
   <EntityType Name="MissionPersonInCharge">
     <Key>
@@ -660,6 +689,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_NonUserAddRequest_Centers">
+    <End Role="Centers" Type="Self.Center" Multiplicity="0..1" />
+    <End Role="NonUserAddRequest" Type="Self.NonUserAddRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="NonUserAddRequest">
+        <PropertyRef Name="Centerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Order_Centers">
     <End Role="Centers" Type="Self.Center" Multiplicity="0..1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -729,6 +770,18 @@
       </Principal>
       <Dependent Role="Employees">
         <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NonUserAddRequest_Cities">
+    <End Role="Cities" Type="Self.City" Multiplicity="0..1" />
+    <End Role="NonUserAddRequest" Type="Self.NonUserAddRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="NonUserAddRequest">
+        <PropertyRef Name="Cityid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -849,6 +902,18 @@
       </Principal>
       <Dependent Role="Mission">
         <PropertyRef Name="PersonChecked" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mission_Employees2">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Mission" Type="Self.Mission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Mission">
+        <PropertyRef Name="PersonEntered" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1254,6 +1319,10 @@
       <End Role="Centers" EntitySet="Centers" />
       <End Role="Lessons" EntitySet="Lessons" />
     </AssociationSet>
+    <AssociationSet Name="FK_NonUserAddRequest_Centers" Association="Self.FK_NonUserAddRequest_Centers">
+      <End Role="Centers" EntitySet="Centers" />
+      <End Role="NonUserAddRequest" EntitySet="NonUserAddRequests" />
+    </AssociationSet>
     <AssociationSet Name="FK_Order_Centers" Association="Self.FK_Order_Centers">
       <End Role="Centers" EntitySet="Centers" />
       <End Role="Order" EntitySet="Orders" />
@@ -1277,6 +1346,10 @@
     <AssociationSet Name="FK_Employees_Cities" Association="Self.FK_Employees_Cities">
       <End Role="Cities" EntitySet="Cities" />
       <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NonUserAddRequest_Cities" Association="Self.FK_NonUserAddRequest_Cities">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="NonUserAddRequest" EntitySet="NonUserAddRequests" />
     </AssociationSet>
     <AssociationSet Name="FK_Concerns_Employees" Association="Self.FK_Concerns_Employees">
       <End Role="Employees" EntitySet="Employees" />
@@ -1315,6 +1388,10 @@
       <End Role="Mission" EntitySet="Missions" />
     </AssociationSet>
     <AssociationSet Name="FK_Mission_Employees1" Association="Self.FK_Mission_Employees1">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Mission" EntitySet="Missions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mission_Employees2" Association="Self.FK_Mission_Employees2">
       <End Role="Employees" EntitySet="Employees" />
       <End Role="Mission" EntitySet="Missions" />
     </AssociationSet>
@@ -1430,20 +1507,36 @@
       <End Role="MissionResponse" EntitySet="MissionResponses" />
       <End Role="MissionResponse1" EntitySet="MissionResponses" />
     </AssociationSet>
-    <AssociationSet Name="FK_Mission_Employees2" Association="TaalimModel.FK_Mission_Employees2">
-      <End Role="Employee" EntitySet="Employees" />
-      <End Role="Mission" EntitySet="Missions" />
+    <AssociationSet Name="FK_NonUserAddRequest_Periods" Association="TaalimModel.FK_NonUserAddRequest_Periods">
+      <End Role="Period" EntitySet="Periods" />
+      <End Role="NonUserAddRequest" EntitySet="NonUserAddRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NonUserAddRequest_Stages" Association="TaalimModel.FK_NonUserAddRequest_Stages">
+      <End Role="Stage" EntitySet="Stages" />
+      <End Role="NonUserAddRequest" EntitySet="NonUserAddRequests" />
     </AssociationSet>
   </EntityContainer>
-  <Association Name="FK_Mission_Employees2">
-    <End Type="TaalimModel.Employee" Role="Employee" Multiplicity="0..1" />
-    <End Type="TaalimModel.Mission" Role="Mission" Multiplicity="*" />
+  <Association Name="FK_NonUserAddRequest_Periods">
+    <End Type="TaalimModel.Period" Role="Period" Multiplicity="0..1" />
+    <End Type="TaalimModel.NonUserAddRequest" Role="NonUserAddRequest" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Employee">
+      <Principal Role="Period">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="Mission">
-        <PropertyRef Name="PersonEntered" />
+      <Dependent Role="NonUserAddRequest">
+        <PropertyRef Name="Periodid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NonUserAddRequest_Stages">
+    <End Type="TaalimModel.Stage" Role="Stage" Multiplicity="0..1" />
+    <End Type="TaalimModel.NonUserAddRequest" Role="NonUserAddRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stage">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="NonUserAddRequest">
+        <PropertyRef Name="Stageid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

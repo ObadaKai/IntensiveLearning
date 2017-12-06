@@ -156,7 +156,7 @@ namespace IntensiveLearning.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Name,TotalNum,Month1Share,Month2Share,Month3Share,Month4Share,Month5Share,Month6Share,Month7Share,Month8Share,Month9Share,Month10Share,Month11Share,Month12Share")] Bnd bnd)
+        public ActionResult Edit(Bnd bnd)
         {
             if (Session["ID"] == null)
             {
@@ -167,9 +167,9 @@ namespace IntensiveLearning.Controllers
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
             if (type.Finance == true)
             {
-                if (bnd.Month10Share + bnd.Month11Share + bnd.Month12Share + bnd.Month1Share + bnd.Month2Share + bnd.Month3Share + bnd.Month4Share + bnd.Month5Share + bnd.Month6Share + bnd.Month7Share + bnd.Month8Share + bnd.Month9Share != bnd.TotalNum)
+                if (bnd.Month13Share + bnd.Month10Share + bnd.Month11Share + bnd.Month12Share + bnd.Month1Share + bnd.Month2Share + bnd.Month3Share + bnd.Month4Share + bnd.Month5Share + bnd.Month6Share + bnd.Month7Share + bnd.Month8Share + bnd.Month9Share != bnd.TotalNum)
                 {
-                    ViewBag.error = "الرجاء التأكد من تساوي مجموع ميزانيات الاشهر مع الميزانية العامة";
+                    ViewBag.error = "الرجاء التأكد من تساوي مجموع ميزانيات الاشهر مع الميزانية العامة وأن جميع الاشهر قد تم تعبأتها بقيمة من الصفر او اعلى";
                     return View(bnd);
                 }
                 if (ModelState.IsValid)

@@ -1,152 +1,158 @@
 ﻿@model IntensiveLearning.Database.Bnd
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "معلومات";
 }
+<div class="WhiteBlur">
+    <h2>معلومات</h2>
 
-<h2>Details</h2>
+    <div>
+        <h4>بند</h4>
+        <hr />
+            <div class="InfoContainer">
+                <div class="col-sm-6 pull-right PaddingRightPart col-xs-12">
 
-<div>
-    <h4>Bnd</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Simbol)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Simbol)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BudgetLineItem)
-        </dt>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Simbol)
+                    </h4>
 
-        <dd>
-            @Html.DisplayFor(model => model.BudgetLineItem)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+                    <p>
+                        @Html.DisplayFor(model => model.Simbol)
+                    </p>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.BudgetLineItem)
+                    </h4>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                    <p>
+                        @Html.DisplayFor(model => model.BudgetLineItem)
+                    </p>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </h4>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalNum)
-        </dt>
+                    <p>
+                        @Html.DisplayFor(model => model.Name)
+                    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.TotalNum)
-        </dd>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.TotalNum)
+                    </h4>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AfterReductionNum)
-        </dt>
+                    <p>
+                        @Html.DisplayFor(model => model.TotalNum)
+                    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.AfterReductionNum)
-        </dd>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.AfterReductionNum)
+                    </h4>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Month1Share)
-        </dt>
+                    <p>
+                        @Html.DisplayFor(model => model.AfterReductionNum)
+                    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Month1Share)
-        </dd>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Month1Share)
+                    </h4>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Month2Share)
-        </dt>
+                    <p>
+                        @Html.DisplayFor(model => model.Month1Share)
+                    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Month2Share)
-        </dd>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Month2Share)
+                    </h4>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Month3Share)
-        </dt>
+                    <p>
+                        @Html.DisplayFor(model => model.Month2Share)
+                    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Month3Share)
-        </dd>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Month3Share)
+                    </h4>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Month4Share)
-        </dt>
+                    <p>
+                        @Html.DisplayFor(model => model.Month3Share)
+                    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Month4Share)
-        </dd>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Month4Share)
+                    </h4>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Month5Share)
-        </dt>
+                    <p>
+                        @Html.DisplayFor(model => model.Month4Share)
+                    </p>
+                </div>
+                <div class="col-sm-6 pull-right PaddingLeftPart col-xs-12">
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Month5Share)
+                    </h4>
 
-        <dd>
-            @Html.DisplayFor(model => model.Month5Share)
-        </dd>
+                    <p>
+                        @Html.DisplayFor(model => model.Month5Share)
+                    </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Month6Share)
-        </dt>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Month6Share)
+                    </h4>
 
-        <dd>
-            @Html.DisplayFor(model => model.Month6Share)
-        </dd>
+                    <p>
+                        @Html.DisplayFor(model => model.Month6Share)
+                    </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Month7Share)
-        </dt>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Month7Share)
+                    </h4>
 
-        <dd>
-            @Html.DisplayFor(model => model.Month7Share)
-        </dd>
+                    <p>
+                        @Html.DisplayFor(model => model.Month7Share)
+                    </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Month8Share)
-        </dt>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Month8Share)
+                    </h4>
 
-        <dd>
-            @Html.DisplayFor(model => model.Month8Share)
-        </dd>
+                    <p>
+                        @Html.DisplayFor(model => model.Month8Share)
+                    </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Month9Share)
-        </dt>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Month9Share)
+                    </h4>
 
-        <dd>
-            @Html.DisplayFor(model => model.Month9Share)
-        </dd>
+                    <p>
+                        @Html.DisplayFor(model => model.Month9Share)
+                    </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Month10Share)
-        </dt>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Month10Share)
+                    </h4>
 
-        <dd>
-            @Html.DisplayFor(model => model.Month10Share)
-        </dd>
+                    <p>
+                        @Html.DisplayFor(model => model.Month10Share)
+                    </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Month11Share)
-        </dt>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Month11Share)
+                    </h4>
 
-        <dd>
-            @Html.DisplayFor(model => model.Month11Share)
-        </dd>
+                    <p>
+                        @Html.DisplayFor(model => model.Month11Share)
+                    </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Month12Share)
-        </dt>
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Month12Share)
+                    </h4>
 
-        <dd>
-            @Html.DisplayFor(model => model.Month12Share)
-        </dd>
+                    <p>
+                        @Html.DisplayFor(model => model.Month12Share)
+                    </p>
+                </div>
+            </div>
 
-    </dl>
+    </div>
+    <p>
+        @Html.ActionLink("تعديل", "Edit", new { id = Model.id }) |
+        @Html.ActionLink("العودة إلى لائحة البنود", "Index")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

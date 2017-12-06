@@ -1,6 +1,4 @@
-﻿@model IEnumerable<IntensiveLearning.Database.Employee>
-
-@{
+﻿@{
     ViewBag.Title = "لائحة موظفين";
 }
 <div ng-controller="EmployeesCtrl">
@@ -30,472 +28,126 @@
             </div>
         </div>
     }
-    <div class="col-md-12" style="margin-bottom:20px;padding:0;border:0">
-        <div class="col-md-10" style="margin:0;padding:0;border:0">
-            <input type="text" class="form-control " style="display:inline-block !important;text-align:right" name="search" id="search" placeholder="...البحث" ng-change="EmployeeSearchBox()" ng-model="EmployeeSearchBoxData" />
+    <button type="button" ng-click="SearchContainer()" class="btn btn-primary" style="margin-bottom:10px;">خيارات البحث</button>
+    <div id="SearchItemsBtn" class="WhiteBlur InfoContainer">
+        <div class="col-xs-12" style="margin-bottom:20px;padding:0;border:0">
+            <div class="col-sm-2 col-xs-12 pull-right" style="padding:0">
+                <h4 style="line-height:62px">:قائمة البحث</h4>
+            </div>
+            <div ng-show="Cities != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
+                <label>بحث مدن</label>
+                <select name="CentersChange" id="CitiesChange" ng-model="CitiesChange" class="form-control">
+                    <option value="">--- الكل ---</option>
+                    <option ng-repeat="City in Cities" value="{{City.id}}">{{City.Name}}</option>
+                    <option value="0">--- بدون ---</option>
+                </select>
+            </div>
+
+            <div ng-show="Centers != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
+                <label>بحث مراكز</label>
+                <select name="CentersChange" id="CentersChange" ng-model="CentersChange" class="form-control">
+                    <option value="">--- الكل ---</option>
+                    <option ng-repeat="Center in Centers" value="{{Center.id}}">{{Center.Name}}</option>
+                    <option value="0">--- بدون ---</option>
+                </select>
+            </div>
+            <div ng-show="Periods != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
+                <label>بحث فترات</label>
+                <select name="PeriodsChange" id="PeriodsChange" ng-model="PeriodsChange" class="form-control">
+                    <option value="">--- الكل ---</option>
+                    <option ng-repeat="Period in Periods" value="{{Period.id}}">{{Period.Name}}</option>
+
+                </select>
+            </div>
+            <div ng-show="EmployeeTypes != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
+                <label>بحث مراحل</label>
+                <select name="StagesChange" id="StagesChange" ng-model="EmployeeTypesChange" class="form-control">
+                    <option value="">--- الكل ---</option>
+                    <option ng-repeat="EmployeeType in EmployeeTypes" value="{{EmployeeType.id}}">{{EmployeeType.Type}}</option>
+                </select>
+            </div>
         </div>
-        <div class="col-md-2" style="margin:0;padding:0;border:0">
-            <input type="date" class="form-control " style="display:inline-block !important;" name="searchdate" id="searchdate" ng-change="EmployeeSearchBox()" ng-model="EmployeeSearchBoxDate" />
+        <div class="col-xs-12" style="margin:20px 0;padding:0;border:0">
+            <div class="col-sm-10 col-xs-12 pull-right" style="margin:0;padding:0;border:0">
+                <input type="text" class="form-control " style="display:inline-block !important;text-align:right" name="search" id="search" placeholder="...البحث" ng-model="EmployeeSearchBoxData" />
+            </div>
+            <div class="col-sm-2 col-xs-12 pull-right" style="margin:0;padding:0;border:0">
+                <input type="button" style="width:100%;" class="btn btn-success" value="بحث" ng-click="EmployeeSearch()" />
+            </div>
+
+        </div>
+        <div style="text-align:right;padding:0;margin:0" class="col-xs-12 ">
+            <h4>:أعمدة الجدول</h4>
+            <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
+
+                <div>
+                    <input type="checkbox" ng-model="NameColCheckBox" ng-change="NameCol == true ? NameCol=false:NameCol=true" id="NameColCheckBox" /><label for="NameColCheckBox">اسم الموظف</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="SurnameColCheckBox" ng-change="SurnameCol == true ?SurnameCol =false:SurnameCol =true" id="SurnameColCheckBox" /><label for="SurnameColCheckBox">كنية الموظف</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="BDateColCheckBox" ng-change="BDateCol == true ? BDateCol= false:BDateCol=true" id="BDateColCheckBox" /><label for="BDateColCheckBox">تاريخ الولادة</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="CertificateColCheckBox" ng-change="CertificateCol == true ? CertificateCol=false:CertificateCol=true" id="CertificateColCheckBox" /><label for="CertificateColCheckBox">الشهادة المتحصل عليها</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="CTypeColCheckBox" ng-change="CTypeCol == true ?CTypeCol= false:CTypeCol=true" id="CTypeColCheckBox" /><label for="CTypeColCheckBox">مستوى الشهادة</label>
+                </div>
+
+                <div>
+                    <input type="checkbox" ng-model="OldJobColCheckBox" ng-change="OldJobCol == true ? OldJobCol=false:OldJobCol=true" id="OldJobColCheckBox" /><label for="OldJobColCheckBox">العمل القديم</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="ExpYearsColCheckBox" ng-change="ExpYearsCol == true ? ExpYearsCol=false:ExpYearsCol=true" id="ExpYearsColCheckBox" /><label for="ExpYearsColCheckBox">سنين الخبرة</label>
+                </div>
+
+            </div>
+            <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
+
+                <div>
+                    <input type="checkbox" ng-model="InsideOrOutsideColCheckBox" ng-change="InsideOrOutsideCol == true ? InsideOrOutsideCol=false:InsideOrOutsideCol=true" id="InsideOrOutsideColCheckBox" /><label for="InsideOrOutsideColCheckBox">داخل او خارج الملاك</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="StateColCheckBox" ng-change="StateCol == true ? StateCol=false:StateCol=true" id="StateColCheckBox" /><label for="StateColCheckBox">الحالة</label>
+                </div>
+
+                <div>
+                    <input type="checkbox" ng-model="SDateColCheckBox" ng-change="SDateCol == true ? SDateCol=false:SDateCol=true" id="SDateColCheckBox" /><label for="SDateColCheckBox">تاريخ البدء</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="EDateColCheckBox" ng-change="EDateCol == true ? EDateCol=false:EDateCol=true" id="EDateColCheckBox" /><label for="EDateColCheckBox">تاريخ الانتهاء</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="CenterColCheckBox" ng-change="CenterCol == true ? CenterCol=false:CenterCol=true" id="CenterColCheckBox" /><label for="CenterColCheckBox">المركز</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="CityColCheckBox" ng-change="CityCol == true ? CityCol=false:CityCol=true" id="CityColCheckBox" /><label for="CityColCheckBox">المدينة</label>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
+                <div>
+                    <input type="checkbox" ng-model="EmployeeTypeColCheckBox" ng-change="EmployeeTypeCol == true ? EmployeeTypeCol=false:EmployeeTypeCol=true" id="EmployeeTypeColCheckBox" /><label for="EmployeeTypeColCheckBox">صلاحيات الموظف</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="PeriodColCheckBox" ng-change="PeriodCol == true ? PeriodCol=false:PeriodCol=true" id="PeriodColCheckBox" /><label for="PeriodColCheckBox">الفترة</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="SalaryColCheckBox" ng-change="SalaryCol == true ? SalaryCol=false:SalaryCol=true" id="SalaryColCheckBox" /><label for="SalaryColCheckBox">الراتب</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="SignsColCheckBox" ng-change="SignsCol == true ? SignsCol=false:SignsCol=true" id="SignsColCheckBox" /><label for="SignsColCheckBox">التوقيع</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="ProofColCheckBox" ng-change="ProofCol == true ? ProofCol=false:ProofCol=true" id="ProofColCheckBox" /><label for="ProofColCheckBox">الاثبات</label>
+                </div>
+                <div>
+                    <input type="checkbox" ng-model="InfoColCheckBox" ng-change="InfoCol == true ? InfoCol=false:InfoCol=true" id="InfoColCheckBox" /><label for="InfoColCheckBox">المعلومات</label>
+                </div>
+            </div>
         </div>
     </div>
-
-    @*<div id="table_wrapper">
-
-            <table class="table table-striped" ng-hide="EmployeeRazorForm">
-                <thead>
-                    <tr class="bg-primary">
-                        <th></th>
-
-                        <th>
-                            @Html.DisplayNameFor(model => model.name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.surname)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.BDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Certificate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.CType)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.OldJob)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ExpYears)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.InsideOrOutside)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.State)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.SDate)
-                        </th>
-
-                        <th>
-                            @Html.DisplayNameFor(model => model.EDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Center.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.City.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EmployeeType.Type)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Period.Name)
-                        </th>
-                        @if (Session["SeeAll"] != null)
-                        {
-                            if ((bool)Session["SeeAll"] == true)
-                            {
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Salary)
-                                </th>
-                            }
-                        }
-                        <th>التوقيع</th>
-                        <th>الاثبات</th>
-                        <th></th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model)
-                        {
-                            <tr>
-                                <td @if (item.Approval == null) { @: style="background-color:gray"
-                                     } else if (item.Approval != null) { if (item.Approval == true) { @: style="background-color:#5cb85c"
-                                      } else { @: style="background-color:#d9534f"
-                                      } }></td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.surname)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.BDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Certificate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CType)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.OldJob)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ExpYears)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.InsideOrOutside)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.State)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.SDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.EDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Center.Name)
-                                </td>
-                                <td>
-                                    @if (item.CityID != null)
-                                    {
-                                        @Html.DisplayFor(modelItem => item.City.Name)
-                                    }
-                                    else if (item.Center != null)
-                                    {
-                                        if (item.Center.Cityid != null)
-                                        {
-                                            @Html.DisplayFor(modelItem => item.Center.City.Name)
-
-                                        }
-                                    }
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.EmployeeType.Type)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Period.Name)
-                                </td>
-                                @if (Session["SeeAll"] != null)
-                                {
-                                    if ((bool)Session["SeeAll"] == true)
-                                    {
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Salary)
-                                        </td>
-                                    }
-                                }
-                                <td>
-                                    @if (Session["HighAcceptance"] != null)
-                                    {
-                                        if ((bool)Session["HighAcceptance"] == true)
-                                        {
-                                            if (item.Approval == null)
-                                            {
-                                                <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = true })" style="color:forestgreen">قبول</a>
-                                                <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Employees",acceptance = false })" style="color:darkred">رفض</a>
-                                            }
-                                            else if (item.Approval != null)
-                                            {
-                                                if (item.Approval == true)
-                                                {
-                                                    <p style="color:forestgreen">مقبول</p>
-
-                                                }
-                                                else
-                                                {
-                                                    <p style="color:darkred">مرفوض</p>
-
-                                                }
-                                            }
-
-                                        }
-                                        else if (item.Approval == null)
-                                        {
-                                            <p style="color:gray">بالانتظار</p>
-                                        }
-                                        else if (item.Approval != null)
-                                        {
-                                            if (item.Approval == true)
-                                            {
-                                                <p style="color:forestgreen">مقبول</p>
-
-                                            }
-                                            else
-                                            {
-                                                <p style="color:darkred">مرفوض</p>
-
-                                            }
-                                        }
-
-                                    }
-                                    else if (item.Approval == null)
-                                    {
-                                        <p style="color:gray">بالانتظار</p>
-                                    }
-                                    else if (item.Approval != null)
-                                    {
-                                        if (item.Approval == true)
-                                        {
-                                            <p style="color:forestgreen">مقبول</p>
-
-                                        }
-                                        else
-                                        {
-                                            <p style="color:darkred">مرفوض</p>
-
-                                        }
-                                    }
-                                </td>
-                                <td>
-                                    @if (item.EmployeeType.Manager == true)
-                                    {
-                                        if (Session["AddManagers"] != null)
-                                        {
-                                            /**/
-                                            if ((bool)Session["AddManagers"] == true)
-                                            {
-                                                var ImageName = item.Proof;
-                                                if (item.Proof != null)
-                                                {
-                                                    <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                    @if (item.EmployeeType.CoManager == true)
-                                    {
-                                        if (Session["AddCoManagers"] != null)
-                                        {
-                                            /**/
-                                            if ((bool)Session["AddCoManagers"] == true)
-                                            {
-                                                var ImageName = item.Proof;
-                                                if (item.Proof != null)
-                                                {
-                                                    <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-                                                }
-
-                                            }
-                                        }
-                                    }
-
-                                    @if (item.EmployeeType.SchoolManager == true)
-                                    {
-                                        if (Session["AddSchoolManagers"] != null)
-                                        {
-                                            /**/
-                                            if ((bool)Session["AddSchoolManagers"] == true)
-                                            {
-                                                var ImageName = item.Proof;
-                                                if (item.Proof != null)
-                                                {
-                                                    <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-                                                }
-
-                                            }
-                                        }
-                                    }
-
-                                    @if (item.EmployeeType.NormalEmployee == true)
-                                    {
-                                        if (Session["AddSchoolEmployees"] != null)
-                                        {
-                                            /**/
-                                            if ((bool)Session["AddSchoolEmployees"] == true)
-                                            {
-                                                var ImageName = item.Proof;
-                                                if (item.Proof != null)
-                                                {
-                                                    <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                    @if (item.EmployeeType.NormalEmployee != true && item.EmployeeType.SchoolManager != true && item.EmployeeType.CoManager != true && item.EmployeeType.Manager != true)
-                                    {
-                                        if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
-                                        {
-                                            if (item.Proof != null)
-                                            {
-                                                <a href="@Url.Action("DownloadProof", "Json", new { ImageName = item.Proof })" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-                                            }
-                                        }
-                                    }
-                                </td>
-
-
-
-
-
-
-
-
-
-                                <td>
-                                    @if (item.EmployeeType.Manager == true)
-                                    {
-                                        if (Session["AddManagers"] != null)
-                                        {
-                                            /**/
-                                            if ((bool)Session["AddManagers"] == true)
-                                            {
-
-                                                <div style="width:130px;">
-                                                    <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                    <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                    <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                </div>
-                                            }
-                                            else
-                                            {
-
-
-                                            }
-
-
-                                        }
-                                        else
-                                        {
-                                        }
-                                    }
-                                    @if (item.EmployeeType.CoManager == true)
-                                    {
-                                        if (Session["AddCoManagers"] != null)
-                                        {
-                                            /**/
-                                            if ((bool)Session["AddCoManagers"] == true)
-                                            {
-
-                                                <div style="width:130px;">
-                                                    <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                    <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                    <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                </div>
-                                            }
-                                            else
-                                            {
-
-
-                                            }
-                                        }
-                                        else if (item.EmployeeType.SeeAccToCity == true)
-                                        {
-                                            if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] == null)
-                                            {
-                                                if ((bool)Session["AddSchoolManagers"] == true)
-                                                {
-                                                    <div style="width:130px;">
-
-
-                                                        <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                        <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                        <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                    </div>
-                                                }
-                                            }
-                                            else if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] != null)
-                                            {
-                                                if ((bool)Session["AddSchoolManagers"] == true && (bool)Session["SeeAccToCity"] == false)
-                                                {
-                                                    <div style="width:130px;">
-                                                        <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                        <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                        <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                    </div>
-                                                }
-
-                                            }
-                                        }
-                                        else
-                                        {
-
-
-                                        }
-                                    }
-
-
-                                    @if (item.EmployeeType.SchoolManager == true)
-                                    {
-                                        if (Session["AddSchoolManagers"] != null)
-                                        {
-                                            /**/
-                                            if ((bool)Session["AddSchoolManagers"] == true)
-                                            {
-
-                                                <div style="width:130px;">
-                                                    <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                    <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                    <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                </div>
-                                            }
-
-                                            else
-                                            {
-
-                                            }
-
-                                        }
-                                        else
-                                        {
-
-
-                                        }
-                                    }
-
-                                    @if (item.EmployeeType.NormalEmployee == true)
-                                    {
-                                        if (Session["AddSchoolEmployees"] != null)
-                                        {
-                                            /**/
-                                            if ((bool)Session["AddSchoolEmployees"] == true)
-                                            {
-
-                                                <div style="width:130px;">
-                                                    <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                    <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                    <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                </div>
-                                            }
-                                            else
-                                            {
-
-
-                                            }
-
-
-                                        }
-                                        else
-                                        {
-
-
-                                        }
-                                    }
-                                    else if (item.EmployeeType.NormalEmployee != true && item.EmployeeType.SchoolManager != true && item.EmployeeType.CoManager != true && item.EmployeeType.Manager != true)
-                                    {
-                                        if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
-                                        {
-                                            <div style="width:130px;">
-                                                <a href="/Employees/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                <a href="/Employees/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a href="/Employees/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                        }
-
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
-
-
-        <button id="btnExport" class="btn btn-warning" ng-hide="EmployeeRazorForm">xls تصدير إلى</button>*@
 
     <div id="table_wrapper">
         <table class="table table-striped">
@@ -503,64 +155,64 @@
                 <tr class="bg-primary">
                     <th></th>
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.name)
+                    <th ng-show="NameCol">
+                        اسم الموظف
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.surname)
+                    <th ng-show="SurnameCol">
+                        كنية الموظف
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BDate)
+                    <th ng-show="BDateCol">
+                        تاريخ الولادة
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Certificate)
+                    <th ng-show="CertificateCol">
+                        الشهادة المتحصل عليها
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CType)
+                    <th ng-show="CTypeCol">
+                        مستوى الشهادة
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.OldJob)
+                    <th ng-show="OldJobCol">
+                        العمل القديم
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ExpYears)
+                    <th ng-show="ExpYearsCol">
+                        سنين الخبرة
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.InsideOrOutside)
+                    <th ng-show="InsideOrOutsideCol">
+                        داخل أو خارج الملاك
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.State)
+                    <th ng-show="StateCol">
+                        الحالة
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.SDate)
+                    <th ng-show="SDateCol">
+                        تاريخ البدء
                     </th>
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.EDate)
+                    <th ng-show="EDateCol">
+                        تاريخ الانتهاء
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Center.Name)
+                    <th ng-show="CenterCol">
+                        المركز
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.City.Name)
+                    <th ng-show="CityCol">
+                        المدينة
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EmployeeType.Type)
+                    <th ng-show="EmployeeTypeCol">
+                        صلاحيات الموظف
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Period.Name)
+                    <th ng-show="PeriodCol">
+                        الفترة
                     </th>
                     @if (Session["SeeAll"] != null)
                     {
                         if ((bool)Session["SeeAll"] == true)
                         {
-                            <th>
-                                @Html.DisplayNameFor(model => model.Salary)
+                            <th ng-show="SalaryCol">
+                                الراتب
                             </th>
                         }
                     }
-                    <th>التوقيع</th>
-                    <th>الاثبات</th>
-                    <th></th>
+                    <th ng-show="SignsCol">التوقيع</th>
+                    <th ng-show="ProofCol">الاثبات</th>
+                    <th ng-show="InfoCol"></th>
 
                 </tr>
             </thead>
@@ -570,33 +222,33 @@
                     <td ng-if="Approval == null" style="background-color:gray"></td>
                     <td ng-if="Approval == true" style="background-color:forestgreen"></td>
                     <td ng-if="Approval == false" style="background-color:darkred"></td>
-                    <td>{{Exam.name}}</td>
-                    <td>{{Exam.surname}}</td>
-                    <td>{{Exam.EmployeeBDate | date:'MM/dd/yyyy'}}</td>
-                    <td>{{Exam.Certificate}}</td>
-                    <td>{{Exam.CType}}</td>
-                    <td>{{Exam.OldJob}}</td>
-                    <td>{{Exam.ExpYears}}</td>
-                    <td>{{Exam.InsideOrOutside}}</td>
-                    <td>{{Exam.State}}</td>
-                    <td>{{Exam.EmployeeSDate | date:'MM/dd/yyyy'}}</td>
-                    <td>{{Exam.EmployeeEDate | date:'MM/dd/yyyy'}}</td>
-                    <td>{{Exam.Center}}</td>
-                    <td>{{Exam.City}}</td>
+                    <td ng-show="NameCol">{{Exam.name}}</td>
+                    <td ng-show="SurnameCol">{{Exam.surname}}</td>
+                    <td ng-show="BDateCol">{{Exam.EmployeeBDate | date:'dd/MM/yyyy'}}</td>
+                    <td ng-show="CertificateCol">{{Exam.Certificate}}</td>
+                    <td ng-show="CTypeCol">{{Exam.CType}}</td>
+                    <td ng-show="OldJobCol">{{Exam.OldJob}}</td>
+                    <td ng-show="ExpYearsCol">{{Exam.ExpYears}}</td>
+                    <td ng-show="InsideOrOutsideCol">{{Exam.InsideOrOutside}}</td>
+                    <td ng-show="StateCol">{{Exam.State}}</td>
+                    <td ng-show="SDateCol">{{Exam.EmployeeSDate | date:'dd/MM/yyyy'}}</td>
+                    <td ng-show="EDateCol">{{Exam.EmployeeEDate | date:'dd/MM/yyyy'}}</td>
+                    <td ng-show="CenterCol">{{Exam.Center}}</td>
+                    <td ng-show="CityCol">{{Exam.City}}</td>
 
 
-                    <td>{{Exam.EmployeeType}}</td>
+                    <td ng-show="EmployeeTypeCol">{{Exam.EmployeeType}}</td>
 
-                    <td>{{Exam.Period}}</td>
+                    <td ng-show="PeriodCol">{{Exam.Period}}</td>
                     @if (Session["SeeAll"] != null)
                     {
                         if ((bool)Session["SeeAll"] == true)
                         {
-                            <td>{{Exam.Salary}}</td>
+                            <td ng-show="SalaryCol">{{Exam.Salary}}</td>
 
                         }
                     }
-                    <td>
+                    <td ng-show="SignsCol">
                         @if (Session["HighAcceptance"] != null)
                         {
 
@@ -616,7 +268,7 @@
                             <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
                         }
                     </td>
-                    <td>
+                    <td ng-show="ProofCol">
                         <div ng-if="Exam.EmpManager==true">
 
                             @if (Session["AddManagers"] != null)
@@ -687,7 +339,7 @@
 
 
 
-                    <td>
+                    <td ng-show="InfoCol">
 
 
                         <div style="width:130px;" ng-if="Exam.EmpManager==true">
@@ -874,10 +526,10 @@
         </div>
     </div>
 </div>
-    @if (ViewBag.StateMessage != null)
+@if (ViewBag.StateMessage != null)
             {
-        <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            @ViewBag.StateMessage
-        </div>
-    }
+    <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @ViewBag.StateMessage
+    </div>
+}

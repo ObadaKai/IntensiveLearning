@@ -28,6 +28,7 @@
           <ScalarProperty Name="NumberOfUnits" ColumnName="NumberOfUnits" />
           <ScalarProperty Name="PerUnitCost" ColumnName="PerUnitCost" />
           <ScalarProperty Name="Simbol" ColumnName="Simbol" />
+          <ScalarProperty Name="WhichTable" ColumnName="WhichTable" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -141,6 +142,8 @@
           <ScalarProperty Name="telephoneNumber" ColumnName="telephoneNumber" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DateOfLastEntry" ColumnName="DateOfLastEntry" />
+          <ScalarProperty Name="TimeOfLastEntry" ColumnName="TimeOfLastEntry" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -229,14 +232,29 @@
     <EntitySetMapping Name="NonUserAddRequests">
       <EntityTypeMapping TypeName="TaalimModel.NonUserAddRequest">
         <MappingFragment StoreEntitySet="NonUserAddRequest">
+          <ScalarProperty Name="Periodid" ColumnName="Periodid" />
+          <ScalarProperty Name="Stageid" ColumnName="Stageid" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Surname" ColumnName="Surname" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="BDate" ColumnName="BDate" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
           <ScalarProperty Name="FathersName" ColumnName="FathersName" />
           <ScalarProperty Name="Certificate" ColumnName="Certificate" />
           <ScalarProperty Name="CType" ColumnName="CType" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="MothersName" ColumnName="MothersName" />
+          <ScalarProperty Name="Centerid" ColumnName="Centerid" />
+          <ScalarProperty Name="OldSchool" ColumnName="OldSchool" />
+          <ScalarProperty Name="Cityid" ColumnName="Cityid" />
+          <ScalarProperty Name="Approval" ColumnName="Approval" />
+          <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="AddingDate" ColumnName="AddingDate" />
+          <ScalarProperty Name="AddingTime" ColumnName="AddingTime" />
+          <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+          <ScalarProperty Name="ApprovalTime" ColumnName="ApprovalTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -375,6 +393,9 @@
           <ScalarProperty Name="OldSchool" ColumnName="OldSchool" />
           <ScalarProperty Name="StudentState" ColumnName="StudentState" />
           <ScalarProperty Name="Mothersname" ColumnName="Mothersname" />
+          <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+          <ScalarProperty Name="ApprovalTime" ColumnName="ApprovalTime" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -393,9 +414,6 @@
     <EntitySetMapping Name="Missions">
       <EntityTypeMapping TypeName="TaalimModel.Mission">
         <MappingFragment StoreEntitySet="Mission">
-          <ScalarProperty Name="TimeOFChecking" ColumnName="TimeOFChecking" />
-          <ScalarProperty Name="DateOfChecking" ColumnName="DateOfChecking" />
-          <ScalarProperty Name="PersonEntered" ColumnName="PersonEntered" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="MissionText" ColumnName="MissionText" />
           <ScalarProperty Name="Closed" ColumnName="Closed" />
@@ -409,6 +427,9 @@
           <ScalarProperty Name="NumberOfModifications" ColumnName="NumberOfModifications" />
           <ScalarProperty Name="TimeOfLastModification" ColumnName="TimeOfLastModification" />
           <ScalarProperty Name="Manager" ColumnName="Manager" />
+          <ScalarProperty Name="PersonEntered" ColumnName="PersonEntered" />
+          <ScalarProperty Name="DateOfChecking" ColumnName="DateOfChecking" />
+          <ScalarProperty Name="TimeOFChecking" ColumnName="TimeOFChecking" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

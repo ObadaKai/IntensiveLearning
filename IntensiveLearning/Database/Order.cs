@@ -11,9 +11,7 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,73 +20,36 @@ namespace IntensiveLearning.Database
             this.Prooves = new HashSet<Proove>();
             this.SubBnds = new HashSet<SubBnd>();
         }
-
+    
         public int id { get; set; }
         public Nullable<int> Employeeid { get; set; }
         public Nullable<int> Bndid { get; set; }
-        [DisplayName("«·„«œ…")]
         public string Subject { get; set; }
-        [DisplayName("«·ﬂ„Ì…")]
         public Nullable<int> Quantity { get; set; }
-        [DisplayName("⁄œœ «·ﬁÿ⁄")]
         public Nullable<double> PeacePrice { get; set; }
-        [DisplayName("«·Õ«·…")]
         public string State { get; set; }
-        [DisplayName(" ÊﬁÌ⁄ «·„ «»⁄…")]
         public Nullable<bool> FirstLevelSign { get; set; }
-        [DisplayName(" ÊﬁÌ⁄ «·„«·Ì…")]
         public Nullable<bool> SecondLevelSign { get; set; }
-        [DisplayName(" ÊﬁÌ⁄ «·„œÌ— «· ‰›Ì–Ì")]
         public Nullable<bool> ThirdLevelSign { get; set; }
-        [DisplayName("«· «—ÌŒ")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> Date { get; set; }
-        [DisplayName("«·Êﬁ ")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
         public Nullable<System.TimeSpan> Time { get; set; }
         public Nullable<int> CenterID { get; set; }
         public Nullable<int> SubBndid { get; set; }
-        [DisplayName(" √ﬂÌœ «·œ›⁄")]
         public Nullable<bool> PaymentApprove { get; set; }
-        [DisplayName(" √ﬂÌœ «·‘—«¡")]
         public Nullable<bool> BuyingApprove { get; set; }
-        [DisplayName("«·«À»« ")]
         public Nullable<int> proof { get; set; }
-        [DisplayName(" √ﬂÌœ «·«À»« ")]
         public Nullable<bool> ProofAcceptance { get; set; }
-        [DisplayName(" «—ÌŒ  √ﬂÌœ «·œ›⁄")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-
         public Nullable<System.DateTime> PaymentApprovalDate { get; set; }
-        [DisplayName(" «—ÌŒ  √ﬂÌœ «·‘—«¡")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-
         public Nullable<System.DateTime> BuyingApprovalDate { get; set; }
-        [DisplayName(" «—ÌŒ  √ﬂÌœ «·«À»« ")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-
         public Nullable<System.DateTime> ProofAcceptanceDate { get; set; }
         public Nullable<int> Paymentid { get; set; }
-        [DisplayName("„” ÊÏ «·÷—Ê—…")]
-
         public Nullable<short> Necessity { get; set; }
-        [DisplayName("‰Ê⁄ «·ÿ·»")]
-
         public string OrderType { get; set; }
-        [DisplayName("”»» «·—›÷")]
-
         public string CanclationReason { get; set; }
-        [DisplayName("«·„Ã„Ê⁄ «·ﬂ·Ì")]
-
         public Nullable<double> SumPrice { get; set; }
-        [DisplayName(" €Ì— «·ﬂ„Ì…")]
-
         public Nullable<bool> QuantityChanged { get; set; }
-        [DisplayName(" «—ÌŒ «’œ«— «„— «·œ›⁄")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-
         public Nullable<System.DateTime> PaymentOrderDate { get; set; }
-
+    
         public virtual Bnd Bnd { get; set; }
         public virtual Center Center { get; set; }
         public virtual Employee Employee { get; set; }

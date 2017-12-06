@@ -1,0 +1,94 @@
+﻿
+<!DOCTYPE HTML>
+<!--
+    Urban by TEMPLATED
+    templated.co
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/Content/ThemeContents/assets/css/main.css" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header" class="alt">
+        <div class="logo"><a href="index.html"><img src="~/Content/Images/Logo.png" id="ImgInten" /></a></div>
+        <a href="#menu"></a>
+    </header>
+
+    <!-- Nav -->
+    <nav id="menu">
+        <ul class="links" style="text-align:right">
+            <li><a href="index.html">مشروع التعليم المكثف</a></li>
+            <li><a href="generic.html">منظمة مداد</a></li>
+            <li><a href="elements.html">دخول مسؤول</a></li>
+            <li><a href="elements.html">تسجيل طالب</a></li>
+            <li><a href="elements.html">معلومات طالب</a></li>
+
+        </ul>
+    </nav>
+    <!-- Main -->
+    <div id="main">
+
+        @RenderBody()
+
+        <!-- Section -->
+        <section class="wrapper style1">
+            <div class="inner">
+                <header class="align-center">
+                    <h2>خصائص البرنامج</h2>
+                    @*<p>Cras sagittis turpis sit amet est tempus, sit amet consectetur purus tincidunt.</p>*@
+                </header>
+                <div class="flex flex-3">
+                    <div class="col align-center">
+                        <div class="image round fit">
+                            <img src="~/Content/ThemeContents/images/pic03.jpg" alt="" />
+                        </div>
+                        <p>.تسجيل دخول مسؤولين</p>
+                        <a href="#" class="button">دخول مسؤول</a>
+                    </div>
+                    <div class="col align-center">
+                        <div class="image round fit">
+                            <img src="~/Content/ThemeContents/images/pic05.jpg" alt="" />
+                        </div>
+                        <p>.تسجيل طالب جديد للسنة الجديدة </p>
+                        <a href="#" class="button">تسجيل طالب</a>
+                    </div>
+                    <div class="col align-center">
+                        <div class="image round fit">
+                            <img src="~/Content/ThemeContents/images/pic04.jpg" alt="" />
+                        </div>
+                        <p>.معرفة معلومات عن طالب موجود</p>
+                        <a href="#" class="button">معلومات طالب</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="copyright">
+            <ul class="icons">
+                <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon fa-snapchat"><span class="label">Snapchat</span></a></li>
+            </ul>
+            <p>&copy; Untitled. All rights reserved. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="~/Content/ThemeContents/assets/js/jquery.min.js"></script>
+    <script src="~/Content/ThemeContents/assets/js/jquery.scrolly.min.js"></script>
+    <script src="~/Content/ThemeContents/assets/js/jquery.scrollex.min.js"></script>
+    <script src="~/Content/ThemeContents/assets/js/skel.min.js"></script>
+    <script src="~/Content/ThemeContents/assets/js/util.js"></script>
+    <script src="~/Content/ThemeContents/assets/js/main.js"></script>
+
+</body>
+</html>

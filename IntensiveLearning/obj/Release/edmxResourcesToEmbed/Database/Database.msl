@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Bnds">
       <EntityTypeMapping TypeName="TaalimModel.Bnd">
         <MappingFragment StoreEntitySet="Bnd">
+          <ScalarProperty Name="WhichTable" ColumnName="WhichTable" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="TotalNum" ColumnName="TotalNum" />
@@ -71,6 +72,7 @@
           <ScalarProperty Name="AddingDate" ColumnName="AddingDate" />
           <ScalarProperty Name="AddingTime" ColumnName="AddingTime" />
           <ScalarProperty Name="SpentBudget" ColumnName="SpentBudget" />
+          <ScalarProperty Name="PCenterID" ColumnName="PCenterID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -110,6 +112,8 @@
     <EntitySetMapping Name="Employees">
       <EntityTypeMapping TypeName="TaalimModel.Employee">
         <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="TimeOfLastEntry" ColumnName="TimeOfLastEntry" />
+          <ScalarProperty Name="DateOfLastEntry" ColumnName="DateOfLastEntry" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="surname" ColumnName="surname" />
@@ -386,6 +390,49 @@
           <ScalarProperty Name="FullMark" ColumnName="FullMark" />
           <ScalarProperty Name="LeastMark" ColumnName="LeastMark" />
           <ScalarProperty Name="State" ColumnName="State" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Missions">
+      <EntityTypeMapping TypeName="TaalimModel.Mission">
+        <MappingFragment StoreEntitySet="Mission">
+          <ScalarProperty Name="TimeOFChecking" ColumnName="TimeOFChecking" />
+          <ScalarProperty Name="DateOfChecking" ColumnName="DateOfChecking" />
+          <ScalarProperty Name="PersonEntered" ColumnName="PersonEntered" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="MissionText" ColumnName="MissionText" />
+          <ScalarProperty Name="Closed" ColumnName="Closed" />
+          <ScalarProperty Name="Checked" ColumnName="Checked" />
+          <ScalarProperty Name="DateOfEntry" ColumnName="DateOfEntry" />
+          <ScalarProperty Name="TimeOfEntry" ColumnName="TimeOfEntry" />
+          <ScalarProperty Name="DateOfFinish" ColumnName="DateOfFinish" />
+          <ScalarProperty Name="TimeOfFinish" ColumnName="TimeOfFinish" />
+          <ScalarProperty Name="PersonChecked" ColumnName="PersonChecked" />
+          <ScalarProperty Name="DateOfLastModification" ColumnName="DateOfLastModification" />
+          <ScalarProperty Name="NumberOfModifications" ColumnName="NumberOfModifications" />
+          <ScalarProperty Name="TimeOfLastModification" ColumnName="TimeOfLastModification" />
+          <ScalarProperty Name="Manager" ColumnName="Manager" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MissionPersonInCharges">
+      <EntityTypeMapping TypeName="TaalimModel.MissionPersonInCharge">
+        <MappingFragment StoreEntitySet="MissionPersonInCharge">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="MissionId" ColumnName="MissionId" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MissionResponses">
+      <EntityTypeMapping TypeName="TaalimModel.MissionResponse">
+        <MappingFragment StoreEntitySet="MissionResponse">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="MissionID" ColumnName="MissionID" />
+          <ScalarProperty Name="NestedID" ColumnName="NestedID" />
+          <ScalarProperty Name="Response" ColumnName="Response" />
+          <ScalarProperty Name="WriterID" ColumnName="WriterID" />
+          <ScalarProperty Name="type" ColumnName="type" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

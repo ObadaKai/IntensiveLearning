@@ -20,21 +20,15 @@ namespace IntensiveLearning.Controllers
             if (Session["ID"] != null)
             {
                 var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-                if (type.SeeAccToCenter == true || type.SeeAccToCity == true || type.SeeAll == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
-                {
+
                     var lessons = db.Lessons;
                     if (TempData["Message"] != null)
                     {
                         ViewBag.StateMessage = TempData["Message"];
                     }
-                    return View(lessons.ToList());
-
-                }
-                return RedirectToAction("Default", "Home");
+                    return View(lessons.ToList());    
             }
             return RedirectToAction("Index", "Home");
-
-
         }
 
         // GET: Lessons/Details/5
@@ -47,17 +41,12 @@ namespace IntensiveLearning.Controllers
             if (Session["ID"] != null)
             {
                 var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-                if (type.SeeAccToCenter == true || type.SeeAccToCity == true || type.SeeAll == true || type.SeeAllButFinance == true || type.SeeTeachers == true)
-                {
                     Lesson lesson = db.Lessons.Find(id);
                     if (lesson == null)
                     {
                         return HttpNotFound();
                     }
                     return View(lesson);
-
-                }
-                return RedirectToAction("Default", "Home");
             }
             return RedirectToAction("Index", "Home");
 
@@ -99,6 +88,8 @@ namespace IntensiveLearning.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Day,State,Lesson1,Lesson2,Lesson3,Lesson4,Lesson5,Lesson6,Lesson7,Regimentid,Periodid,Stageid")] Lesson lesson)
         {
+            var empid = Convert.ToInt32(Session["ID"]);
+            var emp = db.Employees.Find(empid);
             try
             {
                 lesson.id = db.Lessons.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
@@ -107,6 +98,7 @@ namespace IntensiveLearning.Controllers
             {
                 lesson.id = 1;
             }
+            lesson.Centerid = emp.Centerid;
             if (ModelState.IsValid)
             {
                 db.Lessons.Add(lesson);
@@ -179,6 +171,9 @@ namespace IntensiveLearning.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,Day,State,Lesson1,Lesson2,Lesson3,Lesson4,Lesson5,Lesson6,Lesson7,Regimentid,Periodid,Stageid")] Lesson lesson)
         {
+            var empid = Convert.ToInt32(Session["ID"]);
+            var emp = db.Employees.Find(empid);
+            lesson.Centerid = emp.Centerid;
             if (ModelState.IsValid)
             {
                 db.Entry(lesson).State = EntityState.Modified;

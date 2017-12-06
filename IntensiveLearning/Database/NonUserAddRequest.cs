@@ -6,37 +6,41 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
 namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class NonUserAddRequest
     {
         public int id { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáäæÚ ")]
-        [DisplayName("ÇáäæÚ")]
-        public string Type { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÇÓã ")]
-        [DisplayName("ÇáÇÓã")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáßäíÉ ")]
-        [DisplayName("ÇáßäíÉ")]
         public string Surname { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÑŞã ÇáåÇÊİ ")]
-        [DisplayName("ÑŞã ÇáåÇÊİ")]
-        public Nullable<int> PhoneNumber { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇÓã ÇáÃÈ ")]
-        [DisplayName("ÇÓã ÇáÃÈ")]
+        public Nullable<System.DateTime> BDate { get; set; }
+        public Nullable<long> PhoneNumber { get; set; }
         public string FathersName { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá ÇáÔåÇÏÉ ")]
-        [DisplayName("ÇáÔåÇÏÉ")]
         public string Certificate { get; set; }
-        [Required(ErrorMessage = "íÑÌì ÇÏÎÇá äæÚ ÇáÔåÇÏÉ ")]
-        [DisplayName("äæÚ ÇáÔåÇÏÉ")]
         public string CType { get; set; }
+        public Nullable<double> Mark { get; set; }
+        public string Sex { get; set; }
+        public string MothersName { get; set; }
+        public Nullable<int> Centerid { get; set; }
+        public string OldSchool { get; set; }
+        public Nullable<int> Cityid { get; set; }
+        public Nullable<bool> Approval { get; set; }
+        public Nullable<int> ApprovedBy { get; set; }
+        public Nullable<int> AddedBy { get; set; }
+        public Nullable<System.DateTime> AddingDate { get; set; }
+        public Nullable<System.TimeSpan> AddingTime { get; set; }
+        public Nullable<System.DateTime> ApprovalDate { get; set; }
+        public Nullable<System.TimeSpan> ApprovalTime { get; set; }
+        public Nullable<int> Stageid { get; set; }
+        public Nullable<int> Periodid { get; set; }
+    
+        public virtual Center Center { get; set; }
+        public virtual City City { get; set; }
+        public virtual Period Period { get; set; }
+        public virtual Stage Stage { get; set; }
     }
 }

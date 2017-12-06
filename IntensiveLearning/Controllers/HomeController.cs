@@ -71,8 +71,10 @@ namespace IntensiveLearning.Controllers
                         {
                             Session["Markaz"] = employee.Center.Name;
                         }
-
-
+                        employee.DateOfLastEntry = DateTime.Now.Date;
+                        employee.TimeOfLastEntry = DateTime.Now.TimeOfDay;
+                        db.Entry(employee).State = EntityState.Modified;
+                        db.SaveChanges();
                         if (employee.EmployeeType.NormalEmployee == true)
                         {
                             return RedirectToAction("Create", "DailyReport");
@@ -381,7 +383,6 @@ namespace IntensiveLearning.Controllers
             }
             return RedirectToAction("Default", "Home");
         }
-
 
     }
 }
