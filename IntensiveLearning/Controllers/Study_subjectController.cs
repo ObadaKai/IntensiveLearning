@@ -26,6 +26,8 @@ namespace IntensiveLearning.Controllers
                     {
                         ViewBag.StateMessage = TempData["Message"];
                     }
+                    ViewBag.TitleSideBar = "Study_subject";
+
                     return View(db.Study_subject.ToList());
                 }
                 return RedirectToAction("Default", "Home");
@@ -53,6 +55,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Study_subject";
+
                     return View(study_subject);
                 }
                 return RedirectToAction("Default", "Home");
@@ -71,6 +75,7 @@ namespace IntensiveLearning.Controllers
                 var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.AddSchoolManagingTools == true)
                 {
+                    ViewBag.TitleSideBar = "Study_subject";
 
                     return View();
                 }
@@ -103,6 +108,7 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
+            ViewBag.TitleSideBar = "Study_subject";
 
             return View(study_subject);
         }
@@ -125,6 +131,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Study_subject";
+
                     return View(study_subject);
                 }
                 return RedirectToAction("Default", "Home");
@@ -148,6 +156,8 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم التعديل بنجاح";
                 return RedirectToAction("Index");
             }
+            ViewBag.TitleSideBar = "Study_subject";
+
             return View(study_subject);
         }
 
@@ -169,6 +179,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Study_subject";
+
                     return View(study_subject);
                 }
                 return RedirectToAction("Default", "Home");
@@ -197,6 +209,8 @@ namespace IntensiveLearning.Controllers
                     }
                     catch
                     {
+                        ViewBag.TitleSideBar = "Study_subject";
+
                         ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا المادة يرجى تغييرها قبل الحذف";
                         return View(study_subject);
                     }

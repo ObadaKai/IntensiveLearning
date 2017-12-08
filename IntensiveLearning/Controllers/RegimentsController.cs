@@ -28,6 +28,8 @@ namespace IntensiveLearning.Controllers
                     {
                         ViewBag.StateMessage = TempData["Message"];
                     }
+                    ViewBag.TitleSideBar = "Regiments";
+
                     return View(regiments.ToList());
 
                 }
@@ -59,6 +61,7 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Regiments";
 
                     return View(regiment);
 
@@ -83,6 +86,8 @@ namespace IntensiveLearning.Controllers
 
 
                     ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
+                    ViewBag.TitleSideBar = "Regiments";
+
                     return View();
 
                 }
@@ -116,6 +121,7 @@ namespace IntensiveLearning.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Periodid = new SelectList(db.Periods, "id", "Name",regiment.Periodid);
+            ViewBag.TitleSideBar = "Regiments";
 
             return View(regiment);
         }
@@ -142,6 +148,7 @@ namespace IntensiveLearning.Controllers
                         return HttpNotFound();
                     }
                     ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", regiment.Periodid);
+                    ViewBag.TitleSideBar = "Regiments";
 
                     return View(regiment);
 
@@ -168,6 +175,7 @@ namespace IntensiveLearning.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", regiment.Periodid);
+            ViewBag.TitleSideBar = "Regiments";
 
             return View(regiment);
         }
@@ -193,6 +201,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Regiments";
+
                     return View(regiment);
 
                 }
@@ -225,6 +235,8 @@ namespace IntensiveLearning.Controllers
                     }
                     catch
                     {
+                        ViewBag.TitleSideBar = "Regiments";
+
                         ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الفوج يرجى تغييرها قبل الحذف";
                         return View(regiment);
                     }

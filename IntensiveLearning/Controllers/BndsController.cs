@@ -27,6 +27,7 @@ namespace IntensiveLearning.Controllers
 
             if (type.SeeAll == true)
             {
+                ViewBag.TitleSideBar = "Bnds";
                 return View(db.Bnds.ToList());
 
             }
@@ -54,8 +55,10 @@ namespace IntensiveLearning.Controllers
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
 
             if (type.SeeAll == true)
+            {
+                ViewBag.TitleSideBar = "Bnds";
                 return View(bnd);
-
+            }
             return RedirectToAction("Default", "Home");
 
         }
@@ -72,7 +75,10 @@ namespace IntensiveLearning.Controllers
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
 
             if (type.Finance == true)
+            {
+                ViewBag.TitleSideBar = "Bnds";
                 return View();
+            }
 
             return RedirectToAction("Default", "Home");
         }
@@ -100,6 +106,7 @@ namespace IntensiveLearning.Controllers
                 if (MonthsNum != bnd.TotalNum)
                 {
                     ViewBag.error = "الرجاء التأكد من تساوي مجموع ميزانيات الاشهر مع الميزانية العامة";
+                    ViewBag.TitleSideBar = "Bnds";
                     return View(bnd);
                 }
 
@@ -118,6 +125,7 @@ namespace IntensiveLearning.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
+                ViewBag.TitleSideBar = "Bnds";
 
                 return View(bnd);
             }
@@ -146,7 +154,10 @@ namespace IntensiveLearning.Controllers
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
 
             if (type.Finance == true)
+            {
+                ViewBag.TitleSideBar = "Bnds";
                 return View(bnd);
+            }
             return RedirectToAction("Default", "Home");
 
         }
@@ -170,6 +181,8 @@ namespace IntensiveLearning.Controllers
                 if (bnd.Month13Share + bnd.Month10Share + bnd.Month11Share + bnd.Month12Share + bnd.Month1Share + bnd.Month2Share + bnd.Month3Share + bnd.Month4Share + bnd.Month5Share + bnd.Month6Share + bnd.Month7Share + bnd.Month8Share + bnd.Month9Share != bnd.TotalNum)
                 {
                     ViewBag.error = "الرجاء التأكد من تساوي مجموع ميزانيات الاشهر مع الميزانية العامة وأن جميع الاشهر قد تم تعبأتها بقيمة من الصفر او اعلى";
+                    ViewBag.TitleSideBar = "Bnds";
+
                     return View(bnd);
                 }
                 if (ModelState.IsValid)
@@ -178,6 +191,7 @@ namespace IntensiveLearning.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
+                ViewBag.TitleSideBar = "Bnds";
                 return View(bnd);
             }
             return RedirectToAction("Default", "Home");
@@ -205,7 +219,11 @@ namespace IntensiveLearning.Controllers
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
 
             if (type.Finance == true)
+            {
+                ViewBag.TitleSideBar = "Bnds";
+
                 return View(bnd);
+            }
             return RedirectToAction("Default", "Home");
 
         }

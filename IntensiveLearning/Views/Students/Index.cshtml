@@ -2,302 +2,232 @@
     ViewBag.Title = "لائحة الطلاب";
 }
 <div ng-controller="StudentsCtrl">
+    <div class="ThemeFirstBackground">
+        <div style="display:inline-block;width:100%;">
 
-    <h2>لائحة الطلاب</h2>
+            <h2 style="display:inline-block">لائحة الطلاب</h2>
+            <div style="display:inline-block;float:left;margin:20px 0;">
 
-    @if (Session["AddStudent"] != null)
-    {
-        if ((bool)Session["AddStudent"] == true)
-        {
-            <div style="display:block;margin-bottom:10px;">
-                @using (Html.BeginForm("Create", "Students", FormMethod.Get, new { style = "display:inline-block;" }))
+                @if (Session["AddStudent"] != null)
+            {
+                if ((bool)Session["AddStudent"] == true)
                 {
-                    <button type="submit" class="btn btn-warning">انشاء جديد</button>
-                }
-                <button id="btnImport" style="float:left;display:inline-block" class="btn btn-warning">xls استيراد من</button>
-
-                <div id="ImportExcel" style="display:none;float:left;margin-left:10px;background-color:rgba(255,255,255,0.7);padding:2px;border-radius:5px;">
-                    @using (Html.BeginForm("ImportStudents", "ExcelImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        <div style="display:block;margin-bottom:10px;">
+                            @using (Html.BeginForm("Create", "Students", FormMethod.Get, new { style = "display:inline-block;" }))
+                            {
+                                <button type="submit" class="btn btn-success" title="انشاء جديد"><span class="glyphicon glyphicon-plus"></span></button>
+                            }
+                            <button id="btnImport" style="float:left;display:inline-block" class="btn btn-info" title="xls استيراد من"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button>
+                            
+                            <div id="ImportExcel" style="display:none;float:left;margin-left:10px;background-color:rgba(255,255,255,0.7);padding:2px;border-radius:5px;">
+                                @using (Html.BeginForm("ImportStudents", "ExcelImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
-                        <input type="file" name="file" style="color:#337ab7;display:inline-block" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-                        <input type="submit" class="btn btn-primary" value="ارسال" />
-                        if (ViewBag.Importerror != null)
-                        {
-                            <p>@ViewBag.Importerror</p>
-                        }
+                                    <input type="file" name="file" style="color:#337ab7;display:inline-block" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                                    <input type="submit" class="btn btn-success" value="ارسال" />
+                                    if (ViewBag.Importerror != null)
+                                    {
+                                        <p>@ViewBag.Importerror</p>
+                                    }
+                                }
+                            </div>
+                        </div>
                     }
-                </div>
+                }
+                <button type="button" ng-click="SearchContainer()" class="btn btn-primary" style="margin-bottom:10px;" title="خيارات البحث"><i class="fa fa-search" aria-hidden="true"></i></button>
             </div>
-        }
-    }
-    <button type="button" ng-click="SearchContainer()" class="btn btn-primary" style="margin-bottom:10px;">خيارات البحث</button>
-    <div id="SearchItemsBtn" class="WhiteBlur InfoContainer">
-        <div class="col-xs-12" style="margin-bottom:20px;padding:0;border:0">
-            <div class="col-sm-2 col-xs-12 pull-right"style="padding:0" >
-                <h4 style="line-height:62px">:قائمة البحث</h4>
-            </div>
-            <div ng-show="Cities != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
-                <label>بحث مدن</label>
-                <select  name="CentersChange" id="CitiesChange" ng-model="CitiesChange" class="form-control">
-                    <option value="">--- الكل ---</option>
-                    <option ng-repeat="City in Cities" value="{{City.id}}">{{City.Name}}</option>
-                </select>
-            </div>
+            <div id="SearchItemsBtn" class="WhiteBlur InfoContainer">
+                <div class="col-xs-12" style="margin-bottom:20px;padding:0;border:0">
+                    <div class="col-sm-2 col-xs-12 pull-right" style="padding:0">
+                        <h4 style="line-height:62px">:قائمة البحث</h4>
+                    </div>
+                    <div ng-show="Cities != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
+                        <label>بحث مدن</label>
+                        <select name="CentersChange" id="CitiesChange" ng-model="CitiesChange" class="form-control">
+                            <option value="">--- الكل ---</option>
+                            <option ng-repeat="City in Cities" value="{{City.id}}">{{City.Name}}</option>
+                        </select>
+                    </div>
 
-            <div ng-show="Centers != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
-                <label>بحث مراكز</label>
-                <select  name="CentersChange" id="CentersChange" ng-model="CentersChange" class="form-control">
-                    <option value="">--- الكل ---</option>
-                    <option ng-repeat="Center in Centers" value="{{Center.id}}">{{Center.Name}}</option>
-                </select>
-            </div>
-            <div ng-show="Regiments != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
-                <label>بحث شعب</label>
-                <select name="RegimentsChange" id="RegimentsChange" ng-model="RegimentsChange" class="form-control">
-                    <option value="">--- الكل ---</option>
-                    <option ng-repeat="Regiment in Regiments" value="{{Regiment.id}}">{{Regiment.Name}}</option>
-                </select>
-            </div>
-            <div ng-show="Periods != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
-                <label>بحث فترات</label>
-                <select  name="PeriodsChange" id="PeriodsChange" ng-model="PeriodsChange" class="form-control">
-                    <option value="">--- الكل ---</option>
-                    <option ng-repeat="Period in Periods" value="{{Period.id}}">{{Period.Name}}</option>
-                </select>
-            </div>
-            <div ng-show="Stages != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
-                <label>بحث مراحل</label>
-                <select  name="StagesChange" id="StagesChange" ng-model="StagesChange" class="form-control">
-                    <option value="">--- الكل ---</option>
-                    <option ng-repeat="Stage in Stages" value="{{Stage.id}}">{{Stage.StageName}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-xs-12" style="margin:20px 0;padding:0;border:0">
-            <div class="col-sm-10 col-xs-12 pull-right" style="margin:0;padding:0;border:0">
-                <input type="text" class="form-control " style="display:inline-block !important;text-align:right" name="search" id="search" placeholder="...البحث" ng-model="StudentSearchBoxData" />
-            </div>
-            <div class="col-sm-2 col-xs-12 pull-right" style="margin:0;padding:0;border:0">
-                <input type="button" style="width:100%;" class="btn btn-success" value="بحث" ng-click="StudentSearch()"/>
-            </div>
+                    <div ng-show="Centers != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
+                        <label>بحث مراكز</label>
+                        <select name="CentersChange" id="CentersChange" ng-model="CentersChange" class="form-control">
+                            <option value="">--- الكل ---</option>
+                            <option ng-repeat="Center in Centers" value="{{Center.id}}">{{Center.Name}}</option>
+                        </select>
+                    </div>
+                    <div ng-show="Regiments != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
+                        <label>بحث شعب</label>
+                        <select name="RegimentsChange" id="RegimentsChange" ng-model="RegimentsChange" class="form-control">
+                            <option value="">--- الكل ---</option>
+                            <option ng-repeat="Regiment in Regiments" value="{{Regiment.id}}">{{Regiment.Name}}</option>
+                        </select>
+                    </div>
+                    <div ng-show="Periods != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
+                        <label>بحث فترات</label>
+                        <select name="PeriodsChange" id="PeriodsChange" ng-model="PeriodsChange" class="form-control">
+                            <option value="">--- الكل ---</option>
+                            <option ng-repeat="Period in Periods" value="{{Period.id}}">{{Period.Name}}</option>
+                        </select>
+                    </div>
+                    <div ng-show="Stages != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
+                        <label>بحث مراحل</label>
+                        <select name="StagesChange" id="StagesChange" ng-model="StagesChange" class="form-control">
+                            <option value="">--- الكل ---</option>
+                            <option ng-repeat="Stage in Stages" value="{{Stage.id}}">{{Stage.StageName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="margin:20px 0;padding:0;border:0">
+                    <div class="col-sm-10 col-xs-12 pull-right" style="margin:0;padding:0;border:0">
+                        <input type="text" class="form-control " style="display:inline-block !important;text-align:right;border-top-left-radius:0;border-bottom-left-radius:0;" name="search" id="search" placeholder="...البحث" ng-model="StudentSearchBoxData" />
+                    </div>
+                    <div class="col-sm-2 col-xs-12 pull-right" style="margin:0;padding:0;border:0">
+                        <input type="button" style="width:100%;height:37px;border-top-right-radius:0;border-bottom-right-radius:0;" class="btn btn-success" value="بحث" ng-click="StudentSearch()" />
+                    </div>
 
-        </div>
-        <div style="text-align:right;padding:0;margin:0" class="col-xs-12 ">
-            <h4>:أعمدة الجدول</h4>
-            <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
-                <div>
-                    <input type="checkbox" ng-model="StudentNumberColCheckBox" ng-change="StudentNumberCol == true ? StudentNumberCol=false : StudentNumberCol=true" id="StudentNumberColCheckBox" /><label for="StudentNumberColCheckBox">رقم الطالب</label>
                 </div>
-                <div>
-                    <input type="checkbox" ng-model="NameColCheckBox" ng-change="NameCol == true ? NameCol=false:NameCol=true" id="NameColCheckBox" /><label for="NameColCheckBox">اسم الطالب</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="SurnameColCheckBox" ng-change="SurnameCol == true ?SurnameCol =false:SurnameCol =true" id="SurnameColCheckBox" /><label for="SurnameColCheckBox">كنية الطالب</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="FathersnameColCheckBox" ng-change="FathersnameCol == true ? FathersnameCol= false:FathersnameCol =true" id="FathersnameColCheckBox" /><label for="FathersnameColCheckBox">اسم الأب</label>
-                </div>
+                <div style="text-align:right;padding:0;margin:0" class="col-xs-12 ">
+                    <h4>:أعمدة الجدول</h4>
+                    <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
+                        <div>
+                            <input type="checkbox" ng-model="StudentNumberColCheckBox" ng-change="StudentNumberCol == true ? StudentNumberCol=false : StudentNumberCol=true" id="StudentNumberColCheckBox" /><label for="StudentNumberColCheckBox">&nbsp; رقم الطالب</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="NameColCheckBox" ng-change="NameCol == true ? NameCol=false:NameCol=true" id="NameColCheckBox" /><label for="NameColCheckBox">&nbsp; اسم الطالب</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="SurnameColCheckBox" ng-change="SurnameCol == true ?SurnameCol =false:SurnameCol =true" id="SurnameColCheckBox" /><label for="SurnameColCheckBox">&nbsp; كنية الطالب</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="FathersnameColCheckBox" ng-change="FathersnameCol == true ? FathersnameCol= false:FathersnameCol =true" id="FathersnameColCheckBox" /><label for="FathersnameColCheckBox">&nbsp; اسم الأب</label>
+                        </div>
 
-                <div>
-                    <input type="checkbox" ng-model="MothersnameColCheckBox" ng-change="MothersnameCol == true ? MothersnameCol =false:MothersnameCol =true" id="MothersnameColCheckBox" /><label for="MothersnameColCheckBox">اسم الأم</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="BDateColCheckBox" ng-change="BDateCol == true ? BDateCol= false:BDateCol=true" id="BDateColCheckBox" /><label for="BDateColCheckBox">تاريخ الولادة</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="CertificateColCheckBox" ng-change="CertificateCol == true ? CertificateCol=false:CertificateCol=true" id="CertificateColCheckBox" /><label for="CertificateColCheckBox">الشهادة المتحصل عليها</label>
-                </div>
-            </div>
-            <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
-                <div>
-                    <input type="checkbox" ng-model="MarkColCheckBox" ng-change="MarkCol == true ?MarkCol= false:MarkCol=true" id="MarkColCheckBox" /><label for="MarkColCheckBox">علامة الشهادة</label>
-                </div>
+                        <div>
+                            <input type="checkbox" ng-model="MothersnameColCheckBox" ng-change="MothersnameCol == true ? MothersnameCol =false:MothersnameCol =true" id="MothersnameColCheckBox" /><label for="MothersnameColCheckBox">&nbsp; اسم الأم</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="BDateColCheckBox" ng-change="BDateCol == true ? BDateCol= false:BDateCol=true" id="BDateColCheckBox" /><label for="BDateColCheckBox">&nbsp; تاريخ الولادة</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="CertificateColCheckBox" ng-change="CertificateCol == true ? CertificateCol=false:CertificateCol=true" id="CertificateColCheckBox" /><label for="CertificateColCheckBox">&nbsp; الشهادة المتحصل عليها</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
+                        <div>
+                            <input type="checkbox" ng-model="MarkColCheckBox" ng-change="MarkCol == true ?MarkCol= false:MarkCol=true" id="MarkColCheckBox" /><label for="MarkColCheckBox">&nbsp; علامة الشهادة</label>
+                        </div>
 
-                <div>
-                    <input type="checkbox" ng-model="OldSchoolColCheckBox" ng-change="OldSchoolCol == true ? OldSchoolCol=false:OldSchoolCol=true" id="OldSchoolColCheckBox" /><label for="OldSchoolColCheckBox">المدرسة القديمة</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="StudentStateColCheckBox" ng-change="StudentStateCol == true ? StudentStateCol=false:StudentStateCol=true" id="StudentStateColCheckBox" /><label for="StudentStateColCheckBox">حالة الطالب</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="SexColCheckBox" ng-change="SexCol == true ? SexCol=false:SexCol=true" id="SexColCheckBox" /><label for="SexColCheckBox">الجنس</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="StateColCheckBox" ng-change="StateCol == true ? StateCol=false:StateCol=true" id="StateColCheckBox" /><label for="StateColCheckBox">الحالة الحالية</label>
-                </div>
+                        <div>
+                            <input type="checkbox" ng-model="OldSchoolColCheckBox" ng-change="OldSchoolCol == true ? OldSchoolCol=false:OldSchoolCol=true" id="OldSchoolColCheckBox" /><label for="OldSchoolColCheckBox">&nbsp; المدرسة القديمة</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="StudentStateColCheckBox" ng-change="StudentStateCol == true ? StudentStateCol=false:StudentStateCol=true" id="StudentStateColCheckBox" /><label for="StudentStateColCheckBox">&nbsp; حالة الطالب</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="SexColCheckBox" ng-change="SexCol == true ? SexCol=false:SexCol=true" id="SexColCheckBox" /><label for="SexColCheckBox">&nbsp; الجنس</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="StateColCheckBox" ng-change="StateCol == true ? StateCol=false:StateCol=true" id="StateColCheckBox" /><label for="StateColCheckBox">&nbsp; الحالة الحالية</label>
+                        </div>
 
-                <div>
-                    <input type="checkbox" ng-model="SDateColCheckBox" ng-change="SDateCol == true ? SDateCol=false:SDateCol=true" id="SDateColCheckBox" /><label for="SDateColCheckBox">تاريخ البدء</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="EDateColCheckBox" ng-change="EDateCol == true ? EDateCol=false:EDateCol=true" id="EDateColCheckBox" /><label for="EDateColCheckBox">تاريخ الانتهاء</label>
-                </div>
-            </div>
-            <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
-                <div>
-                    <input type="checkbox" ng-model="CenterColCheckBox" ng-change="CenterCol == true ? CenterCol=false:CenterCol=true" id="CenterColCheckBox" /><label for="CenterColCheckBox">المركز</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="RegimentColCheckBox" ng-change="RegimentCol == true ? RegimentCol=false:RegimentCol=true" id="RegimentColCheckBox" /><label for="RegimentColCheckBox">الشعبة</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="PeriodColCheckBox" ng-change="PeriodCol == true ? PeriodCol=false:PeriodCol=true" id="PeriodColCheckBox" /><label for="PeriodColCheckBox">الفترة</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="StageColCheckBox" ng-change="StageCol == true ? StageCol=false:StageCol=true" id="StageColCheckBox" /><label for="StageColCheckBox">المرحلة</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="SignsColCheckBox" ng-change="SignsCol == true ? SignsCol=false:SignsCol=true" id="SignsColCheckBox" /><label for="SignsColCheckBox">التوقيع</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="ProofColCheckBox" ng-change="ProofCol == true ? ProofCol=false:ProofCol=true" id="ProofColCheckBox" /><label for="ProofColCheckBox">الاثبات</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="InfoColCheckBox" ng-change="InfoCol == true ? InfoCol=false:InfoCol=true" id="InfoColCheckBox" /><label for="InfoColCheckBox">المعلومات</label>
+                        <div>
+                            <input type="checkbox" ng-model="SDateColCheckBox" ng-change="SDateCol == true ? SDateCol=false:SDateCol=true" id="SDateColCheckBox" /><label for="SDateColCheckBox">&nbsp; تاريخ البدء</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="EDateColCheckBox" ng-change="EDateCol == true ? EDateCol=false:EDateCol=true" id="EDateColCheckBox" /><label for="EDateColCheckBox">&nbsp; تاريخ الانتهاء</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
+                        <div>
+                            <input type="checkbox" ng-model="CenterColCheckBox" ng-change="CenterCol == true ? CenterCol=false:CenterCol=true" id="CenterColCheckBox" /><label for="CenterColCheckBox">&nbsp; المركز</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="RegimentColCheckBox" ng-change="RegimentCol == true ? RegimentCol=false:RegimentCol=true" id="RegimentColCheckBox" /><label for="RegimentColCheckBox">&nbsp; الشعبة</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="PeriodColCheckBox" ng-change="PeriodCol == true ? PeriodCol=false:PeriodCol=true" id="PeriodColCheckBox" /><label for="PeriodColCheckBox">&nbsp; الفترة</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="StageColCheckBox" ng-change="StageCol == true ? StageCol=false:StageCol=true" id="StageColCheckBox" /><label for="StageColCheckBox">&nbsp; المرحلة</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="SignsColCheckBox" ng-change="SignsCol == true ? SignsCol=false:SignsCol=true" id="SignsColCheckBox" /><label for="SignsColCheckBox">&nbsp; التوقيع</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="ProofColCheckBox" ng-change="ProofCol == true ? ProofCol=false:ProofCol=true" id="ProofColCheckBox" /><label for="ProofColCheckBox">&nbsp; الاثبات</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" ng-model="InfoColCheckBox" ng-change="InfoCol == true ? InfoCol=false:InfoCol=true" id="InfoColCheckBox" /><label for="InfoColCheckBox">&nbsp; المعلومات</label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div id="table_wrapper">
-        <table class="table table-striped">
-            <thead>
-                <tr class="bg-primary">
+    <div class="ThemeSecondBackground">
 
-                    <th></th>
-                    <th ng-show="StudentNumberCol == true">
-                        رقم الطالب
-                    </th>
-                    <th ng-show="NameCol == true">
-                        اسم الطالب
-                    </th>
-                    <th ng-show="SurnameCol == true">
-                        كنية الطالب
-                    </th>
-                    <th ng-show="FathersnameCol == true">
-                        اسم الأب
-                    </th>
-                    <th ng-show="MothersnameCol == true">
-                        اسم الأم
-                    </th>
-                    <th ng-show="BDateCol == true">
-                        تاريخ الولادة
-                    </th>
-                    <th ng-show="CertificateCol == true">
-                        الشهادة المتحصل عليها
-                    </th>
-                    <th ng-show="MarkCol == true">
-                        علامة الشهادة
-                    </th>
-                    <th ng-show="OldSchoolCol == true">
-                        المدرسة القديمة
-                    </th>
-                    <th ng-show="StudentStateCol == true">
-                        حالة الطالب
-                    </th>
-                    <th ng-show="SexCol == true">
-                        الجنس
-                    </th>
-                    <th ng-show="StateCol == true">
-                        الحالة الحالية
-                    </th>
+        <div id="table_wrapper">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="bg-primary">
 
-                    <th ng-show="SDateCol == true">
-                        تاريخ البدء
-                    </th>
-                    <th ng-show="EDateCol == true">
-                        تاريخ الانتهاء
-                    </th>
-                    <th ng-show="CenterCol == true">
-                        المركز
-                    </th>
-                    <th ng-show="RegimentCol == true">
-                        الشعبة
-                    </th>
-                    <th ng-show="PeriodCol == true">
-                        الفترة
-                    </th>
-                    <th ng-show="StageCol == true">
-                        المرحلة
-                    </th>
-                    <th ng-show="SignsCol == true">التوقيع</th>
-                    @if (Session["SeeTeacher"] != null)
-                    {
-                        if ((bool)Session["SeeTeacher"] == true)
-                        {
-
-                        }
-                        else
-                        {
-                            <th ng-show="ProofCol == true">
-                                الاثبات
-                            </th>
-                        }
-                    }
-                    else
-                    {
-                        <th ng-show="ProofCol == true">
-                            الاثبات
+                        <th></th>
+                        <th ng-show="StudentNumberCol == true">
+                            رقم الطالب
                         </th>
-                    }
-                    <th ng-show="InfoCol == true">
+                        <th ng-show="NameCol == true">
+                            اسم الطالب
+                        </th>
+                        <th ng-show="SurnameCol == true">
+                            كنية الطالب
+                        </th>
+                        <th ng-show="FathersnameCol == true">
+                            اسم الأب
+                        </th>
+                        <th ng-show="MothersnameCol == true">
+                            اسم الأم
+                        </th>
+                        <th ng-show="BDateCol == true">
+                            تاريخ الولادة
+                        </th>
+                        <th ng-show="CertificateCol == true">
+                            الشهادة المتحصل عليها
+                        </th>
+                        <th ng-show="MarkCol == true">
+                            علامة الشهادة
+                        </th>
+                        <th ng-show="OldSchoolCol == true">
+                            المدرسة القديمة
+                        </th>
+                        <th ng-show="StudentStateCol == true">
+                            حالة الطالب
+                        </th>
+                        <th ng-show="SexCol == true">
+                            الجنس
+                        </th>
+                        <th ng-show="StateCol == true">
+                            الحالة الحالية
+                        </th>
 
-                    </th>
-
-
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr ng-repeat="Student in Students">
-                    <td ng-if="Approval == false" style="background-color:darkred"></td>
-                    <td ng-if="Approval == true" style="background-color:forestgreen"></td>
-                    <td ng-if="Approval == null" style="background-color:gray"></td>
-                    <td ng-show="StudentNumberCol == true">{{Student.StudentNumber}}</td>
-                    <td ng-show="NameCol == true">{{Student.Name}}</td>
-                    <td ng-show="SurnameCol == true">{{Student.Surname}}</td>
-                    <td ng-show="FathersnameCol == true">{{Student.Fathersname}}</td>
-                    <td ng-show="MothersnameCol == true">{{Student.Mothersname}}</td>
-                    <td ng-show="BDateCol == true">{{Student.BDate | date:'dd/MM/yyyy'}}</td>
-
-                    <td ng-show="CertificateCol == true">{{Student.Certificate}}</td>
-                    <td ng-show="MarkCol == true">{{Student.Mark}}</td>
-                    <td ng-show="OldSchoolCol == true">{{Student.OldSchool}}</td>
-                    <td ng-show="StudentStateCol == true">{{Student.StudentState}}</td>
-                    <td ng-show="SexCol == true">{{Student.Sex}}</td>
-                    <td ng-show="StateCol == true">{{Student.State}}</td>
-                    <td ng-show="SDateCol == true">{{Student.SDate | date:'dd/MM/yyyy'}}</td>
-                    <td ng-show="EDateCol == true">{{Student.EDate | date:'dd/MM/yyyy'}}</td>
-                    <td ng-show="CenterCol == true">{{Student.Center}}</td>
-                    <td ng-show="RegimentCol == true">{{Student.Regiment}}</td>
-                    <td ng-show="PeriodCol == true">{{Student.Period}}</td>
-                    <td ng-show="StageCol == true">{{Student.StageName}}</td>
-                    <td ng-show="SignsCol == true">
-                        @if (Session["SeeAccToCity"] != null)
-                        {
-                            if ((bool)Session["SeeAccToCity"] == true)
-                            {
-                                <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=true" style="color:forestgreen">قبول</a>
-                                <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=false" style="color:darkred">رفض</a>
-
-                                <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
-                                    <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
-                            }
-                            else
-                            {
-                                <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
-                                <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
-                                <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
-                            }
-
-                        }
-                        else
-                        {
-                            <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
-                            <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
-                            <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
-                        }
-                    </td>
-                    <td ng-show="ProofCol == true">
+                        <th ng-show="SDateCol == true">
+                            تاريخ البدء
+                        </th>
+                        <th ng-show="EDateCol == true">
+                            تاريخ الانتهاء
+                        </th>
+                        <th ng-show="CenterCol == true">
+                            المركز
+                        </th>
+                        <th ng-show="RegimentCol == true">
+                            الشعبة
+                        </th>
+                        <th ng-show="PeriodCol == true">
+                            الفترة
+                        </th>
+                        <th ng-show="StageCol == true">
+                            المرحلة
+                        </th>
+                        <th ng-show="SignsCol == true">التوقيع</th>
                         @if (Session["SeeTeacher"] != null)
                         {
                             if ((bool)Session["SeeTeacher"] == true)
@@ -306,14 +236,97 @@
                             }
                             else
                             {
+                                <th ng-show="ProofCol == true">
+                                    الاثبات
+                                </th>
+                            }
+                        }
+                        else
+                        {
+                            <th ng-show="ProofCol == true">
+                                الاثبات
+                            </th>
+                        }
+                        <th ng-show="InfoCol == true">
+
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="!Students.length > 0">
+                        <td colspan="25">
+                            <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><span class="glyphicon glyphicon-search"></span></div><div class="col-xs-8" style="font-family:Cairo">يرجى إجراء عملية بحث</div></div>
+                        </td>
+                    </tr>
+
+                    <tr ng-repeat="Student in Students">
+                        <td ng-if="Approval == false" style="background-color:darkred"></td>
+                        <td ng-if="Approval == true" style="background-color:forestgreen"></td>
+                        <td ng-if="Approval == null" style="background-color:gray"></td>
+                        <td ng-show="StudentNumberCol == true">{{Student.StudentNumber}}</td>
+                        <td ng-show="NameCol == true">{{Student.Name}}</td>
+                        <td ng-show="SurnameCol == true">{{Student.Surname}}</td>
+                        <td ng-show="FathersnameCol == true">{{Student.Fathersname}}</td>
+                        <td ng-show="MothersnameCol == true">{{Student.Mothersname}}</td>
+                        <td ng-show="BDateCol == true">{{Student.BDate | date:'dd/MM/yyyy'}}</td>
+
+                        <td ng-show="CertificateCol == true">{{Student.Certificate}}</td>
+                        <td ng-show="MarkCol == true">{{Student.Mark}}</td>
+                        <td ng-show="OldSchoolCol == true">{{Student.OldSchool}}</td>
+                        <td ng-show="StudentStateCol == true">{{Student.StudentState}}</td>
+                        <td ng-show="SexCol == true">{{Student.Sex}}</td>
+                        <td ng-show="StateCol == true">{{Student.State}}</td>
+                        <td ng-show="SDateCol == true">{{Student.SDate | date:'dd/MM/yyyy'}}</td>
+                        <td ng-show="EDateCol == true">{{Student.EDate | date:'dd/MM/yyyy'}}</td>
+                        <td ng-show="CenterCol == true">{{Student.Center}}</td>
+                        <td ng-show="RegimentCol == true">{{Student.Regiment}}</td>
+                        <td ng-show="PeriodCol == true">{{Student.Period}}</td>
+                        <td ng-show="StageCol == true">{{Student.StageName}}</td>
+                        <td ng-show="SignsCol == true">
+                            @if (Session["SeeAccToCity"] != null)
+                            {
+                                if ((bool)Session["SeeAccToCity"] == true)
+                                {
+                                    <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=true" style="color:forestgreen">قبول</a>
+                                    <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=false" style="color:darkred">رفض</a>
+
+                                            <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                                            <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
+                                }
+                                else
+                                {
+                                    <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
+                                    <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                                            <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
+                                }
+
+                            }
+                            else
+                            {
+                                <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
+                                <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                                        <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
+                            }
+                        </td>
+                        <td ng-show="ProofCol == true">
+                            @if (Session["SeeTeacher"] != null)
+                            {
+                                if ((bool)Session["SeeTeacher"] == true)
+                                {
+
+                                }
+                                else
+                                {
+                                    <a ng-if="Student.Proof != null" class="btn btn-warning" href="/Json/DownloadProof/{{Student.Proof}}" title="تحميل"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                }
+                            }
+                            else
+                            {
                                 <a ng-if="Student.Proof != null" class="btn btn-warning" href="/Json/DownloadProof/{{Student.Proof}}" title="تحميل"><span class="glyphicon glyphicon-download-alt"></span></a>
                             }
-                        }
-                        else
-                        {
-                            <a ng-if="Student.Proof != null" class="btn btn-warning" href="/Json/DownloadProof/{{Student.Proof}}" title="تحميل"><span class="glyphicon glyphicon-download-alt"></span></a>
-                        }
-                    </td>
+                        </td>
 
 
 
@@ -321,33 +334,33 @@
 
 
 
-                    <td ng-show="InfoCol == true">
-                        @if (Session["AddStudent"] != null)
-                        {
-                            if ((bool)Session["AddStudent"] == true)
+                        <td ng-show="InfoCol == true">
+                            @if (Session["AddStudent"] != null)
                             {
-                                <div style="width:210px;">
-                                    <a class="btn btn-danger" href="Students/Delete/{{Student.ID}}" title="حذف"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <a class="btn btn-info" href="Students/Details/{{Student.ID}}" title="معلومات"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                    <a class="btn btn-success" href="Students/Edit/{{Student.ID}}" title="تعديل"><span class="glyphicon glyphicon-pencil"></span></a>
-                                </div>
+                                if ((bool)Session["AddStudent"] == true)
+                                {
+                                    <div style="width:210px;">
+                                        <a class="btn btn-danger" href="Students/Delete/{{Student.ID}}" title="حذف"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a class="btn btn-info" href="Students/Details/{{Student.ID}}" title="معلومات"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a class="btn btn-success" href="Students/Edit/{{Student.ID}}" title="تعديل"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    </div>
+                                }
+
                             }
+                            else
+                            {
+                                <a class="btn btn-info" href="Students/Details/{{Student.ID}}" title="معلومات"><span class="glyphicon glyphicon-folder-open"></span></a>
 
-                        }
-                        else
-                        {
-                            <a class="btn btn-info" href="Students/Details/{{Student.ID}}" title="معلومات"><span class="glyphicon glyphicon-folder-open"></span></a>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-                        }
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <button id="btnExport" class="btn btn-success">xls تصدير إلى</button>
+        </div>
     </div>
-
-    <button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>
-
-</div>
 
 
 @if (ViewBag.StateMessage != null)

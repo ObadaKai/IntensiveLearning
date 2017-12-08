@@ -3,60 +3,86 @@
 @{
     ViewBag.Title = "لائحة النشاطات اليومية";
 }
+<div class="ThemeFirstBackground">
 
-<h2>لائحة النشاطات اليومية</h2>
+    <h2>لائحة النشاطات اليومية</h2>
 
+</div>
+<div class="ThemeSecondBackground">
 
-<div id="table_wrapper">
+    <div id="table_wrapper">
 
-    <table class="table table-striped">
-        <thead>
-            <tr class="bg-primary">
-                <th>
-                    @Html.DisplayNameFor(model => model.Employee.name)
-                </th>
+        <table class="table table-striped">
+            <thead>
+                <tr class="bg-primary">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Employee.name)
+                    </th>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Employee.surname)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Report)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Observation)
-                </th>
-
-
-
-
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Employee.name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Employee.surname)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Report)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Observation)
-                    </td>
-
+                    <th>
+                        @Html.DisplayNameFor(model => model.Employee.surname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Report)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Observation)
+                    </th>
 
 
 
 
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    if (Model.Count() == 0)
+                    {
+                        <tr>
+                            <td colspan="25">
+                                <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Employee.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Employee.surname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Report)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Observation)
+                                </td>
 
-<button id="btnExport" class="btn btn-warning">Export to xls</button>
+
+
+
+
+                            </tr>
+                        }
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="25">
+                            <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+    <button id="btnExport" class="btn btn-success">xls تصدير إلى</button>
+</div>

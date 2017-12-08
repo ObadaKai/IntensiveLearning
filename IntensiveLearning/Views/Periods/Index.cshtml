@@ -3,94 +3,114 @@
 @{
     ViewBag.Title = "لائحة الفترات";
 }
+<div class="ThemeFirstBackground">
+    <div style="display:inline-block;width:100%;">
 
-<h2>لائحة الفترات</h2>
-@if (Session["AddSchoolManagingTools"] != null)
-{
-    if ((bool)Session["AddSchoolManagingTools"] == true)
-    {
-        using (Html.BeginForm("Create","Periods", FormMethod.Get))
-        {
-            <button type="submit" class="btn btn-warning">انشاء جديد</button>
-        }
-    }
-}
-<table class="table table-striped">
-    <thead>
-        <tr class="bg-primary">
+        <h2  style="display:inline-block">لائحة الفترات</h2>
+        <div style="display:inline-block;float:left;margin:20px 0;">
 
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartingTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndTime)
-            </th>
-            <th></th>
+            @if (Session["AddSchoolManagingTools"] != null)
+            {
+                if ((bool)Session["AddSchoolManagingTools"] == true)
+                {
+                    using (Html.BeginForm("Create", "Periods", FormMethod.Get))
+                    {
+                        <button type="submit" class="btn btn-success" title="انشاء جديد"><span class="glyphicon glyphicon-plus"></span></button>
+                    }
+                }
+            }
+            </div>
+        </div>
+    </div>
+<div class="ThemeSecondBackground">
+
+    <table class="table table-striped">
+        <thead>
+            <tr class="bg-primary">
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartingTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndTime)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="25">
+                            <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
+                        </td>
+                    </tr>
+                }
+                else { 
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartingTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndTime)
+                        </td>
+
+
+
+
+                        <td>
+                            @if (Session["AddSchoolManagingTools"] != null)
+                            {
+                                if ((bool)Session["AddSchoolManagingTools"] == true)
+                                {
+                                    <div style="width:130px;">
+                                        <a href="/Periods/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/Periods/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a href="/Periods/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <a href="/Periods/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                            }
+                        </td>
 
 
 
 
 
 
-
-
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null)
-        {
-            foreach (var item in Model)
+                    </tr>
+                    }
+                }
+            }
+            else
             {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                    <td colspan="25">
+                        <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
                     </td>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StartingTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EndTime)
-                    </td>
-
-
-
-
-                    <td>
-                        @if (Session["AddSchoolManagingTools"] != null)
-                        {
-                            if ((bool)Session["AddSchoolManagingTools"] == true)
-                            {
-                                <div style="width:130px;">
-                                    <a href="/Periods/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <a href="/Periods/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                    <a href="/Periods/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                </div>
-                            }
-                        }
-                        else
-                        {
-                            <a href="/Periods/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                        }
-                    </td>
-
-
-
-
-
-
                 </tr>
             }
-        }
-    </tbody>
-</table>
-@if (ViewBag.StateMessage != null)
-{
-        <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        @ViewBag.StateMessage
+        </tbody>
+    </table>
     </div>
-}
+    @if (ViewBag.StateMessage != null)
+            {
+        <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            @ViewBag.StateMessage
+        </div>
+    }

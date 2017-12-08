@@ -67,6 +67,11 @@ namespace IntensiveLearning.Controllers
                         Session["SeeAccToCity"] = employee.EmployeeType.SeeAccToCity;
                         Session["SeeAllButFinance"] = employee.EmployeeType.SeeAllButFinance;
                         Session["SeeTeachers"] = employee.EmployeeType.SeeTeachers;
+                        Session["DamascusCount"] = db.Students.Where(x => x.Center.Cityid == 3).Count();
+                        Session["DaraaCount"] = db.Students.Where(x => x.Center.Cityid == 4).Count();
+                        Session["AleppoCount"] = db.Students.Where(x => x.Center.Cityid == 2).Count();
+                        Session["IdlepCount"] = db.Students.Where(x => x.Center.Cityid == 1).Count();
+
                         if (employee.Center != null)
                         {
                             Session["Markaz"] = employee.Center.Name;
@@ -87,7 +92,7 @@ namespace IntensiveLearning.Controllers
                     }
 
                 }
-                catch (Exception)
+                catch (Exception x)
                 {
                     ViewBag.error = "تعذر العثور على المسخدم";
                 }

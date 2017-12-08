@@ -4,60 +4,64 @@
 
 <h2>Index</h2>
 <div ng-controller="SubBndsCtrl">
-    <p>
-        <a href="/SubBnds/Create/{{Bnd.Bndid}}">انشاء جديد</a>
-    </p>
+    <div class="ThemeFirstBackground">
 
-    <div style="display:block;margin-bottom:15px;">
-        <div class="row">
-            <div class="col-sm-4">
-                <table class="table table-striped">
-                    <tr>
-                        <th>{{Bnd.BndActivity}}</th>
-                    </tr>
-                    <tr>
-                        <th style="background-color:rgba(37, 8, 4,0.7);color:white;">رقم البند</th>
-                        <td>{{Bnd.Bndid}}</td>
+        <p>
 
-                    </tr>
-                    <tr>
-                        <th style="background-color:rgba(37, 8, 4,0.7);color:white;">اسم البند</th>
-                        <td>{{Bnd.Bndname}}</td>
+            <a href="/SubBnds/Create/{{Bnd.Bndid}}" class="btn btn-success"  title="انشاء جديد"><span class="glyphicon glyphicon-plus"></span></a>
+        </p>
 
-                    </tr>
-                    <tr>
-                        <th style="background-color:rgba(37, 8, 4,0.7);color:white;">موازنة البند</th>
-                        <td>{{Bnd.BndTotalNum | currency}}</td>
-
-                    </tr>
-                    <tr>
-                        <th style="background-color:rgba(37, 8, 4,0.7);color:white;">المشتريات</th>
-                        <td>{{Bnd.BndPaidAmount | currency}}</td>
-
-                    </tr>
-                    <tr>
-                        <th style="background-color:rgba(37, 8, 4,0.7);color:white;">القيمة المتبقية</th>
-                        <td ng-style="{'background-color': Bnd.BndRemaining > 0 ? '#5cb85c' :'#d9534f' }">{{Bnd.BndRemaining | currency}}</td>
-                    </tr>
-                </table>
-
-            </div>
-            <div class="col-sm-8">
-                <table class="table table-striped">
-                    <thead>
-                        <tr class="bg-primary">
-                            <th ng-repeat="Center in Centers">{{Center.id}}. {{Center.Name}}</th>
-                        </tr>
-
-                    </thead>
-                    <tbody>
+        <div style="display:block;margin-bottom:15px;">
+            <div class="row">
+                <div class="col-sm-4">
+                    <table class="table table-striped">
                         <tr>
-                            <td ng-repeat="Center in Centers">{{Center.Center | currency}}</td>
+                            <th>{{Bnd.BndActivity}}</th>
                         </tr>
-                    </tbody>
+                        <tr>
+                            <th style="background-color:rgba(37, 8, 4,0.7);color:white;">رقم البند</th>
+                            <td>{{Bnd.Bndid}}</td>
 
-                </table>
+                        </tr>
+                        <tr>
+                            <th style="background-color:rgba(37, 8, 4,0.7);color:white;">اسم البند</th>
+                            <td>{{Bnd.Bndname}}</td>
 
+                        </tr>
+                        <tr>
+                            <th style="background-color:rgba(37, 8, 4,0.7);color:white;">موازنة البند</th>
+                            <td>{{Bnd.BndTotalNum | currency}}</td>
+
+                        </tr>
+                        <tr>
+                            <th style="background-color:rgba(37, 8, 4,0.7);color:white;">المشتريات</th>
+                            <td>{{Bnd.BndPaidAmount | currency}}</td>
+
+                        </tr>
+                        <tr>
+                            <th style="background-color:rgba(37, 8, 4,0.7);color:white;">القيمة المتبقية</th>
+                            <td ng-style="{'background-color': Bnd.BndRemaining > 0 ? '#5cb85c' :'#d9534f' }">{{Bnd.BndRemaining | currency}}</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="col-sm-8">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="bg-primary">
+                                <th ng-repeat="Center in Centers">{{Center.id}}. {{Center.Name}}</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td ng-repeat="Center in Centers">{{Center.Center | currency}}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
             </div>
         </div>
     </div>
@@ -65,101 +69,107 @@
 
 
 
+    <div class="ThemeSecondBackground">
 
+        <div id="table_wrapper">
+            <table class="table table-striped">
+                <thead>
 
-    <div id="table_wrapper">
-        <table class="table table-striped">
-            <thead>
+                    <tr class="bg-primary">
+                        <th>
+                            المعلومات
+                        </th>
+                        <th>
+                            سعر القطعة
+                        </th>
+                        <th>
+                            العدد
+                        </th>
 
-                <tr class="bg-primary">
-                    <th>
-                        المعلومات
-                    </th>
-                    <th>
-                        سعر القطعة
-                    </th>
-                    <th>
-                        العدد
-                    </th>
+                        <th>
+                            اسم المركز
+                        </th>
+                        <th>
+                            اسم الرئيسي
+                        </th>
+                        <th>
+                            المجموع الكلي
+                        </th>
 
-                    <th>
-                        اسم المركز
-                    </th>
-                    <th>
-                        اسم الرئيسي
-                    </th>
-                    <th>
-                        المجموع الكلي
-                    </th>
+                        <th>
+                            تاريخ الادخال
+                        </th>
+                        <th>
+                            رقم الدفع
+                        </th>
+                        <th>
+                            الدفع
+                        </th>
+                        <th>
+                            الشراء
+                        </th>
 
-                    <th>
-                        تاريخ الادخال
-                    </th>
-                    <th>
-                        رقم الدفع
-                    </th>
-                    <th>
-                        الدفع
-                    </th>
-                    <th>
-                        الشراء
-                    </th>
+                        <th>
+                            قبول الاثبات
+                        </th>
+                        <th>
+                            الاثبات
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="!SubBnds.length > 0">
+                        <td colspan="25">
+                            <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
+                        </td>
+                    </tr>
 
-                    <th>
-                        قبول الاثبات
-                    </th>
-                    <th>
-                        الاثبات
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="SubBnd in SubBnds">
-                    <td>
-                        {{SubBnd.Subject}}
-                    </td>
-                    <td>
-                        {{SubBnd.PeacePrice | currency}}
-                    </td>
-                    <td>
-                        {{SubBnd.Quantity}}
-                    </td>
-                    <td>
-                        {{SubBnd.Center}}
-                    </td>
-                    <td>
-                        {{SubBnd.CenterDepended}}
-                    </td>
-                    <td>
-                        {{SubBnd.SumPrice | currency}}
-                    </td>
-                    <td>
-                        {{SubBnd.Date | date:'dd/MM/yyyy'}}
-                    </td>
-                    <td>
-                        {{SubBnd.Payment}}
-                    </td>
-                    <td>
-                        <span ng-if="SubBnd.BuyingApprove ==  true" class="glyphicon glyphicon-ok"></span>
-                        <span ng-if="SubBnd.BuyingApprove ==  false" class="glyphicon glyphicon-remove"></span>
+                    <tr ng-repeat="SubBnd in SubBnds">
+                        <td>
+                            {{SubBnd.Subject}}
+                        </td>
+                        <td>
+                            {{SubBnd.PeacePrice | currency}}
+                        </td>
+                        <td>
+                            {{SubBnd.Quantity}}
+                        </td>
+                        <td>
+                            {{SubBnd.Center}}
+                        </td>
+                        <td>
+                            {{SubBnd.CenterDepended}}
+                        </td>
+                        <td>
+                            {{SubBnd.SumPrice | currency}}
+                        </td>
+                        <td>
+                            {{SubBnd.Date | date:'dd/MM/yyyy'}}
+                        </td>
+                        <td>
+                            {{SubBnd.Payment}}
+                        </td>
+                        <td>
+                            <span ng-if="SubBnd.BuyingApprove ==  true" class="glyphicon glyphicon-ok"></span>
+                            <span ng-if="SubBnd.BuyingApprove ==  false" class="glyphicon glyphicon-remove"></span>
 
-                    </td>
-                    <td>
-                        <span ng-if="SubBnd.PayymentApprove ==  true" class="glyphicon glyphicon-ok"></span>
-                        <span ng-if="SubBnd.PayymentApprove ==  false" class="glyphicon glyphicon-remove"></span>
+                        </td>
+                        <td>
+                            <span ng-if="SubBnd.PayymentApprove ==  true" class="glyphicon glyphicon-ok"></span>
+                            <span ng-if="SubBnd.PayymentApprove ==  false" class="glyphicon glyphicon-remove"></span>
 
-                    </td>
-                    <td>
-                        <span ng-if="SubBnd.ProofAcceptance ==  true" class="glyphicon glyphicon-ok"></span>
-                        <span ng-if="SubBnd.ProofAcceptance ==  false" class="glyphicon glyphicon-remove"></span>
-                    </td>
-                    <td>
-                        <a ng-if="SubBnd.proof != null" ng-href="@Url.Action("DownloadProof","Json")/{{SubBnd.proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                        </td>
+                        <td>
+                            <span ng-if="SubBnd.ProofAcceptance ==  true" class="glyphicon glyphicon-ok"></span>
+                            <span ng-if="SubBnd.ProofAcceptance ==  false" class="glyphicon glyphicon-remove"></span>
+                        </td>
+                        <td>
+                            <a ng-if="SubBnd.proof != null" ng-href="@Url.Action("DownloadProof","Json")/{{SubBnd.proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button id="btnExport" class="btn btn-success">xls تصدير ل</button>
+        </div>
     </div>
-    <button id="btnExport" class="btn btn-warning">xls تصدير ل</button>
-
-</div>

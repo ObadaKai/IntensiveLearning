@@ -2,227 +2,248 @@
     ViewBag.Title = "لائحة الطلبات";
 }
 <div ng-controller="OrdersCtrl">
-    <h2>لائحة الطلبات</h2>
+    <div class="ThemeFirstBackground">
+        <div style="display:inline-block;width:100%;">
 
-    @using (Html.BeginForm("Create", "Orders", FormMethod.Get))
-    {
-        <div style="margin-bottom:15px;">
-            <button type="submit" class="btn btn-warning">انشاء جديد</button>
-        </div>
-    }
-    <div class="col-md-12" style="margin-bottom:20px;padding:0;border:0">
-        <div class="col-md-10" style="margin:0;padding:0;border:0">
-            <input type="text" class="form-control " style="display:inline-block !important;text-align:right" name="search" id="search" placeholder="...البحث" ng-change="OrderSearchBox()" ng-model="OrderSearchBoxData" />
-        </div>
-        <div class="col-md-2" style="margin:0;padding:0;border:0">
-            <input type="date" class="form-control " style="display:inline-block !important;" name="searchdate" id="searchdate" ng-change="OrderSearchBox()" ng-model="OrderSearchBoxDate" />
+            <h2 style="display:inline-block">لائحة الطلبات</h2>
+            <div style="display:inline-block;float:left;margin:20px 0;">
+
+                @using (Html.BeginForm("Create", "Orders", FormMethod.Get))
+            {
+                    <div style="margin-bottom:15px;">
+                        <button type="submit" class="btn btn-success" title="انشاء جديد"><span class="glyphicon glyphicon-plus"></span></button>
+                    </div>
+                }
+            </div>
+                <div class="col-md-12" style="margin-bottom:20px;padding:0;border:0">
+                    <div class="col-md-10" style="margin:0;padding:0;border:0">
+                        <input type="text" class="form-control " style="display:inline-block !important;text-align:right" name="search" id="search" placeholder="...البحث" ng-change="OrderSearchBox()" ng-model="OrderSearchBoxData" />
+                    </div>
+                    <div class="col-md-2" style="margin:0;padding:0;border:0">
+                        <input type="date" class="form-control " style="display:inline-block !important;" name="searchdate" id="searchdate" ng-change="OrderSearchBox()" ng-model="OrderSearchBoxDate" />
+                    </div>
+                </div>
+                @if (ViewBag.BndOverload != null)
+            {
+                    <script>alert("@ViewBag.BndOverload")</script>
+                }
+            
         </div>
     </div>
-    @if (ViewBag.BndOverload != null)
-    {
-        <script>alert("@ViewBag.BndOverload")</script>
-    }
+    <div class="ThemeSecondBackground">
 
-    <div id="table_wrapper">
-        <table class="table table-striped">
-            <thead>
+        <div id="table_wrapper">
+            <table class="table table-striped">
+                <thead>
 
-                <tr class="bg-primary">
-                    <th rowspan="2">
-                        اسم رافع الطلب
-                    </th>
-                    <th rowspan="2">
-                        كنية رافع الطلب
-                    </th>
-                    <th rowspan="2">
-                        المعلومات
-                    </th>
-                    <th rowspan="2">
-                        الأولوية
-                    </th>
-                    <th rowspan="2">
-                        نوع الطلب
-                    </th>
-                    <th rowspan="2">
-                        البند
-                    </th>
-                    <th rowspan="2">
-                        المركز
-                    </th>
-                    <th rowspan="2">
-                        سعر القطعة
-                    </th>
-                    <th rowspan="2">
-                        العدد
-                    </th>
-                    <th rowspan="2">
-                        المجموع
-                    </th>
-                    <th rowspan="2">
-                        التاريخ
-                    </th>
-                    <th rowspan="2">
-                        الوقت
-                    </th>
-                    <th rowspan="1" colspan="3">التواقيع</th>
+                    <tr class="bg-primary">
+                        <th rowspan="2">
+                            اسم رافع الطلب
+                        </th>
+                        <th rowspan="2">
+                            كنية رافع الطلب
+                        </th>
+                        <th rowspan="2">
+                            المعلومات
+                        </th>
+                        <th rowspan="2">
+                            الأولوية
+                        </th>
+                        <th rowspan="2">
+                            نوع الطلب
+                        </th>
+                        <th rowspan="2">
+                            البند
+                        </th>
+                        <th rowspan="2">
+                            المركز
+                        </th>
+                        <th rowspan="2">
+                            سعر القطعة
+                        </th>
+                        <th rowspan="2">
+                            العدد
+                        </th>
+                        <th rowspan="2">
+                            المجموع
+                        </th>
+                        <th rowspan="2">
+                            التاريخ
+                        </th>
+                        <th rowspan="2">
+                            الوقت
+                        </th>
+                        <th rowspan="1" colspan="3">التواقيع</th>
 
-                    <th rowspan="1" colspan="4">الدفع</th>
-                    <th rowspan="2">
-                        الحالة
-                    </th>
-                    <th rowspan="2">
-                        الاثبات
-                    </th>
-                    <th rowspan="2"></th>
-                </tr>
-                <tr class="bg-primary">
+                        <th rowspan="1" colspan="4">الدفع</th>
+                        <th rowspan="2">
+                            الحالة
+                        </th>
+                        <th rowspan="2">
+                            الاثبات
+                        </th>
+                        <th rowspan="2"></th>
+                    </tr>
+                    <tr class="bg-primary">
 
-                    <th>
-                        المتابعة
-                    </th>
-                    <th>
-                        المالية
-                    </th>
+                        <th>
+                            المتابعة
+                        </th>
+                        <th>
+                            المالية
+                        </th>
 
-                    <th>
-                        المدير التنفيذي
-                    </th>
+                        <th>
+                            المدير التنفيذي
+                        </th>
 
 
-                    <th>
-                        اصدار أمر الدفع
-                    </th>
+                        <th>
+                            اصدار أمر الدفع
+                        </th>
 
-                    <th>
-                        الدفع
-                    </th>
+                        <th>
+                            الدفع
+                        </th>
 
-                    <th>
-                        الشراء
-                    </th>
+                        <th>
+                            الشراء
+                        </th>
 
-                    <th>
-                        الاثبات
-                    </th>
-                </tr>
-            </thead>
+                        <th>
+                            الاثبات
+                        </th>
+                    </tr>
+                </thead>
 
 
-            <tbody>
-                <tr ng-repeat="Order in Orders">
-                    <td>
-                        {{Order.EmployeeName}}
-                    </td>
-                    <td>
-                        {{Order.EmployeeSurname}}
-                    </td>
-                    <td>
-                        {{Order.Subject}}
-                    </td>
-                    <td>
-                        {{Order.Necessity}}
-                    </td>
-                    <td>
-                        {{Order.OrderType}}
-                    </td>
-                    <td>
-                        <span style="min-width: 300px;display: inline-block;">{{Order.Bnd}}</span>
-                    </td>
-                    <td>
-                        {{Order.Center}}
-                    </td>
-                    <td>
-                        {{Order.PeacePrice | currency}}
-                    </td>
-                    <td>
-                        {{Order.Quantity}}
-                    </td>
-                    <td>
-                        {{Order.SumPrice | currency}}
-                    </td>
-                    <td>
-                        {{Order.Date | date:'dd/MM/yyyy'}}
-                    </td>
-                    <td>
-                        {{Order.Time.Hours}}:{{Order.Time.Minutes}}
-                    </td>
-                    <td>
-                        <span ng-if="Order.FirstLevelSign == true" style="color:#398439">
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </span>
-                        <div ng-if="Order.FirstLevelSign == false">
-                            <div class="tooltipBox">
-                                <span style="color:#d9534f" class="glyphicon glyphicon-remove"></span>
-                                <span class="tooltiptextBox">{{Order.Comment}}</span>
+                <tbody>
+
+                    <tr ng-if="!Orders.length > 0">
+                        <td colspan="25">
+                            <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="Order in Orders">
+                        <td>
+                            {{Order.EmployeeName}}
+                        </td>
+                        <td>
+                            {{Order.EmployeeSurname}}
+                        </td>
+                        <td>
+                            {{Order.Subject}}
+                        </td>
+                        <td>
+                            {{Order.Necessity}}
+                        </td>
+                        <td>
+                            {{Order.OrderType}}
+                        </td>
+                        <td>
+                            <span style="min-width: 300px;display: inline-block;">{{Order.Bnd}}</span>
+                        </td>
+                        <td>
+                            {{Order.Center}}
+                        </td>
+                        <td>
+                            {{Order.PeacePrice | currency}}
+                        </td>
+                        <td>
+                            {{Order.Quantity}}
+                        </td>
+                        <td>
+                            {{Order.SumPrice | currency}}
+                        </td>
+                        <td>
+                            {{Order.Date | date:'dd/MM/yyyy'}}
+                        </td>
+                        <td>
+                            {{Order.Time.Hours}}:{{Order.Time.Minutes}}
+                        </td>
+                        <td>
+                            <span ng-if="Order.FirstLevelSign == true" style="color:#398439">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </span>
+                            <div ng-if="Order.FirstLevelSign == false">
+                                <div class="tooltipBox">
+                                    <span style="color:#d9534f" class="glyphicon glyphicon-remove"></span>
+                                    <span class="tooltiptextBox">{{Order.Comment}}</span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div ng-if="Order.FirstLevelSign == null && Order.SecondLevelSign != false && Order.ThirdLevelSign != false">
-                            @if (Session["CoManager"] != null && Session["SeeAll"] != null)
-                            {
-                                if (Session["Finance"] == null)
+                            <div ng-if="Order.FirstLevelSign == null && Order.SecondLevelSign != false && Order.ThirdLevelSign != false">
+                                @if (Session["CoManager"] != null && Session["SeeAll"] != null)
                                 {
-                                    if ((bool)Session["CoManager"] == true && (bool)Session["SeeAll"] == true)
+                                    if (Session["Finance"] == null)
                                     {
-
-                                        <a ng-href="@Url.Action("ConfirmOrder","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                        using (Html.BeginForm("RefuseOrder", "Orders"))
+                                        if ((bool)Session["CoManager"] == true && (bool)Session["SeeAll"] == true)
                                         {
-                                            <a onclick="RefuseOrderFirstLevel()" id="RefuseOrderFirstLevel"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <div id="RefuseOrderFirstLevelCancelation" style="display:none;padding:0" class="col-sm-12">
-                                                <input type="hidden" name="id" value="{{Order.id}}" />
-                                                <input type="text" class="col-sm-9" style="line-height:27px;" name="comment" id="comment" />
-                                                <input type="submit" class="col-sm-3" value="ارسال" />
-                                            </div>
+
+                                            <a ng-href="@Url.Action("ConfirmOrder","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                            using (Html.BeginForm("RefuseOrder", "Orders"))
+                                            {
+                                                <a onclick="RefuseOrderFirstLevel()" id="RefuseOrderFirstLevel"><span class="glyphicon glyphicon-remove"></span></a>
+                                                <div id="RefuseOrderFirstLevelCancelation" style="display:none;padding:0" class="col-sm-12">
+                                                    <input type="hidden" name="id" value="{{Order.id}}" />
+                                                    <input type="text" class="col-sm-9" style="line-height:27px;" name="comment" id="comment" />
+                                                    <input type="submit" class="col-sm-3" value="ارسال" />
+                                                </div>
+                                            }
                                         }
                                     }
-                                }
-                                else if ((bool)Session["Finance"] == false)
-                                {
-                                    if ((bool)Session["CoManager"] == true && (bool)Session["SeeAll"] == true)
+                                    else if ((bool)Session["Finance"] == false)
                                     {
-                                        <a ng-href="@Url.Action("ConfirmOrder","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                        using (Html.BeginForm("RefuseOrder", "Orders"))
+                                        if ((bool)Session["CoManager"] == true && (bool)Session["SeeAll"] == true)
                                         {
-                                            <a onclick="RefuseOrderFirstLevel()" id="RefuseOrderFirstLevel"><span class="glyphicon glyphicon-remove"></span></a>
-                                            <div id="RefuseOrderFirstLevelCancelation" style="display:none;padding:0" class="col-sm-12">
-                                                <input type="hidden" name="id" value="{{Order.id}}" />
-                                                <input type="text" class="col-sm-9" style="line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
-                                                <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
-                                            </div>
+                                            <a ng-href="@Url.Action("ConfirmOrder","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                            using (Html.BeginForm("RefuseOrder", "Orders"))
+                                            {
+                                                <a onclick="RefuseOrderFirstLevel()" id="RefuseOrderFirstLevel"><span class="glyphicon glyphicon-remove"></span></a>
+                                                <div id="RefuseOrderFirstLevelCancelation" style="display:none;padding:0" class="col-sm-12">
+                                                    <input type="hidden" name="id" value="{{Order.id}}" />
+                                                    <input type="text" class="col-sm-9" style="line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
+                                                    <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
+                                                </div>
+                                            }
                                         }
                                     }
+
+
                                 }
+                            </div>
+                        </td>
+                        <td>
+                            <div ng-if="Order.SecondLevelSign == true">
 
-
-                            }
-                        </div>
-                    </td>
-                    <td>
-                        <div ng-if="Order.SecondLevelSign == true">
-
-                            @if (Session["CoManager"] != null && Session["Finance"] != null)
-                            {
-                                if ((bool)Session["CoManager"] == true && (bool)Session["Finance"] == true)
+                                @if (Session["CoManager"] != null && Session["Finance"] != null)
                                 {
-                                    using (Html.BeginForm("AssignBnd", "Orders"))
+                                    if ((bool)Session["CoManager"] == true && (bool)Session["Finance"] == true)
                                     {
-                                        <input type="hidden" name="id" value="{{Order.id}}" />
-                                        <div class="col-sm-12" ng-if="Order.Bnd == null" style="display:inline-block;width:300px;">
-                                            <div class="col-sm-2" style="line-height:15px;padding:0">
-                                                <label class="col-sm-12"></label>
-                                                <input class="btn btn-warning" type="submit" value="انشاء" style="display:inline-block" />
-                                            </div>
-                                            <div class="col-sm-7" ng-if="Order.Bnd == null" style="line-height:15px;padding:0">
-                                                <label class="col-sm-12" style="color:#f0ad4e">البند</label>
+                                        using (Html.BeginForm("AssignBnd", "Orders"))
+                                        {
+                                            <input type="hidden" name="id" value="{{Order.id}}" />
+                                            <div class="col-sm-12" ng-if="Order.Bnd == null" style="display:inline-block;width:300px;">
+                                                <div class="col-sm-2" style="line-height:15px;padding:0">
+                                                    <label class="col-sm-12"></label>
+                                                    <input class="btn btn-success" type="submit" value="انشاء" style="display:inline-block" />
+                                                </div>
+                                                <div class="col-sm-7" ng-if="Order.Bnd == null" style="line-height:15px;padding:0">
+                                                    <label class="col-sm-12" style="color:#f0ad4e">البند</label>
 
-                                                <select class="col-sm-12" @*ng-change="BndChange(Order.id,BndAssign)" ng-model="BndAssign"*@ style="display:inline-block;" name="Bndid">
-                                                    <option ng-repeat="Bnd in Bnds" value="{{Bnd.id}}">{{Bnd.Name}}</option>
-                                                </select>
+                                                    <select class="col-sm-12" @*ng-change="BndChange(Order.id,BndAssign)" ng-model="BndAssign"*@ style="display:inline-block;" name="Bndid">
+                                                        <option ng-repeat="Bnd in Bnds" value="{{Bnd.id}}">{{Bnd.Name}}</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
+                                        <span ng-if="Order.Bnd != null" style="color:#398439" class="glyphicon glyphicon-ok"></span>
+
                                     }
-                                    <span ng-if="Order.Bnd != null" style="color:#398439" class="glyphicon glyphicon-ok"></span>
+                                    else
+                                    {
+                                        <span style="color:#398439" class="glyphicon glyphicon-ok"></span>
+                                    }
 
                                 }
                                 else
@@ -230,246 +251,240 @@
                                     <span style="color:#398439" class="glyphicon glyphicon-ok"></span>
                                 }
 
-                            }
-                            else
-                            {
-                                <span style="color:#398439" class="glyphicon glyphicon-ok"></span>
-                            }
 
-
-                        </div>
-                        <div ng-if="Order.SecondLevelSign == false">
-                            <div class="tooltipBox">
-                                <span style="color:#d9534f" class="glyphicon glyphicon-remove"></span>
-                                <span class="tooltiptextBox">{{Order.Comment}}</span>
                             </div>
-                        </div>
-                        <div ng-if="Order.SecondLevelSign == null && Order.FirstLevelSign!= false &&Order.ThirdLevelSign != false">
-                            @if (Session["CoManager"] != null && Session["Finance"] != null)
-                            {
-                                if ((bool)Session["CoManager"] == true && (bool)Session["Finance"] == true)
-                                {
-                                    <a ng-href="@Url.Action("ConfirmOrder","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                    using (Html.BeginForm("RefuseOrder", "Orders"))
-                                    {
-                                        <a onclick="RefuseOrderSecondLevel()" id="RefuseOrderSecondLevel"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <div id="RefuseOrderSecondLevelCancelation" style="display:none;padding:0" class="col-sm-12">
-                                            <input type="hidden" name="id" value="{{Order.id}}" />
-                                            <input type="text" class="col-sm-9" style="line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
-                                            <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
-                                        </div>
-                                    }
-                                }
-
-                            }
-                        </div>
-                    </td>
-                    <td>
-
-                        <span ng-if="Order.ThirdLevelSign == true" style="color:#398439">
-
-                            <span class="glyphicon glyphicon-ok"></span>
-
-
-                        </span>
-                        <div ng-if="Order.ThirdLevelSign == false">
-
-                            <div class="tooltipBox">
-                                <span style="color:#d9534f" class="glyphicon glyphicon-remove"></span>
-                                <span class="tooltiptextBox">{{Order.Comment}}</span>
-                            </div>
-
-                        </div>
-                        <div ng-if="Order.ThirdLevelSign == null && Order.SecondLevelSign != false && Order.FirstLevelSign != false">
-                            @if (Session["Manager"] != null && Session["AddNewProject"] != null)
-                            {
-                                if ((bool)Session["Manager"] == true && (bool)Session["AddNewProject"] == true)
-                                {
-                                    <a ng-href="@Url.Action("ConfirmOrder","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                    using (Html.BeginForm("RefuseOrder", "Orders"))
-                                    {
-                                        <a onclick="RefuseOrderThirdLevel()" id="RefuseOrderThirdLevel"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <div id="RefuseOrderThirdLevelCancelation" style="display:none;padding:0;width:200px;" class="col-sm-12">
-                                            <input type="hidden" name="id" value="{{Order.id}}" />
-                                            <input type="text" class="col-sm-9" style="line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
-                                            <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
-                                        </div>
-                                    }
-                                }
-
-                            }
-                        </div>
-
-                    </td>
-                    <td>
-                        @if (Session["CoManager"] != null && Session["Finance"] != null)
-                        {
-                            if ((bool)Session["CoManager"] == true && (bool)Session["Finance"] == true)
-                            {
-                                <div ng-if="Order.Paymentid == null && Order.ThirdLevelSign == true && Order.SecondLevelSign == true && Order.FirstLevelSign == true" style="width:100px;">
-                                    @using (Html.BeginForm("Quantity", "Orders"))
-                                    {
-                                        <div ng-if="Order.QuantityChanged==null">
-                                            <input type="hidden" value="{{Order.id}}" name="id" />
-                                            <input class="btn btn-warning col-sm-6" type="submit" value="انشاء" style="display:inline-block" />
-                                            <div class="col-sm-6" style="line-height:9px;padding:0">
-                                                <label class="col-sm-12" style="color:#f0ad4e">العدد</label>
-                                                <input class="col-sm-12" type="text" id="AcceptedQuantity" name="AcceptedQuantity" value="{{Order.Quantity}}" max="{{Order.Quantity}}" style="display:inline-block;padding:0;text-align:center" />
-                                            </div>
-                                        </div>
-                                    }
-
-                                    @using (Html.BeginForm("CreatePayment", "Orders"))
-                                    {
-                                        <input type="hidden" value="{{Order.id}}" name="id" />
-                                        <div ng-if="Order.QuantityChanged!=null">
-                                            <input type="submit" id="AddNewPayment" name="AddNewPayment" class="btn btn-warning col-sm-6" value="جديد" style="display:inline-block" />
-                                        </div>
-                                    }
-                                    @using (Html.BeginForm("ChoosePayment", "Orders"))
-                                    {
-                                        <div ng-if="Order.QuantityChanged!=null" style="margin:auto;">
-                                            <input type="hidden" value="{{Order.id}}" name="id" />
-                                            <input type="button" id="ChooseOldPayment" onclick="PaymentsOpen()" class="btn btn-warning col-sm-6" value="قديم" style="display:inline-block" />
-                                            <input type="submit" value="ارسال" id="PaymentSubmitBtn" class="btn btn-success col-sm-6" style="display:none;" />
-                                            <div class="col-sm-12" id="PaymentData" style="display:none;padding:0">
-                                                <label class="col-sm-12" style="color:#f0ad4e">رقم الدفعة</label>
-                                                <select class="col-sm-12" name="Paymentid" id="Paymentid">
-                                                    <option ng-repeat="Payment in Payments" value="{{Payment.id}}">{{Payment.id}}</option>
-                                                </select>
-                                            </div>
-
-                                        </div>
-                                    }
+                            <div ng-if="Order.SecondLevelSign == false">
+                                <div class="tooltipBox">
+                                    <span style="color:#d9534f" class="glyphicon glyphicon-remove"></span>
+                                    <span class="tooltiptextBox">{{Order.Comment}}</span>
                                 </div>
-                            }
-                            else
-                            {
-                                <span ng-if="Order.Paymentid != null">
-                                    {{Order.Paymentid}}
-                                </span>
-                            }
-                        }
-                        <span ng-if="Order.Paymentid != null">
-                            {{Order.Paymentid}}
-                        </span>
-                    </td>
-                    <td>
-                        <span ng-if="Order.PaymentApprove == true" style="color:#398439">
-                            {{Order.PaymentApprovalDate | date:'dd/MM/yyyy'}}
-                        </span>
-                        <div ng-if="Order.PaymentApprove == false">
-
-                            <div class="tooltipBox">
-                                <span style="color:#d9534f" class="glyphicon glyphicon-remove"></span>
-                                <span class="tooltiptextBox">{{Order.Comment}}</span>
                             </div>
-
-                        </div>
-                        <div ng-if="Order.PaymentApprove == null && Order.Paymentid !=null">
-                            @if (Session["CoManager"] != null && Session["Finance"] != null)
-                            {
-                                if ((bool)Session["CoManager"] == true && (bool)Session["Finance"] == true)
+                            <div ng-if="Order.SecondLevelSign == null && Order.FirstLevelSign!= false &&Order.ThirdLevelSign != false">
+                                @if (Session["CoManager"] != null && Session["Finance"] != null)
                                 {
-                                    <a ng-href="@Url.Action("PaymentApprove","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                    using (Html.BeginForm("PaymentRefuse", "Orders"))
+                                    if ((bool)Session["CoManager"] == true && (bool)Session["Finance"] == true)
                                     {
-                                        <a onclick="PaymentRefuse()" id="PaymentRefuse"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <div id="PaymentCancelation" style="display:none;padding:0" class="col-sm-12">
-                                            <input type="hidden" name="id" value="{{Order.id}}" />
-                                            <input type="text" class="col-sm-9" style="padding-right:0;padding-left:0;line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
-                                            <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
-                                        </div>
+                                        <a ng-href="@Url.Action("ConfirmOrder","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                        using (Html.BeginForm("RefuseOrder", "Orders"))
+                                        {
+                                            <a onclick="RefuseOrderSecondLevel()" id="RefuseOrderSecondLevel"><span class="glyphicon glyphicon-remove"></span></a>
+                                            <div id="RefuseOrderSecondLevelCancelation" style="display:none;padding:0" class="col-sm-12">
+                                                <input type="hidden" name="id" value="{{Order.id}}" />
+                                                <input type="text" class="col-sm-9" style="line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
+                                                <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
+                                            </div>
+                                        }
                                     }
 
                                 }
-                            }
-                        </div>
-                    </td>
-                    <td>
-                        <span ng-if="Order.BuyingApprove == true" style="color:#398439">
-                            {{Order.BuyingApprovalDate | date:'dd/MM/yyyy'}}
-                        </span>
-                        <div ng-if="Order.BuyingApprove == false">
-
-                            <div class="tooltipBox">
-                                <span style="color:#d9534f" class="glyphicon glyphicon-remove"></span>
-                                <span class="tooltiptextBox">{{Order.Comment}}</span>
                             </div>
+                        </td>
+                        <td>
 
-                        </div>
+                            <span ng-if="Order.ThirdLevelSign == true" style="color:#398439">
 
-                        <div ng-if="Order.BuyingApprove == null && Order.PaymentApprove == true && Order.EmployeeID == empid">
-                            <a ng-href="@Url.Action("BuyingApprove","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                            @using (Html.BeginForm("BuyingRefuse", "Orders"))
-                            {
-                                <a onclick="BuyingRefuse()" id="BuyingRefuse"><span class="glyphicon glyphicon-remove"></span></a>
-                                <div id="BuyingCancelation" style="display:none;padding:0" class="col-sm-12">
-                                    <input type="hidden" name="id" value="{{Order.id}}" />
-                                    <input type="text" class="col-sm-9" style="padding-right:0;padding-left:0;line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
-                                    <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
+                                <span class="glyphicon glyphicon-ok"></span>
+
+
+                            </span>
+                            <div ng-if="Order.ThirdLevelSign == false">
+
+                                <div class="tooltipBox">
+                                    <span style="color:#d9534f" class="glyphicon glyphicon-remove"></span>
+                                    <span class="tooltiptextBox">{{Order.Comment}}</span>
                                 </div>
-                            }
-                        </div>
 
-                    </td>
-                    <td>
-                        <span ng-if="Order.ProofAcceptance == true" style="color:#398439">
-                            {{Order.ProofAcceptanceDate | date:'dd/MM/yyyy'}}
-                        </span>
-                        <div ng-if="Order.ProofAcceptance == false">
-                            <div class="tooltipBox">
-                                <span style="color:#d9534f" class="glyphicon glyphicon-remove"></span>
-                                <span class="tooltiptextBox">{{Order.Comment}}</span>
+                            </div>
+                            <div ng-if="Order.ThirdLevelSign == null && Order.SecondLevelSign != false && Order.FirstLevelSign != false">
+                                @if (Session["Manager"] != null && Session["AddNewProject"] != null)
+                                {
+                                    if ((bool)Session["Manager"] == true && (bool)Session["AddNewProject"] == true)
+                                    {
+                                        <a ng-href="@Url.Action("ConfirmOrder","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                        using (Html.BeginForm("RefuseOrder", "Orders"))
+                                        {
+                                            <a onclick="RefuseOrderThirdLevel()" id="RefuseOrderThirdLevel"><span class="glyphicon glyphicon-remove"></span></a>
+                                            <div id="RefuseOrderThirdLevelCancelation" style="display:none;padding:0;width:200px;" class="col-sm-12">
+                                                <input type="hidden" name="id" value="{{Order.id}}" />
+                                                <input type="text" class="col-sm-9" style="line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
+                                                <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
+                                            </div>
+                                        }
+                                    }
+
+                                }
                             </div>
 
-
-
-                        </div>
-                        <div ng-if="Order.ProofAcceptance == null && Order.proof != null">
+                        </td>
+                        <td>
                             @if (Session["CoManager"] != null && Session["Finance"] != null)
                             {
                                 if ((bool)Session["CoManager"] == true && (bool)Session["Finance"] == true)
                                 {
-                                    <a ng-href="@Url.Action("ProofAcceptance","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
-                                    using (Html.BeginForm("ProofRefuse", "Orders"))
+                                    <div ng-if="Order.Paymentid == null && Order.ThirdLevelSign == true && Order.SecondLevelSign == true && Order.FirstLevelSign == true" style="width:100px;">
+                                        @using (Html.BeginForm("Quantity", "Orders"))
+                                        {
+                                            <div ng-if="Order.QuantityChanged==null">
+                                                <input type="hidden" value="{{Order.id}}" name="id" />
+                                                <input class="btn btn-success col-sm-6" type="submit" value="انشاء" style="display:inline-block" />
+                                                <div class="col-sm-6" style="line-height:9px;padding:0">
+                                                    <label class="col-sm-12" style="color:#f0ad4e">العدد</label>
+                                                    <input class="col-sm-12" type="text" id="AcceptedQuantity" name="AcceptedQuantity" value="{{Order.Quantity}}" max="{{Order.Quantity}}" style="display:inline-block;padding:0;text-align:center" />
+                                                </div>
+                                            </div>
+                                        }
+
+                                        @using (Html.BeginForm("CreatePayment", "Orders"))
+                                        {
+                                            <input type="hidden" value="{{Order.id}}" name="id" />
+                                            <div ng-if="Order.QuantityChanged!=null">
+                                                <input type="submit" id="AddNewPayment" name="AddNewPayment" class="btn btn-success col-sm-6" value="جديد" style="display:inline-block" />
+                                            </div>
+                                        }
+                                        @using (Html.BeginForm("ChoosePayment", "Orders"))
+                                        {
+                                            <div ng-if="Order.QuantityChanged!=null" style="margin:auto;">
+                                                <input type="hidden" value="{{Order.id}}" name="id" />
+                                                <input type="button" id="ChooseOldPayment" onclick="PaymentsOpen()" class="btn btn-success col-sm-6" value="قديم" style="display:inline-block" />
+                                                <input type="submit" value="ارسال" id="PaymentSubmitBtn" class="btn btn-success col-sm-6" style="display:none;" />
+                                                <div class="col-sm-12" id="PaymentData" style="display:none;padding:0">
+                                                    <label class="col-sm-12" style="color:#f0ad4e">رقم الدفعة</label>
+                                                    <select class="col-sm-12" name="Paymentid" id="Paymentid">
+                                                        <option ng-repeat="Payment in Payments" value="{{Payment.id}}">{{Payment.id}}</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span ng-if="Order.Paymentid != null">
+                                        {{Order.Paymentid}}
+                                    </span>
+                                }
+                            }
+                            <span ng-if="Order.Paymentid != null">
+                                {{Order.Paymentid}}
+                            </span>
+                        </td>
+                        <td>
+                            <span ng-if="Order.PaymentApprove == true" style="color:#398439">
+                                {{Order.PaymentApprovalDate | date:'dd/MM/yyyy'}}
+                            </span>
+                            <div ng-if="Order.PaymentApprove == false">
+
+                                <div class="tooltipBox">
+                                    <span style="color:#d9534f" class="glyphicon glyphicon-remove"></span>
+                                    <span class="tooltiptextBox">{{Order.Comment}}</span>
+                                </div>
+
+                            </div>
+                            <div ng-if="Order.PaymentApprove == null && Order.Paymentid !=null">
+                                @if (Session["CoManager"] != null && Session["Finance"] != null)
+                                {
+                                    if ((bool)Session["CoManager"] == true && (bool)Session["Finance"] == true)
                                     {
-                                        <a onclick="ProofRefuse()" id="ProofRefuse"><span class="glyphicon glyphicon-remove"></span></a>
-                                        <div id="ProofCancelation" style="display:none;padding:0" class="col-sm-12">
-                                            <input type="hidden" name="id" value="{{Order.id}}" />
-                                            <input type="text" class="col-sm-9" style="padding-right:0;padding-left:0;line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
-                                            <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
-                                        </div>
+                                        <a ng-href="@Url.Action("PaymentApprove","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                        using (Html.BeginForm("PaymentRefuse", "Orders"))
+                                        {
+                                            <a onclick="PaymentRefuse()" id="PaymentRefuse"><span class="glyphicon glyphicon-remove"></span></a>
+                                            <div id="PaymentCancelation" style="display:none;padding:0" class="col-sm-12">
+                                                <input type="hidden" name="id" value="{{Order.id}}" />
+                                                <input type="text" class="col-sm-9" style="padding-right:0;padding-left:0;line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
+                                                <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
+                                            </div>
+                                        }
+
                                     }
                                 }
+                            </div>
+                        </td>
+                        <td>
+                            <span ng-if="Order.BuyingApprove == true" style="color:#398439">
+                                {{Order.BuyingApprovalDate | date:'dd/MM/yyyy'}}
+                            </span>
+                            <div ng-if="Order.BuyingApprove == false">
 
-                            }
-                        </div>
-                    </td>
-                    <td>
-                        {{Order.State}}
-                    </td>
+                                <div class="tooltipBox">
+                                    <span style="color:#d9534f" class="glyphicon glyphicon-remove"></span>
+                                    <span class="tooltiptextBox">{{Order.Comment}}</span>
+                                </div>
 
-                    @*<td>
-                            <span ng-if="Order.Bought == true"><span class="glyphicon glyphicon-ok"></span></span>
-                            <span ng-if="Order.EmployeeID == empid && Order.Bought != true && Order.FirstLevelSign ==true &&Order.SecondLevelSign ==true &&Order.ThirdLevelSign ==true"><a href="Orders/CheckBought/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a></span>
-                        </td>*@
-                    <td>
-                        <span ng-if="Order.proof == null && Order.EmployeeID == empid && Order.BuyingApprove == true">
-                            <input id="{{Order.id}}" type="file" aria-label="Add photos to your post" class="upload" multiple name="file" onchange="angular.element(this).scope().LoadFileData(this.files,this.id)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
-                        </span>
-                        <span ng-if="Order.proof != null">
-                            <a ng-href="@Url.Action("DownloadProof","Json")/{{Order.proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-                        </span>
-                    </td>
-                    <td>
-                        <a href="Orders/Details/{{Order.id}}">معلومات</a>
-                    </td>
-                </tr>
-            </tbody>
+                            </div>
 
-        </table>
+                            <div ng-if="Order.BuyingApprove == null && Order.PaymentApprove == true && Order.EmployeeID == empid">
+                                <a ng-href="@Url.Action("BuyingApprove","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                @using (Html.BeginForm("BuyingRefuse", "Orders"))
+                                {
+                                    <a onclick="BuyingRefuse()" id="BuyingRefuse"><span class="glyphicon glyphicon-remove"></span></a>
+                                    <div id="BuyingCancelation" style="display:none;padding:0" class="col-sm-12">
+                                        <input type="hidden" name="id" value="{{Order.id}}" />
+                                        <input type="text" class="col-sm-9" style="padding-right:0;padding-left:0;line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
+                                        <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
+                                    </div>
+                                }
+                            </div>
+
+                        </td>
+                        <td>
+                            <span ng-if="Order.ProofAcceptance == true" style="color:#398439">
+                                {{Order.ProofAcceptanceDate | date:'dd/MM/yyyy'}}
+                            </span>
+                            <div ng-if="Order.ProofAcceptance == false">
+                                <div class="tooltipBox">
+                                    <span style="color:#d9534f" class="glyphicon glyphicon-remove"></span>
+                                    <span class="tooltiptextBox">{{Order.Comment}}</span>
+                                </div>
+
+
+
+                            </div>
+                            <div ng-if="Order.ProofAcceptance == null && Order.proof != null">
+                                @if (Session["CoManager"] != null && Session["Finance"] != null)
+                                {
+                                    if ((bool)Session["CoManager"] == true && (bool)Session["Finance"] == true)
+                                    {
+                                        <a ng-href="@Url.Action("ProofAcceptance","Orders")/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a>
+                                        using (Html.BeginForm("ProofRefuse", "Orders"))
+                                        {
+                                            <a onclick="ProofRefuse()" id="ProofRefuse"><span class="glyphicon glyphicon-remove"></span></a>
+                                            <div id="ProofCancelation" style="display:none;padding:0" class="col-sm-12">
+                                                <input type="hidden" name="id" value="{{Order.id}}" />
+                                                <input type="text" class="col-sm-9" style="padding-right:0;padding-left:0;line-height:27px;" name="comment" id="comment" placeholder="السبب..." />
+                                                <input type="submit" class="col-sm-3 btn btn-success" style="padding-right:0;padding-left:0" value="ارسال" />
+                                            </div>
+                                        }
+                                    }
+
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            {{Order.State}}
+                        </td>
+
+                        @*<td>
+                                <span ng-if="Order.Bought == true"><span class="glyphicon glyphicon-ok"></span></span>
+                                <span ng-if="Order.EmployeeID == empid && Order.Bought != true && Order.FirstLevelSign ==true &&Order.SecondLevelSign ==true &&Order.ThirdLevelSign ==true"><a href="Orders/CheckBought/{{Order.id}}"><span class="glyphicon glyphicon-ok"></span></a></span>
+                            </td>*@
+                        <td>
+                            <span ng-if="Order.proof == null && Order.EmployeeID == empid && Order.BuyingApprove == true">
+                                <input id="{{Order.id}}" type="file" aria-label="Add photos to your post" class="upload" multiple name="file" onchange="angular.element(this).scope().LoadFileData(this.files,this.id)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                            </span>
+                            <span ng-if="Order.proof != null">
+                                <a ng-href="@Url.Action("DownloadProof","Json")/{{Order.proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                            </span>
+                        </td>
+                        <td>
+                            <a href="Orders/Details/{{Order.id}}">معلومات</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <button id="btnExport" class="btn btn-success">xls تصدير ل </button>
+        </div>
     </div>
-    <button id="btnExport" class="btn btn-warning">xls تصدير ل </button>
-
-</div>

@@ -228,7 +228,6 @@
     <Property Name="BDate" Type="date" />
     <Property Name="PhoneNumber" Type="bigint" />
     <Property Name="FathersName" Type="nvarchar(max)" />
-    <Property Name="Certificate" Type="nvarchar(max)" />
     <Property Name="CType" Type="nvarchar(max)" />
     <Property Name="Mark" Type="float" />
     <Property Name="Sex" Type="nvarchar" MaxLength="10" />

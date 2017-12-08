@@ -26,7 +26,9 @@ namespace IntensiveLearning.Controllers
                     {
                         ViewBag.StateMessage = TempData["Message"];
                     }
-                    return View(lessons.ToList());    
+                ViewBag.TitleSideBar = "Lessons";
+
+                return View(lessons.ToList());    
             }
             return RedirectToAction("Index", "Home");
         }
@@ -45,8 +47,10 @@ namespace IntensiveLearning.Controllers
                     if (lesson == null)
                     {
                         return HttpNotFound();
-                    }
-                    return View(lesson);
+                }
+                ViewBag.TitleSideBar = "Lessons";
+
+                return View(lesson);
             }
             return RedirectToAction("Index", "Home");
 
@@ -71,6 +75,8 @@ namespace IntensiveLearning.Controllers
                     ViewBag.Lesson5 = new SelectList(db.Study_subject, "Name", "Name");
                     ViewBag.Lesson6 = new SelectList(db.Study_subject, "Name", "Name");
                     ViewBag.Lesson7 = new SelectList(db.Study_subject, "Name", "Name");
+                    ViewBag.TitleSideBar = "Lessons";
+
                     return View();
 
                 }
@@ -117,6 +123,8 @@ namespace IntensiveLearning.Controllers
             ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name", lesson.Regimentid);
             ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName", lesson.Stageid);
             ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", lesson.Periodid);
+            ViewBag.TitleSideBar = "Lessons";
+
             return View(lesson);
         }
 
@@ -153,6 +161,7 @@ namespace IntensiveLearning.Controllers
                     ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name", lesson.Regimentid);
                     ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName",lesson.Stageid);
                     ViewBag.Periodid = new SelectList(db.Periods, "id", "Name",lesson.Periodid);
+                    ViewBag.TitleSideBar = "Lessons";
 
                     return View(lesson);
 
@@ -192,6 +201,8 @@ namespace IntensiveLearning.Controllers
             ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name", lesson.Regimentid);
             ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName", lesson.Stageid);
             ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", lesson.Periodid);
+            ViewBag.TitleSideBar = "Lessons";
+
             return View(lesson);
         }
 
@@ -207,16 +218,13 @@ namespace IntensiveLearning.Controllers
                 var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.SeeAccToCenter == true)
                 {
-
-
-
-
-
                     Lesson lesson = db.Lessons.Find(id);
                     if (lesson == null)
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Lessons";
+
                     return View(lesson);
 
                 }
@@ -251,6 +259,8 @@ namespace IntensiveLearning.Controllers
                     catch
                     {
                         ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذه الدروس يرجى تغييرها قبل الحذف";
+                        ViewBag.TitleSideBar = "Lessons";
+
                         return View(lesson);
                     }
                     return RedirectToAction("Index");

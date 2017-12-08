@@ -31,6 +31,8 @@ namespace IntensiveLearning.Controllers
                 {
                     ViewBag.StateMessage = TempData["Message"];
                 }
+                ViewBag.TitleSideBar = "Stages";
+
                 return View();
             }
             return RedirectToAction("Index", "Home");
@@ -55,6 +57,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Students";
+
                     return View(student);
                 }
 
@@ -69,6 +73,8 @@ namespace IntensiveLearning.Controllers
                     }
                     if (student.Center.Cityid == emp.CityID)
                     {
+                        ViewBag.TitleSideBar = "Students";
+
                         return View(student);
                     }
 
@@ -84,6 +90,8 @@ namespace IntensiveLearning.Controllers
                     }
                     if (student.Centerid == emp.Centerid)
                     {
+                        ViewBag.TitleSideBar = "Students";
+
                         return View(student);
                     }
                 }
@@ -99,6 +107,8 @@ namespace IntensiveLearning.Controllers
 
                     if (student.Centerid == emp.Centerid)
                     {
+                        ViewBag.TitleSideBar = "Students";
+
                         return View(student);
                     }
                 }
@@ -138,6 +148,7 @@ namespace IntensiveLearning.Controllers
                     ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name");
                     ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName");
                     ViewBag.Certificate = new SelectList(db.Stages, "StageName", "StageName");
+                    ViewBag.TitleSideBar = "Students";
 
                     return View();
 
@@ -246,64 +257,64 @@ namespace IntensiveLearning.Controllers
                         Directory.CreateDirectory(Server.MapPath("~/App_Data/Students") + "\\" + student.id);
                     }
 
-                
 
-                foreach (string file in Request.Files)
-                {
-                    var fileContent = Request.Files[file];
-                    if (fileContent != null && fileContent.ContentLength > 0)
+
+                    foreach (string file in Request.Files)
                     {
-                        if (!Directory.Exists(Server.MapPath("~/App_Data/Students/" + student.id)))
+                        var fileContent = Request.Files[file];
+                        if (fileContent != null && fileContent.ContentLength > 0)
                         {
-                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Students/" + student.id));
+                            if (!Directory.Exists(Server.MapPath("~/App_Data/Students/" + student.id)))
+                            {
+                                Directory.CreateDirectory(Server.MapPath("~/App_Data/Students/" + student.id));
+                            }
+                            var inputStream = fileContent.InputStream;
+                            var fileName = fileContent.FileName;
+                            var path = Path.Combine(Server.MapPath("~/App_Data/Students/" + student.id), fileName);
+                            using (var fileStream = System.IO.File.Create(path))
+                            {
+                                inputStream.CopyTo(fileStream);
+
+                                Proove proove = new Proove();
+                                proove.Path = path;
+                                proove.id = prooveid;
+                                proove.StudentID = student.id;
+                                db.Prooves.Add(proove);
+                                prooveid++;
+                            }
                         }
-                        var inputStream = fileContent.InputStream;
-                        var fileName = fileContent.FileName;
-                        var path = Path.Combine(Server.MapPath("~/App_Data/Students/" + student.id), fileName);
-                        using (var fileStream = System.IO.File.Create(path))
+                        else
                         {
-                            inputStream.CopyTo(fileStream);
-
-                            Proove proove = new Proove();
-                            proove.Path = path;
-                            proove.id = prooveid;
-                            proove.StudentID = student.id;
-                            db.Prooves.Add(proove);
-                            prooveid++;
                         }
-                    }
-                    else
-                    {
-                    }
 
 
-                
-                }
-                try
-                {
-                    var startPath = Server.MapPath("~/App_Data/Students" + "\\" + student.id);
 
-                    if (!Directory.Exists(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder")))
-                    {
-                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder"));
-                    }
-                    var zipPath = Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder") + "\\" + student.id + ".zip";
-
-                    if (System.IO.File.Exists(zipPath))
-                    {
-                        System.IO.File.Delete(zipPath);
                     }
                     try
                     {
-                        ZipFile.CreateFromDirectory(startPath, zipPath);
+                        var startPath = Server.MapPath("~/App_Data/Students" + "\\" + student.id);
+
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder")))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder"));
+                        }
+                        var zipPath = Server.MapPath("~/App_Data/Students" + "\\" + "ZipFolder") + "\\" + student.id + ".zip";
+
+                        if (System.IO.File.Exists(zipPath))
+                        {
+                            System.IO.File.Delete(zipPath);
+                        }
+                        try
+                        {
+                            ZipFile.CreateFromDirectory(startPath, zipPath);
+                        }
+                        catch { }
+                        student.Proof = zipPath;
                     }
                     catch { }
-                    student.Proof = zipPath;
-                }
-                catch { }
 
-                ViewBag.Message = "Upload successful";
-            }
+                    ViewBag.Message = "Upload successful";
+                }
             }
             catch
             {
@@ -367,10 +378,11 @@ namespace IntensiveLearning.Controllers
 
                     }
 
-                    ViewBag.Certificate = new SelectList(db.Stages, "StageName", "StageName",student.Certificate);
+                    ViewBag.Certificate = new SelectList(db.Stages, "StageName", "StageName", student.Certificate);
 
                     ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name", student.Regimentid);
-                    ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName", student.Stageid);
+                    ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName", student.Stageid); ViewBag.TitleSideBar = "Stages";
+
                     return View(student);
 
 
@@ -556,7 +568,8 @@ namespace IntensiveLearning.Controllers
             }
             ViewBag.Certificate = new SelectList(db.Stages, "StageName", "StageName", student.Certificate);
             ViewBag.Regimentid = new SelectList(db.Regiments, "id", "Name", student.Regimentid);
-            ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName", student.Stageid);
+            ViewBag.Stageid = new SelectList(db.Stages, "id", "StageName", student.Stageid); ViewBag.TitleSideBar = "Stages";
+
             return View(student);
         }
 
@@ -578,6 +591,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Students";
+
                     return View(student);
 
 
@@ -639,6 +654,8 @@ namespace IntensiveLearning.Controllers
                     }
                     catch
                     {
+                        ViewBag.TitleSideBar = "Students";
+
                         ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الطالب يرجى تغييرها قبل الحذف";
                         return View(student);
                     }

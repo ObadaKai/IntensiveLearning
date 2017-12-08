@@ -26,6 +26,8 @@ namespace IntensiveLearning.Controllers
                     {
                         ViewBag.StateMessage = TempData["Message"];
                     }
+                    ViewBag.TitleSideBar = "Periods";
+
                     return View(db.Periods.ToList());
 
                 }
@@ -53,6 +55,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Periods";
+
                     return View(period);
 
                 }
@@ -71,6 +75,8 @@ namespace IntensiveLearning.Controllers
                                 var typeName = (string)Session["Type"];var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.AddSchoolManagingTools == true)
                 {
+                    ViewBag.TitleSideBar = "Periods";
+
                     return View();
 
                 }
@@ -103,6 +109,7 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
+            ViewBag.TitleSideBar = "Periods";
 
             return View(period);
         }
@@ -125,6 +132,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Periods";
+
                     return View(period);
 
                 }
@@ -149,6 +158,8 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم التعديل بنجاح";
                 return RedirectToAction("Index");
             }
+            ViewBag.TitleSideBar = "Periods";
+
             return View(period);
         }
 
@@ -169,6 +180,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Periods";
+
                     return View(period);
 
                 }
@@ -197,7 +210,8 @@ namespace IntensiveLearning.Controllers
                     }
                     catch
                     {
-                        ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذه الفترة يرجى تغييرها قبل الحذف";
+                        ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذه الفترة يرجى تغييرها قبل الحذف"; ViewBag.TitleSideBar = "Periods";
+
                         return View(period);
                     }
                     return RedirectToAction("Index");

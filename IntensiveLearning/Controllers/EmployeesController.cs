@@ -26,6 +26,7 @@ namespace IntensiveLearning.Controllers
                 {
                     ViewBag.StateMessage = TempData["Message"];
                 }
+                ViewBag.TitleSideBar = "Employees";
 
                 return View();
             }
@@ -52,6 +53,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Employees";
+
                     return View(employee);
                 }
                 if (type.SeeAccToCity == true)
@@ -62,6 +65,8 @@ namespace IntensiveLearning.Controllers
                     }
                     if (employee.CityID == emp.CityID)
                     {
+                        ViewBag.TitleSideBar = "Employees";
+
                         return View(employee);
                     }
                 }
@@ -73,6 +78,8 @@ namespace IntensiveLearning.Controllers
                     }
                     if (employee.Centerid == emp.Centerid)
                     {
+                        ViewBag.TitleSideBar = "Employees";
+
                         return View(employee);
                     }
                 }
@@ -85,6 +92,8 @@ namespace IntensiveLearning.Controllers
 
                     if (employee.Centerid == emp.Centerid && employee.EmployeeType.SeeTeachers == true)
                     {
+                        ViewBag.TitleSideBar = "Employees";
+
                         return View(employee);
                     }
                 }
@@ -302,6 +311,8 @@ namespace IntensiveLearning.Controllers
                 ViewBag.Centerid = new SelectList(TosendCenters, "id", "Name");
                 ViewBag.Jobs = TosendJobs;
                 ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
+                ViewBag.TitleSideBar = "Employees";
+
                 return View();
 
 
@@ -343,6 +354,8 @@ namespace IntensiveLearning.Controllers
                     if (employee.CityID == null)
                     {
                         ViewBag.error = "يرجى اختيار المدينة";
+                        ViewBag.TitleSideBar = "Employees";
+
                         return View(employee);
                     }
                     employee.Centerid = null;
@@ -352,6 +365,8 @@ namespace IntensiveLearning.Controllers
                     if (employee.Centerid == null)
                     {
                         ViewBag.error = "يرجى اختيار المركز";
+                        ViewBag.TitleSideBar = "Employees";
+
                         return View(employee);
                     }
                     employee.CityID = null;
@@ -359,6 +374,8 @@ namespace IntensiveLearning.Controllers
                 if (db.Employees.Where(x => x.Username == employee.Username).Count() > 0)
                 {
                     ViewBag.error = "اسم المستخم مستخدم مسبقا";
+                    ViewBag.TitleSideBar = "Employees";
+
                     return View(employee);
                 }
 
@@ -719,6 +736,8 @@ namespace IntensiveLearning.Controllers
             {
                 ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
             }
+            ViewBag.TitleSideBar = "Employees";
+
             return View(employee);
         }
 
@@ -956,6 +975,8 @@ namespace IntensiveLearning.Controllers
                 ViewBag.Jobs = TosendJobs;
                 ViewBag.SelectedJob = employee.Job;
                 ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", employee.Periodid);
+                ViewBag.TitleSideBar = "Employees";
+
                 return View(employee);
             }
             return RedirectToAction("Index", "Home");
@@ -991,6 +1012,8 @@ namespace IntensiveLearning.Controllers
                 if (employee.CityID == null)
                 {
                     ViewBag.error = "يرجى اختيار المدينة";
+                    ViewBag.TitleSideBar = "Employees";
+
                     return View(employee);
                 }
                 employee.Centerid = null;
@@ -1000,6 +1023,8 @@ namespace IntensiveLearning.Controllers
                 if (employee.Centerid == null)
                 {
                     ViewBag.error = "يرجى اختيار المركز";
+                    ViewBag.TitleSideBar = "Employees";
+
                     return View(employee);
                 }
                 employee.CityID = null;
@@ -1335,6 +1360,8 @@ namespace IntensiveLearning.Controllers
             ViewBag.Jobs = TosendJobs;
             ViewBag.SelectedJob = employee.Job;
             ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", employee.Periodid);
+            ViewBag.TitleSideBar = "Employees";
+
             return View(employee);
         }
 
@@ -1355,6 +1382,7 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Employees";
 
                     return View(employee);
 
@@ -1366,6 +1394,7 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Employees";
 
                     return View(employee);
 
@@ -1382,12 +1411,16 @@ namespace IntensiveLearning.Controllers
 
                     try
                     {
+                        ViewBag.TitleSideBar = "Employees";
+
                         return View(employee);
                     }
                     catch
                     {
 
                     }
+                    ViewBag.TitleSideBar = "Employees";
+
                     return View(employee);
 
                 }
@@ -1398,6 +1431,7 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Employees";
 
                     return View(employee);
 
@@ -1467,6 +1501,8 @@ namespace IntensiveLearning.Controllers
                         catch
                         {
                             ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
+                            ViewBag.TitleSideBar = "Employees";
+
                             return View(employee);
                         }
                         return RedirectToAction("Index");
@@ -1518,7 +1554,8 @@ namespace IntensiveLearning.Controllers
                         }
                         catch
                         {
-                            ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
+                            ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف"; ViewBag.TitleSideBar = "Employees";
+
                             return View(employee);
                         }
                         return RedirectToAction("Default", "Home");
@@ -1572,6 +1609,8 @@ namespace IntensiveLearning.Controllers
                         catch
                         {
                             ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
+                            ViewBag.TitleSideBar = "Employees";
+
                             return View(employee);
                         }
                         return RedirectToAction("Default", "Home");
@@ -1628,6 +1667,8 @@ namespace IntensiveLearning.Controllers
                         catch
                         {
                             ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
+                            ViewBag.TitleSideBar = "Employees";
+
                             return View(employee);
                         }
                         return RedirectToAction("Default", "Home");
@@ -1682,6 +1723,8 @@ namespace IntensiveLearning.Controllers
                         catch
                         {
                             ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الموظف يرجى تغييرها قبل الحذف";
+                            ViewBag.TitleSideBar = "Employees";
+
                             return View(employee);
                         }
                         return RedirectToAction("Default", "Home");

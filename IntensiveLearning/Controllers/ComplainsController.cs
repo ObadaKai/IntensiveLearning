@@ -23,6 +23,8 @@ namespace IntensiveLearning.Controllers
                 }
                 if (type.SeeAll == true || type.SeeAllButFinance == true || type.SeeAccToCity==true)
                 {
+                    ViewBag.TitleSideBar = "Complains";
+
                     return View(db.Concerns.ToList());
                 }
                 return RedirectToAction("Default", "Home");
@@ -35,6 +37,8 @@ namespace IntensiveLearning.Controllers
         {
             if (Session["ID"] != null)
             {
+                ViewBag.TitleSideBar = "Complains";
+
                 return View();
             }
             return RedirectToAction("Index", "Home");

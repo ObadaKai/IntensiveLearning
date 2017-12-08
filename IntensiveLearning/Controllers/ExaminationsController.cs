@@ -26,6 +26,7 @@ namespace IntensiveLearning.Controllers
                 {
                     ViewBag.StateMessage = TempData["Message"];
                 }
+                ViewBag.TitleSideBar = "Examinations";
 
                 return View();
 
@@ -50,6 +51,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Examinations";
+
                     return View(examination);
                 }
                 return RedirectToAction("Default", "Home");
@@ -69,6 +72,7 @@ namespace IntensiveLearning.Controllers
                     ViewBag.Studentid = new SelectList(db.Students, "id", "Name");
                     ViewBag.Subjectid = new SelectList(db.Study_subject, "id", "Name");
                     ViewBag.ExamTypeid = new SelectList(db.ExamTypes, "id", "Type");
+                    ViewBag.TitleSideBar = "Examinations";
 
                     return View();
                 }
@@ -249,6 +253,8 @@ namespace IntensiveLearning.Controllers
                     ViewBag.Studentid = new SelectList(db.Students, "id", "Name", examination.Studentid);
                     ViewBag.Subjectid = new SelectList(db.Study_subject, "id", "Name", examination.Subjectid);
                     ViewBag.ExamTypeid = new SelectList(db.ExamTypes, "id", "Type", examination.ExamTypeid);
+                    ViewBag.TitleSideBar = "Examinations";
+
                     return View(examination);
                 }
                 return RedirectToAction("Default", "Home");
@@ -380,6 +386,8 @@ namespace IntensiveLearning.Controllers
             ViewBag.Studentid = new SelectList(db.Students, "id", "Name", examination.Studentid);
             ViewBag.Subjectid = new SelectList(db.Study_subject, "id", "Name", examination.Subjectid);
             ViewBag.ExamTypeid = new SelectList(db.ExamTypes, "id", "Type", examination.ExamTypeid);
+            ViewBag.TitleSideBar = "Examinations";
+
             return View(examination);
         }
 
@@ -400,6 +408,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Examinations";
+
                     return View(examination);
                 }
                 return RedirectToAction("Default", "Home");
@@ -458,6 +468,8 @@ namespace IntensiveLearning.Controllers
                     catch
                     {
                         ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذاالامتحان يرجى تغييرها قبل الحذف";
+                        ViewBag.TitleSideBar = "Examinations";
+
                         return View(examination);
                     }
                     return RedirectToAction("Index");

@@ -107,6 +107,8 @@ namespace IntensiveLearning.Controllers
                     {
                         ViewBag.StateMessage = TempData["Message"];
                     }
+                    ViewBag.TitleSideBar = "Centers";
+
                     return View(centers.ToList());
                 }
                 else if (type.SeeAccToCity == true)
@@ -188,6 +190,8 @@ namespace IntensiveLearning.Controllers
                         }
 
                     }
+                    ViewBag.TitleSideBar = "Centers";
+
                     return View(centers.ToList());
                 }
                 return RedirectToAction("Default", "Home");
@@ -222,6 +226,8 @@ namespace IntensiveLearning.Controllers
                             return RedirectToAction("Default", "Home");
                         }
                     }
+                    ViewBag.TitleSideBar = "Centers";
+
                     return View(center);
                 }
                 return RedirectToAction("Default", "Home");
@@ -256,6 +262,8 @@ namespace IntensiveLearning.Controllers
 
                         ViewBag.DependedOn = new SelectList(db.Centers.Where(x=> x.CenterType == "رئيسي"), "id", "Name");
                     }
+                    ViewBag.TitleSideBar = "Centers";
+
                     return View();
                 }
                 return RedirectToAction("Default", "Home");
@@ -276,6 +284,8 @@ namespace IntensiveLearning.Controllers
             if (centerModel.DependedOn == null && centerModel.Cityid == null)
             {
                 ViewBag.error = "الرجاء التأكد من اتمام معلومات المركز ومدينته";
+                ViewBag.TitleSideBar = "Centers";
+
                 return View(centerModel);
             }
             bool sendImageError = false;
@@ -302,6 +312,8 @@ namespace IntensiveLearning.Controllers
                 ViewBag.Periodid = new SelectList(db.Periods, "id", "Name");
                 ViewBag.error = "يرجى التأكد من الأشهر";
                 ViewBag.Cityid = new SelectList(db.Cities, "id", "Name");
+                ViewBag.TitleSideBar = "Centers";
+
                 return View(centerModel);
             }
             if (ModelState.IsValid)
@@ -504,6 +516,8 @@ namespace IntensiveLearning.Controllers
 
                 ViewBag.DependedOn = new SelectList(db.Centers.Where(x => x.CenterType == "رئيسي"), "id", "Name");
             }
+            ViewBag.TitleSideBar = "Centers";
+
             return View(centerModel);
 
         }
@@ -669,6 +683,8 @@ namespace IntensiveLearning.Controllers
                         ViewBag.Cityid = new SelectList(db.Cities, "id", "Name", centerModel.center.Cityid);
                         ViewBag.DependedOn = new SelectList(db.Centers.Where(x => x.CenterType == "رئيسي" && x.id != id), "id", "Name", centerModel.center.DependedOn);
                     }
+                    ViewBag.TitleSideBar = "Centers";
+
                     return View(centerModel);
                 }
                 return RedirectToAction("Default", "Home");
@@ -931,6 +947,7 @@ namespace IntensiveLearning.Controllers
 
             }
 
+            ViewBag.TitleSideBar = "Centers";
 
             return View(centerModel);
         }
@@ -961,6 +978,8 @@ namespace IntensiveLearning.Controllers
                             return RedirectToAction("Default", "Home");
                         }
                     }
+                    ViewBag.TitleSideBar = "Centers";
+
                     return View(center);
                 }
                 return RedirectToAction("Default", "Home");
@@ -1021,6 +1040,8 @@ namespace IntensiveLearning.Controllers
                     catch
                     {
                         ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا المركز يرجى تغييرها قبل الحذف";
+                        ViewBag.TitleSideBar = "Centers";
+
                         return View(center);
                     }
                     return RedirectToAction("Index");

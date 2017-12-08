@@ -289,7 +289,6 @@
     <Property Name="BDate" Type="DateTime" Precision="0" />
     <Property Name="PhoneNumber" Type="Int64" />
     <Property Name="FathersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Certificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Mark" Type="Double" />
     <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />

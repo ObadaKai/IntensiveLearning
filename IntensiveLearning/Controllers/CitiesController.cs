@@ -29,6 +29,8 @@ namespace IntensiveLearning.Controllers
                     {
                         ViewBag.StateMessage = TempData["Message"];
                     }
+                    ViewBag.TitleSideBar = "Cities";
+
                     return View(cities.ToList());
                 }
                 return RedirectToAction("Default","Home");
@@ -49,6 +51,8 @@ namespace IntensiveLearning.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.TitleSideBar = "Centers";
+
             return View(city);
         }
 
@@ -71,7 +75,9 @@ namespace IntensiveLearning.Controllers
                 else
                 {
                     ViewBag.ProjectID = new SelectList(db.Projects, "id", "ProjectName");
-                    return View();
+                        ViewBag.TitleSideBar = "Cities";
+
+                        return View();
                 }
 
             }
@@ -106,6 +112,8 @@ namespace IntensiveLearning.Controllers
             }
 
             ViewBag.ProjectID = new SelectList(db.Projects, "id", "ProjectName", city.ProjectID);
+            ViewBag.TitleSideBar = "Centers";
+
             return View(city);
         }
 
@@ -130,6 +138,8 @@ namespace IntensiveLearning.Controllers
                     else
                     {
                         ViewBag.ProjectID = new SelectList(db.Projects, "id", "ProjectName", city.ProjectID);
+                        ViewBag.TitleSideBar = "Cities";
+
                         return View(city);
                     }
 
@@ -158,6 +168,8 @@ namespace IntensiveLearning.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ProjectID = new SelectList(db.Projects, "id", "ProjectName", city.ProjectID);
+            ViewBag.TitleSideBar = "Centers";
+
             return View(city);
         }
 
@@ -181,6 +193,8 @@ namespace IntensiveLearning.Controllers
                     else
                     {
                         ViewBag.ProjectID = new SelectList(db.Projects, "id", "ProjectName", city.ProjectID);
+                        ViewBag.TitleSideBar = "Cities";
+
                         return View(city);
                     }
 
@@ -204,6 +218,8 @@ namespace IntensiveLearning.Controllers
             catch
             {
                 ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذه المدينة يرجى تغييرها قبل الحذف";
+                ViewBag.TitleSideBar = "Centers";
+
                 return View(city);
             }
             return RedirectToAction("Index");

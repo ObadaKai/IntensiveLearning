@@ -27,6 +27,8 @@ namespace IntensiveLearning.Controllers
                     {
                         ViewBag.StateMessage = TempData["Message"];
                     }
+                    ViewBag.TitleSideBar = "Stages";
+
                     return View(stages.ToList());
                 }
                 return RedirectToAction("Default", "Home");
@@ -53,6 +55,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Stages";
+
                     return View(stage);
                 }
                 return RedirectToAction("Default", "Home");
@@ -71,6 +75,7 @@ namespace IntensiveLearning.Controllers
                 if (type.AddSchoolManagingTools == true)
                 {
                     ViewBag.Managerid = new SelectList(db.Employees, "id", "name");
+                    ViewBag.TitleSideBar = "Stages";
 
                     return View();
                 }
@@ -103,6 +108,8 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
+            ViewBag.TitleSideBar = "Stages";
+
             return View(stage);
         }
 
@@ -123,6 +130,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Stages";
+
                     return View(stage);
                 }
                 return RedirectToAction("Default", "Home");
@@ -146,6 +155,8 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم التعديل بنجاح";
                 return RedirectToAction("Index");
             }
+            ViewBag.TitleSideBar = "Stages";
+
             return View(stage);
         }
 
@@ -166,6 +177,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Stages";
+
                     return View(stage);
                 }
                 return RedirectToAction("Default", "Home");
@@ -193,6 +206,8 @@ namespace IntensiveLearning.Controllers
                     }
                     catch
                     {
+                        ViewBag.TitleSideBar = "Stages";
+
                         ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذه المرحلة يرجى تغييرها قبل الحذف";
                         return View(stage);
                     }

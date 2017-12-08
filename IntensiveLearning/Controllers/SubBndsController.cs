@@ -24,6 +24,7 @@ namespace IntensiveLearning.Controllers
                 Session["Bndid"] = id;
             }
 
+            ViewBag.TitleSideBar = "Study_subject";
 
             return View();
         }
@@ -221,6 +222,8 @@ namespace IntensiveLearning.Controllers
             ViewBag.bndid = id;
             if (type.Finance == true)
             {
+                ViewBag.TitleSideBar = "Study_subject";
+
                 return View();
 
             }
@@ -264,6 +267,7 @@ namespace IntensiveLearning.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CenterID = new SelectList(db.Centers, "id", "Name");
+            ViewBag.TitleSideBar = "Study_subject";
 
             return View(subBnd);
         }
@@ -287,6 +291,8 @@ namespace IntensiveLearning.Controllers
 
             if (empid == subBnd.CreatedBy && type.Finance == true)
             {
+                ViewBag.TitleSideBar = "Study_subject";
+
                 ViewBag.CenterID = new SelectList(db.Centers, "id", "Name", subBnd.CenterID);
                 return View(subBnd);
             }
@@ -310,6 +316,7 @@ namespace IntensiveLearning.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CenterID = new SelectList(db.Centers, "id", "Name", subBnd.CenterID);
+            ViewBag.TitleSideBar = "Study_subject";
 
             return View(subBnd);
         }
@@ -332,6 +339,8 @@ namespace IntensiveLearning.Controllers
             var Bndid = subBnd.BndId;
             if (type.Finance == true && subBnd.CreatedBy == empid)
             {
+                ViewBag.TitleSideBar = "Study_subject";
+
                 return View(subBnd);
             }
             return RedirectToAction("Index");

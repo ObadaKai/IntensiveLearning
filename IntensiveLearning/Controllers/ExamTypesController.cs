@@ -28,6 +28,8 @@ namespace IntensiveLearning.Controllers
                     {
                         ViewBag.StateMessage = TempData["Message"];
                     }
+                    ViewBag.TitleSideBar = "ExamTypes";
+
                     return View(db.ExamTypes.ToList());
 
 
@@ -57,6 +59,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "ExamTypes";
+
                     return View(examType);
                 }
                 return RedirectToAction("Default", "Home");
@@ -75,6 +79,7 @@ namespace IntensiveLearning.Controllers
                 if (type.AddSchoolManagingTools == true)
                 {
 
+                    ViewBag.TitleSideBar = "ExamTypes";
 
                     return View();
 
@@ -111,6 +116,7 @@ namespace IntensiveLearning.Controllers
 
                 return RedirectToAction("Index");
             }
+            ViewBag.TitleSideBar = "ExamTypes";
 
             return View(examType);
         }
@@ -133,6 +139,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "ExamTypes";
+
                     return View(examType);
 
 
@@ -161,6 +169,8 @@ namespace IntensiveLearning.Controllers
 
                 return RedirectToAction("Index");
             }
+            ViewBag.TitleSideBar = "ExamTypes";
+
             return View(examType);
         }
 
@@ -183,6 +193,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "ExamTypes";
+
                     return View(examType);
 
 
@@ -219,6 +231,8 @@ namespace IntensiveLearning.Controllers
                     catch
                     {
                         ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا النوع يرجى تغييرها قبل الحذف";
+                        ViewBag.TitleSideBar = "ExamTypes";
+
                         return View(examType);
                     }
                     return RedirectToAction("Index");

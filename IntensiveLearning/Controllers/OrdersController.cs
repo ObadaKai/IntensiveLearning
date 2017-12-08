@@ -22,6 +22,7 @@ namespace IntensiveLearning.Controllers
                 {
                     ViewBag.BndOverload = TempData["BndOverload"];
                 }
+                ViewBag.TitleSideBar = "Orders";
 
                 return View();
             }
@@ -147,6 +148,8 @@ namespace IntensiveLearning.Controllers
             if (type.SeeAll == true || order.Employeeid == empid)
             {
                 ViewBag.type = type;
+                ViewBag.TitleSideBar = "Orders";
+
                 return View(order);
 
             }
@@ -180,6 +183,8 @@ namespace IntensiveLearning.Controllers
                     ViewBag.CenterID = new SelectList(db.Centers, "id", "Name");
                 }
                 ViewBag.type = type;
+                ViewBag.TitleSideBar = "Orders";
+
                 return View();
             }
             return RedirectToAction("Default", "Index");
@@ -262,6 +267,8 @@ namespace IntensiveLearning.Controllers
                 }
                 ViewBag.type = type;
                 ViewBag.error = "حصل خطأ أثناء عملية التخزين";
+                ViewBag.TitleSideBar = "Orders";
+
                 return View(order);
 
             }
@@ -595,6 +602,8 @@ namespace IntensiveLearning.Controllers
                 {
                     ViewBag.CenterID = new SelectList(db.Centers, "id", "Name", order.CenterID);
                 }
+                ViewBag.TitleSideBar = "Orders";
+
                 ViewBag.type = type;
                 return View(order);
 
@@ -649,6 +658,8 @@ namespace IntensiveLearning.Controllers
                 ViewBag.CenterID = new SelectList(db.Centers, "id", "Name", order.CenterID);
             }
             ViewBag.type = type;
+            ViewBag.TitleSideBar = "Orders";
+
             return View(order);
         }
 
@@ -1004,6 +1015,8 @@ namespace IntensiveLearning.Controllers
             {
                 if (order.FirstLevelSign != true && order.SecondLevelSign != true && order.ThirdLevelSign != true)
                 {
+                    ViewBag.TitleSideBar = "Orders";
+
                     return View(db.Orders.Find(id));
 
                 }

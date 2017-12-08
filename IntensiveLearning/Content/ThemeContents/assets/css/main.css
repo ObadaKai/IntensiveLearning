@@ -16,23 +16,26 @@
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     padding: 0;
     margin: 0;
-    z-index:1;
+    z-index: 1;
 }
+
 .NewStudent-BackgroundShadow {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.65);
     width: 100%;
-    height: 100%;
+    height: 100vh;
     padding: 0;
     margin: 0;
     z-index: 2;
 }
+
 .NewStudentHeading {
     padding: 34px 15px;
-    margin:0;
+    margin: 0;
 }
+
 .AddNonStudentStudent {
     background-color: rgba(255,255,255,0.94);
     text-align: right;
@@ -40,7 +43,58 @@
     padding: 0 0 0 0;
     z-index: 3;
 }
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+
+.Login-Background {
+    background-image: url("../../images/banner.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+    transition: opacity 0.4s;
+    opacity: 1;
+}
+
+    .Login-Background::before {
+        transition: opacity 0.4s;
+        opacity: 0;
+    }
+
+.Login-BackgroundShadow {
+    background-color: rgba(0,0,0,0.65);
+    width: 100%;
+    height: 100vh;
+    padding: 23vh 0;
+    margin: 0;
+    z-index: 2;
+}
+
+.Login-Card {
+    height: auto;
+    border-radius: 9px;
+    text-align: right;
+    background-color: rgba(255,255,255,0.94);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.StudentInfo-Card {
+    height: auto;
+    border-radius: 9px;
+    text-align: right;
+    background-color: rgba(255,255,255,0.94);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
+pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset,
+form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
+details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section,
+summary, time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
@@ -99,26 +153,40 @@ body {
         max-width: 100em;
         min-width: 80em;
     }
+
 .AddNonStudentStudent {
     margin-left: 52%;
-    width:35%;
+    width: 35%;
+}
+
+.Login-Card {
+    width: 25%;
+    margin-left: 60%;
+    padding: 3% 20px;
+}
+
+.StudentInfo-Card {
+    width: 25%;
+    margin-left: 60%;
+    padding: 2.5% 20px;
 }
 
 #ImgInten {
     width: 120px;
     height: 100%;
 }
-    .container.\37 5\25 {
-        width: 60em;
-    }
 
-    .container.\35 0\25 {
-        width: 40em;
-    }
+.container.\37 5\25 {
+    width: 60em;
+}
 
-    .container.\32 5\25 {
-        width: 20em;
-    }
+.container.\35 0\25 {
+    width: 40em;
+}
+
+.container.\32 5\25 {
+    width: 20em;
+}
 
 .container {
     width: 80em;
@@ -131,14 +199,17 @@ body {
         max-width: 100em;
         min-width: 80em;
     }
+
     .AddNonStudentStudent {
         width: 42%;
         margin-left: 45%;
     }
+
     #ImgInten {
         width: 110px;
         height: 100%;
     }
+
     .container.\37 5\25 {
         width: 60em;
     }
@@ -156,6 +227,15 @@ body {
     }
 }
 
+@media screen and (max-height:690px) {
+    .NewStudent-Background {
+        height: 100%;
+    }
+
+    .NewStudent-BackgroundShadow {
+        height: 100%;
+    }
+}
 @media screen and (max-width: 1280px) {
 
     .container.\31 25\25 {
@@ -163,14 +243,29 @@ body {
         max-width: 81.25em;
         min-width: 65em;
     }
-    #ImgInten {
-    width:100px;
-    height:100%;
+
+    .Login-Card {
+        width: 31%;
+        margin-left: 55%;
+        padding: 4% 20px;
     }
+
+    .StudentInfo-Card {
+        width: 31%;
+        margin-left: 55%;
+        padding: 3.5% 20px;
+    }
+
+    #ImgInten {
+        width: 100px;
+        height: 100%;
+    }
+
     .AddNonStudentStudent {
         width: 48%;
         margin-left: 45%;
     }
+
     .container.\37 5\25 {
         width: 48.75em;
     }
@@ -195,14 +290,29 @@ body {
         max-width: 112.5%;
         min-width: 90%;
     }
+
+    .Login-Card {
+        width: 50%;
+        margin-left: 40%;
+        padding: 4% 20px;
+    }
+
+    .StudentInfo-Card {
+        width: 50%;
+        margin-left: 40%;
+        padding: 3.5% 20px;
+    }
+
     .AddNonStudentStudent {
         width: 70%;
         margin-left: 18%;
     }
+
     #ImgInten {
         width: 90px;
         height: 100%;
     }
+
     .container.\37 5\25 {
         width: 67.5%;
     }
@@ -227,18 +337,39 @@ body {
         max-width: 112.5%;
         min-width: 90%;
     }
+    .NewStudent-Background {
+        height: 100%;
+    }
+
+    .NewStudent-BackgroundShadow {
+        height: 100%;
+    }
+    .Login-Card {
+        width: 70%;
+        margin-left: 20%;
+        padding: 5% 20px;
+    }
+
+    .StudentInfo-Card {
+        width: 70%;
+        margin-left: 20%;
+        padding: 3.5% 20px;
+    }
+
     #ImgInten {
         width: 90px;
         height: 100%;
     }
+
     .AddNonStudentStudent {
         margin-left: 2.5%;
         width: 95%;
     }
+
     .NewStudentHeading {
-    background-color:rgba(0,0,0,0.3);
-    color:white;
-    padding-right:50px;
+        background-color: rgba(0,0,0,0.3);
+        color: white;
+        padding-right: 50px;
     }
 
     .container.\37 5\25 {
@@ -265,10 +396,22 @@ body {
         max-width: 112.5%;
         min-width: 90%;
     }
+
+    .Login-Card {
+        width: 95%;
+        margin-left: 2.5%;
+    }
+
+    .StudentInfo-Card {
+        width: 95%;
+        margin-left: 2.5%;
+    }
+
     #ImgInten {
         width: 85px;
         height: 100%;
     }
+
     .container.\37 5\25 {
         width: 67.5%;
     }
@@ -1864,7 +2007,7 @@ a {
 
     a:hover {
         color: rgba(153, 153, 153, 0.5);
-        text-decoration:none;
+        text-decoration: none;
     }
 
 strong, b {
@@ -2257,6 +2400,7 @@ label {
     font-weight: 700;
     margin: 0.5em 0 0.5em 0;
 }
+
 input[type="number"],
 input[type="date"],
 input[type="text"],
@@ -2278,6 +2422,7 @@ textarea {
     text-decoration: none;
     width: 100%;
 }
+
     input[type="number"]:invalid,
     input[type="date"]:invalid,
     input[type="text"]:invalid,
@@ -2328,14 +2473,16 @@ input[type=date]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 input[type=date]::-webkit-calendar-picker-indicator {
     -webkit-appearance: default-button;
     display: block;
 }
 
-    .select-wrapper select::-ms-expand {
-        display: none;
-    }
+.select-wrapper select::-ms-expand {
+    display: none;
+}
+
 input[type="date"],
 input[type="number"],
 input[type="text"],
@@ -2437,6 +2584,7 @@ input[type="radio"] {
 label {
     color: #000;
 }
+
 input[type="date"],
 input[type="number"],
 input[type="text"],
@@ -2446,14 +2594,12 @@ select,
 textarea {
     background: rgba(0, 0, 0, 0.075);
     border-color: rgba(0, 0, 0, 0.1);
-    color:black;
+    color: black;
 }
 
 input[type="number"],
 input[type="text"],
-input[type="password"],
 input[type="email"],
-select,
 textarea {
     text-align: right;
 }
@@ -2630,13 +2776,15 @@ ol {
 
 ul {
     list-style: disc;
+    direction: rtl;
     margin: 0 0 2em 0;
-    padding-left: 1em;
+    padding-right: 1em;
 }
 
     ul li {
         padding-left: 0.5em;
     }
+
 
     ul.alt {
         list-style: none;
@@ -2656,17 +2804,17 @@ ul {
     ul.icons {
         cursor: default;
         list-style: none;
-        padding-left: 0;
+        padding-right: 0;
     }
 
         ul.icons li {
             display: inline-block;
-            padding: 0 2em 0 0;
+            padding: 0 0 0 2em;
         }
-
             ul.icons li:last-child {
-                padding-right: 0;
+                padding-left: 0;
             }
+
 
             ul.icons li .icon:before {
                 font-size: 2em;
@@ -3571,14 +3719,14 @@ body.subpage {
     }
 
 
-    #header > a + a[href="#menu"]:last-child {
-        padding-left: 1em;
-        margin-left: 0.25em;
-    }
+        #header > a + a[href="#menu"]:last-child {
+            padding-left: 1em;
+            margin-left: 0.25em;
+        }
 
-    #header > a:last-child {
-        padding-right: 1em;
-    }
+        #header > a:last-child {
+            padding-right: 1em;
+        }
 }
 
 #header.reveal {
@@ -4834,6 +4982,7 @@ body.is-loading #banner:before {
         margin-left: 0;
     }
 }
+
 .pull-right {
     float: right !important;
 }

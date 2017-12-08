@@ -8,216 +8,428 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/css?family=Cairo" rel="stylesheet">
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/ThemeContents/assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
 <body>
     <div class="bg-full"></div>
     <div class="navbar-fixed-top">
 
-        <div class="container-fluid">
-            <div class="row">
+        <div class="navbar-content">
 
-                <div class="col-sm-2 hidden-xs text-center">
-                    <img src="~/Content/Images/Logo.png" onclick="GoToDefault()" class="ImageLogo" />
-                    @*@Html.ActionLink("TaalimMidad", "Default", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-                </div>
-                <div class="hidden-lg hidden-sm hidden-md col-xs-6 text-left">
-                    <img src="~/Content/Images/Logo.png" onclick="GoToDefault()" class="ImageLogo" />
-                    @*@Html.ActionLink("TaalimMidad", "Default", "Home", new { area = "" }, new { @class = "navbar-brand" , @style="float:left !important" })*@
-                </div>
-                <div class="col-sm-10 col-xs-6" style="position:relative;">
+            <div class="col-sm-2 hidden-xs text-center">
+                <img src="~/Content/Images/Logo.png" onclick="GoToDefault()" class="ImageLogo" />
+                @*@Html.ActionLink("TaalimMidad", "Default", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            <div class="hidden-lg hidden-sm hidden-md col-xs-6 text-left">
+                <img src="~/Content/Images/Logo.png" onclick="GoToDefault()" class="ImageLogo" />
+                @*@Html.ActionLink("TaalimMidad", "Default", "Home", new { area = "" }, new { @class = "navbar-brand" , @style="float:left !important" })*@
+            </div>
+            <div class="col-sm-10 col-xs-6" style="position:relative;">
 
-                    <nav class="navbar  navbar-right " style="margin-bottom:0">
-                        <div class="container-fluid">
+                <nav class="navbar  navbar-right " style="margin-bottom:0">
+                    <div class="container-fluid">
 
-                            <ul class="nav navbar-nav hidden-xs HomePageNavBar">
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size:18px">
-                                       @Session["Type"] 
-                                        @if (Session["Markaz"] != null)
-                                        {
-                                            @Session["Markaz"]
-                                        }
-                                       
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="/Home/EditOwnUser/@Session["ID"]" class="NavBar-Type">تغيير المعلومات الشخصية</a></li>
-                                        <li><a href="/Home/ChangePassword" class="NavBar-Type">تغيير كلمة المرور</a></li>
-                                        <li><a href="/Home/Logout" class="NavBar-Type">تسجيل خروج</a></li>
-                                    </ul>
+                        <ul class="nav navbar-nav hidden-xs HomePageNavBar">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size:18px">
+                                    @Session["Type"]
+                                    @if (Session["Markaz"] != null)
+                                    {
+                                        @Session["Markaz"]
+                                    }
+
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/Home/EditOwnUser/@Session["ID"]" class="NavBar-Type">تغيير المعلومات الشخصية</a></li>
+                                    <li><a href="/Home/ChangePassword" class="NavBar-Type">تغيير كلمة المرور</a></li>
+                                    <li><a href="/Home/Logout" class="NavBar-Type">تسجيل خروج</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a href="/Complains/Create" class="NavBar-Type">تقديم شكوى</a></li>
+
+
+                        </ul>
+                        <span class=" hidden-xs" onclick="toggleLeftMenu()" id="togglebutton">&#9776;</span>
+                        <span class=" hidden-lg hidden-md hidden-sm" onclick="toggleLeftMenu()" id="togglebutton" style="float:right;">&#9776;</span>
+
+                    </div>
+                </nav>
+                @*<div class="hidden-xs">
+                        <a href="#" class="NavBar-Type">@Session["Type"]</a>
+                        <a href="/Home/ChangePassword" class="NavBar-Type">تغيير كلمة المرور</a>
+                        <a href="/Complains/Create" class="NavBar-Type">تقديم شكوى</a>
+                        <a href="/Home/Logout" class="NavBar-Type">تسجيل خروج</a>
+                    </div>*@
+                <div id="leftMenu">
+                    <ul class="SideBar">
+                        @if (Session["AddNewEmployeeType"] != null)
+                        {
+                            if ((bool)Session["AddNewEmployeeType"] == true)
+                            {
+                                @*<a href="@Url.Action("Index", "EmployeeTypes")">انواع الموظفين<span>Text</span></a>*@
+                                <li @if (ViewBag.TitleSideBar == "EmployeeTypes") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
+                                    @Html.ActionLink("صلاحيات الموظفين", "Index", "EmployeeTypes")
                                 </li>
+                                <li @if (ViewBag.TitleSideBar == "Employees") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
+                                    @Html.ActionLink("موظفين", "Index", "Employees")
+                                </li>
+                            }
+                        }
+                        @if (Session["AddNewProject"] != null || Session["AddNewEmployeeType"] != null)
+                        {
+                            try
+                            {
+                                if ((bool)Session["AddNewProject"] == true)
+                                {
+                                    <li @if (ViewBag.TitleSideBar == "Projects") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                                            }>
+                                        @Html.ActionLink("المشاريع", "Index", "Projects")
+                                    </li>
+                                }
+                                else if ((bool)Session["AddNewEmployeeType"] == true)
+                                {
+                                    <li @if (ViewBag.TitleSideBar == "Projects") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                                                                                    }>
+                                        @Html.ActionLink("المشاريع", "Index", "Projects")
+                                    </li>
 
-                                <li><a href="/Complains/Create" class="NavBar-Type">تقديم شكوى</a></li>
+                                }
 
 
-                            </ul>
-                                <span class="navbar-brand hidden-xs" onclick="toggleLeftMenu()" id="togglebutton">&#9776;</span>
-                                <span class="navbar-brand hidden-lg hidden-md hidden-sm" onclick="toggleLeftMenu()" id="togglebutton" style="float:right;">&#9776;</span>
-
-                        </div>
-                    </nav>
-                    @*<div class="hidden-xs">
-                            <a href="#" class="NavBar-Type">@Session["Type"]</a>
-                            <a href="/Home/ChangePassword" class="NavBar-Type">تغيير كلمة المرور</a>
-                            <a href="/Complains/Create" class="NavBar-Type">تقديم شكوى</a>
-                            <a href="/Home/Logout" class="NavBar-Type">تسجيل خروج</a>
-                        </div>*@
-                    <div style="top:75px;height:100%;display:none;position:fixed;right:0;z-index:1"  id="leftMenu">
-                        <div class="SideBar">
-                            @if (Session["AddNewEmployeeType"] != null)
+                            }
+                            catch
                             {
                                 if ((bool)Session["AddNewEmployeeType"] == true)
                                 {
-                                    @*<a href="@Url.Action("Index", "EmployeeTypes")">انواع الموظفين<span>Text</span></a>*@
-                                    @Html.ActionLink("صلاحيات الموظفين", "Index", "EmployeeTypes")
-                                    @Html.ActionLink("موظفين", "Index", "Employees")
+                                    <li @if (ViewBag.TitleSideBar == "Projects") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                                                                                    }>
+                                        @Html.ActionLink("المشاريع", "Index", "Projects")
+                                    </li>
                                 }
                             }
-                            @if (Session["AddNewProject"] != null || Session["AddNewEmployeeType"] != null)
+
+                        }
+                        @if (Session["SeeAll"] != null)
+                        {
+                            if ((bool)Session["SeeAll"] == true)
                             {
-                                try
-                                {
-                                    if ((bool)Session["AddNewProject"] == true)
-                                    {
-                                        @Html.ActionLink("المشاريع", "Index", "Projects")
-                                    }
-                                    else if ((bool)Session["AddNewEmployeeType"] == true)
-                                    {
-                                        @Html.ActionLink("المشاريع", "Index", "Projects")
-                                    }
-
-
-                                }
-                                catch
-                                {
-                                    if ((bool)Session["AddNewEmployeeType"] == true)
-                                    {
-                                        @Html.ActionLink("المشاريع", "Index", "Projects")
-                                    }
-                                }
-
-                            }
-                            @if (Session["SeeAll"] != null)
-                            {
-                                if ((bool)Session["SeeAll"] == true)
-                                {
+                                <li @if (ViewBag.TitleSideBar == "Orders") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("طلبات الدفع", "Index", "Orders")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Bnds") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("لائحة البنود", "Index", "Bnds")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "EmployeeTypes") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("المهمات الشخصية", "Index", "Missions")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Employees") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("موظفين", "Index", "Employees")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "EmployeeTypes") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("صلاحيات الموظفين", "Index", "EmployeeTypes")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Centers") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("مراكز", "Index", "Centers")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Cities") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("مدن", "Index", "Cities")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Presences") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("الحضور", "Index", "Presences")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Lessons") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("برنامج اسبوعي", "Index", "Lessons")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Examinations") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("امتحانات", "Index", "Examinations")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "ExamTypes") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Students") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("طلاب", "Index", "Students")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Stages") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("مراحل", "Index", "Stages")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Periods") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("فترات", "Index", "Periods")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Regiments") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("شعب", "Index", "Regiments")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Study_subject") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("مواد", "Index", "Study_subject")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Complains") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("الشكاوى", "Index", "Complains")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "DailyReport") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("التقارير اليومية", "Index", "DailyReport")
+                                </li>
 
 
-                                }
                             }
-                            @if (Session["SeeAllButFinance"] != null)
+                        }
+                        @if (Session["SeeAllButFinance"] != null)
+                        {
+                            if ((bool)Session["SeeAllButFinance"] == true)
                             {
-                                if ((bool)Session["SeeAllButFinance"] == true)
-                                {
+                                <li @if (ViewBag.TitleSideBar == "Orders") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("طلبات الدفع", "Index", "Orders")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Bnds") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("لائحة البنود", "Index", "Bnds")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Missions") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("المهمات الشخصية", "Index", "Missions")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Employees") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("موظفين", "Index", "Employees")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "EmployeeTypes") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("صلاحيات الموظفين", "Index", "EmployeeTypes")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Centers") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("مراكز", "Index", "Centers")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Cities") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("مدن", "Index", "Cities")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Presences") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("الحضور", "Index", "Presences")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Lessons") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("برنامج اسبوعي", "Index", "Lessons")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Examinations") { @: class="SideBarMarked"
+                                                                                                                                                                                    }>
                                     @Html.ActionLink("امتحانات", "Index", "Examinations")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "ExamTypes") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Students") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("طلاب", "Index", "Students")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Stages") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("مراحل", "Index", "Stages")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Periods") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("فترات", "Index", "Periods")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Regiments") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("شعب", "Index", "Regiments")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Study_subject") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("مواد", "Index", "Study_subject")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Complains") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("الشكاوى", "Index", "Complains")
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "DailyReport") { @: class="SideBarMarked"
+                                                                                                                                                                                                                                                        }>
                                     @Html.ActionLink("التقارير اليومية", "Index", "DailyReport")
-                                }
+                                </li>
                             }
-                            @if (Session["SeeAccToCity"] != null)
-                            {
+                        }
+                        @if (Session["SeeAccToCity"] != null)
+                        {
 
-                                if ((bool)Session["SeeAccToCity"] == true)
-                                {
+                            if ((bool)Session["SeeAccToCity"] == true)
+                            {
+                                <li @if (ViewBag.TitleSideBar == "Orders") { @: class="SideBarMarked"
+                                                                                                                                                }>
                                     @Html.ActionLink("طلبات الدفع", "Index", "Orders")
-                                    @Html.ActionLink("المهمات الشخصية", "Index", "Missions")
-                                    @Html.ActionLink("موظفين", "Index", "Employees")
-                                    @Html.ActionLink("امتحانات", "Index", "Examinations")
-                                    @Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")
-                                    @Html.ActionLink("طلاب", "Index", "Students")
-                                    @Html.ActionLink("الحضور", "Index", "Presences")
-                                    @Html.ActionLink("برنامج اسبوعي", "Index", "Lessons")
-                                    @Html.ActionLink("مراكز", "Index", "Centers")
-                                    @Html.ActionLink("مدن", "Index", "Cities")
-                                    @Html.ActionLink("مراحل", "Index", "Stages")
-                                    @Html.ActionLink("فترات", "Index", "Periods")
-                                    @Html.ActionLink("شعب", "Index", "Regiments")
-                                    @Html.ActionLink("مواد", "Index", "Study_subject")
-                                    @Html.ActionLink("الشكاوى", "Index", "Complains")
-                                    @Html.ActionLink("التقارير اليومية", "Index", "DailyReport")
-                                }
+                                </li>
+                                <li @if (ViewBag.TitleSideBar == "Missions") { @: class="SideBarMarked"
+                                    }>@Html.ActionLink("المهمات الشخصية", "Index", "Missions")</li>
+                                    <li @if (ViewBag.TitleSideBar == "Employees") { @: class="SideBarMarked"
+                                        }>@Html.ActionLink("موظفين", "Index", "Employees")</li>
+                                        <li @if (ViewBag.TitleSideBar == "Examinations") { @: class="SideBarMarked"
+                                            }>@Html.ActionLink("امتحانات", "Index", "Examinations")</li>
+                                            <li @if (ViewBag.TitleSideBar == "ExamTypes") { @: class="SideBarMarked"
+                                                }>@Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")</li>
+                                                <li @if (ViewBag.TitleSideBar == "Students") { @: class="SideBarMarked"
+                                                    }>@Html.ActionLink("طلاب", "Index", "Students")</li>
+                                                    <li @if (ViewBag.TitleSideBar == "Presences") { @: class="SideBarMarked"
+                                                        }>@Html.ActionLink("الحضور", "Index", "Presences")</li>
+                                                        <li @if (ViewBag.TitleSideBar == "Lessons") { @: class="SideBarMarked"
+                                                            }>@Html.ActionLink("برنامج اسبوعي", "Index", "Lessons")</li>
+                                                            <li @if (ViewBag.TitleSideBar == "Centers") { @: class="SideBarMarked"
+                                                                }>@Html.ActionLink("مراكز", "Index", "Centers")</li>
+                                                                <li @if (ViewBag.TitleSideBar == "Cities") { @: class="SideBarMarked"
+                                                                    }>@Html.ActionLink("مدن", "Index", "Cities")</li>
+                                                                    <li @if (ViewBag.TitleSideBar == "Stages") { @: class="SideBarMarked"
+                                                                        }>@Html.ActionLink("مراحل", "Index", "Stages")</li>
+                                                                        <li @if (ViewBag.TitleSideBar == "Periods") { @: class="SideBarMarked"
+                                                                            }>@Html.ActionLink("فترات", "Index", "Periods")</li>
+                                                                            <li @if (ViewBag.TitleSideBar == "Regiments") { @: class="SideBarMarked"
+                                                                                }>@Html.ActionLink("شعب", "Index", "Regiments")</li>
+                                                                                <li @if (ViewBag.TitleSideBar == "Study_subject") { @: class="SideBarMarked"
+                                                                                    }>@Html.ActionLink("مواد", "Index", "Study_subject")</li>
+                                                                                    <li @if (ViewBag.TitleSideBar == "Complains") { @: class="SideBarMarked"
+                                                                                        }>@Html.ActionLink("الشكاوى", "Index", "Complains")</li>
+                                                                                        <li @if (ViewBag.TitleSideBar == "DailyReport") { @: class="SideBarMarked"
+                                                                                            }>@Html.ActionLink("التقارير اليومية", "Index", "DailyReport")</li>
                             }
+                        }
 
-                            @if (Session["SeeAccToCenter"] != null)
+                        @if (Session["SeeAccToCenter"] != null)
+                        {
+                            if ((bool)Session["SeeAccToCenter"] == true)
                             {
-                                if ((bool)Session["SeeAccToCenter"] == true)
-                                {
-                                    @Html.ActionLink("طلبات الدفع", "Index", "Orders")
-                                    @Html.ActionLink("المهمات الشخصية", "Index", "Missions")
-                                    @Html.ActionLink("موظفين", "Index", "Employees")
-                                    @Html.ActionLink("طلاب", "Index", "Students")
-                                    @Html.ActionLink("الحضور", "Index", "Presences")
-                                    @Html.ActionLink("برنامج اسبوعي", "Index", "Lessons")
-                                    @Html.ActionLink("امتحانات", "Index", "Examinations")
-                                    @Html.ActionLink("مراحل", "Index", "Stages")
-                                    @Html.ActionLink("فترات", "Index", "Periods")
-                                    @Html.ActionLink("شعب", "Index", "Regiments")
-                                    @Html.ActionLink("مواد", "Index", "Study_subject")
-                                    @Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")
-                                }
+                                <li @if (ViewBag.TitleSideBar == "Orders") { @: class="SideBarMarked"
+                                    }>@Html.ActionLink("طلبات الدفع", "Index", "Orders")</li>
+                                    <li @if (ViewBag.TitleSideBar == "Missions") { @: class="SideBarMarked"
+                                        }>@Html.ActionLink("المهمات الشخصية", "Index", "Missions")</li>
+                                        <li @if (ViewBag.TitleSideBar == "Employees") { @: class="SideBarMarked"
+                                            }>@Html.ActionLink("موظفين", "Index", "Employees")</li>
+                                            <li @if (ViewBag.TitleSideBar == "Students") { @: class="SideBarMarked"
+                                                }>@Html.ActionLink("طلاب", "Index", "Students")</li>
+                                                <li @if (ViewBag.TitleSideBar == "Presences") { @: class="SideBarMarked"
+                                                    }>@Html.ActionLink("الحضور", "Index", "Presences")</li>
+                                                    <li @if (ViewBag.TitleSideBar == "Lessons") { @: class="SideBarMarked"
+                                                        }>@Html.ActionLink("برنامج اسبوعي", "Index", "Lessons")</li>
+                                                        <li @if (ViewBag.TitleSideBar == "Examinations") { @: class="SideBarMarked"
+                                                            }>@Html.ActionLink("امتحانات", "Index", "Examinations")</li>
+                                                            <li @if (ViewBag.TitleSideBar == "Stages") { @: class="SideBarMarked"
+                                                                }>@Html.ActionLink("مراحل", "Index", "Stages")</li>
+                                                                <li @if (ViewBag.TitleSideBar == "Periods") { @: class="SideBarMarked"
+                                                                    }>@Html.ActionLink("فترات", "Index", "Periods")</li>
+                                                                    <li @if (ViewBag.TitleSideBar == "Regiments") { @: class="SideBarMarked"
+                                                                        }>@Html.ActionLink("شعب", "Index", "Regiments")</li>
+                                                                        <li @if (ViewBag.TitleSideBar == "Study_subject") { @: class="SideBarMarked"
+                                                                            }>@Html.ActionLink("مواد", "Index", "Study_subject")</li>
+                                                                            <li @if (ViewBag.TitleSideBar == "ExamTypes") { @: class="SideBarMarked"
+                                                                                }>@Html.ActionLink("نوع الامتحان", "Index", "ExamTypes")</li>
                             }
-                            @if (Session["SeeTeachers"] != null)
+                        }
+                        @if (Session["SeeTeachers"] != null)
+                        {
+                            if ((bool)Session["SeeTeachers"] == true)
                             {
-                                if ((bool)Session["SeeTeachers"] == true)
-                                {
-                                    @Html.ActionLink("المهمات الشخصية", "Index", "Missions")
-                                    @Html.ActionLink("طلاب", "Index", "Students")
-                                    @Html.ActionLink("امتحانات", "Index", "Examinations")
-                                }
+                                <li @if (ViewBag.TitleSideBar == "Missions") { @: class="SideBarMarked"
+                                    }>@Html.ActionLink("المهمات الشخصية", "Index", "Missions")</li>
+                                    <li @if (ViewBag.TitleSideBar == "Students") { @: class="SideBarMarked"
+                                        }>@Html.ActionLink("طلاب", "Index", "Students")</li>
+                                        <li @if (ViewBag.TitleSideBar == "Examinations") { @: class="SideBarMarked"
+                                            }>@Html.ActionLink("امتحانات", "Index", "Examinations")</li>
                             }
-                            <div class="hidden-md hidden-lg hidden-sm">
-                                @Html.ActionLink("تغيير كلمة المرور", "ChangePassword", "Home")
-                                @Html.ActionLink("تقديم شكوى", "Create", "Complains")
-                                @Html.ActionLink("تسجيل خروج", "Logout", "Home")
-                            </div>
-
+                        }
+                        <div class="hidden-md hidden-lg hidden-sm">
+                            <li>@Html.ActionLink("تغيير كلمة المرور", "ChangePassword", "Home")</li>
+                            <li>@Html.ActionLink("تقديم شكوى", "Create", "Complains")</li>
+                            <li>@Html.ActionLink("تسجيل خروج", "Logout", "Home")</li>
                         </div>
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>
 
 
     </div>
-    <div style="padding:0;height:100%;">
+    <div style="padding-top:5em;height:100%;">
 
-        <div class="body-content" style="text-align:right;padding-top:90.7px;" id="TemplateForm">
+        <div id="TemplateForm">
             @RenderBody()
+            <div class="ThemeThirdBackground">
+                <div class="col-sm-6 col-md-3 col-xs-12" style="padding:0">
+                    <div style="display:inline-block;margin-bottom:2em;">
+                        <div class="BorderImg">
+                            <img src="~/Content/Images/Photo.jpg" class="ImageInsideBorder" />
+                        </div>
+                        <div style="height:30px;text-align:center;display:inline-block;">
+                            <p style="color:#ffffff">عدد الطلاب في محافظة درعا</p>
+                            <h1 style="color:#aed6f1" class="count">@Session["DaraaCount"]</h1>
+                        </div>
 
+                    </div>
+                </div>
+                <div class="col-sm-6  col-md-3 col-xs-12" style="padding:0">
+                    <div style="display:inline-block;margin-bottom:2em;">
+                        <div class="BorderImg">
+                            <img src="~/Content/Images/Photo.jpg" class="ImageInsideBorder" />
+                        </div>
+                        <div style="height:30px;text-align:center;display:inline-block;">
+                            <p style="color:#ffffff">عدد الطلاب في محافظة ريف دمشق</p>
+                            <h1 style="color:#aed6f1" class="count">@Session["DamascusCount"]</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6  col-md-3 col-xs-12" style="padding:0">
+                    <div style="display:inline-block;margin-bottom:2em;">
+                        <div class="BorderImg">
+                            <img src="~/Content/Images/Photo.jpg" class="ImageInsideBorder" />
+                        </div>
+                        <div style="height:30px;text-align:center;display:inline-block;">
+                            <p style="color:#ffffff">عدد الطلاب في محافظة حلب</p>
+                            <h1 style="color:#aed6f1" class="count">@Session["AleppoCount"]</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6  col-md-3 col-xs-12" style="padding:0">
+                    <div style="display:inline-block;margin-bottom:2em;">
+                        <div class="BorderImg">
+                            <img src="~/Content/Images/Photo.jpg" class="ImageInsideBorder" />
+                        </div>
+                        <div style="height:30px;text-align:center;display:inline-block;">
+                            <p style="color:#ffffff">عدد الطلاب في محافظة ادلب</p>
+                            <h1 style="color:#aed6f1" class="count">@Session["IdlepCount"]</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer id="footer" style="text-align:center;">
+                <div class="copyright">
+                    <ul class="icons">
+                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-snapchat" aria-hidden="true"></i></a></li>
+                    </ul>
+                    <p>&copy; Untitled. All rights reserved. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
+                </div>
+            </footer>
         </div>
         <div id="desktopTest" class="visible-xs"></div>
     </div>

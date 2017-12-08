@@ -27,6 +27,8 @@ namespace IntensiveLearning.Controllers
                     {
                         ViewBag.StateMessage = TempData["Message"];
                     }
+                    ViewBag.TitleSideBar = "EmployeeTypes";
+
                     return View(db.EmployeeTypes.ToList());
                 }
                 return RedirectToAction("Default", "Home");
@@ -53,6 +55,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "EmployeeTypes";
+
                     return View(employeeType);
                 }
                 return RedirectToAction("Default", "Home");
@@ -70,6 +74,7 @@ namespace IntensiveLearning.Controllers
                 var typeName = (string)Session["Type"]; var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.AddNewEmployeeType == true)
                 {
+                    ViewBag.TitleSideBar = "EmployeeTypes";
 
                     return View();
                 }
@@ -103,6 +108,7 @@ namespace IntensiveLearning.Controllers
 
                 return RedirectToAction("Index");
             }
+            ViewBag.TitleSideBar = "EmployeeTypes";
 
             return View(employeeType);
         }
@@ -125,6 +131,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "EmployeeTypes";
+
                     return View(employeeType);
 
 
@@ -151,6 +159,8 @@ namespace IntensiveLearning.Controllers
 
                 return RedirectToAction("Index");
             }
+            ViewBag.TitleSideBar = "EmployeeTypes";
+
             return View(employeeType);
         }
 
@@ -172,6 +182,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "EmployeeTypes";
+
                     return View(employeeType);
                 }
                 return RedirectToAction("Default", "Home");
@@ -200,6 +212,8 @@ namespace IntensiveLearning.Controllers
                     catch
                     {
                         ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا النوع يرجى تغييرها قبل الحذف";
+                        ViewBag.TitleSideBar = "EmployeeTypes";
+
                         return View(employeeType);
                     }
                     return RedirectToAction("Index");

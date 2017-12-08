@@ -1,35 +1,23 @@
 ﻿
 @{
-    Layout = null;
+    ViewBag.Title = "تسجيل دخول";
+    Layout = "~/Views/Shared/_LayoutTheme.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Cairo" rel="stylesheet">
-    <link href="~/Content/Site.css" rel="stylesheet" />
-    <title>تسجيل دخول</title>
-</head>
-<body style="padding:0;margin:0;" class="LoginBody">
-    <div class="bg-full"></div>
-
-
-    <div class="Login-Fliter"></div>
-    <div class="Login-Card" style="text-align:right">
-        @using (Html.BeginForm())
+<div class="Login-Background">
+    <div class="Login-BackgroundShadow">
+        <div class="Login-Card">
+            @using (Html.BeginForm())
             {
-            <h4 style="color:#0e0e0e;font-family:Cairo;">اسم المستخدم</h4>
-                    <input type="text" name="Username" class="Login-TextBox" />
-                    <h4 style="margin-top:15px;color:#0e0e0e;font-family:Cairo; ">كلمة المرور</h4>
-                    <input type="password" name="Password" class="Login-TextBox" />
-                    <input type="submit" name="Submit" value="تسجيل الدخول" class="Login-Button btn btn-warning" style="font-family:Cairo;" />
+                <div>
+                    <h4 style="margin:0 0 0.5em 0 ">اسم المستخدم</h4>
+                    <input type="text" name="Username" style="text-align:left;" />
+                    <h4 style="margin:0.5em 0;">كلمة المرور</h4>
+                    <input type="password" name="Password"  />
+                    <input type="submit" name="Submit" value="تسجيل الدخول" style="margin-top:30px;" />
+                </div>
 
-        }
+            }
+        </div>
     </div>
-
-
-</body>
-</html>
+</div>

@@ -19,18 +19,22 @@ namespace IntensiveLearning.Controllers
                 var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
                 if (type.SeeAll == true || type.SeeAllButFinance == true )
                 {
+                    ViewBag.TitleSideBar = "DailyReport";
+
                     return View(db.DailyActivities.ToList());
                 }
                 if ( type.SeeAccToCenter == true)
                 {
                     var empid = Convert.ToInt32(Session["ID"]);
-                    var empCityid = db.Employees.FirstOrDefault(x => x.id == empid).Centerid;
+                    var empCityid = db.Employees.FirstOrDefault(x => x.id == empid).Centerid; ViewBag.TitleSideBar = "DailyReport";
+
                     return View(db.DailyActivities.Where(x=>x.Employee.Centerid == empCityid).ToList());
                 }
                 if (type.SeeAccToCity == true)
                 {
                     var empid = Convert.ToInt32(Session["ID"]);
-                    var empCityid = db.Employees.FirstOrDefault(x => x.id == empid).CityID;
+                    var empCityid = db.Employees.FirstOrDefault(x => x.id == empid).CityID; ViewBag.TitleSideBar = "DailyReport";
+
                     return View(db.DailyActivities.Where(x => x.Employee.CityID == empCityid).ToList());
                 }
                 
@@ -51,6 +55,8 @@ namespace IntensiveLearning.Controllers
                 {
                     if (!(db.DailyActivities.OrderByDescending(x=>x.Employee.id == id).FirstOrDefault().date == DateTime.Now.Date))
                     {
+                        ViewBag.TitleSideBar = "DailyReport";
+
                         return View();
                     }
 
@@ -79,6 +85,8 @@ namespace IntensiveLearning.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
+            ViewBag.TitleSideBar = "DailyReport";
+
             return View();
         }
     }

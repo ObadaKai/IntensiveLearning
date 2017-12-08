@@ -23,7 +23,9 @@ namespace IntensiveLearning.Controllers
                     {
                         ViewBag.StateMessage = TempData["Message"];
                     }
-                    return View();
+                ViewBag.TitleSideBar = "Presences";
+
+                return View();
             }
             return RedirectToAction("Index", "Home");
 
@@ -47,6 +49,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Presences";
+
                     return View(presence);
 
 
@@ -83,6 +87,8 @@ namespace IntensiveLearning.Controllers
                     {
                         ViewBag.Studentid = db.Students.ToList();
                     }
+                    ViewBag.TitleSideBar = "Presences";
+
                     return View();
 
 
@@ -146,6 +152,8 @@ namespace IntensiveLearning.Controllers
 
 
             }
+            ViewBag.TitleSideBar = "Presences";
+
             return View(presence);
 
         }
@@ -183,6 +191,8 @@ namespace IntensiveLearning.Controllers
                     {
                         ViewBag.Studentid = db.Students.ToList();
                     }
+                    ViewBag.TitleSideBar = "Presences";
+
                     return View(presence);
 
 
@@ -235,6 +245,8 @@ namespace IntensiveLearning.Controllers
 
 
             }
+            ViewBag.TitleSideBar = "Presences";
+
             return View(presence);
         }
 
@@ -255,6 +267,8 @@ namespace IntensiveLearning.Controllers
                     {
                         return HttpNotFound();
                     }
+                    ViewBag.TitleSideBar = "Presences";
+
                     return View(presence);
 
 
@@ -286,6 +300,8 @@ namespace IntensiveLearning.Controllers
                     catch
                     {
                         ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا الحضور يرجى تغييرها قبل الحذف";
+                        ViewBag.TitleSideBar = "Presences";
+
                         return View(presence);
                     }
                     return RedirectToAction("Index");

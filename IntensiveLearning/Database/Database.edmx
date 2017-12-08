@@ -233,7 +233,6 @@
           <Property Name="BDate" Type="date" />
           <Property Name="PhoneNumber" Type="bigint" />
           <Property Name="FathersName" Type="nvarchar(max)" />
-          <Property Name="Certificate" Type="nvarchar(max)" />
           <Property Name="CType" Type="nvarchar(max)" />
           <Property Name="Mark" Type="float" />
           <Property Name="Sex" Type="nvarchar" MaxLength="10" />
@@ -1720,7 +1719,6 @@
           <Property Name="BDate" Type="DateTime" Precision="0" />
           <Property Name="PhoneNumber" Type="Int64" />
           <Property Name="FathersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Certificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Mark" Type="Double" />
           <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
@@ -3216,7 +3214,6 @@
                 <ScalarProperty Name="BDate" ColumnName="BDate" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="FathersName" ColumnName="FathersName" />
-                <ScalarProperty Name="Certificate" ColumnName="Certificate" />
                 <ScalarProperty Name="CType" ColumnName="CType" />
                 <ScalarProperty Name="Mark" ColumnName="Mark" />
                 <ScalarProperty Name="Sex" ColumnName="Sex" />

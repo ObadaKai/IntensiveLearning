@@ -41,17 +41,6 @@
     });
 
     $("#ToFadeMessage").hide(3000);
-
-    if ($('#desktopTest').is(':hidden')) {
-        toggleLeftMenu();
-        document.getElementById("TemplateForm").style.marginRight = document.getElementById("leftMenu").clientWidth + 28 + "px";
-        document.getElementById("TemplateForm").style.marginLeft = "auto";
-    } else {
-        document.getElementById("TemplateForm").style.marginRight = "auto";
-        document.getElementById("TemplateForm").style.marginLeft = "auto";
-
-
-    }
     $('#DependedOn').val("")
 
     if ($('#CenterType').val() == "فرعي") {
@@ -109,18 +98,7 @@
 });
 var open = false;
 function openLeftMenu() {
-    document.getElementById("leftMenu").style.display = "block";
-    document.getElementById("leftMenu").style.height = "100%";
-    if ($('#desktopTest').is(':hidden')) {
-        document.getElementById("TemplateForm").style.marginRight = document.getElementById("leftMenu").clientWidth + 2 + "px";
-        document.getElementById("TemplateForm").style.marginLeft = "auto";
-
-    }
-    else {
-        document.getElementById("TemplateForm").style.marginRight = "auto";
-        document.getElementById("TemplateForm").style.marginLeft = "auto";
-
-    }
+    document.getElementById("leftMenu").style.width = "22em";
     //document.getElementById("TemplateForm").classList = "container body-content";
     //document.getElementById("TemplateForm").classList = "container body-content col-md-11 col-lg-11 col-sm-8 col-xs-8";
     //document.getElementById("leftMenu").classList = "col-md-1 col-lg-1 col-sm-4 col-xs-4";
@@ -129,15 +107,7 @@ function openLeftMenu() {
 
 
 function closeLeftMenu() {
-    document.getElementById("leftMenu").style.height = "0%";
-    if ($('#desktopTest').is(':hidden')) {
-        document.getElementById("TemplateForm").style.marginRight = document.getElementById("leftMenu").clientWidth / 2 + 1 + "px";
-        document.getElementById("TemplateForm").style.marginLeft = document.getElementById("leftMenu").clientWidth / 2 + 1 + "px";
-
-    } else {
-        document.getElementById("TemplateForm").style.marginRight = "auto";
-        document.getElementById("TemplateForm").style.marginLeft = "auto";
-    }
+    document.getElementById("leftMenu").style.width = "0";
     //document.getElementById("TemplateForm").classList = "container body-content";
     open = false;
 }
@@ -211,6 +181,17 @@ $("#OrderManyTypes").on("change", function () {
 
 });
 
+$('.count').each(function () {
+    $(this).prop('Counter', 0).animate({
+        Counter: $(this).text()
+    }, {
+            duration: 4000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+});
 
 
 var toggleimport = false;

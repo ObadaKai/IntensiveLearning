@@ -20,7 +20,6 @@ namespace IntensiveLearning.Database
         public Nullable<System.DateTime> BDate { get; set; }
         public Nullable<long> PhoneNumber { get; set; }
         public string FathersName { get; set; }
-        public string Certificate { get; set; }
         public string CType { get; set; }
         public Nullable<double> Mark { get; set; }
         public string Sex { get; set; }

@@ -15,23 +15,23 @@
 <body>
     <!-- Header -->
     <header id="header" class="alt">
-        <div class="logo"><a href="index.html"><img src="~/Content/Images/Logo.png" id="ImgInten" /></a></div>
+        <div class="logo"><a href="/HomeScreenPage/Index"><img src="~/Content/Images/Logo.png" id="ImgInten" /></a></div>
         <a href="#menu"></a>
     </header>
 
     <!-- Nav -->
     <nav id="menu">
         <ul class="links" style="text-align:right">
-            <li><a href="index.html">مشروع التعليم المكثف</a></li>
-            <li><a href="generic.html">منظمة مداد</a></li>
-            <li><a href="elements.html">دخول مسؤول</a></li>
-            <li><a href="elements.html">تسجيل طالب</a></li>
-            <li><a href="elements.html">معلومات طالب</a></li>
+            <li><a href="/HomeScreenPage/Index">الرئيسية</a></li>
+            <li><a href="/HomeScreenPage/AboutMidad">منظمة مداد</a></li>
+            <li><a href="/HomeScreenPage/AboutIntenlearn">مشروع التعليم المكثف</a></li>
+            <li><a href="/Home/Index">دخول مسؤول</a></li>
+            <li><a href="/HomeScreenPage/RegisterNewStudent">تسجيل طالب</a></li>
+            <li><a href="/HomeScreenPage/StudentInfo">معلومات طالب</a></li>
 
         </ul>
     </nav>
     <!-- Main -->
-    <div id="main">
 
         @RenderBody()
 
@@ -48,27 +48,27 @@
                             <img src="~/Content/ThemeContents/images/pic03.jpg" alt="" />
                         </div>
                         <p>.تسجيل دخول مسؤولين</p>
-                        <a href="#" class="button">دخول مسؤول</a>
+                        <a href="/Home/Index" class="button">دخول مسؤول</a>
                     </div>
                     <div class="col align-center">
                         <div class="image round fit">
                             <img src="~/Content/ThemeContents/images/pic05.jpg" alt="" />
                         </div>
                         <p>.تسجيل طالب جديد للسنة الجديدة </p>
-                        <a href="#" class="button">تسجيل طالب</a>
+                        <a href="/HomeScreenPage/RegisterNewStudent" class="button">تسجيل طالب</a>
                     </div>
                     <div class="col align-center">
                         <div class="image round fit">
                             <img src="~/Content/ThemeContents/images/pic04.jpg" alt="" />
                         </div>
                         <p>.معرفة معلومات عن طالب موجود</p>
-                        <a href="#" class="button">معلومات طالب</a>
+                        <a href="/HomeScreenPage/StudentInfo" class="button">معلومات طالب</a>
                     </div>
                 </div>
             </div>
         </section>
 
-    </div>
+
     <!-- Footer -->
     <footer id="footer">
         <div class="copyright">
@@ -81,7 +81,6 @@
             <p>&copy; Untitled. All rights reserved. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
         </div>
     </footer>
-
     <!-- Scripts -->
     <script src="~/Content/ThemeContents/assets/js/jquery.min.js"></script>
     <script src="~/Content/ThemeContents/assets/js/jquery.scrolly.min.js"></script>

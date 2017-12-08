@@ -240,7 +240,6 @@
           <ScalarProperty Name="BDate" ColumnName="BDate" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
           <ScalarProperty Name="FathersName" ColumnName="FathersName" />
-          <ScalarProperty Name="Certificate" ColumnName="Certificate" />
           <ScalarProperty Name="CType" ColumnName="CType" />
           <ScalarProperty Name="Mark" ColumnName="Mark" />
           <ScalarProperty Name="Sex" ColumnName="Sex" />

@@ -25,6 +25,8 @@ namespace IntensiveLearning.Controllers
             {
                 ViewBag.StateMessage = TempData["Message"];
             }
+            ViewBag.TitleSideBar = "Projects";
+
             return View(db.Projects.ToList());
         }
 
@@ -44,12 +46,16 @@ namespace IntensiveLearning.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.TitleSideBar = "Projects";
+
             return View(project);
         }
 
         // GET: Projects/Create
         public ActionResult Create()
         {
+            ViewBag.TitleSideBar = "Projects";
+
             return View();
         }
 
@@ -79,6 +85,7 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم الادخال بنجاح";
                 return RedirectToAction("Index");
             }
+            ViewBag.TitleSideBar = "Projects";
 
             return View(project);
         }
@@ -99,6 +106,8 @@ namespace IntensiveLearning.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.TitleSideBar = "Projects";
+
             return View(project);
         }
 
@@ -117,6 +126,8 @@ namespace IntensiveLearning.Controllers
                 TempData["Message"] = "تم التعديل بنجاح";
                 return RedirectToAction("Index");
             }
+            ViewBag.TitleSideBar = "Projects";
+
             return View(project);
         }
 
@@ -136,6 +147,8 @@ namespace IntensiveLearning.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.TitleSideBar = "Projects";
+
             return View(project);
         }
 
@@ -153,6 +166,8 @@ namespace IntensiveLearning.Controllers
             catch
             {
                 ViewBag.error = "يوجد مدخلات اخرى متعلقة بهذا المشروع يرجى تغييرها قبل الحذف";
+                ViewBag.TitleSideBar = "Projects";
+
                 return View(project);
             }
             return RedirectToAction("Index");
