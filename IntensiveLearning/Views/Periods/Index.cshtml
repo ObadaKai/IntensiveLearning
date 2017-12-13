@@ -23,27 +23,81 @@
         </div>
     </div>
 <div class="ThemeSecondBackground">
+    <div id="table_wrapper">
+        <table class="table table-striped">
+            <thead>
+                <tr class="bg-primary">
 
-    <table class="table table-striped">
-        <thead>
-            <tr class="bg-primary">
-
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StartingTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EndTime)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model != null)
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartingTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndTime)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
             {
                 if (Model.Count() == 0)
+                {
+                        <tr>
+                            <td colspan="25">
+                                <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartingTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndTime)
+                                </td>
+
+
+
+
+                                <td>
+                                    @if (Session["AddSchoolManagingTools"] != null)
+                                    {
+                                        if ((bool)Session["AddSchoolManagingTools"] == true)
+                                        {
+                                            <div style="width:130px;">
+                                                <a href="/Periods/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="/Periods/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a href="/Periods/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <a href="/Periods/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                    }
+                                </td>
+
+
+
+
+
+
+                            </tr>
+                        }
+                    }
+                }
+                else
                 {
                     <tr>
                         <td colspan="25">
@@ -51,61 +105,11 @@
                         </td>
                     </tr>
                 }
-                else { 
-                foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
+            </tbody>
+        </table>
+    </div>
+    <button id="btnExport" onclick="ToXlsXEmployees('table_wrapper','لائحة الفترات')" class="btn btn-success">xls تصدير ل</button>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartingTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EndTime)
-                        </td>
-
-
-
-
-                        <td>
-                            @if (Session["AddSchoolManagingTools"] != null)
-                            {
-                                if ((bool)Session["AddSchoolManagingTools"] == true)
-                                {
-                                    <div style="width:130px;">
-                                        <a href="/Periods/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                        <a href="/Periods/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                        <a href="/Periods/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                    </div>
-                                }
-                            }
-                            else
-                            {
-                                <a href="/Periods/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                            }
-                        </td>
-
-
-
-
-
-
-                    </tr>
-                    }
-                }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="25">
-                        <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
     </div>
     @if (ViewBag.StateMessage != null)
             {

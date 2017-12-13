@@ -126,7 +126,7 @@
                                                                                                                                                                                                                                                         }>
                                     @Html.ActionLink("لائحة البنود", "Index", "Bnds")
                                 </li>
-                                <li @if (ViewBag.TitleSideBar == "EmployeeTypes") { @: class="SideBarMarked"
+                                <li @if (ViewBag.TitleSideBar == "Missions") { @: class="SideBarMarked"
                                                                                                                                                                                                                                                         }>
                                     @Html.ActionLink("المهمات الشخصية", "Index", "Missions")
                                 </li>
@@ -374,9 +374,9 @@
             @RenderBody()
             <div class="ThemeThirdBackground">
                 <div class="col-sm-6 col-md-3 col-xs-12" style="padding:0">
-                    <div style="display:inline-block;margin-bottom:2em;">
+                    <div style="display:inline-block;padding:1em 0">
                         <div class="BorderImg">
-                            <img src="~/Content/Images/Photo.jpg" class="ImageInsideBorder" />
+                            <img src="~/Content/Images/FirstOfFour.jpeg" class="ImageInsideBorder" />
                         </div>
                         <div style="height:30px;text-align:center;display:inline-block;">
                             <p style="color:#ffffff">عدد الطلاب في محافظة درعا</p>
@@ -386,9 +386,9 @@
                     </div>
                 </div>
                 <div class="col-sm-6  col-md-3 col-xs-12" style="padding:0">
-                    <div style="display:inline-block;margin-bottom:2em;">
+                    <div style="display:inline-block;padding:1em 0">
                         <div class="BorderImg">
-                            <img src="~/Content/Images/Photo.jpg" class="ImageInsideBorder" />
+                            <img src="~/Content/Images/FourthOfFour.jpg" class="ImageInsideBorder" />
                         </div>
                         <div style="height:30px;text-align:center;display:inline-block;">
                             <p style="color:#ffffff">عدد الطلاب في محافظة ريف دمشق</p>
@@ -397,9 +397,9 @@
                     </div>
                 </div>
                 <div class="col-sm-6  col-md-3 col-xs-12" style="padding:0">
-                    <div style="display:inline-block;margin-bottom:2em;">
+                    <div style="display:inline-block;padding:1em 0">
                         <div class="BorderImg">
-                            <img src="~/Content/Images/Photo.jpg" class="ImageInsideBorder" />
+                            <img src="~/Content/Images/ThirdOfFour.jpg" class="ImageInsideBorder" />
                         </div>
                         <div style="height:30px;text-align:center;display:inline-block;">
                             <p style="color:#ffffff">عدد الطلاب في محافظة حلب</p>
@@ -408,9 +408,9 @@
                     </div>
                 </div>
                 <div class="col-sm-6  col-md-3 col-xs-12" style="padding:0">
-                    <div style="display:inline-block;margin-bottom:2em;">
+                    <div style="display:inline-block;padding:1em 0">
                         <div class="BorderImg">
-                            <img src="~/Content/Images/Photo.jpg" class="ImageInsideBorder" />
+                            <img src="~/Content/Images/SecondOfFour.jpeg" class="ImageInsideBorder" />
                         </div>
                         <div style="height:30px;text-align:center;display:inline-block;">
                             <p style="color:#ffffff">عدد الطلاب في محافظة ادلب</p>
@@ -427,13 +427,16 @@
                         <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                         <li><a href="#"><i class="fa fa-snapchat" aria-hidden="true"></i></a></li>
                     </ul>
-                    <p>&copy; Untitled. All rights reserved. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
+                    <span>هذا المشروع تم بالتعاون مع</span> <a id="FooterLinks" href="http://edumidad.org">مؤسسةُ تعليم بلا حدود / مداد</a> و <a id="FooterLinks"> مشروع حلب لبيه</a>
                 </div>
             </footer>
         </div>
         <div id="desktopTest" class="visible-xs"></div>
     </div>
     <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/xlsx.core.min.js"></script>
+    <script src="~/Scripts/FileSaver.min.js"></script>
+    <script src="~/Scripts/tableexport.min.js"></script>
     <script src="~/Scripts/controller.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>

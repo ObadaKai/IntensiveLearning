@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<IntensiveLearning.Database.EmployeeType>
 
 @{
-    ViewBag.Title = "لائحة الموظفين";
+    ViewBag.Title = "لائحة صلاحيات الموظفين";
 }
 <div class="ThemeFirstBackground">
     <div style="display:inline-block;width:100%;">
@@ -427,7 +427,7 @@
             </tbody>
         </table>
     </div>
-    <button id="btnExport" class="btn btn-success">xls تصدير إلى</button>
+    <button id="btnExport" onclick="ToXlsXEmployees('table_wrapper','لائحة صلاحيات الموظفين')" class="btn btn-success">xls تصدير ل</button>
 </div>
 @if (ViewBag.StateMessage != null)
 {

@@ -4,223 +4,245 @@
     ViewBag.Title = "لائحة الحضور والغياب";
 }
 <div ng-controller="PresencesCtrl">
+    <div class="ThemeFirstBackground">
+        <div style="display:inline-block;width:100%;">
 
-    <h2>لائحة الحضور والغياب</h2>
+            <h2 style="display:inline-block">لائحة الحضور والغياب</h2>
+            <div style="display:inline-block;float:left;margin:20px 0;">
 
-    @if (Session["AddPresence"] != null)
-    {
-        if ((bool)Session["AddPresence"] == true)
-        {
-            using (Html.BeginForm("Create", "Presences", FormMethod.Get))
+                @if (Session["AddPresence"] != null)
             {
-                <button type="submit" class="btn btn-warning">انشاء جديد</button>
-            }
-        }
-    }
-   
+                if ((bool)Session["AddPresence"] == true)
+                {
+                    using (Html.BeginForm("Create", "Presences", FormMethod.Get))
+                    {
+                            <button type="submit" class="btn btn-success" title="انشاء جديد"><span class="glyphicon glyphicon-plus"></span></button>
+                        }
+                    }
+                }
 
-    <div class="col-md-12" style="margin-bottom:20px;padding:0;border:0">
-        <div class="col-md-10" style="margin:0;padding:0;border:0">
-            <input type="text" class="form-control " style="display:inline-block !important;text-align:right" name="search" id="search" placeholder="...البحث" ng-change="PresenceSearchBox()" ng-model="PresenceSearchBoxData" />
-        </div>
-        <div class="col-md-2" style="margin:0;padding:0;border:0">
-            <input type="date" class="form-control " style="display:inline-block !important;" name="searchdate" id="searchdate" ng-change="PresenceSearchBox()" ng-model="PresenceSearchBoxDate" />
+            </div>
+            <div class="col-md-12" style="margin-bottom:20px;padding:0;border:0">
+                <div class="col-md-10" style="margin:0;padding:0;border:0">
+                    <input type="text" class="form-control " style="display:inline-block !important;text-align:right" name="search" id="search" placeholder="...البحث" ng-change="PresenceSearchBox()" ng-model="PresenceSearchBoxData" />
+                </div>
+                <div class="col-md-2" style="margin:0;padding:0;border:0">
+                    <input type="date" class="form-control " style="display:inline-block !important;" name="searchdate" id="searchdate" ng-change="PresenceSearchBox()" ng-model="PresenceSearchBoxDate" />
+                </div>
+            </div>
         </div>
     </div>
-
     @*<div id="table_wrapper">
-        <table class="table table-striped" ng-hide="PresenceRazorForm">
-            <thead>
-                <tr class="bg-primary">
-                    <th>
-                        @Html.DisplayNameFor(model => model.Student.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Student.Surname)
-                    </th>
-                    <th>
-                        الشعبة
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Date)
-                    </th>
-                    <th>
-                        اليوم
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Desc)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson1)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson2)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson3)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson4)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson5)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson6)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson7)
-                    </th>
+            <table class="table table-striped" ng-hide="PresenceRazorForm">
+                <thead>
+                    <tr class="bg-primary">
+                        <th>
+                            @Html.DisplayNameFor(model => model.Student.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Student.Surname)
+                        </th>
+                        <th>
+                            الشعبة
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Date)
+                        </th>
+                        <th>
+                            اليوم
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Desc)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson1)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson2)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson3)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson4)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson5)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson6)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson7)
+                        </th>
 
-                    <th>التوقيع</th>
-
-
-
-
-                    <th></th>
+                        <th>التوقيع</th>
 
 
 
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null)
-                {
-                    foreach (var item in Model)
+
+                        <th></th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Student.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Student.Surname)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Student.Regiment.Name)
-                            </td>
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Student.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Student.Surname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Student.Regiment.Name)
+                                </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Date)
-                            </td>
-                            <td>
-                                @{var x = Convert.ToDateTime(item.Date).DayOfWeek;
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @{var x = Convert.ToDateTime(item.Date).DayOfWeek;
 
-                                    if (x == DayOfWeek.Friday)
-                                    {
-                                        @:الجمعة
-                                    }
-                                    else if (x == DayOfWeek.Saturday)
-                                    {
-                                        @:السبت
-                                    }
-                                    else if (x == DayOfWeek.Sunday)
-                                    {
-                                        @:الاحد
-    }
-                                    else if (x == DayOfWeek.Monday)
-                                    {
-                                        @:الاثنين
-    }
-                                    else if (x == DayOfWeek.Tuesday)
-                                    {
-                                        @:الثلاثاء
-    }
-                                    else if (x == DayOfWeek.Wednesday)
-                                    {
-                                        @:الاربعاء
-    }
-                                    else if (x == DayOfWeek.Thursday)
-                                    {
-                                        @:الخميس
-    }
-                                }
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Desc)
-                            </td>
-
-                            <td>
-                                @if (item.Lesson1 != null && item.Lesson1 == true)
-                                {
-                                    @:غياب
-                    }
-                                else
-                                {
-                                    @:حضور
-                    }
-                            </td>
-
-                            <td>
-                                @if (item.Lesson2 != null && item.Lesson2 == true)
-                                {
-                                    @:غياب
-                    }
-                                else
-                                {
-                                    @:حضور
-                    }
-                            </td>
-
-                            <td>
-                                @if (item.Lesson3 != null && item.Lesson3 == true)
-                                {
-                                    @:غياب
-                    }
-                                else
-                                {
-                                    @:حضور
-                    }
-                            </td>
-                            <td>
-                                @if (item.Lesson4 != null && item.Lesson4 == true)
-                                {
-                                    @:غياب
-                    }
-                                else
-                                {
-                                    @:حضور
-                    }
-                            </td>
-                            <td>
-                                @if (item.Lesson5 != null && item.Lesson5 == true)
-                                {
-                                    @:غياب
-                    }
-                                else
-                                {
-                                    @:حضور
-                    }
-                            </td>
-                            <td>
-                                @if (item.Lesson6 != null && item.Lesson6 == true)
-                                {
-                                    @:غياب
-                    }
-                                else
-                                {
-                                    @:حضور
-                    }
-                            </td>
-                            <td>
-                                @if (item.Lesson7 != null && item.Lesson7 == true)
-                                {
-                                    @:غياب
-                    }
-                                else
-                                {
-                                    @:حضور
-                    }
-                            </td>
-                            <td>
-                                @if (Session["SeeAccToCenter"] != null)
-                                {
-                                    if ((bool)Session["SeeAccToCenter"] == true)
-                                    {
-                                        if (item.Approval == null)
+                                        if (x == DayOfWeek.Friday)
                                         {
-                                            <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Presences",acceptance = true })" style="color:forestgreen">قبول</a>
-                                            <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Presences",acceptance = false })" style="color:darkred">رفض</a>
+                                            @:الجمعة
+                                        }
+                                        else if (x == DayOfWeek.Saturday)
+                                        {
+                                            @:السبت
+                                        }
+                                        else if (x == DayOfWeek.Sunday)
+                                        {
+                                            @:الاحد
+        }
+                                        else if (x == DayOfWeek.Monday)
+                                        {
+                                            @:الاثنين
+        }
+                                        else if (x == DayOfWeek.Tuesday)
+                                        {
+                                            @:الثلاثاء
+        }
+                                        else if (x == DayOfWeek.Wednesday)
+                                        {
+                                            @:الاربعاء
+        }
+                                        else if (x == DayOfWeek.Thursday)
+                                        {
+                                            @:الخميس
+        }
+                                    }
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Desc)
+                                </td>
+
+                                <td>
+                                    @if (item.Lesson1 != null && item.Lesson1 == true)
+                                    {
+                                        @:غياب
+                        }
+                                    else
+                                    {
+                                        @:حضور
+                        }
+                                </td>
+
+                                <td>
+                                    @if (item.Lesson2 != null && item.Lesson2 == true)
+                                    {
+                                        @:غياب
+                        }
+                                    else
+                                    {
+                                        @:حضور
+                        }
+                                </td>
+
+                                <td>
+                                    @if (item.Lesson3 != null && item.Lesson3 == true)
+                                    {
+                                        @:غياب
+                        }
+                                    else
+                                    {
+                                        @:حضور
+                        }
+                                </td>
+                                <td>
+                                    @if (item.Lesson4 != null && item.Lesson4 == true)
+                                    {
+                                        @:غياب
+                        }
+                                    else
+                                    {
+                                        @:حضور
+                        }
+                                </td>
+                                <td>
+                                    @if (item.Lesson5 != null && item.Lesson5 == true)
+                                    {
+                                        @:غياب
+                        }
+                                    else
+                                    {
+                                        @:حضور
+                        }
+                                </td>
+                                <td>
+                                    @if (item.Lesson6 != null && item.Lesson6 == true)
+                                    {
+                                        @:غياب
+                        }
+                                    else
+                                    {
+                                        @:حضور
+                        }
+                                </td>
+                                <td>
+                                    @if (item.Lesson7 != null && item.Lesson7 == true)
+                                    {
+                                        @:غياب
+                        }
+                                    else
+                                    {
+                                        @:حضور
+                        }
+                                </td>
+                                <td>
+                                    @if (Session["SeeAccToCenter"] != null)
+                                    {
+                                        if ((bool)Session["SeeAccToCenter"] == true)
+                                        {
+                                            if (item.Approval == null)
+                                            {
+                                                <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Presences",acceptance = true })" style="color:forestgreen">قبول</a>
+                                                <a href="@Url.Action("Approvals","Json",new { id = item.id, type = "Presences",acceptance = false })" style="color:darkred">رفض</a>
+                                            }
+                                            else if (item.Approval != null)
+                                            {
+                                                if (item.Approval == true)
+                                                {
+                                                    <p style="color:forestgreen">مقبول</p>
+
+                                                }
+                                                else
+                                                {
+                                                    <p style="color:darkred">مرفوض</p>
+
+                                                }
+                                            }
+                                        }
+                                        else if (item.Approval == null)
+                                        {
+                                            <p style="color:gray">بالانتظار</p>
                                         }
                                         else if (item.Approval != null)
                                         {
@@ -235,6 +257,8 @@
 
                                             }
                                         }
+
+
                                     }
                                     else if (item.Approval == null)
                                     {
@@ -253,183 +277,172 @@
 
                                         }
                                     }
+                                </td>
 
 
-                                }
-                                else if (item.Approval == null)
-                                {
-                                    <p style="color:gray">بالانتظار</p>
-                                }
-                                else if (item.Approval != null)
-                                {
-                                    if (item.Approval == true)
+                                <td>
+                                    @if (Session["AddPresence"] != null)
                                     {
-                                        <p style="color:forestgreen">مقبول</p>
+                                        if ((bool)Session["AddPresence"] == true)
+                                        {
 
+                                            <div style="width:130px;">
+                                                <a href="/Presences/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="/Presences/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a href="/Presences/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                            </div>
+                                        }
                                     }
                                     else
                                     {
-                                        <p style="color:darkred">مرفوض</p>
-
+                                        <a href="/Presences/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                                     }
-                                }
-                            </td>
+                                </td>
 
 
-                            <td>
-                                @if (Session["AddPresence"] != null)
+
+
+
+
+                            </tr>
+
+                                            }
+                                        }
+                </tbody>
+            </table>
+        </div>
+
+        <button id="btnExport" class="btn btn-warning" ng-hide="PresenceRazorForm">xls تصدير إلى</button>*@
+    <div class="ThemeSecondBackground">
+
+        <div id="table_wrapper">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="bg-primary">
+                        <th>
+                            @Html.DisplayNameFor(model => model.Student.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Student.Surname)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Date)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Desc)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson1)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson2)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson3)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson4)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson5)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson6)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lesson7)
+                        </th>
+                        <th>التوقيع</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="!Exams.length > 0">
+                        <td colspan="25">
+                            <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
+                        </td>
+                    </tr>
+
+
+                    <tr ng-repeat="Exam in Exams">
+
+                        <td>{{Exam.StudentName}}</td>
+
+                        <td>{{Exam.StudentSurname}}</td>
+                        <td>{{Exam.Date | date:'dd/MM/yyyy'}}</td>
+                        <td>{{Exam.Desc}}</td>
+                        <td>{{Exam.Lesson1}}</td>
+                        <td>{{Exam.Lesson2}}</td>
+                        <td>{{Exam.Lesson3}}</td>
+                        <td>{{Exam.Lesson4}}</td>
+                        <td>{{Exam.Lesson5}}</td>
+
+                        <td>{{Exam.Lesson6}}</td>
+
+                        <td>{{Exam.Lesson7}}</td>
+
+                        <td>
+                            @if (Session["SeeAccToCenter"] != null)
+                            {
+                                if ((bool)Session["SeeAccToCenter"] == true)
                                 {
-                                    if ((bool)Session["AddPresence"] == true)
-                                    {
+                                    <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Presences&amp;acceptance=true" style="color:forestgreen">قبول</a>
+                                    <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Presences&amp;acceptance=false" style="color:darkred">رفض</a>
 
-                                        <div style="width:130px;">
-                                            <a href="/Presences/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                            <a href="/Presences/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                            <a href="/Presences/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                        </div>
-                                    }
+                                            <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                                            <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
                                 }
                                 else
                                 {
-                                    <a href="/Presences/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                    <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
+                                    <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                                            <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
                                 }
-                            </td>
-                            
 
-
-
-
-
-                        </tr>
-
-                                        }
-                                    }
-            </tbody>
-        </table>
-    </div>
-
-    <button id="btnExport" class="btn btn-warning" ng-hide="PresenceRazorForm">xls تصدير إلى</button>*@
-    <div id="table_wrapper">
-        <table class="table table-striped">
-            <thead>
-                <tr class="bg-primary">
-                    <th>
-                        @Html.DisplayNameFor(model => model.Student.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Student.Surname)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Date)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Desc)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson1)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson2)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson3)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson4)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson5)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson6)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lesson7)
-                    </th>
-                    <th>التوقيع</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr ng-repeat="Exam in Exams">
-
-                    <td>{{Exam.StudentName}}</td>
-
-                    <td>{{Exam.StudentSurname}}</td>
-                    <td>{{Exam.Date | date:'dd/MM/yyyy'}}</td>
-                    <td>{{Exam.Desc}}</td>
-                    <td>{{Exam.Lesson1}}</td>
-                    <td>{{Exam.Lesson2}}</td>
-                    <td>{{Exam.Lesson3}}</td>
-                    <td>{{Exam.Lesson4}}</td>
-                    <td>{{Exam.Lesson5}}</td>
-
-                    <td>{{Exam.Lesson6}}</td>
-
-                    <td>{{Exam.Lesson7}}</td>
-
-                    <td>
-                        @if (Session["SeeAccToCenter"] != null)
-                        {
-                            if ((bool)Session["SeeAccToCenter"] == true)
-                            {
-                                <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Presences&amp;acceptance=true" style="color:forestgreen">قبول</a>
-                                <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Presences&amp;acceptance=false" style="color:darkred">رفض</a>
-
-                                <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
-                                <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
                             }
                             else
                             {
                                 <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
                                 <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
-                                <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
+                                        <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
                             }
-
-                        }
-                        else
-                        {
-                            <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
-                            <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
-                            <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
-                        }
-                    </td>
+                        </td>
 
 
 
-                    <td>
-                        @if (Session["AddPresence"] != null)
-                        {
-                            if ((bool)Session["AddPresence"] == true)
+                        <td>
+                            @if (Session["AddPresence"] != null)
                             {
-                                <div style="width:210px;">
-                                    <a class="btn btn-danger" href="/Presences/Delete/{{Exam.ID}}" title="حذف"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <a class="btn btn-info" href="/Presences/Details/{{Exam.ID}}" title="معلومات"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                    <a class="btn btn-success" href="/Presences/Edit/{{Exam.ID}}" title="تعديل"><span class="glyphicon glyphicon-pencil"></span></a>
-                                </div>
+                                if ((bool)Session["AddPresence"] == true)
+                                {
+                                    <div style="width:210px;">
+                                        <a class="btn btn-danger" href="/Presences/Delete/{{Exam.ID}}" title="حذف"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a class="btn btn-info" href="/Presences/Details/{{Exam.ID}}" title="معلومات"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a class="btn btn-success" href="/Presences/Edit/{{Exam.ID}}" title="تعديل"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    </div>
+                                }
+
+                            }
+                            else
+                            {
+                                <a class="btn btn-info" href="/Presences/Details/{{Exam.ID}}" title="معلومات"><span class="glyphicon glyphicon-folder-open"></span></a>
                             }
 
-                        }
-                        else
-                        {
-                            <a class="btn btn-info" href="/Presences/Details/{{Exam.ID}}" title="معلومات"><span class="glyphicon glyphicon-folder-open"></span></a>
-                        }
-
-                    </td>
-                    
+                        </td>
 
 
-                </tr>
-            </tbody>
-        </table>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button id="btnExport" onclick="ToXlsXEmployees('table_wrapper','لائحة الحضور')" class="btn btn-success">xls تصدير ل</button>
+        </div>
     </div>
-    <button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>
-</div>
 @if (ViewBag.StateMessage != null)
 {
     <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">

@@ -3,94 +3,118 @@
 @{
     ViewBag.Title = "لائحة الشكاوى";
 }
+<div class="ThemeFirstBackground">
 
-<h2>لائحة الشكاوى</h2>
-<div id="table_wrapper">
+    <h2>لائحة الشكاوى</h2>
+</div>
+<div class="ThemeSecondBackground">
 
-    <table class="table table-striped">
-        <thead>
-            <tr class="bg-primary">
-                <th>
-                    @Html.DisplayNameFor(model => model.Employee.name)
-                </th>
+    <div id="table_wrapper">
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Employee.surname)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Employee.Center.Name)
-                </th>
+        <table class="table table-striped">
+            <thead>
+                <tr class="bg-primary">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Employee.name)
+                    </th>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Employee.City.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.date)
-                </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Employee.surname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Employee.Center.Name)
+                    </th>
 
-
-
-
+                    <th>
+                        @Html.DisplayNameFor(model => model.Employee.City.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.date)
+                    </th>
 
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Concern1)
-                </th>
 
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model != null)
-            {
-                foreach (var item in Model)
+
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Concern1)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Employee.name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Employee.surname)
-                        </td>
+                    if (Model.Count() == 0)
+                    {
+                        <tr>
+                            <td colspan="25">
+                                <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Employee.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Employee.surname)
+                            </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Employee.Center.Name)
-                        </td>
-                        <td>
-                            @if (item.Employee.CityID != null)
-                            {
-                                @Html.DisplayFor(modelItem => item.Employee.City.Name)
-                            }
-                            else if (item.Employee.Center != null)
-                            {
-                                if (item.Employee.Center.Cityid != null)
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Employee.Center.Name)
+                            </td>
+                            <td>
+                                @if (item.Employee.CityID != null)
                                 {
-                                    @Html.DisplayFor(modelItem => item.Employee.Center.City.Name)
+                                    @Html.DisplayFor(modelItem => item.Employee.City.Name)
+                                }
+                                else if (item.Employee.Center != null)
+                                {
+                                    if (item.Employee.Center.Cityid != null)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Employee.Center.City.Name)
+
+                                    }
 
                                 }
+                            </td>
 
-                            }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.date)
+                            </td>
+
+
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Concern1)
+                            </td>
+
+
+                        </tr>
+                        }
+
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="25">
+                            <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
                         </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.date)
-                        </td>
-
-
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Concern1)
-                        </td>
-
-
                     </tr>
                 }
 
-            }
-
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+    <button id="btnExport" onclick="ToXlsXEmployees('table_wrapper','لائحة الشكاوى')" class="btn btn-success">xls تصدير ل</button>
 </div>
-<button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>
 @if (ViewBag.StateMessage != null)
 {
     <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">

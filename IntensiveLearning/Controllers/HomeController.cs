@@ -92,7 +92,7 @@ namespace IntensiveLearning.Controllers
                     }
 
                 }
-                catch (Exception x)
+                catch
                 {
                     ViewBag.error = "تعذر العثور على المسخدم";
                 }

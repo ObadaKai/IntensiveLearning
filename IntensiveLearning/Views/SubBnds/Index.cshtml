@@ -2,7 +2,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>لائحة طلبات البنود</h2>
 <div ng-controller="SubBndsCtrl">
     <div class="ThemeFirstBackground">
 
@@ -170,6 +170,6 @@
                 </tbody>
             </table>
         </div>
-        <button id="btnExport" class="btn btn-success">xls تصدير ل</button>
+        <button id="btnExport" onclick="ToXlsXEmployees('table_wrapper','لائحة طلبات البنود')" class="btn btn-success">xls تصدير ل</button>
         </div>
     </div>

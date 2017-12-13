@@ -4,16 +4,16 @@
     Layout = "~/Views/Shared/_LayoutTheme.cshtml";
 }
 
-<div class="Login-Background">
+<div class="Login-Background" style="background-image:url('../../Content/Images/SigninBackground.jpg')">
     <div class="Login-BackgroundShadow">
         <div class="Login-Card">
             @using (Html.BeginForm())
             {
                 <div>
-                    <h4 style="margin:0 0 0.5em 0 ">اسم المستخدم</h4>
-                    <input type="text" name="Username" style="text-align:left;" />
-                    <h4 style="margin:0.5em 0;">كلمة المرور</h4>
-                    <input type="password" name="Password"  />
+                    <label style="margin:0 0 0.5em 0;font-size:1.5em " for="Username">اسم المستخدم</label>
+                    <input type="text" id="Username" name="Username" style="text-align:left;" />
+                    <label style="font-size:1.5em" for="Password">كلمة المرور</label>
+                    <input type="password" id="Password" name="Password"  />
                     <input type="submit" name="Submit" value="تسجيل الدخول" style="margin-top:30px;" />
                 </div>
 

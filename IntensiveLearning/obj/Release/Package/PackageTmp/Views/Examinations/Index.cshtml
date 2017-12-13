@@ -4,156 +4,174 @@
     ViewBag.Title = "لائحة الامتحانات";
 }
 <div ng-controller="ExamsCtrl">
-    <h2>لائحة الامتحانات</h2>
-    @if (Session["AddExam"] != null)
-    {
-        if ((bool)Session["AddExam"] == true)
-        {
-            using (Html.BeginForm("Create", "Examinations", FormMethod.Get))
+    <div class="ThemeFirstBackground">
+        <div style="display:inline-block;width:100%;">
+
+            <h2 style="display:inline-block">لائحة الامتحانات</h2>
+            <div style="display:inline-block;float:left;margin:20px 0;">
+
+                @if (Session["AddExam"] != null)
             {
-                <button type="submit" class="btn btn-warning">انشاء جديد</button>
-            }
-        }
-    }
-    <div class="col-md-12" style="margin-bottom:20px;padding:0;border:0">
-        <div class="col-md-2" style="margin:0;padding:0;border:0">
-            <input type="number" class="form-control HigherThanNumber " style="display:inline-block !important;" name="searchdate" id="searchdate" placeholder="...العلامة أعلى من" ng-change="ExamSearchBox()" ng-model="ExamSearchBoxNumber" />
-        </div>
-        <div class="col-md-8" style="margin:0;padding:0;border:0">
-            <input type="text" class="form-control " style="display:inline-block !important;text-align:right" name="search" id="search" placeholder="...البحث" ng-change="ExamSearchBox()" ng-model="ExamSearchBoxData" />
-        </div>
-        <div class="col-md-2" style="margin:0;padding:0;border:0">
-            <input type="date" class="form-control " style="display:inline-block !important;" name="searchdate" id="searchdate" ng-change="ExamSearchBox()" ng-model="ExamSearchBoxDate" />
+                if ((bool)Session["AddExam"] == true)
+                {
+                    using (Html.BeginForm("Create", "Examinations", FormMethod.Get))
+                    {
+                            <button type="submit" class="btn btn-success" title="انشاء جديد"><span class="glyphicon glyphicon-plus"></span></button>
+                        }
+                    }
+                }
+            </div>
+                <div class="col-md-12" style="margin-bottom:20px;padding:0;border:0">
+                    <div class="col-md-2" style="margin:0;padding:0;border:0">
+                        <input type="number" class="form-control HigherThanNumber " style="display:inline-block !important;" name="searchdate" id="searchdate" placeholder="...العلامة أعلى من" ng-change="ExamSearchBox()" ng-model="ExamSearchBoxNumber" />
+                    </div>
+                    <div class="col-md-8" style="margin:0;padding:0;border:0">
+                        <input type="text" class="form-control " style="display:inline-block !important;text-align:right" name="search" id="search" placeholder="...البحث" ng-change="ExamSearchBox()" ng-model="ExamSearchBoxData" />
+                    </div>
+                    <div class="col-md-2" style="margin:0;padding:0;border:0">
+                        <input type="date" class="form-control " style="display:inline-block !important;" name="searchdate" id="searchdate" ng-change="ExamSearchBox()" ng-model="ExamSearchBoxDate" />
+                    </div>
+                </div>
+
         </div>
     </div>
-    <div id="table_wrapper">
-        <table class="table table-striped">
-            <thead>
-                <tr class="bg-primary">
-                    <th></th>
+    <div class="ThemeSecondBackground">
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.Student.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Student.Surname)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Student.Center.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Desc)
-                    </th>
+        <div id="table_wrapper">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="bg-primary">
+                        <th></th>
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.Date)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Stage.StageName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Study_subject.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ExamType.Type)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Mark)
-                    </th>
-                    <th>التوقيع</th>
-                    <th>الاثبات</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="Exam in Exams">
-                    <td ng-if="Approval == null" style="background-color:gray"></td>
-                    <td ng-if="Approval == true" style="background-color:forestgreen"></td>
-                    <td ng-if="Approval == false" style="background-color:darkred"></td>
-                    <td>{{Exam.StudentName}}</td>
-                    <td>{{Exam.StudentSurname}}</td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Student.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Student.Surname)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Student.Center.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Desc)
+                        </th>
 
-                    <td>{{Exam.Center}}</td>
-                    <td>{{Exam.Desc}}</td>
-                    <td>{{Exam.Date | date:'dd/MM/yyyy'}}</td>
-                    <td>{{Exam.StageName}}</td>
-                    <td>{{Exam.Subject}}</td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Date)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Stage.StageName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Study_subject.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExamType.Type)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Mark)
+                        </th>
+                        <th>التوقيع</th>
+                        <th>الاثبات</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="!Exams.length > 0">
+                        <td colspan="25">
+                            <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
+                        </td>
+                    </tr>
 
-                    <td>{{Exam.ExamType}}</td>
-                    <td>{{Exam.Mark}}</td>
-                    <td>
-                        @if (Session["SeeAccToCenter"] != null)
-                        {
-                            if ((bool)Session["SeeAccToCenter"] == true)
+                    <tr ng-repeat="Exam in Exams">
+                        <td ng-if="Approval == null" style="background-color:gray"></td>
+                        <td ng-if="Approval == true" style="background-color:forestgreen"></td>
+                        <td ng-if="Approval == false" style="background-color:darkred"></td>
+                        <td>{{Exam.StudentName}}</td>
+                        <td>{{Exam.StudentSurname}}</td>
+
+                        <td>{{Exam.Center}}</td>
+                        <td>{{Exam.Desc}}</td>
+                        <td>{{Exam.Date | date:'dd/MM/yyyy'}}</td>
+                        <td>{{Exam.StageName}}</td>
+                        <td>{{Exam.Subject}}</td>
+
+                        <td>{{Exam.ExamType}}</td>
+                        <td>{{Exam.Mark}}</td>
+                        <td>
+                            @if (Session["SeeAccToCenter"] != null)
                             {
-                                <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=true" style="color:forestgreen">قبول</a>
-                                <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=false" style="color:darkred">رفض</a>
+                                if ((bool)Session["SeeAccToCenter"] == true)
+                                {
+                                    <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=true" style="color:forestgreen">قبول</a>
+                                    <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=false" style="color:darkred">رفض</a>
 
-                                <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
-                                <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
+                                        <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                                        <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
 
+                                }
+                                else
+                                {
+                                    <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
+                                    <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                                        <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
+
+                                }
                             }
                             else
                             {
                                 <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
                                 <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
-                                <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
-
+                                    <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
                             }
-                        }
-                        else
-                        {
-                            <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
-                            <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
-                            <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
-                        }
-                    </td>
-                    <td>
-                        <a class="btn btn-warning" href="/Json/DownloadProof/{{Exam.Proof}}"><span class="glyphicon glyphicon-download-alt"></span></a>
-                        </a>
-                    </td>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="/Json/DownloadProof/{{Exam.Proof}}"><span class="glyphicon glyphicon-download-alt"></span></a>
+                            </a>
+                        </td>
 
 
 
 
 
 
-                    <td>
-                        @if (Session["AddExam"] != null)
-                        {
-                            if ((bool)Session["AddExam"] == true)
+                        <td>
+                            @if (Session["AddExam"] != null)
                             {
-                                <div style="width:210px;">
+                                if ((bool)Session["AddExam"] == true)
+                                {
+                                    <div style="width:210px;">
 
-                                    <a class="btn btn-danger" href="/Examinations/Delete/{{Exam.ID}}"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <a class="btn btn-info" href="/Examinations/Details/{{Exam.ID}}"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                    <a class="btn btn-success" href="/Examinations/Edit/{{Exam.ID}}"><span class="glyphicon glyphicon-pencil"></span></a>
-                                </div>
+                                        <a class="btn btn-danger" href="/Examinations/Delete/{{Exam.ID}}"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a class="btn btn-info" href="/Examinations/Details/{{Exam.ID}}"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a class="btn btn-success" href="/Examinations/Edit/{{Exam.ID}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    </div>
+                                }
+
                             }
+                            else
+                            {
+                                <a class="btn btn-info" href="/Examinations/Details/{{Exam.ID}}"><span class="glyphicon glyphicon-folder-open"></span></a>
 
-                        }
-                        else
-                        {
-                            <a class="btn btn-info" href="/Examinations/Details/{{Exam.ID}}"><span class="glyphicon glyphicon-folder-open"></span></a>
-
-                        }
-                    </td>
+                            }
+                        </td>
 
 
 
 
 
-                </tr>
-            </tbody>
-        </table>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+
+        <button id="btnExport" onclick="ToXlsXEmployees('table_wrapper','لائحة الامتحانات')" class="btn btn-success">xls تصدير ل</button>
+        </div>
     </div>
-
-
-
-
-
-    <button id="btnExport" class="btn btn-warning" >xls تصدير إلى</button>
-</div>
 @if (ViewBag.StateMessage != null)
 {
     <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">

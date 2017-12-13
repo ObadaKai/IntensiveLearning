@@ -2,378 +2,430 @@
     ViewBag.Title = "لائحة موظفين";
 }
 <div ng-controller="EmployeesCtrl">
-
-    <h2>لائحة الموظفين</h2>
-    @if (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddManagers"] != null || Session["AddCOManagers"] != null)
-    {
-        <div style="display:block;margin-bottom:10px;">
-
-            @using (Html.BeginForm("Create", "Employees", FormMethod.Get, new { style = "display:inline-block;" }))
+    <div class="ThemeFirstBackground">
+        <div style="display:inline-block;width:100%;">
+            <h2 style="display:inline-block">لائحة الموظفين</h2>
+            @if (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddManagers"] != null || Session["AddCOManagers"] != null)
             {
-                <button type="submit" class="btn btn-warning">انشاء جديد</button>
-            }
-            <button id="btnImport" style="float:left;display:inline-block;margin-bottom:10px;" class="btn btn-warning">xls استيراد من</button>
+                <div style="display:inline-block;float:left;margin:20px 0;">
 
-            <div id="ImportExcel" style="display:none;float:left;margin-left:10px;background-color:rgba(255,255,255,0.7);padding:2px;border-radius:5px;">
-                @using (Html.BeginForm("ImportEmployees", "ExcelImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("Create", "Employees", FormMethod.Get, new { style = "display:inline-block;" }))
                 {
-                    <input type="file" name="file" style="color:#337ab7;display:inline-block" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-                    <input type="submit" class="btn btn-primary" value="ارسال" />
-                    if (ViewBag.Importerror != null)
-                    {
-                        <p>@ViewBag.Importerror</p>
+                        <button type="submit" class="btn btn-success" title="انشاء جديد"><span class="glyphicon glyphicon-plus"></span></button>
                     }
+                    <button type="button" ng-click="SearchContainer()" class="btn btn-primary" style="display:inline-block;" title="خيارات البحث"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <button id="btnImport" style="display:inline-block;" class="btn btn-info" title="xls استيراد من"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button>
 
-                }
-            </div>
+                    <div id="ImportExcel" style="display:none;float:right;margin:0 10px;background-color:rgba(0, 0, 0, 0.6);padding: 0 2px;border-radius:5px;">
+                        @using (Html.BeginForm("ImportEmployees", "ExcelImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                            <input type="file" name="file" style="color:#ffffff;display:inline-block;" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                            <input type="submit" class="btn btn-success" value="ارسال" />
+                            if (ViewBag.Importerror != null)
+                            {
+                                <p>@ViewBag.Importerror</p>
+                            }
+
+                        }
+                    </div>
+                </div>
+            }
         </div>
-    }
-    <button type="button" ng-click="SearchContainer()" class="btn btn-primary" style="margin-bottom:10px;">خيارات البحث</button>
-    <div id="SearchItemsBtn" class="WhiteBlur InfoContainer">
-        <div class="col-xs-12" style="margin-bottom:20px;padding:0;border:0">
-            <div class="col-sm-2 col-xs-12 pull-right" style="padding:0">
-                <h4 style="line-height:62px">:قائمة البحث</h4>
-            </div>
-            <div ng-show="Cities != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
-                <label>بحث مدن</label>
-                <select name="CentersChange" id="CitiesChange" ng-model="CitiesChange" class="form-control">
-                    <option value="">--- الكل ---</option>
-                    <option ng-repeat="City in Cities" value="{{City.id}}">{{City.Name}}</option>
-                    <option value="0">--- بدون ---</option>
-                </select>
-            </div>
-
-            <div ng-show="Centers != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
-                <label>بحث مراكز</label>
-                <select name="CentersChange" id="CentersChange" ng-model="CentersChange" class="form-control">
-                    <option value="">--- الكل ---</option>
-                    <option ng-repeat="Center in Centers" value="{{Center.id}}">{{Center.Name}}</option>
-                    <option value="0">--- بدون ---</option>
-                </select>
-            </div>
-            <div ng-show="Periods != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
-                <label>بحث فترات</label>
-                <select name="PeriodsChange" id="PeriodsChange" ng-model="PeriodsChange" class="form-control">
-                    <option value="">--- الكل ---</option>
-                    <option ng-repeat="Period in Periods" value="{{Period.id}}">{{Period.Name}}</option>
-
-                </select>
-            </div>
-            <div ng-show="EmployeeTypes != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
-                <label>بحث مراحل</label>
-                <select name="StagesChange" id="StagesChange" ng-model="EmployeeTypesChange" class="form-control">
-                    <option value="">--- الكل ---</option>
-                    <option ng-repeat="EmployeeType in EmployeeTypes" value="{{EmployeeType.id}}">{{EmployeeType.Type}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-xs-12" style="margin:20px 0;padding:0;border:0">
-            <div class="col-sm-10 col-xs-12 pull-right" style="margin:0;padding:0;border:0">
-                <input type="text" class="form-control " style="display:inline-block !important;text-align:right" name="search" id="search" placeholder="...البحث" ng-model="EmployeeSearchBoxData" />
-            </div>
-            <div class="col-sm-2 col-xs-12 pull-right" style="margin:0;padding:0;border:0">
-                <input type="button" style="width:100%;" class="btn btn-success" value="بحث" ng-click="EmployeeSearch()" />
-            </div>
-
-        </div>
-        <div style="text-align:right;padding:0;margin:0" class="col-xs-12 ">
-            <h4>:أعمدة الجدول</h4>
-            <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
-
-                <div>
-                    <input type="checkbox" ng-model="NameColCheckBox" ng-change="NameCol == true ? NameCol=false:NameCol=true" id="NameColCheckBox" /><label for="NameColCheckBox">اسم الموظف</label>
+        <div id="SearchItemsBtn" class="WhiteBlur InfoContainer">
+            <div class="col-xs-12" style="margin-bottom:20px;padding:0;border:0">
+                <div class="col-sm-2 col-xs-12 pull-right" style="padding:0">
+                    <h4 style="line-height:62px">:قائمة البحث</h4>
                 </div>
-                <div>
-                    <input type="checkbox" ng-model="SurnameColCheckBox" ng-change="SurnameCol == true ?SurnameCol =false:SurnameCol =true" id="SurnameColCheckBox" /><label for="SurnameColCheckBox">كنية الموظف</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="BDateColCheckBox" ng-change="BDateCol == true ? BDateCol= false:BDateCol=true" id="BDateColCheckBox" /><label for="BDateColCheckBox">تاريخ الولادة</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="CertificateColCheckBox" ng-change="CertificateCol == true ? CertificateCol=false:CertificateCol=true" id="CertificateColCheckBox" /><label for="CertificateColCheckBox">الشهادة المتحصل عليها</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="CTypeColCheckBox" ng-change="CTypeCol == true ?CTypeCol= false:CTypeCol=true" id="CTypeColCheckBox" /><label for="CTypeColCheckBox">مستوى الشهادة</label>
+                <div ng-show="Cities != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
+                    <label>بحث مدن</label>
+                    <select name="CentersChange" id="CitiesChange" ng-model="CitiesChange" class="form-control">
+                        <option value="">--- الكل ---</option>
+                        <option ng-repeat="City in Cities" value="{{City.id}}">{{City.Name}}</option>
+                        <option value="0">--- بدون ---</option>
+                    </select>
                 </div>
 
-                <div>
-                    <input type="checkbox" ng-model="OldJobColCheckBox" ng-change="OldJobCol == true ? OldJobCol=false:OldJobCol=true" id="OldJobColCheckBox" /><label for="OldJobColCheckBox">العمل القديم</label>
+                <div ng-show="Centers != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
+                    <label>بحث مراكز</label>
+                    <select name="CentersChange" id="CentersChange" ng-model="CentersChange" class="form-control">
+                        <option value="">--- الكل ---</option>
+                        <option ng-repeat="Center in Centers" value="{{Center.id}}">{{Center.Name}}</option>
+                        <option value="0">--- بدون ---</option>
+                    </select>
                 </div>
-                <div>
-                    <input type="checkbox" ng-model="ExpYearsColCheckBox" ng-change="ExpYearsCol == true ? ExpYearsCol=false:ExpYearsCol=true" id="ExpYearsColCheckBox" /><label for="ExpYearsColCheckBox">سنين الخبرة</label>
+                <div ng-show="Periods != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
+                    <label>بحث فترات</label>
+                    <select name="PeriodsChange" id="PeriodsChange" ng-model="PeriodsChange" class="form-control">
+                        <option value="">--- الكل ---</option>
+                        <option ng-repeat="Period in Periods" value="{{Period.id}}">{{Period.Name}}</option>
+
+                    </select>
+                </div>
+                <div ng-show="EmployeeTypes != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
+                    <label>بحث مراحل</label>
+                    <select name="StagesChange" id="StagesChange" ng-model="EmployeeTypesChange" class="form-control">
+                        <option value="">--- الكل ---</option>
+                        <option ng-repeat="EmployeeType in EmployeeTypes" value="{{EmployeeType.id}}">{{EmployeeType.Type}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12" style="margin:20px 0;padding:0;border:0">
+                <div class="col-sm-10 col-xs-12 pull-right" style="margin:0;padding:0;border:0">
+                    <input type="text" class="form-control " style="display:inline-block !important;text-align:right;border-top-left-radius:0;border-bottom-left-radius:0;" name="search" id="search" placeholder="...البحث" ng-model="EmployeeSearchBoxData" />
+                </div>
+                <div class="col-sm-2 col-xs-12 pull-right" style="margin:0;padding:0;border:0">
+                    <input type="button" style="width:100%;height:37px;border-top-right-radius:0;border-bottom-right-radius:0;" class="btn btn-success" value="بحث" ng-click="EmployeeSearch()" />
                 </div>
 
             </div>
-            <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
+            <div style="text-align:right;padding:0;margin:0" class="col-xs-12 ">
+                <h4>:أعمدة الجدول</h4>
+                <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
 
-                <div>
-                    <input type="checkbox" ng-model="InsideOrOutsideColCheckBox" ng-change="InsideOrOutsideCol == true ? InsideOrOutsideCol=false:InsideOrOutsideCol=true" id="InsideOrOutsideColCheckBox" /><label for="InsideOrOutsideColCheckBox">داخل او خارج الملاك</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="StateColCheckBox" ng-change="StateCol == true ? StateCol=false:StateCol=true" id="StateColCheckBox" /><label for="StateColCheckBox">الحالة</label>
-                </div>
+                    <div>
+                        <input type="checkbox" ng-model="NameColCheckBox" ng-change="NameCol == true ? NameCol=false:NameCol=true" id="NameColCheckBox" /><label for="NameColCheckBox">&nbsp; اسم الموظف </label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="SurnameColCheckBox" ng-change="SurnameCol == true ?SurnameCol =false:SurnameCol =true" id="SurnameColCheckBox" /><label for="SurnameColCheckBox">&nbsp; كنية الموظف</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="BDateColCheckBox" ng-change="BDateCol == true ? BDateCol= false:BDateCol=true" id="BDateColCheckBox" /><label for="BDateColCheckBox">&nbsp; تاريخ الولادة</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="CertificateColCheckBox" ng-change="CertificateCol == true ? CertificateCol=false:CertificateCol=true" id="CertificateColCheckBox" /><label for="CertificateColCheckBox">&nbsp; الشهادة المتحصل عليها </label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="CTypeColCheckBox" ng-change="CTypeCol == true ?CTypeCol= false:CTypeCol=true" id="CTypeColCheckBox" /><label for="CTypeColCheckBox">&nbsp; مستوى الشهادة  </label>
+                    </div>
 
-                <div>
-                    <input type="checkbox" ng-model="SDateColCheckBox" ng-change="SDateCol == true ? SDateCol=false:SDateCol=true" id="SDateColCheckBox" /><label for="SDateColCheckBox">تاريخ البدء</label>
+                    <div>
+                        <input type="checkbox" ng-model="OldJobColCheckBox" ng-change="OldJobCol == true ? OldJobCol=false:OldJobCol=true" id="OldJobColCheckBox" /><label for="OldJobColCheckBox">&nbsp; العمل القديم</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="ExpYearsColCheckBox" ng-change="ExpYearsCol == true ? ExpYearsCol=false:ExpYearsCol=true" id="ExpYearsColCheckBox" /><label for="ExpYearsColCheckBox">&nbsp; سنين الخبرة</label>
+                    </div>
+
                 </div>
-                <div>
-                    <input type="checkbox" ng-model="EDateColCheckBox" ng-change="EDateCol == true ? EDateCol=false:EDateCol=true" id="EDateColCheckBox" /><label for="EDateColCheckBox">تاريخ الانتهاء</label>
+                <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
+
+                    <div>
+                        <input type="checkbox" ng-model="InsideOrOutsideColCheckBox" ng-change="InsideOrOutsideCol == true ? InsideOrOutsideCol=false:InsideOrOutsideCol=true" id="InsideOrOutsideColCheckBox" /><label for="InsideOrOutsideColCheckBox">&nbsp; داخل او خارج الملاك</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="StateColCheckBox" ng-change="StateCol == true ? StateCol=false:StateCol=true" id="StateColCheckBox" /><label for="StateColCheckBox">&nbsp; الحالة</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" ng-model="SDateColCheckBox" ng-change="SDateCol == true ? SDateCol=false:SDateCol=true" id="SDateColCheckBox" /><label for="SDateColCheckBox">&nbsp; تاريخ البدء</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="EDateColCheckBox" ng-change="EDateCol == true ? EDateCol=false:EDateCol=true" id="EDateColCheckBox" /><label for="EDateColCheckBox">&nbsp; تاريخ الانتهاء</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="CenterColCheckBox" ng-change="CenterCol == true ? CenterCol=false:CenterCol=true" id="CenterColCheckBox" /><label for="CenterColCheckBox">&nbsp; المركز</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="CityColCheckBox" ng-change="CityCol == true ? CityCol=false:CityCol=true" id="CityColCheckBox" /><label for="CityColCheckBox">&nbsp; المدينة </label>
+                    </div>
                 </div>
-                <div>
-                    <input type="checkbox" ng-model="CenterColCheckBox" ng-change="CenterCol == true ? CenterCol=false:CenterCol=true" id="CenterColCheckBox" /><label for="CenterColCheckBox">المركز</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="CityColCheckBox" ng-change="CityCol == true ? CityCol=false:CityCol=true" id="CityColCheckBox" /><label for="CityColCheckBox">المدينة</label>
-                </div>
-            </div>
-            <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
-                <div>
-                    <input type="checkbox" ng-model="EmployeeTypeColCheckBox" ng-change="EmployeeTypeCol == true ? EmployeeTypeCol=false:EmployeeTypeCol=true" id="EmployeeTypeColCheckBox" /><label for="EmployeeTypeColCheckBox">صلاحيات الموظف</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="PeriodColCheckBox" ng-change="PeriodCol == true ? PeriodCol=false:PeriodCol=true" id="PeriodColCheckBox" /><label for="PeriodColCheckBox">الفترة</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="SalaryColCheckBox" ng-change="SalaryCol == true ? SalaryCol=false:SalaryCol=true" id="SalaryColCheckBox" /><label for="SalaryColCheckBox">الراتب</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="SignsColCheckBox" ng-change="SignsCol == true ? SignsCol=false:SignsCol=true" id="SignsColCheckBox" /><label for="SignsColCheckBox">التوقيع</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="ProofColCheckBox" ng-change="ProofCol == true ? ProofCol=false:ProofCol=true" id="ProofColCheckBox" /><label for="ProofColCheckBox">الاثبات</label>
-                </div>
-                <div>
-                    <input type="checkbox" ng-model="InfoColCheckBox" ng-change="InfoCol == true ? InfoCol=false:InfoCol=true" id="InfoColCheckBox" /><label for="InfoColCheckBox">المعلومات</label>
+                <div class="col-sm-4 col-xs-6 pull-right" style="padding:0;margin:0">
+                    <div>
+                        <input type="checkbox" ng-model="EmployeeTypeColCheckBox" ng-change="EmployeeTypeCol == true ? EmployeeTypeCol=false:EmployeeTypeCol=true" id="EmployeeTypeColCheckBox" /><label for="EmployeeTypeColCheckBox">&nbsp; صلاحيات الموظف</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="PeriodColCheckBox" ng-change="PeriodCol == true ? PeriodCol=false:PeriodCol=true" id="PeriodColCheckBox" /><label for="PeriodColCheckBox">&nbsp; الفترة </label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="SalaryColCheckBox" ng-change="SalaryCol == true ? SalaryCol=false:SalaryCol=true" id="SalaryColCheckBox" /><label for="SalaryColCheckBox">&nbsp; الراتب</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="SignsColCheckBox" ng-change="SignsCol == true ? SignsCol=false:SignsCol=true" id="SignsColCheckBox" /><label for="SignsColCheckBox">&nbsp; التوقيع</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="ProofColCheckBox" ng-change="ProofCol == true ? ProofCol=false:ProofCol=true" id="ProofColCheckBox" /><label for="ProofColCheckBox">&nbsp; الاثبات</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" ng-model="InfoColCheckBox" ng-change="InfoCol == true ? InfoCol=false:InfoCol=true" id="InfoColCheckBox" /><label for="InfoColCheckBox">&nbsp; المعلومات</label>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="ThemeSecondBackground">
+        <div id="table_wrapper">
+            <table class="table table-striped" id="mytable">
+                <thead>
+                    <tr class="bg-primary">
+                        <th></th>
 
-    <div id="table_wrapper">
-        <table class="table table-striped">
-            <thead>
-                <tr class="bg-primary">
-                    <th></th>
+                        <th ng-show="NameCol">
+                            اسم الموظف
+                        </th>
+                        <th ng-show="SurnameCol">
+                            كنية الموظف
+                        </th>
+                        <th ng-show="BDateCol">
+                            تاريخ الولادة
+                        </th>
+                        <th ng-show="CertificateCol">
+                            الشهادة المتحصل عليها
+                        </th>
+                        <th ng-show="CTypeCol">
+                            مستوى الشهادة
+                        </th>
+                        <th ng-show="OldJobCol">
+                            العمل القديم
+                        </th>
+                        <th ng-show="ExpYearsCol">
+                            سنين الخبرة
+                        </th>
+                        <th ng-show="InsideOrOutsideCol">
+                            داخل أو خارج الملاك
+                        </th>
+                        <th ng-show="StateCol">
+                            الحالة
+                        </th>
+                        <th ng-show="SDateCol">
+                            تاريخ البدء
+                        </th>
 
-                    <th ng-show="NameCol">
-                        اسم الموظف
-                    </th>
-                    <th ng-show="SurnameCol">
-                        كنية الموظف
-                    </th>
-                    <th ng-show="BDateCol">
-                        تاريخ الولادة
-                    </th>
-                    <th ng-show="CertificateCol">
-                        الشهادة المتحصل عليها
-                    </th>
-                    <th ng-show="CTypeCol">
-                        مستوى الشهادة
-                    </th>
-                    <th ng-show="OldJobCol">
-                        العمل القديم
-                    </th>
-                    <th ng-show="ExpYearsCol">
-                        سنين الخبرة
-                    </th>
-                    <th ng-show="InsideOrOutsideCol">
-                        داخل أو خارج الملاك
-                    </th>
-                    <th ng-show="StateCol">
-                        الحالة
-                    </th>
-                    <th ng-show="SDateCol">
-                        تاريخ البدء
-                    </th>
-
-                    <th ng-show="EDateCol">
-                        تاريخ الانتهاء
-                    </th>
-                    <th ng-show="CenterCol">
-                        المركز
-                    </th>
-                    <th ng-show="CityCol">
-                        المدينة
-                    </th>
-                    <th ng-show="EmployeeTypeCol">
-                        صلاحيات الموظف
-                    </th>
-                    <th ng-show="PeriodCol">
-                        الفترة
-                    </th>
-                    @if (Session["SeeAll"] != null)
-                    {
-                        if ((bool)Session["SeeAll"] == true)
+                        <th ng-show="EDateCol">
+                            تاريخ الانتهاء
+                        </th>
+                        <th ng-show="CenterCol">
+                            المركز
+                        </th>
+                        <th ng-show="CityCol">
+                            المدينة
+                        </th>
+                        <th ng-show="EmployeeTypeCol">
+                            صلاحيات الموظف
+                        </th>
+                        <th ng-show="PeriodCol">
+                            الفترة
+                        </th>
+                        @if (Session["SeeAll"] != null)
                         {
-                            <th ng-show="SalaryCol">
-                                الراتب
-                            </th>
+                            if ((bool)Session["SeeAll"] == true)
+                            {
+                                <th ng-show="SalaryCol">
+                                    الراتب
+                                </th>
+                            }
                         }
-                    }
-                    <th ng-show="SignsCol">التوقيع</th>
-                    <th ng-show="ProofCol">الاثبات</th>
-                    <th ng-show="InfoCol"></th>
+                        <th ng-show="SignsCol">التوقيع</th>
+                        <th ng-show="ProofCol">الاثبات</th>
+                        <th ng-show="InfoCol"></th>
 
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="Exam in Exams">
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="!Exams.length > 0 && !HasSearched">
+                        <td colspan="20">
+                            <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><span class="glyphicon glyphicon-search"></span></div><div class="col-xs-8" style="font-family:Cairo">يرجى إجراء عملية بحث</div></div>
+                        </td>
+                    </tr>
+                    <tr ng-if="!Exams.length > 0 && HasSearched">
+                        <td colspan="25">
+                            <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="Exam in Exams">
 
-                    <td ng-if="Approval == null" style="background-color:gray"></td>
-                    <td ng-if="Approval == true" style="background-color:forestgreen"></td>
-                    <td ng-if="Approval == false" style="background-color:darkred"></td>
-                    <td ng-show="NameCol">{{Exam.name}}</td>
-                    <td ng-show="SurnameCol">{{Exam.surname}}</td>
-                    <td ng-show="BDateCol">{{Exam.EmployeeBDate | date:'dd/MM/yyyy'}}</td>
-                    <td ng-show="CertificateCol">{{Exam.Certificate}}</td>
-                    <td ng-show="CTypeCol">{{Exam.CType}}</td>
-                    <td ng-show="OldJobCol">{{Exam.OldJob}}</td>
-                    <td ng-show="ExpYearsCol">{{Exam.ExpYears}}</td>
-                    <td ng-show="InsideOrOutsideCol">{{Exam.InsideOrOutside}}</td>
-                    <td ng-show="StateCol">{{Exam.State}}</td>
-                    <td ng-show="SDateCol">{{Exam.EmployeeSDate | date:'dd/MM/yyyy'}}</td>
-                    <td ng-show="EDateCol">{{Exam.EmployeeEDate | date:'dd/MM/yyyy'}}</td>
-                    <td ng-show="CenterCol">{{Exam.Center}}</td>
-                    <td ng-show="CityCol">{{Exam.City}}</td>
+                        <td ng-if="Approval == null" style="background-color:gray"></td>
+                        <td ng-if="Approval == true" style="background-color:forestgreen"></td>
+                        <td ng-if="Approval == false" style="background-color:darkred"></td>
+                        <td ng-show="NameCol">{{Exam.name}}</td>
+                        <td ng-show="SurnameCol">{{Exam.surname}}</td>
+                        <td ng-show="BDateCol">{{Exam.EmployeeBDate | date:'dd/MM/yyyy'}}</td>
+                        <td ng-show="CertificateCol">{{Exam.Certificate}}</td>
+                        <td ng-show="CTypeCol">{{Exam.CType}}</td>
+                        <td ng-show="OldJobCol">{{Exam.OldJob}}</td>
+                        <td ng-show="ExpYearsCol">{{Exam.ExpYears}}</td>
+                        <td ng-show="InsideOrOutsideCol">{{Exam.InsideOrOutside}}</td>
+                        <td ng-show="StateCol">{{Exam.State}}</td>
+                        <td ng-show="SDateCol">{{Exam.EmployeeSDate | date:'dd/MM/yyyy'}}</td>
+                        <td ng-show="EDateCol">{{Exam.EmployeeEDate | date:'dd/MM/yyyy'}}</td>
+                        <td ng-show="CenterCol">{{Exam.Center}}</td>
+                        <td ng-show="CityCol">{{Exam.City}}</td>
 
 
-                    <td ng-show="EmployeeTypeCol">{{Exam.EmployeeType}}</td>
+                        <td ng-show="EmployeeTypeCol">{{Exam.EmployeeType}}</td>
 
-                    <td ng-show="PeriodCol">{{Exam.Period}}</td>
-                    @if (Session["SeeAll"] != null)
-                    {
-                        if ((bool)Session["SeeAll"] == true)
+                        <td ng-show="PeriodCol">{{Exam.Period}}</td>
+                        @if (Session["SeeAll"] != null)
                         {
-                            <td ng-show="SalaryCol">{{Exam.Salary}}</td>
+                            if ((bool)Session["SeeAll"] == true)
+                            {
+                                <td ng-show="SalaryCol">{{Exam.Salary}}</td>
 
+                            }
                         }
-                    }
-                    <td ng-show="SignsCol">
-                        @if (Session["HighAcceptance"] != null)
-                        {
-
-                            <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=true" style="color:forestgreen">قبول</a>
-                            <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=false" style="color:darkred">رفض</a>
-
-                            <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
-                            <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
-
-
-
-                        }
-                        else
-                        {
-                            <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
-                            <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
-                            <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
-                        }
-                    </td>
-                    <td ng-show="ProofCol">
-                        <div ng-if="Exam.EmpManager==true">
-
-                            @if (Session["AddManagers"] != null)
+                        <td ng-show="SignsCol">
+                            @if (Session["HighAcceptance"] != null)
                             {
-                                /**/
-                                if ((bool)Session["AddManagers"] == true)
-                                {
-                                    <span ng-if="Exam.Proof != null">
-                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-                                    </span>
 
-                                }
-                            }
-                        </div>
-                        <div ng-if="Exam.EmpCoManager==true">
-                            @if (Session["AddCoManagers"] != null)
-                            {
-                                /**/
-                                if ((bool)Session["AddCoManagers"] == true)
-                                {
-                                    <span ng-if="Exam.Proof != null">
-                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-                                    </span>
+                                <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=true" style="color:forestgreen">قبول</a>
+                                <a ng-if="Approval == null" href="/Json/Approvals/{{Exam.id}}?type=Employees&amp;acceptance=false" style="color:darkred">رفض</a>
 
-                                }
-                            }
-                        </div>
-
-                        <div ng-if="Exam.EmpSchoolManager==true">
-                            @if (Session["AddSchoolManagers"] != null)
-                            {
-                                /**/
-                                if ((bool)Session["AddSchoolManagers"] == true)
-                                {
-                                    <span ng-if="Exam.Proof != null">
-                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-                                    </span>
-
-                                }
-                            }
-                        </div>
-
-                        <div ng-if="Exam.EmpNormal==true">
-
-                            @if (Session["AddSchoolEmployees"] != null)
-                            {
-                                /**/
-                                if ((bool)Session["AddSchoolEmployees"] == true)
-                                {
-                                    <span ng-if="Exam.Proof != null">
-                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-                                    </span>
-
-                                }
-                            }
-                        </div>
-                        <div ng-if="Exam.EmpManager!=true && Exam.EmpCoManager!=true && Exam.EmpSchoolManager!=true && Exam.EmpNormal!=true">
-
-                            @if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
-                            {
-                                <span ng-if="Exam.Proof != null">
-                                    <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
-                                </span>
-                            }
-                        </div>
-
-                    </td>
-
-
-
-                    <td ng-show="InfoCol">
-
-
-                        <div style="width:130px;" ng-if="Exam.EmpManager==true">
-                            @if (Session["AddManagers"] != null)
-                            {
-                                if ((bool)Session["AddManagers"] == true)
-                                {
-                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                }
+                                <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                                <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
 
 
 
                             }
                             else
                             {
+                                <p ng-if="Approval == null" style="color:gray">بالانتظار</p>
+                                <p ng-if="Approval == true" style="color:forestgreen">مقبول</p>
+                                <p ng-if="Approval == false" style="color:darkred">مرفوض</p>
                             }
-                        </div>
-                        <div style="width:130px;" ng-if="Exam.EmpCoManager==true">
+                        </td>
+                        <td ng-show="ProofCol">
+                            <div ng-if="Exam.EmpManager==true">
 
-                            @if (Session["AddCoManagers"] != null)
-                            {
-                                if ((bool)Session["AddCoManagers"] == true)
+                                @if (Session["AddManagers"] != null)
                                 {
+                                    /**/
+                                    if ((bool)Session["AddManagers"] == true)
+                                    {
+                                        <span ng-if="Exam.Proof != null">
+                                            <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                        </span>
 
-                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    }
+                                }
+                            </div>
+                            <div ng-if="Exam.EmpCoManager==true">
+                                @if (Session["AddCoManagers"] != null)
+                                {
+                                    /**/
+                                    if ((bool)Session["AddCoManagers"] == true)
+                                    {
+                                        <span ng-if="Exam.Proof != null">
+                                            <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                        </span>
+
+                                    }
+                                }
+                            </div>
+
+                            <div ng-if="Exam.EmpSchoolManager==true">
+                                @if (Session["AddSchoolManagers"] != null)
+                                {
+                                    /**/
+                                    if ((bool)Session["AddSchoolManagers"] == true)
+                                    {
+                                        <span ng-if="Exam.Proof != null">
+                                            <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                        </span>
+
+                                    }
+                                }
+                            </div>
+
+                            <div ng-if="Exam.EmpNormal==true">
+
+                                @if (Session["AddSchoolEmployees"] != null)
+                                {
+                                    /**/
+                                    if ((bool)Session["AddSchoolEmployees"] == true)
+                                    {
+                                        <span ng-if="Exam.Proof != null">
+                                            <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                        </span>
+
+                                    }
+                                }
+                            </div>
+                            <div ng-if="Exam.EmpManager!=true && Exam.EmpCoManager!=true && Exam.EmpSchoolManager!=true && Exam.EmpNormal!=true">
+
+                                @if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
+                                {
+                                    <span ng-if="Exam.Proof != null">
+                                        <a href="/Json/DownloadProof/{{Exam.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                    </span>
+                                }
+                            </div>
+
+                        </td>
+
+
+
+                        <td ng-show="InfoCol">
+
+
+                            <div style="width:130px;" ng-if="Exam.EmpManager==true">
+                                @if (Session["AddManagers"] != null)
+                                {
+                                    if ((bool)Session["AddManagers"] == true)
+                                    {
+                                        <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    }
+
+
 
                                 }
                                 else
                                 {
-                                    <div style="width:130px" ng-if="Exam.SeeAccToCity==true">
+                                }
+                            </div>
+                            <div style="width:130px;" ng-if="Exam.EmpCoManager==true">
+
+                                @if (Session["AddCoManagers"] != null)
+                                {
+                                    if ((bool)Session["AddCoManagers"] == true)
+                                    {
+
+                                        <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+
+                                    }
+                                    else
+                                    {
+                                        <div style="width:130px" ng-if="Exam.SeeAccToCity==true">
+
+                                            @if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] == null)
+                                            {
+                                                if ((bool)Session["AddSchoolManagers"] == true)
+                                                {
+                                                    <div style="width:130px;">
+                                                        <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                        <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                        <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    </div>
+                                                }
+                                            }
+                                            else if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] != null)
+                                            {
+                                                if ((bool)Session["AddSchoolManagers"] == true && (bool)Session["SeeAccToCity"] == false)
+                                                {
+                                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                            }
+                                        </div>
+                                        @*<div ng-if="Exam.SeeAccToCity!=true">
+                                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                            </div>*@
+
+                                    }
+
+
+
+                                }
+                                else
+                                {
+                                    <div ng-if="Exam.SeeAccToCity==true">
 
                                         @if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] == null)
                                         {
@@ -390,10 +442,11 @@
                                         {
                                             if ((bool)Session["AddSchoolManagers"] == true && (bool)Session["SeeAccToCity"] == false)
                                             {
-                                                <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-
+                                                <div style="width:130px">
+                                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                </div>
                                             }
 
                                         }
@@ -409,114 +462,77 @@
 
 
 
-                            }
-                            else
-                            {
-                                <div ng-if="Exam.SeeAccToCity==true">
 
-                                    @if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] == null)
-                                    {
-                                        if ((bool)Session["AddSchoolManagers"] == true)
-                                        {
-                                            <div style="width:130px;">
-                                                <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                            </div>
-                                        }
-                                    }
-                                    else if (Session["AddSchoolManagers"] != null && Session["SeeAccToCity"] != null)
-                                    {
-                                        if ((bool)Session["AddSchoolManagers"] == true && (bool)Session["SeeAccToCity"] == false)
-                                        {
-                                            <div style="width:130px">
-                                                <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                            </div>
-                                        }
 
-                                    }
-                                    else
+                            </div>
+                            <div style="width:130px;" ng-if="Exam.EmpSchoolManager==true">
+
+                                @if (Session["AddSchoolManagers"] != null)
+                                {
+                                    /**/
+                                    if ((bool)Session["AddSchoolManagers"] == true)
                                     {
-                                    }
-                                </div>
-                                @*<div ng-if="Exam.SeeAccToCity!=true">
+
+                                        <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                         <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                    </div>*@
+                                        <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
 
-                            }
-
-
+                                    }
 
 
-
-                        </div>
-                        <div style="width:130px;" ng-if="Exam.EmpSchoolManager==true">
-
-                            @if (Session["AddSchoolManagers"] != null)
-                            {
-                                /**/
-                                if ((bool)Session["AddSchoolManagers"] == true)
+                                }
+                                else
                                 {
+                                }
+                            </div>
+                            <div style="width:130px;" ng-if="Exam.EmpNormal==true">
 
+                                @if (Session["AddSchoolEmployees"] != null)
+                                {
+                                    /**/
+                                    if ((bool)Session["AddSchoolEmployees"] == true)
+                                    {
+                                        <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                        <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    }
+
+                                }
+                                else
+                                {
+                                }
+                            </div>
+
+                            <div style="width:130px;" ng-if="Exam.EmpManager!=true && Exam.EmpCoManager!=true && Exam.EmpSchoolManager!=true && Exam.EmpNormal!=true">
+                                @if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
+                                {
                                     <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                     <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
                                     <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
 
                                 }
 
-
-                            }
-                            else
-                            {
-                            }
-                        </div>
-                        <div style="width:130px;" ng-if="Exam.EmpNormal==true">
-
-                            @if (Session["AddSchoolEmployees"] != null)
-                            {
-                                /**/
-                                if ((bool)Session["AddSchoolEmployees"] == true)
+                                else
                                 {
-                                    <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                    <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
                                 }
-
-                            }
-                            else
-                            {
-                            }
-                        </div>
-
-                        <div style="width:130px;" ng-if="Exam.EmpManager!=true && Exam.EmpCoManager!=true && Exam.EmpSchoolManager!=true && Exam.EmpNormal!=true">
-                            @if (Session["SeeTeachers"] == null && (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddCoManagers"] != null || Session["AddManagers"] != null))
-                            {
-                                <a href="/Employees/Delete/{{Exam.ID}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                <a href="/Employees/Details/{{Exam.ID}}" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                <a href="/Employees/Edit/{{Exam.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-
-                            }
-
-                            else
-                            {
-                            }
-                        </div>
+                            </div>
 
 
 
 
-                    </td>
+                        </td>
 
 
 
 
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <button id="btnExport" class="btn btn-warning">xls تصدير ل</button>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button id="btnExport" onclick="ToXlsXEmployees('table_wrapper','لائحة الموظفين')" class="btn btn-success">xls تصدير ل</button>
+
+</div>
+
 </div>
 <div class="LoadingScreen" id="LoadingScreen" ng-hide="HideLoadingScreen">
     <div class="LoadingBackground"></div>

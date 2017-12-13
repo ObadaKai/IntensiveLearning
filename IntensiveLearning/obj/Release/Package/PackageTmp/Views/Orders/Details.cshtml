@@ -69,6 +69,16 @@
                     @Html.DisplayFor(model => model.PeacePrice)
                 </p>
             }
+            else
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.PeacePrice)
+                </h4>
+
+                <p>
+                    لم يتم الادخال
+                </p>
+            }
             @if (Model.State != null)
             {
                 <h4>

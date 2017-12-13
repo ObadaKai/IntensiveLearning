@@ -11,7 +11,8 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     public partial class Period
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,12 +24,26 @@ namespace IntensiveLearning.Database
             this.Regiments = new HashSet<Regiment>();
             this.NonUserAddRequests = new HashSet<NonUserAddRequest>();
         }
-    
+
         public int id { get; set; }
+
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·› —…")]
+        [DisplayName("«”„ «·› —…")]
         public string Name { get; set; }
+
+
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· “„«‰ «·»œ¡")]
+        [DisplayName("“„«‰ «·»œ¡")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
         public Nullable<System.TimeSpan> StartingTime { get; set; }
+
+
+        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· “„«‰ «·«‰ Â«¡")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
+        [DisplayName("“„«‰ «·«‰ Â«¡")]
+
         public Nullable<System.TimeSpan> EndTime { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Center> Centers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

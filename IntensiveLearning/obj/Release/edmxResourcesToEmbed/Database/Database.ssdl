@@ -225,11 +225,25 @@
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="Surname" Type="nvarchar(max)" />
-    <Property Name="Date" Type="date" />
-    <Property Name="PhoneNumber" Type="int" />
+    <Property Name="BDate" Type="date" />
+    <Property Name="PhoneNumber" Type="bigint" />
     <Property Name="FathersName" Type="nvarchar(max)" />
-    <Property Name="Certificate" Type="nvarchar(max)" />
     <Property Name="CType" Type="nvarchar(max)" />
+    <Property Name="Mark" Type="float" />
+    <Property Name="Sex" Type="nvarchar" MaxLength="10" />
+    <Property Name="MothersName" Type="nvarchar(max)" />
+    <Property Name="Centerid" Type="int" />
+    <Property Name="OldSchool" Type="nvarchar(max)" />
+    <Property Name="Cityid" Type="int" />
+    <Property Name="Approval" Type="bit" />
+    <Property Name="ApprovedBy" Type="int" />
+    <Property Name="AddedBy" Type="int" />
+    <Property Name="AddingDate" Type="date" />
+    <Property Name="AddingTime" Type="time" Precision="7" />
+    <Property Name="ApprovalDate" Type="date" />
+    <Property Name="ApprovalTime" Type="time" Precision="7" />
+    <Property Name="Stageid" Type="int" />
+    <Property Name="Periodid" Type="int" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -360,6 +374,9 @@
     <Property Name="OldSchool" Type="nvarchar(max)" />
     <Property Name="StudentState" Type="nvarchar" MaxLength="50" />
     <Property Name="Mothersname" Type="nvarchar(max)" />
+    <Property Name="ApprovalDate" Type="date" />
+    <Property Name="ApprovalTime" Type="time" Precision="7" />
+    <Property Name="PhoneNumber" Type="bigint" />
   </EntityType>
   <EntityType Name="Study_subject">
     <Key>
@@ -829,6 +846,54 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_NonUserAddRequest_Centers">
+    <End Role="Centers" Type="Self.Centers" Multiplicity="0..1" />
+    <End Role="NonUserAddRequest" Type="Self.NonUserAddRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="NonUserAddRequest">
+        <PropertyRef Name="Centerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NonUserAddRequest_Cities">
+    <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+    <End Role="NonUserAddRequest" Type="Self.NonUserAddRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="NonUserAddRequest">
+        <PropertyRef Name="Cityid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NonUserAddRequest_Periods">
+    <End Role="Periods" Type="Self.Periods" Multiplicity="0..1" />
+    <End Role="NonUserAddRequest" Type="Self.NonUserAddRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Periods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="NonUserAddRequest">
+        <PropertyRef Name="Periodid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NonUserAddRequest_Stages">
+    <End Role="Stages" Type="Self.Stages" Multiplicity="0..1" />
+    <End Role="NonUserAddRequest" Type="Self.NonUserAddRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stages">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="NonUserAddRequest">
+        <PropertyRef Name="Stageid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Order_Bnd">
     <End Role="Bnd" Type="Self.Bnd" Multiplicity="0..1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -1250,6 +1315,22 @@
     <AssociationSet Name="FK_MissionResponse_MissionResponse" Association="Self.FK_MissionResponse_MissionResponse">
       <End Role="MissionResponse" EntitySet="MissionResponse" />
       <End Role="MissionResponse1" EntitySet="MissionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NonUserAddRequest_Centers" Association="Self.FK_NonUserAddRequest_Centers">
+      <End Role="Centers" EntitySet="Centers" />
+      <End Role="NonUserAddRequest" EntitySet="NonUserAddRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NonUserAddRequest_Cities" Association="Self.FK_NonUserAddRequest_Cities">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="NonUserAddRequest" EntitySet="NonUserAddRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NonUserAddRequest_Periods" Association="Self.FK_NonUserAddRequest_Periods">
+      <End Role="Periods" EntitySet="Periods" />
+      <End Role="NonUserAddRequest" EntitySet="NonUserAddRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NonUserAddRequest_Stages" Association="Self.FK_NonUserAddRequest_Stages">
+      <End Role="Stages" EntitySet="Stages" />
+      <End Role="NonUserAddRequest" EntitySet="NonUserAddRequest" />
     </AssociationSet>
     <AssociationSet Name="FK_Order_Bnd" Association="Self.FK_Order_Bnd">
       <End Role="Bnd" EntitySet="Bnd" />

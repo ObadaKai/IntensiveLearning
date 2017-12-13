@@ -384,7 +384,7 @@
                 };
                 $http({ method: 'POST', url: '/Json/SearchStudents', data: ToSendData }).then(function successCallback(response) {
                     $scope.Students = response.data;
-
+                    $scope.HasSearched = true;
                     angular.forEach($scope.Students, function (value, key) {
                         if (value.BDate) {
                             value.BDate = new Date(parseInt(value.BDate.substr(6)));
@@ -407,6 +407,7 @@
                     $scope.Regiments = response.data[3];
                     $scope.Stages = response.data[4];
                     $scope.Periods = response.data[5];
+                    $scope.HasSearched = false;
 
 
                     angular.forEach($scope.Students, function (value, key) {
@@ -551,6 +552,7 @@
                 };
                 $http({ method: 'POST', url: '/Json/Employees', data: ToSendData }).then(function successCallback(response) {
                     $scope.Exams = response.data;
+                    $scope.HasSearched = true;
                     angular.forEach($scope.Exams, function (value, key) {
                         if (value.EmployeeBDate) {
                             value.EmployeeBDate = new Date(parseInt(value.EmployeeBDate.substr(6)));
@@ -573,6 +575,7 @@
                     $scope.Cities = response.data[2];
                     $scope.Periods = response.data[3];
                     $scope.EmployeeTypes = response.data[4];
+                    $scope.HasSearched = false;
                     angular.forEach($scope.Exams, function (value, key) {
                         if (value.EmployeeBDate) {
                             value.EmployeeBDate = new Date(parseInt(value.EmployeeBDate.substr(6)));

@@ -287,12 +287,33 @@
     <Compile Include="Controllers\ExcelImportController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\FourthOfFour.jpg" />
+    <Content Include="Content\Images\SignInSmall.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\FirstOfFour.jpeg" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\Images\bg.jpeg" />
+    <Content Include="Content\Images\Inten\IntenLearnLogo.jpeg" />
+    <Content Include="Content\Images\Inten\IntenLearnSecondSmall.jpeg" />
+    <Content Include="Content\Images\Inten\IntenLearnFirstSmall.jpeg" />
+    <Content Include="Content\Images\Inten\IntenLearnPrimaryBackground.jpeg" />
+    <Content Include="Content\Images\Inten\IntenLearnPrimarySmall.jpeg" />
+    <Content Include="Content\Images\Inten\Secondo.jpeg" />
+    <Content Include="Content\Images\Logo.png" />
+    <Content Include="Content\Images\midad\First.jpeg" />
+    <Content Include="Content\Images\midad\FirstSmall.jpeg" />
+    <Content Include="Content\Images\midad\SecondSmall.jpeg" />
+    <Content Include="Content\Images\SigninBackground.jpg" />
+    <Content Include="Content\Images\SignUsers.jpg" />
+    <Content Include="Content\Images\StuInfoBackgrpund.jpg" />
+    <Content Include="Content\Images\StuInfoSmall.jpg" />
+    <Content Include="Content\Images\ThirdOfFour.jpg" />
+    <Content Include="Content\MidadSmallPic.jpeg" />
+    <Content Include="Content\Images\RegisternewuserBackground.png" />
+    <Content Include="Content\Images\RegisternewUserSmall.png" />
+    <Content Include="Content\Images\SecondOfFour.jpeg" />
     <Content Include="Content\ThemeContents\assets\css\font-awesome.min.css" />
     <Content Include="Content\ThemeContents\assets\css\main.css" />
     <Content Include="Content\ThemeContents\assets\fonts\fontawesome-webfont.svg" />
@@ -308,6 +329,7 @@
     <Content Include="Content\ThemeContents\images\pic03.jpg" />
     <Content Include="Content\ThemeContents\images\pic04.jpg" />
     <Content Include="Content\ThemeContents\images\pic05.jpg" />
+    <Content Include="Content\Videos\طباعة النسخة الثانية من الكتب.mp4" />
     <Content Include="Database\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Database.edmx</DependentUpon>
@@ -319,11 +341,6 @@
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
-    <Content Include="Content\Images\Logo.png" />
-    <Content Include="Content\Images\MidadIco.ico" />
-    <Content Include="Content\Images\pexels-photo-247839.jpeg" />
-    <Content Include="Content\Images\Photo.jpg" />
-    <Content Include="Content\Images\لوغو مداد.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -359,6 +376,7 @@
     <Content Include="Scripts\ExportExcel.js" />
     <None Include="Properties\PublishProfiles\CustomProfile2.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\FileSaver.min.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
@@ -374,6 +392,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tableexport.min.js" />
+    <Content Include="Scripts\xlsx.core.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

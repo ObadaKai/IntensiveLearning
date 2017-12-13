@@ -3,88 +3,120 @@
 @{
     ViewBag.Title = "لائحة المشاريع";
 }
+<div class="ThemeFirstBackground">
+    <div style="display:inline-block;width:100%;">
 
-<h2>لائحة المشاريع</h2>
+        <h2 style="display:inline-block">لائحة المشاريع</h2>
+        <div style="display:inline-block;float:left;margin:20px 0;">
 
-@using (Html.BeginForm("Create","Projects", FormMethod.Get))
-{
-    <button type="submit" class="btn btn-warning">انشاء جديد</button>
-}
-<div id="table_wrapper">
-    <table class="table table-striped">
-        <thead>
-            <tr class="bg-primary">
-                <th>
-                    @Html.DisplayNameFor(model => model.ProjectName)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.StartDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EndDate)
-                </th>
-
-
-
-
-                <th></th>
-
-
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
+            @using (Html.BeginForm("Create", "Projects", FormMethod.Get))
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProjectName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StartDate)
-                    </td>
+                <button type="submit" class="btn btn-success" title="انشاء جديد"><span class="glyphicon glyphicon-plus"></span></button>
+            }
+        </div>
+    </div>
+</div>
+<div class="ThemeSecondBackground">
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EndDate)
-                    </td>
+    <div id="table_wrapper">
+        <table class="table table-striped">
+            <thead>
+                <tr class="bg-primary">
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProjectName)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndDate)
+                    </th>
 
 
 
 
-                    <td>
-                        @if (Session["AddNewProject"] != null)
-                        {
-                            if ((bool)Session["AddNewProject"] == true)
-                            {
-                                <div style="width:180px">
-                                    <div style="width:130px;">
-                                        <a href="/Projects/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                        <a href="/Projects/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                        <a href="/Projects/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                    </div>
-                                </div>
-                            }
-
-                        }
-                        else
-                        {
-                            <a href="/Projects/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-
-                        }
-                    </td>
-
+                    <th></th>
 
 
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    if (Model.Count() == 0)
+                    {
+                        <tr>
+                            <td colspan="25">
+                                <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartDate)
+                                </td>
 
-        </tbody>
-    </table>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndDate)
+                                </td>
+
+
+
+
+                                <td>
+                                    @if (Session["AddNewProject"] != null)
+                                    {
+                                        if ((bool)Session["AddNewProject"] == true)
+                                        {
+                                            <div style="width:180px">
+                                                <div style="width:130px;">
+                                                    <a href="/Projects/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                    <a href="/Projects/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                    <a href="/Projects/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <a href="/Projects/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+
+                                    }
+                                </td>
+
+
+
+                            </tr>
+                        }
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="25">
+                            <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+    <button id="btnExport" onclick="ToXlsXEmployees('table_wrapper','لائحة المشاريع')" class="btn btn-success">xls تصدير ل</button>
 </div>
-<button id="btnExport" class="btn btn-warning">xls تصدير إلى</button>
 @if (ViewBag.StateMessage != null)
-{
-        <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
+            {
+    <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         @ViewBag.StateMessage
     </div>

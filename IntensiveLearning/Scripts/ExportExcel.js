@@ -1,44 +1,6 @@
 ﻿$(document).ready(function () {
 
     $('[data-toggle="tooltip"]').tooltip();
-    $("#btnExport").click(function (e) {
-        e.preventDefault();
-
-        //getting data from our table
-        var data_type = 'data:application/vnd.ms-excel';
-        var table_div = document.getElementById('table_wrapper');
-        var table_html = table_div.outerHTML.replace(/ /g, '%20');
-
-        var a = document.createElement('a');
-        a.href = data_type + ', ' + table_html;
-        a.download = 'exported_table_' + Math.floor((Math.random() * 9999999) + 1000000) + '.xls';
-        a.click();
-    });
-
-    $("#btnExport2").click(function (e) {
-        var data_type = 'data:application/vnd.ms-excel';
-        var table_div = document.getElementById('table_wrapper2');
-        var table_html = table_div.outerHTML.replace(/ /g, '%20');
-
-
-        var a = document.createElement('a');
-        a.href = data_type + ', ' + table_html;
-        a.download = 'exported_table_' + Math.floor((Math.random() * 9999999) + 1000000) + '.xls';
-        a.click();
-
-    });
-    $("#btnExport3").click(function (e) {
-        var data_type = 'data:application/vnd.ms-excel';
-        var table_div = document.getElementById('table_wrapper3');
-        var table_html = table_div.outerHTML.replace(/ /g, '%20');
-
-
-        var a = document.createElement('a');
-        a.href = data_type + ', ' + table_html;
-        a.download = 'exported_table_' + Math.floor((Math.random() * 9999999) + 1000000) + '.xls';
-        a.click();
-
-    });
 
     $("#ToFadeMessage").hide(3000);
     $('#DependedOn').val("")
@@ -104,6 +66,19 @@ function openLeftMenu() {
     //document.getElementById("leftMenu").classList = "col-md-1 col-lg-1 col-sm-4 col-xs-4";
     open = true;
 }
+
+function ToXlsXEmployees(tableid,Filename) {
+    var ExportButtons = document.getElementById(tableid);
+    var instance = new TableExport(ExportButtons, {
+        formats: ['xlsx'],
+        exportButtons: false
+    });
+    var exportData = instance.getExportData()[tableid]['xlsx'];
+    //                   // data          // mime              // name              // extension
+    instance.export2file(exportData.data, exportData.mimeType, Filename, exportData.fileExtension);
+}
+
+
 
 
 function closeLeftMenu() {

@@ -525,17 +525,17 @@ namespace IntensiveLearning.Controllers
             else if (type.CoManager == true)
             {
 
-                    EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true || x.SeeAccToCity == true).ToList();
+                EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true || x.SeeAccToCity == true).ToList();
 
-                    employees = null;
-                
+                employees = null;
+
             }
             else if (type.SchoolManager == true)
             {
 
-                    EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true).ToList();
+                EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true).ToList();
 
-                    employees = db.Employees.Where(x => ((x.Centerid == emp.Centerid) && x.EmployeeType.NormalEmployee == true) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Centerid == emp.Centerid)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
+                employees = db.Employees.Where(x => ((x.Centerid == emp.Centerid) && x.EmployeeType.NormalEmployee == true) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Centerid == emp.Centerid)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
             }
             else if (type.SeeTeachers == true)
             {
@@ -660,7 +660,14 @@ namespace IntensiveLearning.Controllers
                 }
                 else
                 {
-                    Centers = db.Employees.Where(x => x.Centerid == textBox.CentersChange).ToList();
+                    if (db.Centers.Find(textBox.CentersChange).CenterType == "رئيسي")
+                    {
+                        Centers = db.Employees.Where(x => x.Centerid == textBox.CentersChange || x.Center.DependedOn == textBox.CentersChange).ToList();
+                    }
+                    else
+                    {
+                        Centers = db.Employees.Where(x => x.Centerid == textBox.CentersChange).ToList();
+                    }
                 }
             }
             if (textBox.EmployeeTypesChange != null)
@@ -1222,7 +1229,14 @@ namespace IntensiveLearning.Controllers
             }
             if (textBox.CentersChange != null)
             {
-                Centers = db.Students.Where(x => x.Centerid == textBox.CentersChange).ToList();
+                if (db.Centers.Find(textBox.CentersChange).CenterType == "رئيسي")
+                {
+                    Centers = db.Students.Where(x => x.Centerid == textBox.CentersChange || x.Center.DependedOn == textBox.CentersChange).ToList();
+                }
+                else
+                {
+                    Centers = db.Students.Where(x => x.Centerid == textBox.CentersChange).ToList();
+                }
             }
             if (textBox.RegimentsChange != null)
             {

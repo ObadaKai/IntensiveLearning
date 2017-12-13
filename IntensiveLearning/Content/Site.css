@@ -157,7 +157,7 @@ body {
 ul.icons {
     cursor: default;
     list-style: none;
-    padding-right: 0;
+    padding: 0;
 }
 
     ul.icons li {
@@ -192,7 +192,7 @@ ul.icons {
     height: 100%;
     text-align: center;
     background-color: #3498db;
-    padding: 10em 2em;
+    padding: 7em 2em;
 }
 
 .BorderImg {
@@ -337,7 +337,16 @@ textarea {
     display: block;
     z-index: -1;
 }*/
+#FooterLinks {
+    color: #3498db;
+}
 
+    #FooterLinks:hover {
+        color: #a2a2a2;
+    }
+#footer {
+padding:3em 0;
+}
 .Login-Card {
     position: absolute;
     top: 37.5%;
@@ -467,7 +476,7 @@ textarea {
 
         .SideBarMarked a:hover {
             border: none;
-            color: gray;
+            color: #ffffff;
         }
 
 .table-striped {
