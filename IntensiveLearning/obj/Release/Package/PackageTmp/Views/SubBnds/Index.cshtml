@@ -16,30 +16,31 @@
                 <div class="col-sm-4">
                     <table class="table table-striped">
                         <tr>
+                            <td></td>
                             <th>{{Bnd.BndActivity}}</th>
                         </tr>
                         <tr>
-                            <th style="background-color:rgba(37, 8, 4,0.7);color:white;">رقم البند</th>
+                            <th style="background-color:#258cd1;color:white;">رقم البند</th>
                             <td>{{Bnd.Bndid}}</td>
 
                         </tr>
                         <tr>
-                            <th style="background-color:rgba(37, 8, 4,0.7);color:white;">اسم البند</th>
+                            <th style="background-color:#258cd1;color:white;">اسم البند</th>
                             <td>{{Bnd.Bndname}}</td>
 
                         </tr>
                         <tr>
-                            <th style="background-color:rgba(37, 8, 4,0.7);color:white;">موازنة البند</th>
+                            <th style="background-color:#258cd1;color:white;">موازنة البند</th>
                             <td>{{Bnd.BndTotalNum | currency}}</td>
 
                         </tr>
                         <tr>
-                            <th style="background-color:rgba(37, 8, 4,0.7);color:white;">المشتريات</th>
+                            <th style="background-color:#258cd1;color:white;">المشتريات</th>
                             <td>{{Bnd.BndPaidAmount | currency}}</td>
 
                         </tr>
                         <tr>
-                            <th style="background-color:rgba(37, 8, 4,0.7);color:white;">القيمة المتبقية</th>
+                            <th style="background-color:#258cd1;color:white;">القيمة المتبقية</th>
                             <td ng-style="{'background-color': Bnd.BndRemaining > 0 ? '#5cb85c' :'#d9534f' }">{{Bnd.BndRemaining | currency}}</td>
                         </tr>
                     </table>

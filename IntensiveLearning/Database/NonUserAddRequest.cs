@@ -52,7 +52,7 @@ namespace IntensiveLearning.Database
 
         public string MothersName { get; set; }
         public Nullable<int> Centerid { get; set; }
-        [DisplayName("«·„œ—”… «· Ì ﬂ«‰ Ìœ—” »Â«")]
+        [DisplayName("«·„œ—”… «· Ì ﬂ‰   œ—” »Â«")]
         public string OldSchool { get; set; }
         public Nullable<int> Cityid { get; set; }
         public Nullable<bool> Approval { get; set; }

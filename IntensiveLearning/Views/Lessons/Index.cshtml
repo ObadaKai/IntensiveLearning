@@ -18,9 +18,38 @@
                     }
                 }
             }
-            </div>
+        </div>
+        <div>
+            @using (Html.BeginForm("Search", "Lessons", FormMethod.Post))
+            {
+                if (ViewBag.Centerid != null)
+                {
+                    <div class="col-md-2 col-sm-4 col-xs-6 pull-right">
+                        <label for="Centerid" style="color:black">المركز</label>
+                        @Html.DropDownList("Centerid", null,"", htmlAttributes: new { @class = "form-control" })
+
+                    </div>
+                }
+                <div class="col-md-2 col-sm-4 col-xs-6 pull-right">
+                    <label for="Regimentid" style="color:black">الشعبة</label>
+                    @Html.DropDownList("Regimentid", null, "", htmlAttributes: new { @class = "form-control" })
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 pull-right">
+                    <label for="Stageid" style="color:black">المرحلة</label>
+
+                    @Html.DropDownList("Stageid", null, "", htmlAttributes: new { @class = "form-control" })
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 pull-right">
+                    <label for="Periodid" style="color:black">الفترة</label>
+                    @Html.DropDownList("Periodid", null, "", htmlAttributes: new { @class = "form-control" })
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 pull-right">
+                    <input type="submit" class="btn btn-success" value="بحث" style="width:100%;height:100%;margin-top:25px;" />
+                </div>
+            }
         </div>
     </div>
+</div>
 <div class="ThemeSecondBackground">
 
     <div id="table_wrapper">
@@ -53,6 +82,12 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Lesson7)
                     </th>
+                    @if (Convert.ToByte(Session["SeeAccToCity"]) == 1 || Convert.ToByte(Session["SeeAll"]) == 1 || Convert.ToByte(Session["SeeAllButFinance"]) == 1)
+                    {
+                        <th>
+                            @Html.DisplayNameFor(model => model.Center.Name)
+                        </th>
+                    }
 
                     <th>
                         @Html.DisplayNameFor(model => model.Regiment.Name)
@@ -79,69 +114,76 @@
                                 <div style="font-size:50px;line-height:300px;"><div class="col-xs-4"><i class="fa fa-exclamation" aria-hidden="true"></i></div><div class="col-xs-8" style="font-family:Cairo">لا يوجد أي مدخل</div></div>
                             </td>
                         </tr>
-                                }
-                                else{ 
-                                foreach (var item in Model)
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Day)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Lesson1)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Lesson2)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Lesson3)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Lesson4)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Lesson5)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Lesson6)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Lesson7)
+                                </td>
+                                @if (Convert.ToByte(Session["SeeAccToCity"]) == 1 || Convert.ToByte(Session["SeeAll"]) == 1 || Convert.ToByte(Session["SeeAllButFinance"]) == 1)
                                 {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Day)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Lesson1)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Lesson2)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Lesson3)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Lesson4)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Lesson5)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Lesson6)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Lesson7)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Regiment.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Stage.StageName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Period.Name)
-                            </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Center.Name)
+                                    </td>
+                                }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Regiment.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Stage.StageName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Period.Name)
+                                </td>
 
 
 
 
 
 
-                            <td>
-                                @if (Session["SeeAccToCenter"] != null)
-                                            {
+                                <td>
+                                    @if (Session["SeeAccToCenter"] != null)
+                                    {
                                         if ((bool)Session["SeeAccToCenter"] == true)
                                         {
-                                        <div style="width:130px;">
-                                            <a href="/Lessons/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
-                                            <a href="/Lessons/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                            <a href="/Lessons/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                        </div>
+                                            <div style="width:130px;">
+                                                <a href="/Lessons/Delete/@item.id" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="/Lessons/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a href="/Lessons/Edit/@item.id" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                            </div>
+                                        }
                                     }
-                }
-                                else
-                                {
-                                    <a href="/Lessons/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                }
-                            </td>
+                                    else
+                                    {
+                                        <a href="/Lessons/Details/@item.id" class="btn btn-info"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                    }
+                                </td>
 
-                        </tr>
+                            </tr>
                         }
                     }
                 }
@@ -158,11 +200,11 @@
         </table>
     </div>
     <button id="btnExport" onclick="ToXlsXEmployees('table_wrapper','لائحة الدورس')" class="btn btn-success">xls تصدير ل</button>
-    </div>
-    @if (ViewBag.StateMessage != null)
+</div>
+@if (ViewBag.StateMessage != null)
             {
-        <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            @ViewBag.StateMessage
-        </div>
-    }
+    <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @ViewBag.StateMessage
+    </div>
+}
