@@ -260,6 +260,9 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="TaalimModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="ItemUnit" ColumnName="ItemUnit" />
+          <ScalarProperty Name="CommissionPrice" ColumnName="CommissionPrice" />
+          <ScalarProperty Name="PeacePriceSyrian" ColumnName="PeacePriceSyrian" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Employeeid" ColumnName="Employeeid" />
           <ScalarProperty Name="Bndid" ColumnName="Bndid" />

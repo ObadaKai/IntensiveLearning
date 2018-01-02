@@ -77,7 +77,7 @@ namespace IntensiveLearning.Controllers
 
             var Orders = order.Select(x => new
             {
-                Bnd = x.Bnd.Name,
+                Bnd = x.Bnd.Simbol,
                 Center = x.Center.Name,
                 Necessity = x.Necessity,
                 OrderType = x.OrderType,
@@ -94,6 +94,9 @@ namespace IntensiveLearning.Controllers
                 EmployeeName = x.Employee.name,
                 EmployeeSurname = x.Employee.surname,
                 PeacePrice = x.PeacePrice,
+                PeacePriceSyrian = x.PeacePriceSyrian,
+                ItemUnit = x.ItemUnit,
+                CommissionPrice = x.CommissionPrice,
                 Quantity = x.Quantity,
                 State = x.State,
                 Time = x.Time,
@@ -108,7 +111,7 @@ namespace IntensiveLearning.Controllers
                 proof = x.proof,
                 QuantityChanged = x.QuantityChanged,
                 Comment = x.CanclationReason
-            }).ToList();
+            }).Where(x => x.FirstLevelSign != true || x.SecondLevelSign != true || x.ThirdLevelSign != true).ToList();
 
             var Bnds = Bnd.Select(x => new
             {
@@ -118,6 +121,421 @@ namespace IntensiveLearning.Controllers
             var Payment = db.PaymentsRecords.ToList();
 
             var Payemnts = Payment.Select(x => new
+            {
+                id = x.id,
+            }).ToList();
+            List<object> toSendList = new List<object>();
+            toSendList.Add(Orders);
+            toSendList.Add(empid);
+            toSendList.Add(Bnds);
+            toSendList.Add(Payemnts);
+            return Json(toSendList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetOrdersArranged(int OrderType)
+        {
+
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            var empid = Convert.ToInt32(Session["ID"]);
+            var order = db.Orders.ToList();
+            if (type.SeeAll == true || type.SeeAllButFinance == true)
+            {
+                order = db.Orders.ToList();
+            }
+            else if (type.SeeAccToCity == true)
+            {
+                var emp = db.Employees.Find(empid);
+                order = db.Orders.Where(x => x.Center.Cityid == emp.CityID || x.Employeeid == empid).ToList();
+            }
+            else if (type.SeeAccToCenter == true)
+            {
+                var emp = db.Employees.Find(empid);
+                order = db.Orders.Where(x => x.CenterID == emp.Centerid || x.Employeeid == empid).ToList();
+            }
+            else if (type.SeeTeachers == true)
+            {
+                order = db.Orders.Where(x => x.Employeeid == empid || x.Employeeid == empid).ToList();
+            }
+            var Bnd = db.Bnds.ToList();
+            foreach (var o in order)
+            {
+                if (o.Bnd == null)
+                {
+                    o.Bnd = new Bnd();
+                }
+                if (o.Employee == null)
+                {
+                    o.Employee = new Employee();
+                }
+                if (o.Center == null)
+                {
+                    o.Center = new Center();
+                }
+                if (o.SubBnd == null)
+                {
+                    o.SubBnd = new SubBnd();
+                }
+            }
+            object Orders = new object();
+            switch (OrderType)
+            {
+                case 1:
+                    Orders = order.Select(x => new
+                    {
+                        Bnd = x.Bnd.Simbol,
+                        Center = x.Center.Name,
+                        Necessity = x.Necessity,
+                        OrderType = x.OrderType,
+                        SumPrice = x.SumPrice,
+                        Paymentid = x.Paymentid,
+                        PaymentApprove = x.PaymentApprove,
+                        PaymentApprovalDate = x.PaymentApprovalDate,
+                        BuyingApprovalDate = x.BuyingApprovalDate,
+                        ProofAcceptanceDate = x.ProofAcceptanceDate,
+                        BuyingApprove = x.BuyingApprove,
+                        ProofAcceptance = x.ProofAcceptance,
+                        Date = x.Date,
+                        Subject = x.Subject,
+                        EmployeeName = x.Employee.name,
+                        EmployeeSurname = x.Employee.surname,
+                        PeacePrice = x.PeacePrice,
+                        PeacePriceSyrian = x.PeacePriceSyrian,
+                        ItemUnit = x.ItemUnit,
+                        CommissionPrice = x.CommissionPrice,
+                        Quantity = x.Quantity,
+                        State = x.State,
+                        Time = x.Time,
+                        id = x.id,
+                        FirstLevelSign = x.FirstLevelSign,
+                        SecondLevelSign = x.SecondLevelSign,
+                        ThirdLevelSign = x.ThirdLevelSign,
+                        EmployeeID = x.Employeeid,
+                        Bndid = x.Bndid,
+                        Centerid = x.CenterID,
+                        PaymentOrderDate = x.PaymentOrderDate,
+                        proof = x.proof,
+                        QuantityChanged = x.QuantityChanged,
+                        Comment = x.CanclationReason
+                    }).Where(x => x.FirstLevelSign != true || x.SecondLevelSign != true || x.ThirdLevelSign != true).ToList();
+                    break;
+                case 2:
+                    Orders = order.Select(x => new
+                    {
+                        Bnd = x.Bnd.Simbol,
+                        Center = x.Center.Name,
+                        Necessity = x.Necessity,
+                        OrderType = x.OrderType,
+                        SumPrice = x.SumPrice,
+                        Paymentid = x.Paymentid,
+                        PaymentApprove = x.PaymentApprove,
+                        PaymentApprovalDate = x.PaymentApprovalDate,
+                        BuyingApprovalDate = x.BuyingApprovalDate,
+                        ProofAcceptanceDate = x.ProofAcceptanceDate,
+                        BuyingApprove = x.BuyingApprove,
+                        ProofAcceptance = x.ProofAcceptance,
+                        Date = x.Date,
+                        Subject = x.Subject,
+                        EmployeeName = x.Employee.name,
+                        EmployeeSurname = x.Employee.surname,
+                        PeacePrice = x.PeacePrice,
+                        PeacePriceSyrian = x.PeacePriceSyrian,
+                        ItemUnit = x.ItemUnit,
+                        CommissionPrice = x.CommissionPrice,
+                        Quantity = x.Quantity,
+                        State = x.State,
+                        Time = x.Time,
+                        id = x.id,
+                        FirstLevelSign = x.FirstLevelSign,
+                        SecondLevelSign = x.SecondLevelSign,
+                        ThirdLevelSign = x.ThirdLevelSign,
+                        EmployeeID = x.Employeeid,
+                        Bndid = x.Bndid,
+                        Centerid = x.CenterID,
+                        PaymentOrderDate = x.PaymentOrderDate,
+                        proof = x.proof,
+                        QuantityChanged = x.QuantityChanged,
+                        Comment = x.CanclationReason
+                    }).Where(x => x.FirstLevelSign == true && x.SecondLevelSign == true && x.ThirdLevelSign == true && x.Paymentid == null).ToList();
+                    break;
+
+                case 3:
+                    Orders = order.Select(x => new
+                    {
+                        Bnd = x.Bnd.Simbol,
+                        Center = x.Center.Name,
+                        Necessity = x.Necessity,
+                        OrderType = x.OrderType,
+                        SumPrice = x.SumPrice,
+                        Paymentid = x.Paymentid,
+                        PaymentApprove = x.PaymentApprove,
+                        PaymentApprovalDate = x.PaymentApprovalDate,
+                        BuyingApprovalDate = x.BuyingApprovalDate,
+                        ProofAcceptanceDate = x.ProofAcceptanceDate,
+                        BuyingApprove = x.BuyingApprove,
+                        ProofAcceptance = x.ProofAcceptance,
+                        Date = x.Date,
+                        Subject = x.Subject,
+                        EmployeeName = x.Employee.name,
+                        EmployeeSurname = x.Employee.surname,
+                        PeacePrice = x.PeacePrice,
+                        PeacePriceSyrian = x.PeacePriceSyrian,
+                        ItemUnit = x.ItemUnit,
+                        CommissionPrice = x.CommissionPrice,
+                        Quantity = x.Quantity,
+                        State = x.State,
+                        Time = x.Time,
+                        id = x.id,
+                        FirstLevelSign = x.FirstLevelSign,
+                        SecondLevelSign = x.SecondLevelSign,
+                        ThirdLevelSign = x.ThirdLevelSign,
+                        EmployeeID = x.Employeeid,
+                        Bndid = x.Bndid,
+                        Centerid = x.CenterID,
+                        PaymentOrderDate = x.PaymentOrderDate,
+                        proof = x.proof,
+                        QuantityChanged = x.QuantityChanged,
+                        Comment = x.CanclationReason
+                    }).Where(x => x.Paymentid != null && x.ProofAcceptance != true).ToList();
+                    break;
+
+                case 4:
+                    Orders = order.Select(x => new
+                    {
+                        Bnd = x.Bnd.Simbol,
+                        Center = x.Center.Name,
+                        Necessity = x.Necessity,
+                        OrderType = x.OrderType,
+                        SumPrice = x.SumPrice,
+                        Paymentid = x.Paymentid,
+                        PaymentApprove = x.PaymentApprove,
+                        PaymentApprovalDate = x.PaymentApprovalDate,
+                        BuyingApprovalDate = x.BuyingApprovalDate,
+                        ProofAcceptanceDate = x.ProofAcceptanceDate,
+                        BuyingApprove = x.BuyingApprove,
+                        ProofAcceptance = x.ProofAcceptance,
+                        Date = x.Date,
+                        Subject = x.Subject,
+                        EmployeeName = x.Employee.name,
+                        EmployeeSurname = x.Employee.surname,
+                        PeacePrice = x.PeacePrice,
+                        PeacePriceSyrian = x.PeacePriceSyrian,
+                        ItemUnit = x.ItemUnit,
+                        CommissionPrice = x.CommissionPrice,
+                        Quantity = x.Quantity,
+                        State = x.State,
+                        Time = x.Time,
+                        id = x.id,
+                        FirstLevelSign = x.FirstLevelSign,
+                        SecondLevelSign = x.SecondLevelSign,
+                        ThirdLevelSign = x.ThirdLevelSign,
+                        EmployeeID = x.Employeeid,
+                        Bndid = x.Bndid,
+                        Centerid = x.CenterID,
+                        PaymentOrderDate = x.PaymentOrderDate,
+                        proof = x.proof,
+                        QuantityChanged = x.QuantityChanged,
+                        Comment = x.CanclationReason
+                    }).Where(x =>  x.ProofAcceptance == true).ToList();
+                    break;
+
+                case 5:
+                    Orders = order.Select(x => new
+                    {
+                        Bnd = x.Bnd.Simbol,
+                        Center = x.Center.Name,
+                        Necessity = x.Necessity,
+                        OrderType = x.OrderType,
+                        SumPrice = x.SumPrice,
+                        Paymentid = x.Paymentid,
+                        PaymentApprove = x.PaymentApprove,
+                        PaymentApprovalDate = x.PaymentApprovalDate,
+                        BuyingApprovalDate = x.BuyingApprovalDate,
+                        ProofAcceptanceDate = x.ProofAcceptanceDate,
+                        BuyingApprove = x.BuyingApprove,
+                        ProofAcceptance = x.ProofAcceptance,
+                        Date = x.Date,
+                        Subject = x.Subject,
+                        EmployeeName = x.Employee.name,
+                        EmployeeSurname = x.Employee.surname,
+                        PeacePrice = x.PeacePrice,
+                        PeacePriceSyrian = x.PeacePriceSyrian,
+                        ItemUnit = x.ItemUnit,
+                        CommissionPrice = x.CommissionPrice,
+                        Quantity = x.Quantity,
+                        State = x.State,
+                        Time = x.Time,
+                        id = x.id,
+                        FirstLevelSign = x.FirstLevelSign,
+                        SecondLevelSign = x.SecondLevelSign,
+                        ThirdLevelSign = x.ThirdLevelSign,
+                        EmployeeID = x.Employeeid,
+                        Bndid = x.Bndid,
+                        Centerid = x.CenterID,
+                        PaymentOrderDate = x.PaymentOrderDate,
+                        proof = x.proof,
+                        QuantityChanged = x.QuantityChanged,
+                        Comment = x.CanclationReason
+                    }).ToList();
+                    break;
+
+            }
+
+
+            var Bnds = Bnd.Select(x => new
+            {
+                id = x.id,
+                Name = x.Name,
+                Simbol = x.Simbol,
+            }).ToList();
+            var Payment = db.PaymentsRecords.ToList();
+
+            var Payemnts = Payment.Select(x => new
+            {
+                id = x.id,
+            }).ToList();
+            List<object> toSendList = new List<object>();
+            toSendList.Add(Orders);
+            toSendList.Add(empid);
+            toSendList.Add(Bnds);
+            toSendList.Add(Payemnts);
+            return Json(toSendList, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetAccPayment(string Payment)
+        {
+            var thePayemnt = Convert.ToInt16(Payment);
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            var empid = Convert.ToInt32(Session["ID"]);
+            var order = db.Orders.ToList();
+            if (type.SeeAll == true || type.SeeAllButFinance == true)
+            {
+                order = db.Orders.ToList();
+            }
+            else if (type.SeeAccToCity == true)
+            {
+                var emp = db.Employees.Find(empid);
+                order = db.Orders.Where(x => x.Center.Cityid == emp.CityID || x.Employeeid == empid).ToList();
+            }
+            else if (type.SeeAccToCenter == true)
+            {
+                var emp = db.Employees.Find(empid);
+                order = db.Orders.Where(x => x.CenterID == emp.Centerid || x.Employeeid == empid).ToList();
+            }
+            else if (type.SeeTeachers == true)
+            {
+                order = db.Orders.Where(x => x.Employeeid == empid || x.Employeeid == empid).ToList();
+            }
+            var Bnd = db.Bnds.ToList();
+            foreach (var o in order)
+            {
+                if (o.Bnd == null)
+                {
+                    o.Bnd = new Bnd();
+                }
+                if (o.Employee == null)
+                {
+                    o.Employee = new Employee();
+                }
+                if (o.Center == null)
+                {
+                    o.Center = new Center();
+                }
+                if (o.SubBnd == null)
+                {
+                    o.SubBnd = new SubBnd();
+                }
+            }
+            var Orders = order.Select(x => new
+            {
+                Bnd = x.Bnd.Simbol,
+                Center = x.Center.Name,
+                Necessity = x.Necessity,
+                OrderType = x.OrderType,
+                SumPrice = x.SumPrice,
+                Paymentid = x.Paymentid,
+                PaymentApprove = x.PaymentApprove,
+                PaymentApprovalDate = x.PaymentApprovalDate,
+                BuyingApprovalDate = x.BuyingApprovalDate,
+                ProofAcceptanceDate = x.ProofAcceptanceDate,
+                BuyingApprove = x.BuyingApprove,
+                ProofAcceptance = x.ProofAcceptance,
+                Date = x.Date,
+                Subject = x.Subject,
+                EmployeeName = x.Employee.name,
+                EmployeeSurname = x.Employee.surname,
+                PeacePrice = x.PeacePrice,
+                PeacePriceSyrian = x.PeacePriceSyrian,
+                ItemUnit = x.ItemUnit,
+                CommissionPrice = x.CommissionPrice,
+                Quantity = x.Quantity,
+                State = x.State,
+                Time = x.Time,
+                id = x.id,
+                FirstLevelSign = x.FirstLevelSign,
+                SecondLevelSign = x.SecondLevelSign,
+                ThirdLevelSign = x.ThirdLevelSign,
+                EmployeeID = x.Employeeid,
+                Bndid = x.Bndid,
+                Centerid = x.CenterID,
+                PaymentOrderDate = x.PaymentOrderDate,
+                proof = x.proof,
+                QuantityChanged = x.QuantityChanged,
+                Comment = x.CanclationReason
+            }).Where(x => x.Paymentid == thePayemnt).ToList();
+            if (thePayemnt == 0)
+            {
+                Orders = order.Select(x => new
+                {
+                    Bnd = x.Bnd.Name,
+                    Center = x.Center.Name,
+                    Necessity = x.Necessity,
+                    OrderType = x.OrderType,
+                    SumPrice = x.SumPrice,
+                    Paymentid = x.Paymentid,
+                    PaymentApprove = x.PaymentApprove,
+                    PaymentApprovalDate = x.PaymentApprovalDate,
+                    BuyingApprovalDate = x.BuyingApprovalDate,
+                    ProofAcceptanceDate = x.ProofAcceptanceDate,
+                    BuyingApprove = x.BuyingApprove,
+                    ProofAcceptance = x.ProofAcceptance,
+                    Date = x.Date,
+                    Subject = x.Subject,
+                    EmployeeName = x.Employee.name,
+                    EmployeeSurname = x.Employee.surname,
+                    PeacePrice = x.PeacePrice,
+                    PeacePriceSyrian = x.PeacePriceSyrian,
+                    ItemUnit = x.ItemUnit,
+                    CommissionPrice = x.CommissionPrice,
+                    Quantity = x.Quantity,
+                    State = x.State,
+                    Time = x.Time,
+                    id = x.id,
+                    FirstLevelSign = x.FirstLevelSign,
+                    SecondLevelSign = x.SecondLevelSign,
+                    ThirdLevelSign = x.ThirdLevelSign,
+                    EmployeeID = x.Employeeid,
+                    Bndid = x.Bndid,
+                    Centerid = x.CenterID,
+                    PaymentOrderDate = x.PaymentOrderDate,
+                    proof = x.proof,
+                    QuantityChanged = x.QuantityChanged,
+                    Comment = x.CanclationReason
+                }).ToList();
+
+            }
+
+
+            var Bnds = Bnd.Select(x => new
+            {
+                id = x.id,
+                Name = x.Name,
+            }).ToList();
+            var AllPayments = db.PaymentsRecords.ToList();
+
+            var Payemnts = AllPayments.Select(x => new
             {
                 id = x.id,
             }).ToList();
@@ -168,12 +586,12 @@ namespace IntensiveLearning.Controllers
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
             if (type.AddBuyingRequest == true)
             {
-                if (type.SeeAccToCity ==true)
+                if (type.SeeAccToCity == true)
                 {
-                    ViewBag.CenterID = new SelectList(db.Centers.Where(x=>x.Cityid == emp.CityID), "id", "Name");
+                    ViewBag.CenterID = new SelectList(db.Centers.Where(x => x.Cityid == emp.CityID), "id", "Name");
 
                 }
-                else if (type.SeeAccToCenter == true || type.SeeTeachers ==  true)
+                else if (type.SeeAccToCenter == true || type.SeeTeachers == true)
                 {
                     ViewBag.CenterID = new SelectList(db.Centers.Where(x => x.id == emp.Centerid), "id", "Name");
 
@@ -219,12 +637,12 @@ namespace IntensiveLearning.Controllers
                     if (emp.Centerid == null)
                     {
                         //مالي
-                        if (type.Finance == true && type.CoManager == true)
+                        if (type.Finance == true && type.CoManager == true || type.Manager == true && type.AddNewProject != true)
                         {
                             order.SecondLevelSign = true;
                         }
                         //مدير تنفيذي
-                        else if (type.Manager == true && type.AddNewProject == true)
+                        if (type.Manager == true)
                         {
                             order.ThirdLevelSign = true;
                         }
@@ -234,7 +652,7 @@ namespace IntensiveLearning.Controllers
                         //    order.ThirdLevelSign = true;
                         //}
                         //متابعة
-                        else if (type.CoManager == true && type.SeeAll == true)
+                        if (type.CoManager == true && type.SeeAll == true || type.Manager == true && type.AddNewProject != true)
                         {
                             order.FirstLevelSign = true;
                         }
@@ -253,7 +671,7 @@ namespace IntensiveLearning.Controllers
                 }
                 if (type.SeeAccToCity == true)
                 {
-                    ViewBag.CenterID = new SelectList(db.Centers.Where(x => x.Cityid == emp.CityID), "id", "Name",order.CenterID);
+                    ViewBag.CenterID = new SelectList(db.Centers.Where(x => x.Cityid == emp.CityID), "id", "Name", order.CenterID);
 
                 }
                 else if (type.SeeAccToCenter == true || type.SeeTeachers == true)
@@ -409,7 +827,7 @@ namespace IntensiveLearning.Controllers
 
 
 
-        public ActionResult ConfirmOrder(int id)
+        public JsonResult ConfirmOrderFirstLevel(int id)
         {
             int empid = Convert.ToInt32(Session["ID"]);
             Employee emp = db.Employees.Find(empid);
@@ -421,23 +839,8 @@ namespace IntensiveLearning.Controllers
 
             if (emp.Centerid == null)
             {
-                //مالي
-                if (type.Finance == true && type.CoManager == true)
-                {
-                    order.SecondLevelSign = true;
-                }
-                //مدير تنفيذي
-                else if (type.Manager == true && type.AddNewProject == true)
-                {
-                    order.ThirdLevelSign = true;
-                }
-                //مراقبة وتقييم
-                //else if (type.CoManager == true && type.HighAcceptance == true && type.BuyingAcceptance == true)
-                //{
-                //    order.ThirdLevelSign = true;
-                //}
                 //متابعة
-                else if (type.CoManager == true && type.SeeAll == true)
+                if (type.CoManager == true && type.SeeAll == true || type.Manager == true && type.AddNewProject != true)
                 {
                     order.FirstLevelSign = true;
                 }
@@ -445,11 +848,149 @@ namespace IntensiveLearning.Controllers
             }
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
+            return Json(true);
+        }
+        public JsonResult ConfirmOrderSecondLevel(int id)
+        {
+            int empid = Convert.ToInt32(Session["ID"]);
+            Employee emp = db.Employees.Find(empid);
+
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            Order order = db.Orders.Find(id);
+
+            if (emp.Centerid == null)
+            {
+
+                //مالي
+                if (type.Finance == true && type.CoManager == true || type.Manager == true && type.AddNewProject!=true)
+                {
+                    order.SecondLevelSign = true;
+                }
+                order.CanclationReason = null;
+            }
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(true);
+        }
+        public JsonResult ConfirmOrderThirdLevel(int id)
+        {
+            int empid = Convert.ToInt32(Session["ID"]);
+            Employee emp = db.Employees.Find(empid);
+
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            Order order = db.Orders.Find(id);
+
+            if (emp.Centerid == null)
+            {
+
+                //مدير تنفيذي
+                if (type.Manager == true)
+                {
+                    order.ThirdLevelSign = true;
+                }
+                order.CanclationReason = null;
+            }
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(true);
+        }
+        public ActionResult ConfirmOrder(int id)
+        {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+
+            int empid = Convert.ToInt32(Session["ID"]);
+            Employee emp = db.Employees.Find(empid);
+
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            Order order = db.Orders.Find(id);
+
+            if (emp.Centerid == null)
+            {
+                //متابعة
+                if (type.CoManager == true && type.SeeAll == true)
+                {
+                    if (order.FirstLevelSign == false)
+                    {
+                        order.CanclationReason = null;
+
+                    }
+                    order.FirstLevelSign = true;
+                }
+
+                //مالي
+                else if (type.Finance == true && type.CoManager == true)
+                {
+                    if (order.SecondLevelSign == false)
+                    {
+                        order.CanclationReason = null;
+
+                    }
+                    order.SecondLevelSign = true;
+
+                }
+
+                //مدير تنفيذي
+                else if (type.Manager == true && type.AddNewProject == true)
+                {
+                    if (order.ThirdLevelSign == false)
+                    {
+                        order.CanclationReason = null;
+
+                    }
+                    order.ThirdLevelSign = true;
+                }
+
+                //مدير المشروع
+                else if (type.Manager == true && type.AddNewProject != true)
+                {
+                    order.FirstLevelSign = true;
+                    order.SecondLevelSign = true;
+                    order.ThirdLevelSign = true;
+                    order.CanclationReason = null;
+                }
+            }
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
 
-        public ActionResult RefuseOrder(int id, string comment)
+
+        public JsonResult RefuseOrderFirstLevel(int id, string comment)
+        {
+            int empid = Convert.ToInt32(Session["ID"]);
+            Employee emp = db.Employees.Find(empid);
+
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            Order order = db.Orders.Find(id);
+
+            if (emp.Centerid == null)
+            {
+
+                //متابعة
+                if (type.CoManager == true && type.SeeAll == true)
+                {
+                    order.FirstLevelSign = false;
+                }
+                order.CanclationReason = comment;
+            }
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(true);
+        }
+        public JsonResult RefuseOrderSecondLevel(int id, string comment)
         {
             int empid = Convert.ToInt32(Session["ID"]);
             Employee emp = db.Employees.Find(empid);
@@ -466,21 +1007,72 @@ namespace IntensiveLearning.Controllers
                 {
                     order.SecondLevelSign = false;
                 }
+                order.CanclationReason = comment;
+            }
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(true);
+        }
+        public JsonResult RefuseOrderThirdLevel(int id, string comment)
+        {
+            int empid = Convert.ToInt32(Session["ID"]);
+            Employee emp = db.Employees.Find(empid);
+
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            Order order = db.Orders.Find(id);
+
+            if (emp.Centerid == null)
+            {
                 //مدير تنفيذي
-                else if (type.Manager == true && type.AddNewProject == true)
+                if (type.Manager == true)
                 {
                     order.ThirdLevelSign = false;
                 }
-                //مراقبة وتقييم
-                //else if (type.CoManager == true && type.HighAcceptance == true && type.BuyingAcceptance == true)
-                //{
-                //    order.ThirdLevelSign = true;
-                //}
+                order.CanclationReason = comment;
+            }
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(true);
+        }
+        public ActionResult RefuseOrder(int id, string comment)
+        {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+
+
+            int empid = Convert.ToInt32(Session["ID"]);
+            Employee emp = db.Employees.Find(empid);
+
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            Order order = db.Orders.Find(id);
+
+            if (emp.Centerid == null)
+            {
+
+                //مدير تنفيذي + مدير المشروع
+                if (type.Manager == true)
+                {
+                    order.ThirdLevelSign = false;
+                }
+                //مالي
+                else if (type.Finance == true && type.CoManager == true)
+                {
+                    order.SecondLevelSign = false;
+                }
                 //متابعة
                 else if (type.CoManager == true && type.SeeAll == true)
                 {
                     order.FirstLevelSign = false;
                 }
+
+
                 order.CanclationReason = comment;
             }
             db.Entry(order).State = EntityState.Modified;
@@ -488,27 +1080,25 @@ namespace IntensiveLearning.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult AssignBnd(int Bndid, int id)
+
+
+        public JsonResult AssignBnd(int Bndid, int id)
         {
             Order order = db.Orders.Find(id);
             Bnd bnd = db.Bnds.Find(Bndid);
             if (bnd.AfterReductionNum - order.SumPrice <= 0)
             {
                 TempData["BndOverload"] = "لا يمكنك تجاوز ميزانية البند... الميزانية المتبقية " + bnd.AfterReductionNum;
-                return RedirectToAction("Index");
+                return Json("لا يمكنك تجاوز ميزانية البند... الميزانية المتبقية " + bnd.AfterReductionNum);
             }
             order.Bndid = Bndid;
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(bnd.Simbol);
         }
 
-        public ActionResult Quantity(int id, int AcceptedQuantity)
+        public JsonResult Quantity(int id, int AcceptedQuantity)
         {
-            if (Session["ID"] == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
             var typeName = (string)Session["Type"];
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
             Order order = db.Orders.Find(id);
@@ -526,15 +1116,19 @@ namespace IntensiveLearning.Controllers
             newOrder.Necessity = order.Necessity;
             newOrder.OrderType = order.OrderType;
             newOrder.PeacePrice = order.PeacePrice;
+            newOrder.PeacePriceSyrian = order.PeacePriceSyrian;
+            newOrder.ItemUnit = order.ItemUnit;
+            newOrder.CommissionPrice = order.CommissionPrice;
             newOrder.State = order.State;
+
             if (order.Quantity != AcceptedQuantity)
             {
-                if (type.Finance == true)
+                if (type.Finance == true || type.Manager == true)
                 {
                     if (order.Bnd.AfterReductionNum - (order.PeacePrice * AcceptedQuantity) < 0)
                     {
                         TempData["BndOverload"] = "لا يمكنك تجاوز ميزانية البند... الميزانية المتبقية " + order.Bnd.AfterReductionNum;
-                        return RedirectToAction("Index");
+                        return Json("لا يمكنك تجاوز ميزانية البند... الميزانية المتبقية " + order.Bnd.AfterReductionNum);
                     }
                     else
                     {
@@ -565,7 +1159,7 @@ namespace IntensiveLearning.Controllers
                 db.SaveChanges();
 
             }
-            return RedirectToAction("Index");
+            return Json(true);
         }
 
 
@@ -664,23 +1258,19 @@ namespace IntensiveLearning.Controllers
         }
 
 
-        public ActionResult CreatePayment(int id)
+        public JsonResult CreatePayment(int id)
         {
-            if (Session["ID"] == null)
-            {
-                return RedirectToAction("Index", "Home");
 
-            }
             var typeName = (string)Session["Type"];
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
             Order order = db.Orders.Find(id);
 
-            if (type.Finance == true)
+            if (type.Finance == true || type.Manager == true)
             {
                 if (order.Bnd.AfterReductionNum - order.SumPrice < 0)
                 {
                     TempData["BndOverload"] = "لا يمكنك تجاوز ميزانية البند... الميزانية المتبقية " + order.Bnd.AfterReductionNum;
-                    return RedirectToAction("Index");
+                    return Json("لا يمكنك تجاوز ميزانية البند... الميزانية المتبقية " + order.Bnd.AfterReductionNum);
                 }
                 else
                 {
@@ -702,25 +1292,21 @@ namespace IntensiveLearning.Controllers
                 }
 
             }
-            return RedirectToAction("Index");
+            return Json(order.Paymentid);
         }
 
-        public ActionResult ChoosePayment(int id, int Paymentid)
+        public JsonResult ChoosePayment(int id, int Paymentid)
         {
-            if (Session["ID"] == null)
-            {
-                return RedirectToAction("Index", "Home");
 
-            }
             var typeName = (string)Session["Type"];
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
             Order order = db.Orders.Find(id);
-            if (type.Finance == true)
+            if (type.Finance == true || type.Manager == true)
             {
                 if (order.Bnd.AfterReductionNum - order.SumPrice < 0)
                 {
                     TempData["BndOverload"] = "لا يمكنك تجاوز ميزانية البند... الميزانية المتبقية " + order.Bnd.AfterReductionNum;
-                    return RedirectToAction("Index");
+                    return Json("لا يمكنك تجاوز ميزانية البند... الميزانية المتبقية " + order.Bnd.AfterReductionNum);
                 }
                 else
                 {
@@ -729,7 +1315,7 @@ namespace IntensiveLearning.Controllers
                     db.SaveChanges();
                 }
             }
-            return RedirectToAction("Index");
+            return Json(true);
 
         }
 
@@ -752,16 +1338,81 @@ namespace IntensiveLearning.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        public ActionResult PaymentRefuse(int? id, string comment)
+        public JsonResult PaymentRefuse(int? id, string comment)
         {
+
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            Order order = db.Orders.Find(id);
+
+            if (type.Finance == true || type.Manager == true)
+            {
+                order.CanclationReason = comment;
+                order.PaymentApprove = false;
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+
+            return Json(true);
+        }
+
+        public JsonResult BuyingRefuse(int? id, string comment)
+        {
+
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            Order order = db.Orders.Find(id);
+
+            if (type.Finance == true || type.Manager == true)
+            {
+                order.CanclationReason = comment;
+
+                order.BuyingApprove = false;
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+
+            return Json(true);
+        }
+
+
+        public JsonResult ProofRefuse(int? id, string comment)
+        {
+
+            var typeName = (string)Session["Type"];
+            var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
+
+            Order order = db.Orders.Find(id);
+
+            if (type.Finance == true || type.Manager == true)
+            {
+                order.CanclationReason = comment;
+
+                order.ProofAcceptance = false;
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+
+            return Json(true);
+        }
+
+
+
+        public ActionResult PaymentRefuseAction(int? id, string comment)
+        {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index","Home");
+
+            }
             if (id == null)
             {
                 return RedirectToAction("Default", "Home");
-            }
-
-            if (Session["ID"] == null)
-            {
-                return RedirectToAction("Index", "Home");
 
             }
             var typeName = (string)Session["Type"];
@@ -769,7 +1420,7 @@ namespace IntensiveLearning.Controllers
 
             Order order = db.Orders.Find(id);
 
-            if (type.Finance == true)
+            if (type.Finance == true || type.Manager == true)
             {
                 order.CanclationReason = comment;
                 order.PaymentApprove = false;
@@ -781,16 +1432,16 @@ namespace IntensiveLearning.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult BuyingRefuse(int? id, string comment)
+        public ActionResult BuyingRefuseAction(int? id, string comment)
         {
-            if (id == null)
-            {
-                return RedirectToAction("Default", "Home");
-            }
-
             if (Session["ID"] == null)
             {
                 return RedirectToAction("Index", "Home");
+
+            }
+            if (id == null)
+            {
+                return RedirectToAction("Default", "Home");
 
             }
             var typeName = (string)Session["Type"];
@@ -798,7 +1449,7 @@ namespace IntensiveLearning.Controllers
 
             Order order = db.Orders.Find(id);
 
-            if (type.Finance == true)
+            if (type.Finance == true || type.Manager == true)
             {
                 order.CanclationReason = comment;
 
@@ -812,16 +1463,16 @@ namespace IntensiveLearning.Controllers
         }
 
 
-        public ActionResult ProofRefuse(int? id, string comment)
+        public ActionResult ProofRefuseAction(int? id, string comment)
         {
-            if (id == null)
-            {
-                return RedirectToAction("Default", "Home");
-            }
-
             if (Session["ID"] == null)
             {
                 return RedirectToAction("Index", "Home");
+
+            }
+            if (id == null)
+            {
+                return RedirectToAction("Default", "Home");
 
             }
             var typeName = (string)Session["Type"];
@@ -829,7 +1480,7 @@ namespace IntensiveLearning.Controllers
 
             Order order = db.Orders.Find(id);
 
-            if (type.Finance == true)
+            if (type.Finance == true || type.Manager == true)
             {
                 order.CanclationReason = comment;
 
@@ -843,26 +1494,20 @@ namespace IntensiveLearning.Controllers
         }
 
 
-        public ActionResult PaymentApprove(int? id)
-        {
-            if (id == null)
-            {
-                return RedirectToAction("Default", "Home");
-            }
-            if (Session["ID"] == null)
-            {
-                return RedirectToAction("Index", "Home");
 
-            }
+
+        public JsonResult PaymentApprove(int? id)
+        {
+
             Order order = db.Orders.Find(id);
             var typeName = (string)Session["Type"];
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-            if (type.Finance == true)
+            if (type.Finance == true || type.Manager == true)
             {
                 if (order.Bnd.AfterReductionNum - order.SumPrice < 0)
                 {
                     TempData["BndOverload"] = "لا يمكنك تجاوز ميزانية البند... الميزانية المتبقية " + order.Bnd.AfterReductionNum;
-                    return RedirectToAction("Index");
+                    return Json("لا يمكنك تجاوز ميزانية البند... الميزانية المتبقية " + order.Bnd.AfterReductionNum);
                 }
                 else
                 {
@@ -940,20 +1585,12 @@ namespace IntensiveLearning.Controllers
                     db.SaveChanges();
                 }
             }
-            return RedirectToAction("Index");
+            return Json(true);
         }
 
-        public ActionResult BuyingApprove(int? id)
+        public JsonResult BuyingApprove(int? id)
         {
-            if (id == null)
-            {
-                return RedirectToAction("Default", "Home");
-            }
-            if (Session["ID"] == null)
-            {
-                return RedirectToAction("Index", "Home");
 
-            }
             Order order = db.Orders.Find(id);
             var empid = Convert.ToInt32(Session["ID"]);
             var typeName = (string)Session["Type"];
@@ -967,25 +1604,15 @@ namespace IntensiveLearning.Controllers
                 db.Entry(order).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return Json(true);
         }
 
-        public ActionResult ProofAcceptance(int? id)
+        public JsonResult ProofAcceptance(int? id)
         {
-
-            if (id == null)
-            {
-                return RedirectToAction("Default", "Home");
-            }
-            if (Session["ID"] == null)
-            {
-                return RedirectToAction("Index", "Home");
-
-            }
             Order order = db.Orders.Find(id);
             var typeName = (string)Session["Type"];
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
-            if (type.Finance == true)
+            if (type.Finance == true || type.Manager == true)
             {
                 order.ProofAcceptance = true;
                 order.ProofAcceptanceDate = DateTime.Now.Date;
@@ -994,7 +1621,7 @@ namespace IntensiveLearning.Controllers
                 db.Entry(order).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return Json(true);
         }
 
 

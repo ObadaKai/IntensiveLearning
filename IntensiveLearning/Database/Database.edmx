@@ -282,6 +282,9 @@
           <Property Name="SumPrice" Type="float" />
           <Property Name="QuantityChanged" Type="bit" />
           <Property Name="PaymentOrderDate" Type="date" />
+          <Property Name="PeacePriceSyrian" Type="float" />
+          <Property Name="CommissionPrice" Type="float" />
+          <Property Name="ItemUnit" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Periods">
           <Key>
@@ -1778,6 +1781,9 @@
           <NavigationProperty Name="SubBnd" Relationship="Self.FK_Order_SubBnd" FromRole="Order" ToRole="SubBnd" />
           <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Order" FromRole="Order" ToRole="Prooves" />
           <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Order" FromRole="Order" ToRole="SubBnd" />
+          <Property Name="PeacePriceSyrian" Type="Double" />
+          <Property Name="CommissionPrice" Type="Double" />
+          <Property Name="ItemUnit" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Period">
           <Key>
@@ -3234,6 +3240,9 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="TaalimModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="ItemUnit" ColumnName="ItemUnit" />
+                <ScalarProperty Name="CommissionPrice" ColumnName="CommissionPrice" />
+                <ScalarProperty Name="PeacePriceSyrian" ColumnName="PeacePriceSyrian" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Employeeid" ColumnName="Employeeid" />
                 <ScalarProperty Name="Bndid" ColumnName="Bndid" />

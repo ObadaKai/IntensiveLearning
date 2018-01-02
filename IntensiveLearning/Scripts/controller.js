@@ -639,6 +639,51 @@
 
     myApp.controller('OrdersCtrl', ['$http', '$scope', '$window', function ($http, $scope, $window) {
         formData = new FormData();
+        $scope.timeFunction = function (timeObj) {
+            if (timeObj != null) {
+                var min = timeObj.Minutes < 10 ? "0" + timeObj.Minutes : timeObj.Minutes;
+                var hour = timeObj.Hours < 10 ? "0" + timeObj.Hours : timeObj.Hours;
+                return hour + ':' + min;
+            }
+            return null;
+        };
+        $scope.PaymentNum = function () {
+            $('#LoadingScreen').show();
+
+            $http({ method: 'POST', url: '/Orders/GetAccPayment', data: { Payment: $scope.Payment } }).then(function successCallback(response) {
+                $scope.Orders = response.data[0];
+                $scope.empid = response.data[1];
+                $scope.Bnds = response.data[2];
+                $scope.Payments = response.data[3];
+                $scope.Orders.Date = new Date($scope.Orders.Date);
+
+                angular.forEach($scope.Orders, function (value, key) {
+                    if (value.Date) {
+                        value.Date = new Date(parseInt(value.Date.substr(6)));
+                    }
+                    if (value.PaymentApprovalDate) {
+                        value.PaymentApprovalDate = new Date(parseInt(value.PaymentApprovalDate.substr(6)));
+                    }
+                    if (value.BuyingApprovalDate) {
+                        value.BuyingApprovalDate = new Date(parseInt(value.BuyingApprovalDate.substr(6)));
+                    }
+                    if (value.ProofAcceptanceDate) {
+                        value.ProofAcceptanceDate = new Date(parseInt(value.ProofAcceptanceDate.substr(6)));
+                    }
+
+                });
+                $('#LoadingScreen').hide();
+
+            });
+        };
+        $scope.RefuseOrderCommentFirstLevel = [];
+        $scope.RefuseOrderCommentSecondLevel = [];
+        $scope.RefuseOrderCommentThirdLevel = [];
+        $scope.PaymentRefuseComment = [];
+        $scope.BuyingRefuseComment = [];
+        $scope.ProofRefuseComment = [];
+        $scope.Bndid = [];
+        $scope.Paymentid = [];
         $http.get("/Orders/GetOrders")
             .then(function (response) {
                 $scope.Orders = response.data[0];
@@ -663,7 +708,272 @@
 
 
                 });
+                $('#LoadingScreen').hide();
+
             });
+        $scope.ConfirmOrderFirstLevel = function (Orderid) {
+            $('#LoadingScreen').show();
+
+            $http({ method: 'POST', url: '/Orders/ConfirmOrderFirstLevel', data: { id: Orderid } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.FirstLevelSign = true;
+                        }
+                    });
+                };
+            });
+        };
+        $scope.Quantity = function (Orderid) {
+            $('#LoadingScreen').show();
+            var Quantity;
+            angular.forEach($scope.Orders, function (value, key) {
+                if (value.id == Orderid) {
+                    Quantity = value.Quantity;
+                }
+            });
+            $http({ method: 'POST', url: '/Orders/Quantity', data: { id: Orderid, AcceptedQuantity: Quantity } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.QuantityChanged = true;
+                        }
+                    });
+                };
+            });
+
+        };
+
+        $scope.SendRefuseOrderFirstLevel = function (Orderid) {
+            $('#LoadingScreen').show();
+            $http({ method: 'POST', url: '/Orders/RefuseOrderFirstLevel', data: { id: Orderid, comment: $scope.RefuseOrderCommentFirstLevel[Orderid] } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.FirstLevelSign = false;
+                            value.Comment = $scope.RefuseOrderCommentFirstLevel[Orderid];
+                        }
+                    });
+                }
+            });
+        };
+        $scope.AssignBnd = function (Orderid) {
+            $('#LoadingScreen').show();
+            $http({ method: 'POST', url: '/Orders/AssignBnd', data: { Bndid: $scope.Bndid[Orderid], id: Orderid } }).then(function successCallback(response) {
+                if (response.data != null) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.Bnd = response.data;
+                        }
+                    });
+                }
+            });
+        };
+        $scope.ConfirmOrderSecondLevel = function (Orderid) {
+            $('#LoadingScreen').show();
+            $http({ method: 'POST', url: '/Orders/ConfirmOrderSecondLevel', data: { id: Orderid } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.SecondLevelSign = true;
+                        }
+                    });
+                }
+            });
+        };
+        $scope.SendRefuseOrderSecondLevel = function (Orderid) {
+            $('#LoadingScreen').show();
+            $http({ method: 'POST', url: '/Orders/RefuseOrderSecondLevel', data: { id: Orderid, comment: $scope.RefuseOrderCommentSecondLevel[Orderid] } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.SecondLevelSign = false;
+                            value.Comment = $scope.RefuseOrderCommentSecondLevel[Orderid];
+                        }
+                    });
+                }
+            });
+        };
+        $scope.ConfirmOrderThirdLevel = function (Orderid) {
+            $('#LoadingScreen').show();
+            $http({ method: 'POST', url: '/Orders/ConfirmOrderThirdLevel', data: { id: Orderid } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.ThirdLevelSign = true;
+                        }
+                    });
+                }
+            });
+        };
+        $scope.SendRefuseOrderThirdLevel = function (Orderid) {
+            $('#LoadingScreen').show();
+
+            $http({ method: 'POST', url: '/Orders/RefuseOrderThirdLevel', data: { id: Orderid, comment: $scope.RefuseOrderCommentThirdLevel[Orderid] } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.ThirdLevelSign = false;
+                            value.Comment = $scope.RefuseOrderCommentThirdLevel[Orderid];
+                        }
+                    });
+                }
+            });
+        };
+
+        $scope.CreatePayment = function (Orderid) {
+            $('#LoadingScreen').show();
+            $http({ method: 'POST', url: '/Orders/CreatePayment', data: { id: Orderid } }).then(function successCallback(response) {
+                if (response.data != null) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.Paymentid = response.data;
+                        }
+                    });
+                }
+            });
+        };
+
+        $scope.ChoosePayment = function (Orderid) {
+            $('#LoadingScreen').show();
+            $http({ method: 'POST', url: '/Orders/ChoosePayment', data: { id: Orderid, Paymentid: $scope.Paymentid[Orderid] } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.Paymentid = Paymentid[Orderid];
+                        }
+                    });
+                }
+            });
+        };
+        $scope.PaymentApprove = function (Orderid) {
+            $('#LoadingScreen').show();
+            $http({ method: 'POST', url: '/Orders/PaymentApprove', data: { id: Orderid } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.PaymentApprove = true;
+                            value.PaymentApprovalDate = new Date();
+                        }
+                    });
+                }
+            });
+        };
+        $scope.SendPaymentRefuse = function (Orderid) {
+            $('#LoadingScreen').show();
+            $http({ method: 'POST', url: '/Orders/PaymentRefuse', data: { id: Orderid, comment: $scope.PaymentRefuseComment[Orderid] } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.PaymentApprove = false;
+                            value.Comment = $scope.PaymentRefuseComment[Orderid];
+                        }
+                    });
+                }
+            });
+        };
+        $scope.BuyingApprove = function (Orderid) {
+            $('#LoadingScreen').show();
+            $http({ method: 'POST', url: '/Orders/BuyingApprove', data: { id: Orderid } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.BuyingApprove = true;
+                            value.BuyingApprovalDate = new Date();
+
+                        }
+                    });
+                }
+            });
+        };
+        $scope.SendBuyingRefuse = function (Orderid) {
+            $('#LoadingScreen').show();
+            $http({ method: 'POST', url: '/Orders/BuyingRefuse', data: { id: Orderid, comment: $scope.BuyingRefuseComment[Orderid] } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.BuyingApprove = false;
+                            value.Comment = $scope.BuyingRefuseComment[Orderid];
+                        }
+                    });
+                }
+            });
+        };
+        $scope.ProofAcceptance = function (Orderid) {
+            $('#LoadingScreen').show();
+            $http({ method: 'POST', url: '/Orders/ProofAcceptance', data: { id: Orderid } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.ProofAcceptance = true;
+                            value.ProofAcceptanceDate = new Date();
+                        }
+                    });
+                }
+            });
+        };
+        $scope.SendProofRefuse = function (Orderid) {
+            $('#LoadingScreen').show();
+            $http({ method: 'POST', url: '/Orders/ProofRefuse', data: { id: Orderid, comment: $scope.ProofRefuseComment[Orderid] } }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#LoadingScreen').hide();
+                    angular.forEach($scope.Orders, function (value, key) {
+                        if (value.id == Orderid) {
+                            value.ProofAcceptance = false;
+                            value.Comment = $scope.ProofRefuseComment[Orderid];
+                        }
+                    });
+                }
+            });
+        };
+
+
+
+        $scope.ArrangeOrders = function (orderType) {
+            $('#LoadingScreen').show();
+
+            $http({ method: 'POST', url: '/Orders/GetOrdersArranged', data: { orderType: orderType } }).then(function successCallback(response) {
+                $scope.Orders = response.data[0];
+                $scope.empid = response.data[1];
+                $scope.Bnds = response.data[2];
+                $scope.Payments = response.data[3];
+                $scope.Orders.Date = new Date($scope.Orders.Date);
+
+                angular.forEach($scope.Orders, function (value, key) {
+                    if (value.Date) {
+                        value.Date = new Date(parseInt(value.Date.substr(6)));
+                    }
+                    if (value.PaymentApprovalDate) {
+                        value.PaymentApprovalDate = new Date(parseInt(value.PaymentApprovalDate.substr(6)));
+                    }
+                    if (value.BuyingApprovalDate) {
+                        value.BuyingApprovalDate = new Date(parseInt(value.BuyingApprovalDate.substr(6)));
+                    }
+                    if (value.ProofAcceptanceDate) {
+                        value.ProofAcceptanceDate = new Date(parseInt(value.ProofAcceptanceDate.substr(6)));
+                    }
+
+
+                });
+                $('#LoadingScreen').hide();
+
+            });
+        };
         $scope.BndChange = function (id, Bnd) {
             $http({ method: 'POST', url: '/Orders/AssignBnd', data: { Bndid: Bnd, id: id } }).then(function successCallback(response) {
                 if (response.data == true) {
@@ -672,6 +982,9 @@
             });
 
         };
+
+
+
         $scope.LoadFileData = function (files, id) {
 
             for (var file in files) {

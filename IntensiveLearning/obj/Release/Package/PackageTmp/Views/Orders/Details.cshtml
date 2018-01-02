@@ -59,26 +59,40 @@
                     @Html.DisplayFor(model => model.Quantity)
                 </p>
             }
-            @if (Model.PeacePrice != null)
+            @if (Model.ItemUnit != null)
             {
                 <h4>
-                    @Html.DisplayNameFor(model => model.PeacePrice)
+                    @Html.DisplayNameFor(model => model.ItemUnit)
                 </h4>
 
                 <p>
-                    @Html.DisplayFor(model => model.PeacePrice)
+                    @Html.DisplayFor(model => model.ItemUnit)
                 </p>
             }
-            else
+            @if (Model.PeacePriceSyrian != null)
             {
                 <h4>
-                    @Html.DisplayNameFor(model => model.PeacePrice)
+                    @Html.DisplayNameFor(model => model.PeacePriceSyrian)
                 </h4>
 
-                <p>
-                    لم يتم الادخال
+                <p style="direction:rtl">
+                    {{@Html.DisplayFor(model => model.PeacePriceSyrian) | currency:""}} ل.س
                 </p>
             }
+
+            @if (Model.PeacePriceSyrian != null && Model.CommissionPrice != null)
+            {
+                <h4>
+                    المجموع الكلي بالسوري
+                </h4>
+
+                
+                    
+        var SyrianSum = Model.PeacePriceSyrian * Model.Quantity;
+                    
+                <p style="direction:rtl">{{@SyrianSum| currency:""}} ل.س</p>
+            }
+
             @if (Model.State != null)
             {
                 <h4>
@@ -191,7 +205,7 @@
                 </p>
                 if (Model.ThirdLevelSign == true && Model.Paymentid == null)
                 {
-                    if (ViewBag.type.Manager == true && ViewBag.type.Finance == true)
+                    if (ViewBag.type.Manager == true)
                     {
                         using (Html.BeginForm("RefuseOrder", "Orders"))
                         {
@@ -206,7 +220,7 @@
                 }
                 if (Model.ThirdLevelSign == false && Model.Paymentid == null)
                 {
-                    if (ViewBag.type.Manager == true && ViewBag.type.Finance == true)
+                    if (ViewBag.type.Manager == true)
                     {
                         <a ng-href="@Url.Action("ConfirmOrder","Orders",new {id= Model.id })"><span class="glyphicon glyphicon-ok"></span></a>
                     }
@@ -234,7 +248,7 @@
                 </p>
                 if (Model.PaymentApprove == true && Model.BuyingApprove != true)
                 {
-                    using (Html.BeginForm("PaymentRefuse", "Orders"))
+                    using (Html.BeginForm("PaymentRefuseAction", "Orders"))
                     {
                         <a onclick="PaymentRefuse()" id="PaymentRefuse"><span class="glyphicon glyphicon-remove"></span></a>
                         <div id="PaymentCancelation" style="display:none;padding:0" class="col-sm-12">
@@ -257,7 +271,7 @@
 
                 if (Model.BuyingApprove == true && Model.proof != null && ViewBag.type.CoManager == true && ViewBag.type.Finance == true)
                 {
-                    using (Html.BeginForm("BuyingRefuse", "Orders"))
+                    using (Html.BeginForm("BuyingRefuseAction", "Orders"))
                     {
                         <a onclick="BuyingRefuse()" id="BuyingRefuse"><span class="glyphicon glyphicon-remove"></span></a>
                         <div id="BuyingCancelation" style="display:none;padding:0" class="col-sm-12">
@@ -292,7 +306,7 @@
 
                 if (Model.ProofAcceptance == true && ViewBag.type.CoManager == true && ViewBag.type.Finance == true)
                 {
-                    using (Html.BeginForm("ProofRefuse", "Orders"))
+                    using (Html.BeginForm("ProofRefuseAction", "Orders"))
                     {
                         <a onclick="ProofRefuse()" id="ProofRefuse"><span class="glyphicon glyphicon-remove"></span></a>
                         <div id="ProofCancelation" style="display:none;padding:0" class="col-sm-12">
@@ -377,14 +391,24 @@
                     @Html.DisplayFor(model => model.OrderType)
                 </p>
             }
-            @if (Model.CanclationReason != null)
+            @if (Model.CommissionPrice != null)
             {
                 <h4>
-                    @Html.DisplayNameFor(model => model.CanclationReason)
+                    @Html.DisplayNameFor(model => model.CommissionPrice)
                 </h4>
 
                 <p>
-                    @Html.DisplayFor(model => model.CanclationReason)
+                    {{@Html.DisplayFor(model => model.CommissionPrice)| currency}} 
+                </p>
+            }
+            @if (Model.PeacePrice != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.PeacePrice)
+                </h4>
+
+                <p>
+                    {{@Html.DisplayFor(model => model.PeacePrice)| currency}}
                 </p>
             }
             @if (Model.SumPrice != null)
@@ -394,7 +418,17 @@
                 </h4>
 
                 <p>
-                    @Html.DisplayFor(model => model.SumPrice)
+                    {{@Html.DisplayFor(model => model.SumPrice) | currency}}
+                </p>
+            }
+            @if (Model.CanclationReason != null)
+            {
+                <h4>
+                    @Html.DisplayNameFor(model => model.CanclationReason)
+                </h4>
+
+                <p>
+                    @Html.DisplayFor(model => model.CanclationReason)
                 </p>
             }
             @if (Model.QuantityChanged != null)
@@ -464,7 +498,7 @@
             {
                 @Html.ActionLink("تعديل", "Edit", new { id = Model.id }) @:|
                 @Html.ActionLink("حذف", "Delete", new { id = Model.id }) @:|
-        }
+            }
         }
         @Html.ActionLink("العودة إلى اللائحة", "Index")
     </p>

@@ -30,7 +30,7 @@ namespace IntensiveLearning.Database
         public string Subject { get; set; }
         [DisplayName("ÇáßãíÉ")]
         public Nullable<int> Quantity { get; set; }
-        [DisplayName("ÓÚÑ ÇáŞØÚÉ")]
+        [DisplayName("ÓÚÑ ÇáŞØÚÉ ÈÇáÏæáÇÑ")]
         public Nullable<double> PeacePrice { get; set; }
         [DisplayName("ÇáÍÇáÉ")]
         public string State { get; set; }
@@ -78,7 +78,7 @@ namespace IntensiveLearning.Database
         [DisplayName("ÓÈÈ ÇáÑİÖ")]
 
         public string CanclationReason { get; set; }
-        [DisplayName("ÇáãÌãæÚ Çáßáí")]
+        [DisplayName("ÇáãÌãæÚ Çáßáí ÈÇáÏæáÇÑ")]
 
         public Nullable<double> SumPrice { get; set; }
         [DisplayName("ÊÛíÑ ÇáßãíÉ")]
@@ -88,7 +88,15 @@ namespace IntensiveLearning.Database
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 
         public Nullable<System.DateTime> PaymentOrderDate { get; set; }
+        [DisplayName("ÓÚÑ ÇáŞØÚÉ ÈÇáÓæÑí")]
 
+        public Nullable<double> PeacePriceSyrian { get; set; }
+        [DisplayName("ÓÚÑ ÕÑİ ÇáÏæáÇÑ Çáíæã")]
+
+        public Nullable<double> CommissionPrice { get; set; }
+        [DisplayName("ÇáæÍÏÉ")]
+        public string ItemUnit { get; set; }
+    
         public virtual Bnd Bnd { get; set; }
         public virtual Center Center { get; set; }
         public virtual Employee Employee { get; set; }

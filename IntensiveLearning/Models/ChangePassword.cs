@@ -19,7 +19,7 @@ namespace IntensiveLearning.Models
 
         public string password { get; set; }
         [Required]
-        [DisplayName("اعادة كلمة المرور الحالية")]
+        [DisplayName("تأكيد كلمة المرور الجديدة")]
         public string confPassword { get; set; }
     }
 }

@@ -5,31 +5,32 @@
     <div class="ThemeFirstBackground">
         <div style="display:inline-block;width:100%;">
             <h2 style="display:inline-block">لائحة الموظفين</h2>
-            @if (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddManagers"] != null || Session["AddCOManagers"] != null)
-            {
-                <div style="display:inline-block;float:left;margin:20px 0;">
 
-                    @using (Html.BeginForm("Create", "Employees", FormMethod.Get, new { style = "display:inline-block;" }))
+            <div style="display:inline-block;float:left;margin:20px 0;">
+                @if (Session["AddSchoolEmployees"] != null || Session["AddSchoolManagers"] != null || Session["AddManagers"] != null || Session["AddCOManagers"] != null)
                 {
+                    using (Html.BeginForm("Create", "Employees", FormMethod.Get, new { style = "display:inline-block;" }))
+                    {
                         <button type="submit" class="btn btn-success" title="انشاء جديد"><span class="glyphicon glyphicon-plus"></span></button>
                     }
-                    <button type="button" ng-click="SearchContainer()" class="btn btn-primary" style="display:inline-block;" title="خيارات البحث"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    <button id="btnImport" style="display:inline-block;" class="btn btn-info" title="xls استيراد من"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button>
+                }
+                <button type="button" ng-click="SearchContainer()" class="btn btn-primary" style="display:inline-block;" title="خيارات البحث"><i class="fa fa-search" aria-hidden="true"></i></button>
+                <button id="btnImport" style="display:inline-block;" class="btn btn-info" title="xls استيراد من"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button>
 
-                    <div id="ImportExcel" style="display:none;float:right;margin:0 10px;background-color:rgba(0, 0, 0, 0.6);padding: 0 2px;border-radius:5px;">
-                        @using (Html.BeginForm("ImportEmployees", "ExcelImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                            <input type="file" name="file" style="color:#ffffff;display:inline-block;" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-                            <input type="submit" class="btn btn-success" value="ارسال" />
-                            if (ViewBag.Importerror != null)
-                            {
-                                <p>@ViewBag.Importerror</p>
-                            }
-
+                <div id="ImportExcel" style="display:none;float:right;margin:0 10px;background-color:rgba(0, 0, 0, 0.6);padding: 0 2px;border-radius:5px;">
+                    @using (Html.BeginForm("ImportEmployees", "ExcelImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input type="file" name="file" style="color:#ffffff;display:inline-block;" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                        <input type="submit" class="btn btn-success" value="ارسال" />
+                        if (ViewBag.Importerror != null)
+                        {
+                            <p>@ViewBag.Importerror</p>
                         }
-                    </div>
+
+                    }
                 </div>
-            }
+            </div>
+
         </div>
         <div id="SearchItemsBtn" class="WhiteBlur InfoContainer">
             <div class="col-xs-12" style="margin-bottom:20px;padding:0;border:0">
@@ -531,7 +532,7 @@
         </div>
         <button id="btnExport" onclick="ToXlsXEmployees('table_wrapper','لائحة الموظفين')" class="btn btn-success">xls تصدير ل</button>
 
-</div>
+    </div>
 
 </div>
 <div class="LoadingScreen" id="LoadingScreen" ng-hide="HideLoadingScreen">
@@ -543,7 +544,7 @@
     </div>
 </div>
 @if (ViewBag.StateMessage != null)
-            {
+{
     <div class="alert alert-success alert-dismissible" role="alert" style="width:inherit;position:absolute;bottom:5%;" id="ToFadeMessage">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         @ViewBag.StateMessage

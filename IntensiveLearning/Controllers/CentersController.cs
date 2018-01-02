@@ -29,7 +29,8 @@ namespace IntensiveLearning.Controllers
 
                     foreach (var item in centers)
                     {
-
+                        item.TargetedMen = db.Students.Count(x => x.Centerid == item.id && x.Sex == "ذكر");
+                        item.TargetedWomen = db.Students.Count(x => x.Centerid == item.id && x.Sex == "انثى");
                         if (DateTime.Now.Month == 1 && item.Month1 == true)
                         {
                             item.State = "متوفر";

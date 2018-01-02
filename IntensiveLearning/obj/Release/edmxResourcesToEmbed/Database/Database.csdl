@@ -348,6 +348,9 @@
     <NavigationProperty Name="SubBnd" Relationship="Self.FK_Order_SubBnd" FromRole="Order" ToRole="SubBnd" />
     <NavigationProperty Name="Prooves" Relationship="Self.FK_Prooves_Order" FromRole="Order" ToRole="Prooves" />
     <NavigationProperty Name="SubBnds" Relationship="Self.FK_SubBnd_Order" FromRole="Order" ToRole="SubBnd" />
+    <Property Name="PeacePriceSyrian" Type="Double" />
+    <Property Name="CommissionPrice" Type="Double" />
+    <Property Name="ItemUnit" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Period">
     <Key>

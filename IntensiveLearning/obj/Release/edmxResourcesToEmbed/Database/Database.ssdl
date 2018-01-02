@@ -277,6 +277,9 @@
     <Property Name="SumPrice" Type="float" />
     <Property Name="QuantityChanged" Type="bit" />
     <Property Name="PaymentOrderDate" Type="date" />
+    <Property Name="PeacePriceSyrian" Type="float" />
+    <Property Name="CommissionPrice" Type="float" />
+    <Property Name="ItemUnit" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Periods">
     <Key>
