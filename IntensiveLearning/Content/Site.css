@@ -26,7 +26,17 @@ body {
     transform: scale(1.1);
 }
 
+.doPrintTable-cell {
+    display: none;
+}
 
+.doPrintInline {
+    display: none;
+}
+
+.doPrintblock {
+    display: none;
+}
 
 .InfoContainer {
     display: inline-block;
@@ -874,4 +884,65 @@ thead .bg-primary {
     height: 200px !important;
     -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
     transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+}
+
+
+@media print and (color) {
+    @page {
+        margin: 0.5cm;
+    }
+
+    .dontprint {
+        display: none;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        
+    }
+    th,td{
+        text-align:center !important;
+    }
+
+    .doPrintInline {
+        display: inline-block !important;
+    }
+
+    .doPrintblock {
+        display: block !important;
+    }
+
+    .PrintMeSmall {
+        font-size: 12px;
+    }
+
+    .doPrintTable-cell {
+        display: table-cell !important;
+    }
+
+    .FirstToPrintImg {
+        background-size: cover !important;
+        background-position: center !important;
+        width: 100px !important;
+        height: 100px !important;
+        border:5px solid red;
+    }
+
+    .SecondToPrintImg {
+        content: url('Images/SeventhOfFour.jpg') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        width: 100px !important;
+        height: 100px !important;
+    }
+    /*img {
+        display: list-item;
+        width: 100px;
+        height: 100px;
+        list-style-image: url("Images/FirstOfFour.jpeg");
+        list-style-position: inside;
+        border: solid 10px red;
+        background-color: black;
+    }*/
 }

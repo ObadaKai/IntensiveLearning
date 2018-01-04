@@ -32,10 +32,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/23/2017 13:15:20</publishTime>
     </File>
     <File Include="bin/IntensiveLearning.dll">
-      <publishTime>12/30/2017 17:13:52</publishTime>
+      <publishTime>01/04/2018 11:50:30</publishTime>
     </File>
     <File Include="bin/IntensiveLearning.pdb">
-      <publishTime>12/30/2017 17:13:52</publishTime>
+      <publishTime>01/04/2018 11:50:30</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>06/27/2017 12:59:34</publishTime>
@@ -193,6 +193,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/Images/SecondOfFour.jpeg">
       <publishTime>12/13/2017 12:36:28</publishTime>
     </File>
+    <File Include="Content/Images/SeventhOfFour.jpg">
+      <publishTime>01/02/2018 17:08:54</publishTime>
+    </File>
     <File Include="Content/Images/SigninBackground.jpg">
       <publishTime>12/13/2017 16:58:56</publishTime>
     </File>
@@ -223,8 +226,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/MidadSmallPic.jpeg">
       <publishTime>12/13/2017 12:40:33</publishTime>
     </File>
+    <File Include="Content/NewSite.css">
+      <publishTime>01/03/2018 12:19:35</publishTime>
+    </File>
     <File Include="Content/Site.css">
-      <publishTime>12/30/2017 16:52:52</publishTime>
+      <publishTime>01/03/2018 11:41:26</publishTime>
     </File>
     <File Include="Content/ThemeContents/assets/css/font-awesome.min.css">
       <publishTime>12/02/2017 15:56:13</publishTime>
@@ -323,10 +329,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/28/2017 11:27:18</publishTime>
     </File>
     <File Include="Scripts/controller.js">
-      <publishTime>12/30/2017 15:26:39</publishTime>
+      <publishTime>01/03/2018 10:54:04</publishTime>
     </File>
     <File Include="Scripts/ExportExcel.js">
-      <publishTime>12/13/2017 12:10:45</publishTime>
+      <publishTime>01/03/2018 12:20:55</publishTime>
     </File>
     <File Include="Scripts/FileSaver.min.js">
       <publishTime>12/11/2017 15:23:20</publishTime>
@@ -443,7 +449,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/13/2017 12:09:38</publishTime>
     </File>
     <File Include="Views/Employees/Create.cshtml">
-      <publishTime>12/30/2017 17:07:23</publishTime>
+      <publishTime>01/02/2018 11:12:26</publishTime>
     </File>
     <File Include="Views/Employees/Delete.cshtml">
       <publishTime>11/24/2017 17:17:49</publishTime>
@@ -455,7 +461,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/30/2017 17:08:25</publishTime>
     </File>
     <File Include="Views/Employees/Index.cshtml">
-      <publishTime>12/29/2017 14:45:29</publishTime>
+      <publishTime>01/03/2018 16:15:01</publishTime>
     </File>
     <File Include="Views/EmployeeTypes/Create.cshtml">
       <publishTime>07/11/2017 14:49:08</publishTime>
@@ -506,7 +512,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Views/Home/ChangePassword.cshtml">
-      <publishTime>11/13/2017 14:03:27</publishTime>
+      <publishTime>01/02/2018 10:56:46</publishTime>
     </File>
     <File Include="Views/Home/EditOwnUser.cshtml">
       <publishTime>11/25/2017 10:50:46</publishTime>
@@ -551,7 +557,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/08/2017 12:36:13</publishTime>
     </File>
     <File Include="Views/Missions/Details.cshtml">
-      <publishTime>12/08/2017 12:38:16</publishTime>
+      <publishTime>01/02/2018 10:55:37</publishTime>
     </File>
     <File Include="Views/Missions/Edit.cshtml">
       <publishTime>11/25/2017 15:56:16</publishTime>
@@ -572,7 +578,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/29/2017 12:07:27</publishTime>
     </File>
     <File Include="Views/Orders/Index.cshtml">
-      <publishTime>12/30/2017 15:55:29</publishTime>
+      <publishTime>01/03/2018 12:24:00</publishTime>
     </File>
     <File Include="Views/Periods/Create.cshtml">
       <publishTime>04/11/2017 12:51:13</publishTime>
@@ -638,7 +644,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/31/2017 17:29:11</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>12/30/2017 17:01:58</publishTime>
+      <publishTime>01/02/2018 15:26:07</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutTheme.cshtml">
       <publishTime>12/30/2017 16:04:10</publishTime>
@@ -698,7 +704,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/29/2017 15:25:05</publishTime>
     </File>
     <File Include="Views/SubBnds/Index.cshtml">
-      <publishTime>12/15/2017 11:10:10</publishTime>
+      <publishTime>01/03/2018 13:57:49</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>09/11/2017 10:24:34</publishTime>

@@ -58,13 +58,13 @@
     }
 
 });
-var open = false;
+var LeftMenuToggler = false;
 function openLeftMenu() {
     document.getElementById("leftMenu").style.width = "22em";
     //document.getElementById("TemplateForm").classList = "container body-content";
     //document.getElementById("TemplateForm").classList = "container body-content col-md-11 col-lg-11 col-sm-8 col-xs-8";
     //document.getElementById("leftMenu").classList = "col-md-1 col-lg-1 col-sm-4 col-xs-4";
-    open = true;
+    LeftMenuToggler = true;
 }
 
 function ToXlsXEmployees(tableid,Filename) {
@@ -84,13 +84,13 @@ function ToXlsXEmployees(tableid,Filename) {
 function closeLeftMenu() {
     document.getElementById("leftMenu").style.width = "0";
     //document.getElementById("TemplateForm").classList = "container body-content";
-    open = false;
+    LeftMenuToggler = false;
 }
 
 
 
 function toggleLeftMenu() {
-    open ? closeLeftMenu() : openLeftMenu();
+    LeftMenuToggler ? closeLeftMenu() : openLeftMenu();
 }
 
 $("#CenterType").on("change", function () {
@@ -187,10 +187,33 @@ function printdiv(printpage) {
     var footstr = "</body>";
     var newstr = document.all.item(printpage).innerHTML;
     var oldstr = document.body.innerHTML;
-    document.body.innerHTML = headstr + newstr + footstr;
-    window.print();
-    document.body.innerHTML = oldstr;
-    return false;
+    //document.body.innerHTML = headstr + newstr + footstr;
+    //window.onload() = function () {
+    //    window.print();
+    //}
+    //document.body.innerHTML = oldstr;
+    //return false;
+    var mywindow = window.open();
+
+    var is_chrome = Boolean(mywindow.chrome);
+    mywindow.document.write(headstr + newstr + footstr);
+    mywindow.document.close(); // necessary for IE >= 10 and necessary before onload for chrome
+
+    if (is_chrome) {
+        mywindow.onload = function () { // wait until all resources loaded 
+            mywindow.focus(); // necessary for IE >= 10
+            mywindow.print();  // change window to mywindow
+            mywindow.close();// change window to mywindow
+        };
+    }
+    else {
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+        mywindow.print();
+        mywindow.close();
+    }
+
+    return true;
 }
 
 var uploadField = document.getElementById("file");

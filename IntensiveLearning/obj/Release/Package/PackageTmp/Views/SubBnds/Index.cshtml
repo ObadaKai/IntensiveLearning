@@ -16,8 +16,7 @@
                 <div class="col-sm-4">
                     <table class="table table-striped">
                         <tr>
-                            <td></td>
-                            <th>{{Bnd.BndActivity}}</th>
+                            <th colspan="2">{{Bnd.BndActivity}}</th>
                         </tr>
                         <tr>
                             <th style="background-color:#258cd1;color:white;">رقم البند</th>
@@ -55,6 +54,7 @@
 
                         </thead>
                         <tbody>
+
                             <tr>
                                 <td ng-repeat="Center in Centers">{{Center.Center | currency}}</td>
                             </tr>
@@ -75,7 +75,7 @@
         <div id="table_wrapper">
             <table class="table table-striped">
                 <thead>
-
+                    
                     <tr class="bg-primary">
                         <th>
                             المعلومات
@@ -151,13 +151,13 @@
                             {{SubBnd.Payment}}
                         </td>
                         <td>
-                            <span ng-if="SubBnd.BuyingApprove ==  true" class="glyphicon glyphicon-ok"></span>
-                            <span ng-if="SubBnd.BuyingApprove ==  false" class="glyphicon glyphicon-remove"></span>
+                            <span ng-if="SubBnd.PayymentApprove ==  true" class="glyphicon glyphicon-ok"></span>
+                            <span ng-if="SubBnd.PayymentApprove ==  false" class="glyphicon glyphicon-remove"></span>
 
                         </td>
                         <td>
-                            <span ng-if="SubBnd.PayymentApprove ==  true" class="glyphicon glyphicon-ok"></span>
-                            <span ng-if="SubBnd.PayymentApprove ==  false" class="glyphicon glyphicon-remove"></span>
+                            <span ng-if="SubBnd.BuyingApprove ==  true" class="glyphicon glyphicon-ok"></span>
+                            <span ng-if="SubBnd.BuyingApprove ==  false" class="glyphicon glyphicon-remove"></span>
 
                         </td>
                         <td>

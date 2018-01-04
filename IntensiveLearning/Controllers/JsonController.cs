@@ -516,13 +516,13 @@ namespace IntensiveLearning.Controllers
             {
                 employees = null;
             }
-            else if (type.Manager == true)
+            else if (type.SeeAll == true)
             {
 
                 employees = null;
 
             }
-            else if (type.CoManager == true)
+            else if (type.SeeAllButFinance == true)
             {
 
                 EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true || x.SeeAccToCity == true).ToList();
@@ -530,14 +530,14 @@ namespace IntensiveLearning.Controllers
                 employees = null;
 
             }
-            else if (type.SchoolManager == true)
+            else if (type.SeeAccToCity == true)
             {
 
                 EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true || x.SeeAccToCenter == true).ToList();
 
                 employees = db.Employees.Where(x => ((x.Centerid == emp.Centerid) && x.EmployeeType.NormalEmployee == true) || (x.EmployeeType.Manager != true && x.EmployeeType.CoManager != true && x.EmployeeType.SchoolManager != true && x.EmployeeType.NormalEmployee != true && x.Centerid == emp.Centerid)).Include(e => e.Center).Include(e => e.EmployeeType).Include(e => e.Period).ToList();
             }
-            else if (type.SeeTeachers == true)
+            else if (type.SeeAccToCenter == true || type.SeeTeachers == true)
             {
                 EmployeeTypes = EmployeeTypes.Where(x => x.SeeTeachers == true).ToList();
 
@@ -902,58 +902,39 @@ namespace IntensiveLearning.Controllers
             var emp = db.Employees.Find(empid);
             try
             {
-                if (type.AddNewEmployeeType == true)
+                if (type.AddNewEmployeeType == true && type.SeeAll != true && type.SeeAllButFinance != true && type.SeeAccToCity != true && type.SeeAccToCenter != true && type.SeeTeachers != true)
                 {
-
                     ToSendList = ToSendList.Where(x => x.EmpManager == true).ToList();
                 }
-                else if (type.AddManagers == true)
+                else if (type.SeeAll == true)
                 {
 
                 }
-                else if (type.AddCOManagers == true)
+                else if (type.SeeAllButFinance == true)
                 {
 
 
                     ToSendList = ToSendList.Where(x => (x.EmpCoManager == true || x.EmpSchoolManager == true || x.EmpNormal == true) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true)).ToList();
                 }
-                else if (type.AddSchoolManagers == true)
+
+                else if (type.SeeAccToCity == true)
                 {
-                    if (type.SeeAccToCity == true)
-                    {
 
-                        ToSendList = ToSendList.Where(x => ((x.City == emp.City.Name || x.City == emp.Center.City.Name) && (x.EmpSchoolManager == true || x.EmpNormal == true)) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true && x.City == emp.City.Name)).ToList();
-                    }
-                    else if (type.SeeAccToCenter == true)
-                    {
-                        ToSendList = ToSendList.Where(x => (x.Center == emp.Center.Name && (x.EmpSchoolManager == true || x.EmpNormal == true)) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true && x.Center == emp.Center.Name)).ToList();
-                    }
-                    else
-                    {
-                        ToSendList = ToSendList.Where(x => x.EmpSchoolManager == true || x.EmpNormal == true || x.City != null || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true)).ToList();
-                    }
+                    ToSendList = ToSendList.Where(x => ((x.City == emp.City.Name) && (x.EmpSchoolManager == true || x.EmpNormal == true)) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true && x.City == emp.City.Name)).ToList();
                 }
-                else if (type.AddSchoolEmployees == true)
+                else if (type.SeeAccToCenter == true)
                 {
-                    if (type.SeeAccToCity == true)
-                    {
-
-                        ToSendList = ToSendList.Where(x => ((x.City == emp.City.Name || x.City == emp.Center.City.Name) && x.EmpNormal == true) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true && x.City == emp.City.Name)).ToList();
-                    }
-                    else if (type.SeeAccToCenter == true)
-                    {
-                        ToSendList = ToSendList.Where(x => ((x.Center == emp.Center.Name) && x.EmpNormal == true) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true && x.Center == emp.Center.Name)).ToList();
-                    }
-                    else
-                    {
-                        ToSendList = ToSendList.Where(x => x.EmpNormal == true || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true)).ToList();
-                    }
+                    ToSendList = ToSendList.Where(x => (x.Center == emp.Center.Name && (x.EmpSchoolManager == true || x.EmpNormal == true)) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true && x.Center == emp.Center.Name)).ToList();
                 }
-
 
                 else if (type.SeeTeachers == true)
                 {
                     ToSendList = ToSendList.Where(x => (x.EmpSeeTeacher == true && x.Center == emp.Center.Name) || (x.EmpManager != true && x.EmpNormal != true && x.EmpCoManager != true && x.EmpSchoolManager != true)).ToList();
+                }
+                else
+                {
+                    ToSendList = null;
+
                 }
             }
             catch
@@ -1253,8 +1234,12 @@ namespace IntensiveLearning.Controllers
 
             try
             {
-                var num = Convert.ToInt32(searchbox);
-                examNum = db.Students.Where(x => x.Mark == num).ToList();
+                if (searchbox!=null)
+                {
+                    var num = Convert.ToInt32(searchbox);
+                    examNum = db.Students.Where(x => x.Mark == num).ToList();
+
+                }
             }
             catch (Exception)
             {
@@ -1262,8 +1247,12 @@ namespace IntensiveLearning.Controllers
             }
             try
             {
-                var num = Convert.ToInt32(searchbox);
-                StudentNumber = db.Students.Where(x => x.StudentNumber == num).ToList();
+                if (searchbox != null)
+                {
+                    var num = Convert.ToInt32(searchbox);
+                    StudentNumber = db.Students.Where(x => x.StudentNumber == num).ToList();
+
+                }
             }
             catch (Exception)
             {

@@ -13,16 +13,25 @@ namespace IntensiveLearning.Controllers
         // GET: TryOut
         public ActionResult Index()
         {
-            var Orders = db.Orders.ToList();
-            foreach (var Order in Orders)
+            var students = db.Students.Where(x => x.id >= 5163).ToList();
+            foreach (var item in students)
             {
-                if (Order.PeacePriceSyrian != null)
-                {
-                    Order.PeacePrice = Order.PeacePriceSyrian / Order.CommissionPrice;
-                    Order.SumPrice = Order.PeacePrice * Order.Quantity;
-                }
-                db.Entry(Order).State = System.Data.Entity.EntityState.Modified;
+                item.id = item.id - 1260;
+                item.StudentNumber = item.StudentNumber - 1260;
+                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
             }
+
+
+            //var Orders = db.Orders.ToList();
+            //foreach (var Order in Orders)
+            //{
+            //    if (Order.PeacePriceSyrian != null)
+            //    {
+            //        Order.PeacePrice = Order.PeacePriceSyrian / Order.CommissionPrice;
+            //        Order.SumPrice = Order.PeacePrice * Order.Quantity;
+            //    }
+            //    db.Entry(Order).State = System.Data.Entity.EntityState.Modified;
+            //}
             db.SaveChanges();
 
             return View();

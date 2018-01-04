@@ -63,7 +63,7 @@
                     </select>
                 </div>
                 <div ng-show="EmployeeTypes != null" class="col-sm-2 pull-right col-xs-12" style="margin:0;padding:0;border:0">
-                    <label>بحث مراحل</label>
+                    <label>بحث صلاحيات المستخدمين</label>
                     <select name="StagesChange" id="StagesChange" ng-model="EmployeeTypesChange" class="form-control">
                         <option value="">--- الكل ---</option>
                         <option ng-repeat="EmployeeType in EmployeeTypes" value="{{EmployeeType.id}}">{{EmployeeType.Type}}</option>

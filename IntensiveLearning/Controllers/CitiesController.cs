@@ -22,7 +22,7 @@ namespace IntensiveLearning.Controllers
                 var empid = Convert.ToInt32(Session["ID"]);
                 var type = db.Employees.Find(empid);
                 var typename = db.EmployeeTypes.Find(type.Job);
-                if (typename.AddCitesAndCenters ==true)
+                if (typename.SeeAll ==true || typename.SeeAllButFinance == true)
                 {
                     var cities = db.Cities.Include(c => c.Project);
                     if (TempData["Message"] != null)

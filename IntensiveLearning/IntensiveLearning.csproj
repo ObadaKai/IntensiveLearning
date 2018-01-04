@@ -310,10 +310,12 @@
     <Content Include="Content\Images\StuInfoBackgrpund.jpg" />
     <Content Include="Content\Images\StuInfoSmall.jpg" />
     <Content Include="Content\Images\ThirdOfFour.jpg" />
+    <Content Include="Content\Images\SeventhOfFour.jpg" />
     <Content Include="Content\MidadSmallPic.jpeg" />
     <Content Include="Content\Images\RegisternewuserBackground.png" />
     <Content Include="Content\Images\RegisternewUserSmall.png" />
     <Content Include="Content\Images\SecondOfFour.jpeg" />
+    <Content Include="Content\NewSite.css" />
     <Content Include="Content\ThemeContents\assets\css\font-awesome.min.css" />
     <Content Include="Content\ThemeContents\assets\css\main.css" />
     <Content Include="Content\ThemeContents\assets\fonts\fontawesome-webfont.svg" />

@@ -656,7 +656,7 @@
                 $scope.Bnds = response.data[2];
                 $scope.Payments = response.data[3];
                 $scope.Orders.Date = new Date($scope.Orders.Date);
-
+                $scope.ShowPrintBtn = true;
                 angular.forEach($scope.Orders, function (value, key) {
                     if (value.Date) {
                         value.Date = new Date(parseInt(value.Date.substr(6)));
@@ -684,6 +684,8 @@
         $scope.ProofRefuseComment = [];
         $scope.Bndid = [];
         $scope.Paymentid = [];
+        $scope.TodaysDate = new Date();
+        $scope.ShowPrintBtn = false;
         $http.get("/Orders/GetOrders")
             .then(function (response) {
                 $scope.Orders = response.data[0];
@@ -691,7 +693,8 @@
                 $scope.Bnds = response.data[2];
                 $scope.Payments = response.data[3];
                 $scope.Orders.Date = new Date($scope.Orders.Date);
-
+                $scope.Payment = "";
+                $scope.ShowPrintBtn = false;
                 angular.forEach($scope.Orders, function (value, key) {
                     if (value.Date) {
                         value.Date = new Date(parseInt(value.Date.substr(6)));
@@ -952,6 +955,8 @@
                 $scope.empid = response.data[1];
                 $scope.Bnds = response.data[2];
                 $scope.Payments = response.data[3];
+                $scope.ShowPrintBtn = false;
+                $scope.Payment = "";
                 $scope.Orders.Date = new Date($scope.Orders.Date);
 
                 angular.forEach($scope.Orders, function (value, key) {

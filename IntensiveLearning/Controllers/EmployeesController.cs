@@ -335,10 +335,12 @@ namespace IntensiveLearning.Controllers
             var typeName = (string)Session["Type"];
             var type = db.EmployeeTypes.Where(x => x.Type == typeName).FirstOrDefault();
             var jobs = db.EmployeeTypes.Find(employee.Job);
+            var ChooseCityBool = true;
+            var ChooseCenterBool = true;
+            var ChooseUsernameBool = true;
             bool sendImageError = false;
             if (ModelState.IsValid)
             {
-                bool proceed = true;
                 if (jobs.Manager == true)
                 {
                     employee.Centerid = null;
@@ -353,10 +355,8 @@ namespace IntensiveLearning.Controllers
                 {
                     if (employee.CityID == null)
                     {
-                        ViewBag.error = "يرجى اختيار المدينة";
-                        ViewBag.TitleSideBar = "Employees";
 
-                        return View(employee);
+                        ChooseCityBool = false;
                     }
                     employee.Centerid = null;
                 }
@@ -364,20 +364,15 @@ namespace IntensiveLearning.Controllers
                 {
                     if (employee.Centerid == null)
                     {
-                        ViewBag.error = "يرجى اختيار المركز";
-                        ViewBag.TitleSideBar = "Employees";
-
-                        return View(employee);
+                        ChooseCenterBool = false;
                     }
                     employee.CityID = null;
                 }
                 if (db.Employees.Where(x => x.Username == employee.Username).Count() > 0)
                 {
-                    ViewBag.error = "اسم المستخم مستخدم مسبقا";
-                    ViewBag.TitleSideBar = "Employees";
-
-                    return View(employee);
+                    ChooseUsernameBool = false;
                 }
+
 
 
                 try
@@ -496,7 +491,7 @@ namespace IntensiveLearning.Controllers
 
                 var id = Convert.ToInt32(Session["ID"]);
                 var emp = db.Employees.Find(id);
-                if (proceed)
+                if (ChooseUsernameBool && ChooseCenterBool && ChooseCityBool)
                 {
 
                     db.Employees.Add(employee);
@@ -525,9 +520,9 @@ namespace IntensiveLearning.Controllers
                     }
                     return RedirectToAction("Index");
                 }
+
+
             }
-
-
 
             var CAddManagers = db.Centers.ToList();
             var CAddCOManagers = db.Centers.ToList();
@@ -732,9 +727,23 @@ namespace IntensiveLearning.Controllers
             ViewBag.Jobs = TosendJobs;
             ViewBag.SelectedEmployee = employee;
             ViewBag.Periodid = new SelectList(db.Periods, "id", "Name", employee.Periodid);
-            if (sendImageError)
+            if (sendImageError == true)
             {
                 ViewBag.error = "يرجى ارفاق الاثبات كملف خارجي";
+            }
+            else if (ChooseCenterBool == false)
+            {
+                ViewBag.error = "يرجى اختيار المركز";
+            }
+            else if (ChooseCityBool == false)
+            {
+                ViewBag.error = "يرجى اختيار المدينة";
+
+            }
+            else if (ChooseUsernameBool == false)
+            {
+                ViewBag.error = "اسم المستخم مستخدم مسبقا";
+
             }
             ViewBag.TitleSideBar = "Employees";
 
