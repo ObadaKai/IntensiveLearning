@@ -16,8 +16,42 @@
             }
         };
     });
-
-
+    myApp.controller('AddMissionCtrl', ['$http', '$scope', function ($http, $scope) {
+        if (!$scope.Is_Edit) {
+        $http({ method: 'GET', url: '/Json/GetAllUsers' }).then(function successCallback(response) {
+            $scope.Users = response.data;
+            });
+        }
+        var x = false;
+        $scope.ChangeManager = function (id) {
+            $scope.Is_Edit = true;
+            if (id) {
+                $scope.ManagerId = id;
+                $http({ method: 'GET', url: '/Json/GetAllUsers' }).then(function successCallback(response) {
+                    $scope.Users = response.data;
+                    angular.forEach($scope.Users, function (value, key) {
+                        if (value.id == id) {
+                            $scope.searchbox = value.name + " " + value.surname;;
+                            $scope.HideSearch = true;
+                        }
+                    });
+                });           
+            }
+        };
+        $scope.TextChange = function () {
+            $scope.HideSearch = false;
+            if (x) {
+                $scope.searchbox = "";
+                x = false;
+            }
+        };
+        $scope.ChangeManagerId = function (item) {
+            $scope.ManagerId = item.id;
+            $scope.searchbox = item.name + " " + item.surname;
+            x = true;
+            $scope.HideSearch = true;
+        };
+    }]);
     myApp.controller('AddStudentCtrl', ['$http', '$scope', '$timeout', function ($http, $scope, $timeout) {
         $scope.ShowForm = true;
         var Student = {};
@@ -205,6 +239,7 @@
     }]);
 
     myApp.controller('MissionsCtrl', ['$http', '$scope', function ($http, $scope) {
+        formData = new FormData();
         $scope.timeFunction = function (timeObj) {
             if (timeObj != null) {
                 var min = timeObj.Minutes < 10 ? "0" + timeObj.Minutes : timeObj.Minutes;
@@ -212,6 +247,9 @@
                 return hour + ':' + min;
             }
             return null;
+        };
+        $scope.RedirectToNewMission = function () {
+            window.location.href = "/Missions/create"
         };
 
         $scope.CheckMission = function (id) {
@@ -295,6 +333,23 @@
 
                 $scope.OpenMisisons = false;
                 $('#LoadingScreen').hide();
+            });
+        };
+        $scope.LoadFileData = function (files, id) {
+
+            for (var file in files) {
+                formData.append("file", files[file]);
+            }
+            formData.append("Mission", angular.toJson(id));
+
+            $http.post("/json/MissionFilesSave", formData, {
+                withCredentials: true,
+                headers: { 'Content-Type': undefined },
+                transformRequest: angular.identity
+            }).then(function successCallback(response) {
+                if (response.data == true) {
+                    $('#' + id).hide();
+                }
             });
         };
     }]);
@@ -1003,7 +1058,8 @@
                 headers: { 'Content-Type': undefined },
                 transformRequest: angular.identity
             }).then(function successCallback(response) {
-                if (response.data == true) {
+                if (response.status === 200) {
+                    $scope.mission[id].Proof = response.data;
                     $('#' + id).hide();
                 }
             });

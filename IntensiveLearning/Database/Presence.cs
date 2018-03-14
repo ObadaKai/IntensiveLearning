@@ -11,46 +11,26 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
-
+    
     public partial class Presence
     {
         public int id { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ Ê÷⁄  «—ÌŒ «·€Ì«»")]
-        [DisplayName(" «—ÌŒ «·€Ì«»")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-
         public Nullable<System.DateTime> Date { get; set; }
-        [DisplayName("«·‘—Õ")]
         public string Desc { get; set; }
         public Nullable<int> Studentid { get; set; }
-        [DisplayName("1«·œ—”")]
         public Nullable<bool> Lesson1 { get; set; }
-        [DisplayName("2«·œ—”")]
         public Nullable<bool> Lesson2 { get; set; }
-        [DisplayName("3«·œ—”")]
         public Nullable<bool> Lesson3 { get; set; }
-        [DisplayName("4«·œ—”")]
         public Nullable<bool> Lesson4 { get; set; }
-        [DisplayName("«·œ—”5")]
         public Nullable<bool> Lesson5 { get; set; }
-        [DisplayName("6«·œ—”")]
         public Nullable<bool> Lesson6 { get; set; }
-        [DisplayName("7«·œ—”")]
         public Nullable<bool> Lesson7 { get; set; }
         public Nullable<bool> Approval { get; set; }
         public Nullable<int> ApprovedBy { get; set; }
         public Nullable<int> AddedBy { get; set; }
-        [DisplayName(" «—ÌŒ «·«÷«›…")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-
         public Nullable<System.DateTime> AddingDate { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
-        [DisplayName("“„‰ «·«÷«›…")]
         public Nullable<System.TimeSpan> AddingTime { get; set; }
-
+    
         public virtual Employee Employee { get; set; }
         public virtual Employee Employee1 { get; set; }
         public virtual Student Student { get; set; }

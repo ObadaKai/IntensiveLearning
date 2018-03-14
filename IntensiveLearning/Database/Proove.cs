@@ -23,11 +23,13 @@ namespace IntensiveLearning.Database
         public string Type { get; set; }
         public Nullable<int> EmployeeID { get; set; }
         public string ZipFilePath { get; set; }
+        public Nullable<int> MissionID { get; set; }
     
         public virtual Center Center { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual Examination Examination { get; set; }
         public virtual Order Order { get; set; }
         public virtual Student Student { get; set; }
+        public virtual Mission Mission { get; set; }
     }
 }

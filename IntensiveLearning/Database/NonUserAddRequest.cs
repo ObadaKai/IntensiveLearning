@@ -11,70 +11,29 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class NonUserAddRequest
     {
         public int id { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·‰Ê⁄ ")]
-        [DisplayName("«·‰Ê⁄")]
-        public string Type { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·«”„ ")]
-        [DisplayName("«·«”„")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·ﬂ‰Ì… ")]
-        [DisplayName("«·ﬂ‰Ì…")]
         public string Surname { get; set; }
-        [DisplayName(" «—ÌŒ «·Ê·«œ…")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-
         public Nullable<System.DateTime> BDate { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· —ﬁ„ «·Â« › ")]
-        [DisplayName("—ﬁ„ «·Â« ›")]
-        public Nullable<Int64> PhoneNumber { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «”„ «·√» ")]
-        [DisplayName("«”„ «·√»")]
+        public Nullable<long> PhoneNumber { get; set; }
         public string FathersName { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· «·‘Â«œ… ")]
-        [DisplayName("«·‘Â«œ…")]
-        public string Certificate { get; set; }
-        [Required(ErrorMessage = "Ì—ÃÏ «œŒ«· ‰Ê⁄ «·‘Â«œ… ")]
-        [DisplayName("‰Ê⁄ «·‘Â«œ…")]
         public string CType { get; set; }
-        [DisplayName("«·⁄·«„…")]
-
         public Nullable<double> Mark { get; set; }
-        [DisplayName("«·Ã‰”")]
-
         public string Sex { get; set; }
-        [DisplayName("«”„ «·«„")]
-
         public string MothersName { get; set; }
         public Nullable<int> Centerid { get; set; }
-        [DisplayName("«·„œ—”… «· Ì ﬂ‰   œ—” »Â«")]
         public string OldSchool { get; set; }
         public Nullable<int> Cityid { get; set; }
         public Nullable<bool> Approval { get; set; }
         public Nullable<int> ApprovedBy { get; set; }
         public Nullable<int> AddedBy { get; set; }
-
-        [DisplayName(" «—ÌŒ «·«÷«›…")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> AddingDate { get; set; }
-
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
-        [DisplayName("“„‰ «·«÷«›…")]
         public Nullable<System.TimeSpan> AddingTime { get; set; }
-
-        [DisplayName(" «—ÌŒ «·ﬁ»Ê·")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> ApprovalDate { get; set; }
-
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh\\:mm}")]
-        [DisplayName("“„‰ «·ﬁ»Ê·")]
         public Nullable<System.TimeSpan> ApprovalTime { get; set; }
-
         public Nullable<int> Stageid { get; set; }
         public Nullable<int> Periodid { get; set; }
     

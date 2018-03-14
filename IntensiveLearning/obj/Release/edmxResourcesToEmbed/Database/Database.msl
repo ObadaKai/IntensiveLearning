@@ -339,6 +339,7 @@
     <EntitySetMapping Name="Prooves">
       <EntityTypeMapping TypeName="TaalimModel.Proove">
         <MappingFragment StoreEntitySet="Prooves">
+          <ScalarProperty Name="MissionID" ColumnName="MissionID" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="StudentID" ColumnName="StudentID" />
           <ScalarProperty Name="CenterID" ColumnName="CenterID" />
@@ -416,6 +417,7 @@
     <EntitySetMapping Name="Missions">
       <EntityTypeMapping TypeName="TaalimModel.Mission">
         <MappingFragment StoreEntitySet="Mission">
+          <ScalarProperty Name="Proof" ColumnName="Proof" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="MissionText" ColumnName="MissionText" />
           <ScalarProperty Name="Closed" ColumnName="Closed" />

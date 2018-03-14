@@ -514,16 +514,17 @@
     <Content Include="Views\HomeScreenPage\AboutMidad.cshtml" />
     <Content Include="Views\HomeScreenPage\StudentInfo.cshtml" />
     <Content Include="Views\HomeScreenPage\RegisterNewStudent.cshtml" />
+    <Content Include="Views\TryOut\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Centers\" />
     <Folder Include="App_Data\Employees\" />
     <Folder Include="App_Data\Examinations\" />
+    <Folder Include="App_Data\Missions\" />
     <Folder Include="App_Data\Orders\" />
     <Folder Include="App_Data\Students\" />
     <Folder Include="App_Data\Test\" />
     <Folder Include="Views\Json\" />
-    <Folder Include="Views\TryOut\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

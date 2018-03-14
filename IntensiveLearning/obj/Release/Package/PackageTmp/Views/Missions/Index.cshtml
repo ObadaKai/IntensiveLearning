@@ -11,7 +11,7 @@
             <div style="display:inline-block;float:left;margin:20px 0;">
 
                 <p>
-                    <button type="submit" class="btn btn-success" style="margin-left:4px;" title="انشاء مهمة جديدة"><span class="glyphicon glyphicon-plus"></span></button>
+                    <button type="submit" ng-click="RedirectToNewMission()" class="btn btn-success" style="margin-left:4px;" title="انشاء مهمة جديدة"><span class="glyphicon glyphicon-plus"></span></button>
                     <a style="float:left" class="btn btn-info" ng-click="ShowHistory()" ng-hide="OpenMisisons" title="المهمات المنتهية"><i class="fa fa-history" aria-hidden="true"></i></a>
                     <a style="float:left" class="btn btn-info" ng-click="ShowNonDone()" ng-show="OpenMisisons" title="المهمات القائمة"><span class="glyphicon glyphicon-play"></span></a>
 
@@ -19,6 +19,7 @@
             </div>
         </div>
     </div>
+    <input ng-model="SearchBox" class="form-control" />
     <div class="ThemeSecondBackground">
 
         <div id="table_wrapper">
@@ -64,6 +65,9 @@
                             زمن الانتهاء
                         </th>
                         <th>
+                            الإثبات
+                        </th>
+                        <th>
                             حالة المهمة
                         </th>
 
@@ -78,7 +82,7 @@
                     </tr>
 
 
-                    <tr ng-repeat="mission in Missions">
+                    <tr ng-repeat="mission in Missions | filter:SearchBox">
                         <td>
                             {{mission.ManagerName}}
                         </td>
@@ -116,6 +120,17 @@
                         </td>
                         <td ng-bind='timeFunction(mission.TimeOfFinish)'></td>
                         <td>
+                            <span ng-repeat="PersonInCharge in mission.PeopleInCharge">
+                                <span ng-if="mission.Proof == null && PersonInCharge.EmployeeID == empid && mission.Checked==true">
+                                    <input id="{{mission.ID}}" type="file" aria-label="Add photos to your post" class="upload" multiple name="file" onchange="angular.element(this).scope().LoadFileData(this.files,this.id)" accept="image/*,application/vnd.ms-excel,application/zip,application/pdf,application/msword">
+                                </span>
+                            </span>
+                                <span ng-if="mission.Proof != null">
+                                    <a ng-href="@Url.Action("DownloadProof","Json")/{{mission.Proof}}" class="btn btn-warning"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                </span>
+                            
+                        </td>
+                        <td>
                             <span ng-repeat="PersonInCharge in mission.PeopleInCharge"><span ng-if="!mission.Checked && !mission.Closed && PersonInCharge.EmployeeID == empid"><a class="glyphicon glyphicon-ok" ng-click="CheckMission(mission.ID)" ng-hide="MissionIsClosed"></a></span></span>
                             <span ng-show="MissionIsClosed && !mission.Checked">تم الانجاز</span>
 
@@ -131,7 +146,7 @@
                                 <a href="/Missions/Edit/{{mission.ID}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
                             </div>
 
-                            <div ng-if="(mission.ManagerID == empid || mission.PersonEntered == empid) && mission.Checked && !mission.Closed" style="width:180px">
+                            <div ng-if="(mission.ManagerID == empid) && mission.Checked && !mission.Closed" style="width:180px">
                                 <a href="/Missions/Delete/{{mission.ID}}" class="btn btn-danger" title="حذف المهمة"><span class="glyphicon glyphicon-trash"></span></a>
                                 <a href="/Missions/Details/{{mission.ID}}" class="btn btn-info" title="معلومات المهمة"><span class="glyphicon glyphicon-folder-open"></span></a>
                                 <a href="/Missions/Edit/{{mission.ID}}" class="btn btn-success" title="تعديل المهمة"><span class="glyphicon glyphicon-pencil"></span></a>

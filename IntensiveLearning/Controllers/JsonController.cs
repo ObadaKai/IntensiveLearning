@@ -9,6 +9,7 @@ using System.Web.Script.Serialization;
 using IntensiveLearning.Database;
 using IntensiveLearning.Models;
 using System.Data.Entity;
+using System.IO.Compression;
 
 namespace IntensiveLearning.Controllers
 {
@@ -53,6 +54,10 @@ namespace IntensiveLearning.Controllers
                 }
             }
             return Json(Students, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetAllUsers()
+        {
+            return Json(db.Employees.Where(x => x.State != "خارج الخدمة").Select(x => new { name = x.name, surname = x.surname, id = x.id }).OrderBy(x => x.id).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         //Mission Part Goes 5 Methods
@@ -106,6 +111,7 @@ namespace IntensiveLearning.Controllers
             {
                 ID = c.id,
                 Checked = c.Checked,
+                Proof = c.Proof,
                 Closed = c.Closed,
                 MissionText = c.MissionText,
                 DateOfEntry = c.DateOfEntry,
@@ -151,6 +157,138 @@ namespace IntensiveLearning.Controllers
             tosendList.Add(toSendResponses);
             tosendList.Add(empid);
             return Json(tosendList, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult MissionFilesSave(FormCollection formCollection)
+        {
+            string o = formCollection["Mission"];
+            int id = new JavaScriptSerializer().Deserialize<int>(o);
+            Mission mission = db.Missions.Find(id);
+            var files = Request.Files;
+            int proovesNum = 0;
+            int prooveid;
+            try
+            {
+                prooveid = db.Prooves.OrderByDescending(x => x.id).FirstOrDefault().id + 1;
+            }
+            catch (Exception)
+            {
+                prooveid = 1;
+            }
+            try
+            {
+
+                if (Request.Files.Count > 0)
+                {
+                    var oldImages = db.Prooves.Where(x => x.MissionID == id).ToList();
+
+                    foreach (var image in oldImages)
+                    {
+
+                        db.Prooves.Remove(image);
+                    }
+
+                    if ((Directory.Exists(Server.MapPath("~/App_Data/Missions") + "\\" + id)))
+                    {
+                        try
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Missions") + "\\" + id, true);
+                        }
+                        catch (IOException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Missions") + "\\" + id, true);
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Directory.Delete(Server.MapPath("~/App_Data/Missions") + "\\" + id, true);
+                        }
+                    }
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Missions") + "\\" + id))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Missions") + "\\" + id);
+                    }
+
+                }
+                if (Request.Files.Count == 0)
+                {
+                    return Json(false);
+                }
+                int fileNum = 0;
+                foreach (string file in Request.Files)
+                {
+                    var fileContent = Request.Files[fileNum];
+                    fileNum++;
+                    if (fileContent != null && fileContent.ContentLength > 0)
+                    {
+                        if (!Directory.Exists(Server.MapPath("~/App_Data/Missions/" + id)))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/App_Data/Missions/" + id));
+                        }
+                        var inputStream = fileContent.InputStream;
+                        var fileName = fileContent.FileName;
+                        var path = Path.Combine(Server.MapPath("~/App_Data/Missions/" + id), fileName);
+                        using (var fileStream = System.IO.File.Create(path))
+                        {
+                            inputStream.CopyTo(fileStream);
+                            proovesNum++;
+                            Proove proove = new Proove();
+                            proove.Path = path;
+                            proove.id = prooveid;
+                            proove.MissionID = id;
+                            db.Prooves.Add(proove);
+                            prooveid++;
+                        }
+                    }
+                    else
+                    {
+                    }
+
+
+                }
+                try
+                {
+                    var startPath = Server.MapPath("~/App_Data/Missions" + "\\" + id);
+
+                    if (!Directory.Exists(Server.MapPath("~/App_Data/Missions" + "\\" + "ZipFolder")))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/App_Data/Missions" + "\\" + "ZipFolder"));
+                    }
+                    var zipPath = Server.MapPath("~/App_Data/Missions" + "\\" + "ZipFolder") + "\\" + id + ".zip";
+
+                    if (System.IO.File.Exists(zipPath))
+                    {
+                        System.IO.File.Delete(zipPath);
+                    }
+                    try
+                    {
+                        ZipFile.CreateFromDirectory(startPath, zipPath);
+                    }
+                    catch { }
+                    db.SaveChanges();
+                    prooveid--;
+                    for (int i = 0; i < proovesNum; i++)
+                    {
+                        var proovetozip = db.Prooves.Find(prooveid - i);
+                        proovetozip.ZipFilePath = zipPath;
+                        db.Entry(proovetozip).State = EntityState.Modified;
+                    }
+                    mission.Proof = prooveid;
+                    db.Entry(mission).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch { }
+
+                ViewBag.Message = "Upload successful";
+            }
+            catch
+            {
+                ViewBag.Message = "Upload failed";
+                return Json(ViewBag.Message);
+            }
+
+            return Json(prooveid, JsonRequestBehavior.AllowGet);
         }
         public ActionResult MissionsShowHistory()
         {
@@ -225,6 +363,7 @@ namespace IntensiveLearning.Controllers
                     Response = x.Response,
                     NestedID = x.NestedID
                 }),
+                Proof = c.Proof,
                 PeopleInCharge = c.MissionPersonInCharges.Select(x => new
                 {
                     EmployeeID = x.EmployeeID,

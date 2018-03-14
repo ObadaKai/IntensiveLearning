@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "انشاء";
 }
-<div class="WhiteBlur">
+<div class="WhiteBlur" ng-controller="AddMissionCtrl">
     <h2>انشاء</h2>
     <div class="InfoContainer">
         @using (Html.BeginForm())
@@ -22,12 +22,18 @@
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.ManagerId, "مدير المهمة", htmlAttributes: new { @class = "control-label " })
-                    <select name="ManagerId" id="ManagerId" class="form-control">
+                    <input ng-model="searchbox" class="form-control" ng-change="TextChange()"/>
+                    <input hidden name="ManagerId" ng-model="ManagerId" />
+                    <div class="SearchSlider" ng-hide="HideSearch" style="text-align:left">
+                        <div ng-repeat="item in Users | filter:searchbox" style="padding-left:10px;" ng-click="ChangeManagerId(item)">{{item.name}} {{item.surname}}</div>
+                    </div>
+                    @*<select name="ManagerId" id="ManagerId" class="form-control">
+                        <option ng-value="item.id" ng-repeat="item in items | filter:searchbox">{{item.name}} {{item.surname}}</option>
                         @foreach (var item in ViewBag.ManagerId.Items)
                         {
                             <option value="@item.id">@item.name @item.surname</option>
                         }
-                    </select>
+                    </select>*@
                 </div>
 
 

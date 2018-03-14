@@ -13,13 +13,12 @@ namespace IntensiveLearning.Controllers
         // GET: TryOut
         public ActionResult Index()
         {
-            var students = db.Students.Where(x => x.id >= 5163).ToList();
-            foreach (var item in students)
-            {
-                item.id = item.id - 1260;
-                item.StudentNumber = item.StudentNumber - 1260;
-                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
-            }
+            //var students = db.Students.Where(x => x.id >= 5163).ToList();
+            //foreach (var item in students)
+            //{
+            //    item.StudentNumber = item.StudentNumber - 1284;
+            //    db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+            //}
 
 
             //var Orders = db.Orders.ToList();
@@ -32,7 +31,9 @@ namespace IntensiveLearning.Controllers
             //    }
             //    db.Entry(Order).State = System.Data.Entity.EntityState.Modified;
             //}
-            db.SaveChanges();
+
+
+            //db.SaveChanges();
 
             return View();
         }

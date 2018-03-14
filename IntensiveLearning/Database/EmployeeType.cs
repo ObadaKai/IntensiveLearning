@@ -11,8 +11,7 @@ namespace IntensiveLearning.Database
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class EmployeeType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,90 +19,36 @@ namespace IntensiveLearning.Database
         {
             this.Employees = new HashSet<Employee>();
         }
-
-
+    
         public int id { get; set; }
-        [DisplayName("«·‰Ê⁄")]
         public string Type { get; set; }
-        [DisplayName("„œÌ—")]
-
         public Nullable<bool> Manager { get; set; }
-        [DisplayName("„”«⁄œ „œÌ—")]
-
         public Nullable<bool> CoManager { get; set; }
-        [DisplayName("„œÌ— „œ—”")]
-
         public Nullable<bool> SchoolManager { get; set; }
-        [DisplayName("ﬂ«œ—")]
-
         public Nullable<bool> NormalEmployee { get; set; }
-        [DisplayName("«÷«›… „” ÊÏ ÃœÌœ")]
-
         public Nullable<bool> AddNewEmployeeType { get; set; }
-        [DisplayName("«÷«›… „‘«—Ì⁄")]
-
         public Nullable<bool> AddNewProject { get; set; }
-        [DisplayName("«÷«›… ÿ·» ‘—«¡")]
-
         public Nullable<bool> AddBuyingRequest { get; set; }
-        [DisplayName("«÷«›… „œ—«¡")]
-
         public Nullable<bool> AddManagers { get; set; }
-        [DisplayName("«÷«›… „”«⁄œÌ‰ „œ—«¡")]
-
         public Nullable<bool> AddCOManagers { get; set; }
-        [DisplayName("«÷«›… „œ—«¡ „œ—”…")]
-
         public Nullable<bool> AddSchoolManagers { get; set; }
-        [DisplayName("«÷«›… ﬂ«œ—")]
-
         public Nullable<bool> AddSchoolEmployees { get; set; }
-        [DisplayName("«÷«›… „œ‰ Ê„—«ﬂ“")]
-
         public Nullable<bool> AddCitesAndCenters { get; set; }
-        [DisplayName("«÷«›… „⁄œ«  „œ—”…")]
-
         public Nullable<bool> AddSchoolManagingTools { get; set; }
-        [DisplayName("«÷«›… ÌÊ„Ì…")]
-
         public Nullable<bool> AddDaileyReport { get; set; }
-
-        [DisplayName("«÷«›… «„ Õ«‰")]
         public Nullable<bool> AddExam { get; set; }
-
-        [DisplayName(" ’œÌﬁ «„ Õ«‰")]
         public Nullable<bool> ApproveExam { get; set; }
-
-        [DisplayName("«÷«›… €Ì«»")]
         public Nullable<bool> AddPresence { get; set; }
-
-        [DisplayName("«÷«›… ÿ«·»")]
         public Nullable<bool> AddStudent { get; set; }
-
-        [DisplayName("„«·Ì…")]
         public Nullable<bool> Finance { get; set; }
-
-        [DisplayName("ﬁ»Ê· ⁄«·Ì")]
         public Nullable<bool> HighAcceptance { get; set; }
-
-        [DisplayName("ﬁ»Ê· ÿ·» «·‘—«¡")]
         public Nullable<bool> BuyingAcceptance { get; set; }
-
-        [DisplayName("—ƒÌ… ﬂ·")]
         public Nullable<bool> SeeAll { get; set; }
-
-        [DisplayName("—ƒÌ… ﬂ· ⁄œ« «·„«·Ì…")]
         public Nullable<bool> SeeAllButFinance { get; set; }
-
-        [DisplayName("—ƒÌ… Õ”» «·„œÌ‰…")]
         public Nullable<bool> SeeAccToCity { get; set; }
-
-        [DisplayName("—ƒÌ… Õ”» «·„—ﬂ“")]
         public Nullable<bool> SeeAccToCenter { get; set; }
-
-        [DisplayName("—ƒÌ… ÿ·«» Ê «„ Õ«‰« ")]
         public Nullable<bool> SeeTeachers { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
     }

@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Edit";
 }
-<div class="WhiteBlur">
+<div class="WhiteBlur" ng-controller="AddMissionCtrl">
     <h2>Edit</h2>
     <div class="InfoContainer">
 
@@ -22,21 +22,26 @@
                     @Html.TextAreaFor(model => model.mission.MissionText, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.mission.MissionText, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-init="ChangeManager(@ViewBag.ManagerId)">
                     @Html.LabelFor(model => model.ManagerId, "مدير المهمة", htmlAttributes: new { @class = "control-label " })
-                    <select name="ManagerId" id="ManagerId" class="form-control">
-                        @foreach (var item in ViewBag.ManagerId.Items)
-                        {
-                            if (item.id == ViewBag.ManagerId.SelectedValue)
-                            {
-                                <option value="@item.id" selected>@item.name @item.surname</option>
-                            }
-                            else
-                            {
-                                <option value="@item.id">@item.name @item.surname</option>
-                            }
-                        }
-                    </select>
+                    <input ng-model="searchbox" class="form-control" ng-change="TextChange()" />
+                    <input hidden name="ManagerId" ng-model="ManagerId" />
+                    <div class="SearchSlider" ng-hide="HideSearch" style="text-align:left">
+                        <div ng-repeat="item in Users | filter:searchbox" style="padding-left:10px;" ng-click="ChangeManagerId(item)">{{item.name}} {{item.surname}}</div>
+                    </div>
+                    @*<select name="ManagerId" id="ManagerId" class="form-control">
+            @foreach (var item in ViewBag.ManagerId.Items)
+            {
+                if (item.id == ViewBag.ManagerId.SelectedValue)
+                {
+                    <option value="@item.id" selected>@item.name @item.surname</option>
+                }
+                else
+                {
+                    <option value="@item.id">@item.name @item.surname</option>
+                }
+            }
+        </select>*@
                 </div>
 
 

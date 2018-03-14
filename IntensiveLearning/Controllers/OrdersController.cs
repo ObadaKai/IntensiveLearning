@@ -750,9 +750,11 @@ namespace IntensiveLearning.Controllers
                 {
                     return Json(false);
                 }
+                int fileNum = 0;
                 foreach (string file in Request.Files)
                 {
-                    var fileContent = Request.Files[file];
+                    var fileContent = Request.Files[fileNum];
+                    fileNum++;
                     if (fileContent != null && fileContent.ContentLength > 0)
                     {
                         if (!Directory.Exists(Server.MapPath("~/App_Data/Orders/" + id)))

@@ -419,6 +419,8 @@
     <NavigationProperty Name="Examination" Relationship="Self.FK_Prooves_Examination" FromRole="Prooves" ToRole="Examination" />
     <NavigationProperty Name="Order" Relationship="Self.FK_Prooves_Order" FromRole="Prooves" ToRole="Order" />
     <NavigationProperty Name="Student" Relationship="Self.FK_Prooves_Students" FromRole="Prooves" ToRole="Students" />
+    <Property Name="MissionID" Type="Int32" />
+    <NavigationProperty Name="Mission" Relationship="TaalimModel.FK_Prooves_Mission" FromRole="Proove" ToRole="Mission" />
   </EntityType>
   <EntityType Name="Regiment">
     <Key>
@@ -519,6 +521,8 @@
     <NavigationProperty Name="Employee2" Relationship="Self.FK_Mission_Employees2" FromRole="Mission" ToRole="Employees" />
     <NavigationProperty Name="MissionPersonInCharges" Relationship="Self.FK_MissionPersonInCharge_Mission" FromRole="Mission" ToRole="MissionPersonInCharge" />
     <NavigationProperty Name="MissionResponses" Relationship="Self.FK_MissionResponse_Mission" FromRole="Mission" ToRole="MissionResponse" />
+    <NavigationProperty Name="Prooves" Relationship="TaalimModel.FK_Prooves_Mission" FromRole="Mission" ToRole="Proove" />
+    <Property Name="Proof" Type="Int32" />
   </EntityType>
   <EntityType Name="MissionPersonInCharge">
     <Key>
@@ -1517,6 +1521,10 @@
       <End Role="Stage" EntitySet="Stages" />
       <End Role="NonUserAddRequest" EntitySet="NonUserAddRequests" />
     </AssociationSet>
+    <AssociationSet Name="FK_Prooves_Mission" Association="TaalimModel.FK_Prooves_Mission">
+      <End Role="Mission" EntitySet="Missions" />
+      <End Role="Proove" EntitySet="Prooves" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_NonUserAddRequest_Periods">
     <End Type="TaalimModel.Period" Role="Period" Multiplicity="0..1" />
@@ -1539,6 +1547,18 @@
       </Principal>
       <Dependent Role="NonUserAddRequest">
         <PropertyRef Name="Stageid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prooves_Mission">
+    <End Type="TaalimModel.Mission" Role="Mission" Multiplicity="0..1" />
+    <End Type="TaalimModel.Proove" Role="Proove" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mission">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Proove">
+        <PropertyRef Name="MissionID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

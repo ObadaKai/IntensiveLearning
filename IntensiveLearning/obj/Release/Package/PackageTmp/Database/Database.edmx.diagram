@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7a72cb6069e0413d86af776e13d2f7c4" Name="Diagram1" ZoomLevel="47">
+      <Diagram DiagramId="7a72cb6069e0413d86af776e13d2f7c4" Name="Diagram1" ZoomLevel="78">
         <EntityTypeShape EntityType="TaalimModel.Bnd" Width="1.5" PointX="11.25" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TaalimModel.Center" Width="1.5" PointX="3" PointY="24.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TaalimModel.City" Width="1.5" PointX="0.75" PointY="25.25" IsExpanded="true" />
@@ -89,6 +89,7 @@
         <AssociationConnector Association="TaalimModel.FK_MissionResponse_MissionResponse" ManuallyRouted="false" />
         <AssociationConnector Association="TaalimModel.FK_NonUserAddRequest_Periods" />
         <AssociationConnector Association="TaalimModel.FK_NonUserAddRequest_Stages" />
+        <AssociationConnector Association="TaalimModel.FK_Prooves_Mission" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

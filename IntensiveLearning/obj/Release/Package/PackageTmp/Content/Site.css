@@ -29,7 +29,12 @@ body {
 .doPrintTable-cell {
     display: none;
 }
-
+.SearchSlider {
+height:100px;
+width:100%;
+background-color:white;
+overflow:scroll;
+}
 .doPrintInline {
     display: none;
 }

@@ -62,7 +62,6 @@ namespace IntensiveLearning.Controllers
                 return RedirectToAction("Index", "Home");
             }
             var empid = Convert.ToInt32(Session["ID"]);
-            ViewBag.ManagerId = new SelectList(db.Employees.Where(x => x.State != "خارج الخدمة").OrderBy(x => x.id).ToList());
             ViewBag.PeopleInCharge = new MultiSelectList(db.Employees.Where(x => x.State != "خارج الخدمة").OrderBy(x => x.id).ToList());
             ViewBag.TitleSideBar = "Missions";
 
@@ -169,7 +168,7 @@ namespace IntensiveLearning.Controllers
                 missionsModel.mission = mission;
                 var emp = db.Employees.Find(empid);
                 var pp = db.MissionPersonInCharges.Where(x => x.MissionId == id).Select(x => x.EmployeeID).ToList();
-                ViewBag.ManagerId = new SelectList(db.Employees.Where(x => x.State != "خارج الخدمة").OrderBy(x => x.id).ToList(), mission.Manager);
+                ViewBag.ManagerId = mission.Manager;
                 ViewBag.PeopleInCharge = new MultiSelectList(ViewBag.PeopleInCharge = db.Employees.Where(x => x.State != "خارج الخدمة").OrderBy(x => x.id).ToList(), pp);
                 ViewBag.TitleSideBar = "Missions";
 

@@ -333,6 +333,7 @@
     <Property Name="Type" Type="nvarchar(max)" />
     <Property Name="EmployeeID" Type="int" />
     <Property Name="ZipFilePath" Type="nvarchar(max)" />
+    <Property Name="MissionID" Type="int" />
   </EntityType>
   <EntityType Name="Regiments">
     <Key>
@@ -412,6 +413,7 @@
     <Property Name="PersonEntered" Type="int" />
     <Property Name="DateOfChecking" Type="date" />
     <Property Name="TimeOFChecking" Type="time" Precision="7" />
+    <Property Name="Proof" Type="int" />
   </EntityType>
   <EntityType Name="MissionPersonInCharge">
     <Key>
@@ -1017,6 +1019,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Prooves_Mission">
+    <End Role="Mission" Type="Self.Mission" Multiplicity="0..1" />
+    <End Role="Prooves" Type="Self.Prooves" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mission">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Prooves">
+        <PropertyRef Name="MissionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Prooves_Order">
     <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
     <End Role="Prooves" Type="Self.Prooves" Multiplicity="*" />
@@ -1373,6 +1387,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Prooves_Examination" Association="Self.FK_Prooves_Examination">
       <End Role="Examination" EntitySet="Examination" />
+      <End Role="Prooves" EntitySet="Prooves" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prooves_Mission" Association="Self.FK_Prooves_Mission">
+      <End Role="Mission" EntitySet="Mission" />
       <End Role="Prooves" EntitySet="Prooves" />
     </AssociationSet>
     <AssociationSet Name="FK_Prooves_Order" Association="Self.FK_Prooves_Order">
