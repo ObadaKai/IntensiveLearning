@@ -49,3 +49,4 @@ C:\Users\Work\source\repos\IntensiveLearning\IntensiveLearning\bin\DotNetZip.dll
 C:\Users\Work\source\repos\IntensiveLearning\IntensiveLearning\bin\System.IO.Compression.ZipFile.dll
 C:\Users\Work\source\repos\IntensiveLearning\IntensiveLearning\bin\DotNetZip.xml
 C:\Users\Work\source\repos\IntensiveLearning\IntensiveLearning\obj\Debug\IntensiveLearning.csprojResolveAssemblyReference.cache
+C:\Users\Work\source\repos\IntensiveLearning\IntensiveLearning\obj\Debug\IntensiveLearning.csproj.CopyComplete

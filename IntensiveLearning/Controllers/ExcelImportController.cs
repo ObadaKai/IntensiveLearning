@@ -507,14 +507,32 @@ namespace IntensiveLearning.Views.TryOut
                     var sdate = ds.Tables[0].Rows[i]["تاريخ البدء"].ToString();
                     try
                     {
-                        student.SDate = DateTime.Parse(ds.Tables[0].Rows[i]["تاريخ البدء"].ToString(), CultureInfo.CreateSpecificCulture("fr-FR"));
+                        student.SDate = DateTime.Parse(sdate, new CultureInfo("en-CA"));
                     }
                     catch
                     {
+                        try
+                        {
+                            student.SDate = DateTime.ParseExact(sdate, "dd/MM/yyyy HH:mm:ss.fff", new CultureInfo("en-CA"));
+
+                        }
+                        catch
+                        {
+
+                        }
+                        try
+                        {
+                            student.SDate = DateTime.Parse(sdate);
+
+                        }
+                        catch
+                        {
+
+                        }
 
                         if (DateTime.Now.Date == DateTime.Parse("30/11/2017", CultureInfo.CreateSpecificCulture("fr-FR")))
                         {
-                            student.SDate = DateTime.Parse("14/10/2017", CultureInfo.CreateSpecificCulture("fr-FR"));
+                            student.SDate = DateTime.Now.Date;
                         }
                         else
                         {

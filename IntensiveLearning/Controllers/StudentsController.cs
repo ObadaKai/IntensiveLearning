@@ -31,7 +31,7 @@ namespace IntensiveLearning.Controllers
                 {
                     ViewBag.StateMessage = TempData["Message"];
                 }
-                ViewBag.TitleSideBar = "Stages";
+                ViewBag.TitleSideBar = "Students";
 
                 return View();
             }
